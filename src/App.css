@@ -1,12 +1,11 @@
-.App {
-  text-align: center;
+.App .container{
+  margin: 0 10% 0 10%;
+  
 }
-
 
 
 .App-header {
   background-color: gray;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -15,6 +14,55 @@
   color: white;
 }
 
+.wrapper {
+  width: 100%;
+  display: inline-grid;
+  grid-template-columns: 20% 80%;
+  grid-gap: 10px;
+  justify-items: start
+}
+
+.steps {
+  width:100%;
+  margin-top:20px;
+  display: inline-grid;
+  grid-template-columns:100%;
+}
+
+.right-formula {
+  width: 100%;
+  display: inline-grid !important;
+  grid-template-columns: 80% 20%;
+  margin-bottom: 10px
+}
+
+.equal {
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.expression-input {
+  width: 90%;
+  margin-left:10px;
+}
+
+.tick {
+  color: green
+}
+
+.validate-result {
+  position: absolute;
+  bottom: 10px;
+  text-align: center;
+  left:50%;
+  margin-left: -100px;
+}
 .App-link {
 }
 
+.invalid-input {
+  color: red;
+  margin-top: 10px;
+  margin-left: 20px;
+  font-weight: 500;
+}

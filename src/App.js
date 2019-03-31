@@ -10,10 +10,12 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
+
+      hintTheorems: null,
       stepList: [],
       input_expression: "Derivative(x,x) + Derivative(x,x)",
       input_data: "Derivative(x + x ,x)",
-      invalid_input: false, 
+      invalid_input: false,
       theorems: [{
         name: "derivada de la suma",
         left: "Derivative(f(x) + g(x) , x)",
@@ -42,6 +44,8 @@ class App extends Component {
     }
   }
 
+
+
   getValidateRequestBody() {
     return {
       old_expression: this.getOldExpression(),
@@ -52,26 +56,50 @@ class App extends Component {
 
 
   handleValidateResponse(response) {
-      console.log(response);
-      if (response.data) {
-        this.setState({stepList: [...this.state.stepList, this.state.input_expression]});
-      } else {
-        console.log("Invalid request");
-        this.setState({invalid_input: true})
-      }
+    console.log(response);
+    if (response.data) {
+      this.setState({
+        stepList: [...this.state.stepList, this.state.input_expression],
+        hintTheorems: null
+      });
+    } else {
+      console.log("Invalid request");
+      this.setState({ invalid_input: true })
+    }
+  }
+
+
+  showTheorems() {
+    if (this.state.hintTheorems != null) {
+      console.log(this.state.hintTheorems)
+      alert(this.state.hintTheorems);
+    } else {
+      let expression = this.getOldExpression();
+      axios.post(SERVER_URL + '/hints/theorems-that-apply', { expression, theorems: this.state.theorems })
+        .then(response => {
+          console.log(response)
+          if (response.data != null) {
+            this.setState({
+              hintTheorems: response.data
+            })
+          }
+        })
+        .catch(console.log);
+    }
   }
 
   validate(e) {
     e.preventDefault();
-    this.setState({invalid_input: false})
-    axios.post(SERVER_URL+'/validate', this.getValidateRequestBody())
+    this.setState({ invalid_input: false })
+    axios.post(SERVER_URL + '/validations/new-step', this.getValidateRequestBody())
       .then(this.handleValidateResponse.bind(this))
       .catch(console.log);
   }
 
   set_input_expression(e) {
     e.preventDefault();
-    this.setState({input_expression: e.target.value})
+    
+    this.setState({ input_expression: e.target.value, invalid_input: false })
   }
 
   render() {
@@ -82,22 +110,56 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1>MATH LEARNING</h1>
-          <h2>Calcule paso a paso la siguiente derivada</h2> =
-          <p> {this.state.input_data} </p>
+          <h2>Calcule paso a paso la siguiente derivada</h2>
+        </header>
 
-          {this.state.stepList.map(item => {
-            return <div className="valid-step" style={containerStyle}>
-              <span>= {item}</span> <span>tick</span>
+
+        <section>
+          <div className="container">
+            <div className="wrapper">
+              <div className="input-data">
+                <p> {this.state.input_data} </p>
+              </div>
+
+              <div className="steps">
+                {this.state.stepList.map(item => {
+                  return <div className="valid-step right-formula" style={containerStyle}>
+                    <div>
+                      <span className="equal">=</span>
+                      <span>{item}</span>
+                    </div>
+                    <div>
+                      <span className="tick">Bien!</span>
+                    </div>
+
+                  </div>
+                })}
+
+                <div className="add-step-container right-formula" style={containerStyle}>
+                  {this.state.invalid_input ? <div className="invalid-input">La expresion ingresada es incorrecta!</div> : ""}
+                  {this.state.invalid_input ? <div></div> : ""}
+                  <div>
+                    <span onClick={this.showTheorems.bind(this)}>=</span>
+                    <input className="expression-input" type='text' value={this.state.input_expression} onChange={this.set_input_expression.bind(this)}></input>
+                  </div>
+                  <div>
+                    <button onClick={this.validate.bind(this)}>+</button>
+                  </div>
+
+                  
+                </div>
+              </div>
             </div>
-          })}
 
-          <div className="add-step-container" style={containerStyle}>
-            <input type='text' value={this.state.input_expression} onChange={ this.set_input_expression.bind(this) }></input> <button onClick={this.validate.bind(this)}>+</button>
-            { this.state.invalid_input ?<span>Invalid Input</span> : ""}
+            <div className="validate-result">
+              <div><button>Validar resultado</button></div>
+            </div>
+
+            {/* container */}
           </div>
 
 
-        </header>
+        </section>
       </div>
     );
   }
