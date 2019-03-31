@@ -35,7 +35,7 @@ class App extends Component {
     }
   }
 
-  getOldExpression() {
+  getLastExpression() {
     const stepList = this.state.stepList;
     if (stepList.length == 0) {
       return this.state.input_data;
@@ -45,10 +45,22 @@ class App extends Component {
   }
 
 
+  validateNotInHistory(new_expression) {
+    let history = [];
+    history.push(this.state.input_data);
+    this.state.stepList.forEach(element => {
+      history.push(element)
+    })
+    let requestData = {
+      history,
+      new_expression
+    }
+    return axios.post(SERVER_URL + '/validations/not-in-history', requestData);
+  }
 
   getValidateRequestBody() {
     return {
-      old_expression: this.getOldExpression(),
+      old_expression: this.getLastExpression(),
       new_expression: this.state.input_expression,
       theorems: this.state.theorems
     }
@@ -68,13 +80,25 @@ class App extends Component {
     }
   }
 
+  alertHintTheorems() {
+    let message = "";
+    if ( this.state.hintTheorems.length != 0 ) {
+      message = "Probaste usando lo siguiente?"
+      this.state.hintTheorems.forEach(element => {
+        message += "\n" + element.name;
+      });
+    } else {
+      message = "Proba validando el resultado";
+    }
+    
+    alert(message)
+  }
 
   showTheorems() {
     if (this.state.hintTheorems != null) {
-      console.log(this.state.hintTheorems)
-      alert(this.state.hintTheorems);
+      this.alertHintTheorems();
     } else {
-      let expression = this.getOldExpression();
+      let expression = this.getLastExpression();
       axios.post(SERVER_URL + '/hints/theorems-that-apply', { expression, theorems: this.state.theorems })
         .then(response => {
           console.log(response)
@@ -82,18 +106,50 @@ class App extends Component {
             this.setState({
               hintTheorems: response.data
             })
+            this.alertHintTheorems();
           }
         })
         .catch(console.log);
     }
   }
 
+  validateResult(e) {
+    e.preventDefault();
+    
+    let requestData = {
+      input_data: this.state.input_data,
+      theorems: this.state.theorems,
+      result: this.getLastExpression() 
+    }
+
+    axios.post(SERVER_URL + '/validations/result', requestData)
+      .then(response => {
+        if (response.data) {
+          console.log(response.data);
+          alert("Felicitaciones!! has conseguido completar el ejercicio!");
+        } else {
+          alert("respuesta equivocada")
+        }
+      })
+      .catch(console.log);
+  }
+
+  validateNewStepIfNotInHistory(response) {
+    if( response.data ) {
+      axios.post(SERVER_URL + '/validations/new-step', this.getValidateRequestBody())
+      .then(this.handleValidateResponse.bind(this))
+      .catch(console.log);
+    } else {
+      this.setState({ invalid_input: true })
+    }
+  }
+
   validate(e) {
     e.preventDefault();
     this.setState({ invalid_input: false })
-    axios.post(SERVER_URL + '/validations/new-step', this.getValidateRequestBody())
-      .then(this.handleValidateResponse.bind(this))
-      .catch(console.log);
+    this.validateNotInHistory(this.state.input_expression)
+    .then(this.validateNewStepIfNotInHistory.bind(this))
+    
   }
 
   set_input_expression(e) {
@@ -152,7 +208,7 @@ class App extends Component {
             </div>
 
             <div className="validate-result">
-              <div><button>Validar resultado</button></div>
+              <div><button onClick={this.validateResult.bind(this)}>Validar resultado</button></div>
             </div>
 
             {/* container */}
