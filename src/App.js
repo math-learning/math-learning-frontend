@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
+import MathTextBox from "./components/MathTextBox/MathTextBox";
 
-const SERVER_URL = "http://localhost:5000";
+const confs = require("./configs/variables")
+const serverUrl = confs.serverUrl;
+
+
+
 
 class App extends Component {
 
@@ -55,7 +59,7 @@ class App extends Component {
       history,
       new_expression
     }
-    return axios.post(SERVER_URL + '/validations/not-in-history', requestData);
+    return axios.post(serverUrl + '/validations/not-in-history', requestData);
   }
 
   getValidateRequestBody() {
@@ -99,7 +103,7 @@ class App extends Component {
       this.alertHintTheorems();
     } else {
       let expression = this.getLastExpression();
-      axios.post(SERVER_URL + '/hints/theorems-that-apply', { expression, theorems: this.state.theorems })
+      axios.post(serverUrl + '/hints/theorems-that-apply', { expression, theorems: this.state.theorems })
         .then(response => {
           console.log(response)
           if (response.data != null) {
@@ -122,7 +126,7 @@ class App extends Component {
       result: this.getLastExpression() 
     }
 
-    axios.post(SERVER_URL + '/validations/result', requestData)
+    axios.post(serverUrl + '/validations/result', requestData)
       .then(response => {
         if (response.data) {
           console.log(response.data);
@@ -136,7 +140,7 @@ class App extends Component {
 
   validateNewStepIfNotInHistory(response) {
     if( response.data ) {
-      axios.post(SERVER_URL + '/validations/new-step', this.getValidateRequestBody())
+      axios.post(serverUrl + '/validations/new-step', this.getValidateRequestBody())
       .then(this.handleValidateResponse.bind(this))
       .catch(console.log);
     } else {
@@ -165,10 +169,9 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <h1>MATH LEARNING</h1>
+          <h1>Math Learning</h1>
           <h2>Calcule paso a paso la siguiente derivada</h2>
         </header>
-
 
         <section>
           <div className="container">
@@ -205,6 +208,11 @@ class App extends Component {
                   
                 </div>
               </div>
+            </div>
+
+
+            <div>
+              <MathTextBox onEnter={()=> { }} />
             </div>
 
             <div className="validate-result">
