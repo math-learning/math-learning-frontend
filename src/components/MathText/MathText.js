@@ -19,7 +19,7 @@ class MathText extends Component {
 
   render() {
     return (
-      <div>
+      <div className="math-text">
         <MathJax.Context input='ascii'>
           <div>
             <MathJax.Node inline>{ this.state.content }</MathJax.Node>

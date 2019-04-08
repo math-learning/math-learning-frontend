@@ -1,12 +1,6 @@
-import React, { Component } from 'react';
 import './App.css';
-import axios from 'axios'
-import MathTextBox from "./components/MathTextBox/MathTextBox";
-
-const confs = require("./configs/variables")
-const serverUrl = confs.serverUrl;
-
-
+import React, { Component } from 'react';
+import mathClient from './clients/mathClient';
 
 
 class App extends Component {
@@ -39,7 +33,11 @@ class App extends Component {
     }
   }
 
-  getLastExpression() {
+  set_input_expression = (e) => {
+    this.setState({ input_expression: e.target.value, invalid_input: false })
+  }
+
+  getLastExpression = () => {
     const stepList = this.state.stepList;
     if (stepList.length == 0) {
       return this.state.input_data;
@@ -48,21 +46,7 @@ class App extends Component {
     }
   }
 
-
-  validateNotInHistory(new_expression) {
-    let history = [];
-    history.push(this.state.input_data);
-    this.state.stepList.forEach(element => {
-      history.push(element)
-    })
-    let requestData = {
-      history,
-      new_expression
-    }
-    return axios.post(serverUrl + '/validations/not-in-history', requestData);
-  }
-
-  getValidateRequestBody() {
+  getValidateRequestBody = () => {
     return {
       old_expression: this.getLastExpression(),
       new_expression: this.state.input_expression,
@@ -70,10 +54,8 @@ class App extends Component {
     }
   }
 
-
-  handleValidateResponse(response) {
-    console.log(response);
-    if (response.data) {
+  handleValidateResponse = (data) => {
+    if (data) {
       this.setState({
         stepList: [...this.state.stepList, this.state.input_expression],
         hintTheorems: null
@@ -98,68 +80,57 @@ class App extends Component {
     alert(message)
   }
 
-  showTheorems() {
-    if (this.state.hintTheorems != null) {
+  showTheorems = async () => {
+    if (this.state.hintTheorems) {
       this.alertHintTheorems();
     } else {
-      let expression = this.getLastExpression();
-      axios.post(serverUrl + '/hints/theorems-that-apply', { expression, theorems: this.state.theorems })
-        .then(response => {
-          console.log(response)
-          if (response.data != null) {
-            this.setState({
-              hintTheorems: response.data
-            })
-            this.alertHintTheorems();
-          }
-        })
-        .catch(console.log);
+      const expression = this.getLastExpression();
+      const theorems = this.state.theorems;
+      const newTheorems = await mathClient.getTheoremes(expression, theorems);
+
+      if (newTheorems) {
+        this.setState({ hintTheorems: newTheorems })
+        this.alertHintTheorems();
+      }
     }
   }
 
-  validateResult(e) {
-    e.preventDefault();
-    
-    let requestData = {
+  validateResult = async () => {
+    const result = {
       input_data: this.state.input_data,
       theorems: this.state.theorems,
       result: this.getLastExpression() 
     }
 
-    axios.post(serverUrl + '/validations/result', requestData)
-      .then(response => {
-        if (response.data) {
-          console.log(response.data);
-          alert("Felicitaciones!! has conseguido completar el ejercicio!");
-        } else {
-          alert("respuesta equivocada")
-        }
-      })
-      .catch(console.log);
-  }
+    const data = await mathClient.validateResult(result);
 
-  validateNewStepIfNotInHistory(response) {
-    if( response.data ) {
-      axios.post(serverUrl + '/validations/new-step', this.getValidateRequestBody())
-      .then(this.handleValidateResponse.bind(this))
-      .catch(console.log);
+    if (data) {
+      alert("Felicitaciones!! has conseguido completar el ejercicio!");
     } else {
-      this.setState({ invalid_input: true })
+      alert("respuesta equivocada")
     }
   }
 
-  validate(e) {
-    e.preventDefault();
-    this.setState({ invalid_input: false })
-    this.validateNotInHistory(this.state.input_expression)
-    .then(this.validateNewStepIfNotInHistory.bind(this))
-    
+  validateNotInHistory = (new_expression) => {
+    let expressionHistory = [this.state.input_data];
+    this.state.stepList.forEach(element => {
+      expressionHistory.push(element)
+    });
+
+    return mathClient.validateNotInHistory(new_expression, expressionHistory);
   }
 
-  set_input_expression(e) {
-    e.preventDefault();
-    
-    this.setState({ input_expression: e.target.value, invalid_input: false })
+  validateStep = async () => {
+    this.setState({ invalid_input: false })
+    const data = await this.validateNotInHistory(this.state.input_expression);
+
+    if( data ) {
+      const validationStep = this.getValidateRequestBody();
+      const validationResponse = await mathClient.validateStep(validationStep);
+      this.handleValidateResponse(validationResponse);
+    } else {
+      this.setState({ invalid_input: true })
+    }
   }
 
   render() {
@@ -198,28 +169,20 @@ class App extends Component {
                   {this.state.invalid_input ? <div className="invalid-input">La expresion ingresada es incorrecta!</div> : ""}
                   {this.state.invalid_input ? <div></div> : ""}
                   <div>
-                    <span onClick={this.showTheorems.bind(this)}>=</span>
-                    <input className="expression-input" type='text' value={this.state.input_expression} onChange={this.set_input_expression.bind(this)}></input>
+                    <span onClick={this.showTheorems}>=</span>
+                    <input className="expression-input" type='text' value={this.state.input_expression} onChange={this.set_input_expression}></input>
                   </div>
                   <div>
-                    <button onClick={this.validate.bind(this)}>+</button>
+                    <button onClick={this.validateStep}>+</button>
                   </div>
-
-                  
                 </div>
               </div>
             </div>
 
-
-            <div>
-              <MathTextBox onEnter={()=> { }} />
-            </div>
-
             <div className="validate-result">
-              <div><button onClick={this.validateResult.bind(this)}>Validar resultado</button></div>
+              <div><button onClick={this.validateResult}>Validar resultado</button></div>
             </div>
 
-            {/* container */}
           </div>
 
 

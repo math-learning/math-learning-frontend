@@ -27,7 +27,7 @@ class MathTextBox extends Component {
   render() {  
     return (
       <div
-        className="MathText"
+        className="math-text-box"
         onKeyPress={this.onKeyPress}
         onClick={this.onClick}
       >
