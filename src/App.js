@@ -1,7 +1,7 @@
 import './App.css';
 import React, { Component } from 'react';
 import mathClient from './clients/mathClient';
-
+import MathTextBox from './components/MathTextBox/MathTextBox';
 
 class App extends Component {
 
@@ -33,8 +33,8 @@ class App extends Component {
     }
   }
 
-  set_input_expression = (e) => {
-    this.setState({ input_expression: e.target.value, invalid_input: false })
+  set_input_expression = (value) => {
+    this.setState({ input_expression: value, invalid_input: false })
   }
 
   getLastExpression = () => {
@@ -170,7 +170,11 @@ class App extends Component {
                   {this.state.invalid_input ? <div></div> : ""}
                   <div>
                     <span onClick={this.showTheorems}>=</span>
-                    <input className="expression-input" type='text' value={this.state.input_expression} onChange={this.set_input_expression}></input>
+
+                    <div className="expression-input">
+                      <MathTextBox content={this.state.input_expression} onEnter={(value) => this.set_input_expression(value)} />
+                    </div>
+                    {/* <input className="expression-input" type='text' value={this.state.input_expression} onChange={this.set_input_expression}></input> */}
                   </div>
                   <div>
                     <button onClick={this.validateStep}>+</button>
