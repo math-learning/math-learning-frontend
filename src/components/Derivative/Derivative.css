@@ -1,0 +1,31 @@
+.Der-container {
+    display: flex;
+    margin: 20px;
+}
+
+.Der-current-step {
+    display: flex;
+    margin: 1px;
+}
+
+.Der-right-step {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.Der-item {
+    margin: 0 10px 0 10px;
+}
+
+.Der-MathBox {
+    margin: 0 10px 0 0;
+    width: 300px
+}
+
+.Der-wrong-item {
+    color: red;
+}
+
+.Der-right-item {
+    color: green;
+}

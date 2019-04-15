@@ -2,15 +2,28 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MathText from "../MathText/MathText";
 
-// import './MathTextBox.css';
+import './MathTextBox.css';
 
 class MathTextBox extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      autoFocus: true,
       content: props.content || '',
       isBoxEnabled: true
     };
+  }
+  
+  componentWillReceiveProps = (newProps) => {
+    if (this.state.content != newProps.content) {
+      this.setState({ content: newProps.content, autoFocus: true });
+    }
+    this.setState({ isBoxEnabled: true });
+  }
+
+  handleContentChange = (content) => {
+    this.setState({ content });
+    this.props.onContentChange(content);
   }
 
   onClick = () => {
@@ -24,23 +37,28 @@ class MathTextBox extends Component {
     }
   }
 
-  render() {  
+  render() {
     return (
       <div
-        className="math-text-box"
+        className="MathBox-container"
         onKeyPress={this.onKeyPress}
         onClick={this.onClick}
       >
-        { this.state.isBoxEnabled ? 
-          (<input
-            id="box"
-            type="text" 
-            value={this.state.content}
-            onChange={(e) => this.setState({ content: e.target.value })}
-          />) : ''
-        }
+        <div className="MathBox-text-box-container">
+          { this.state.isBoxEnabled ?
+            (<input
+              id="box"
+              type="text"
+              autoFocus={this.state.autoFocus}
+              className="MathBox-text-box"
+              value={this.state.content}
+              onChange={(e) => this.handleContentChange(e.target.value)}
+            />
+            ) : ''
+          }
+        </div>
 
-        <MathText content = {this.state.content} />
+        <MathText content={this.state.content} />
       </div>
     );
   }
@@ -49,6 +67,7 @@ class MathTextBox extends Component {
 
 MathText.propTypes = {
   content: PropTypes.string,
+  onContentChange: PropTypes.func,
   onEnter: PropTypes.func
 };
 

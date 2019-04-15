@@ -1,0 +1,13 @@
+.MathBox-container {
+    display: inline;
+    flex-direction: row;
+}
+
+.MathBox-text-box-container {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.MathBox-text-box {
+    flex: 1
+}

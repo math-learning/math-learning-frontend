@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import MathJax from 'react-mathjax2';
 import PropTypes from 'prop-types';
 
-// import './MathText.css';
+import './MathText.css';
 
 class MathText extends Component {
-
   constructor(props) {
     super(props);
     this.state = { content: props.content || '' };
@@ -19,7 +18,7 @@ class MathText extends Component {
 
   render() {
     return (
-      <div className="math-text">
+      <div className="Math-text" >
         <MathJax.Context input='ascii'>
           <div>
             <MathJax.Node inline>{ this.state.content }</MathJax.Node>
