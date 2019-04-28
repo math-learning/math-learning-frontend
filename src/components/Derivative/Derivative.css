@@ -1,31 +1,32 @@
-.Der-container {
-    display: flex;
-    margin: 20px;
+:local .container {
+  display: flex;
+  margin: 20px;
 }
 
-.Der-current-step {
-    display: flex;
-    margin: 1px;
+:local .currentStep {
+  display: flex;
+  margin: 1px;
 }
 
-.Der-right-step {
-    display: flex;
-    margin-bottom: 20px;
+:local  .rightStep {
+  display: flex;
+  margin-bottom: 20px;
 }
 
-.Der-item {
-    margin: 0 10px 0 10px;
+:local .item {
+  margin: 0 10px 0 10px;
+  vertical-align: middle;
 }
 
-.Der-MathBox {
-    margin: 0 10px 0 0;
-    width: 300px
+:local .MathBox {
+  margin: 0 10px 0 0;
+  width: 300px
 }
 
-.Der-wrong-item {
-    color: red;
+:local .wrongItem {
+  color: red;
 }
 
-.Der-right-item {
-    color: green;
+:local .rightItem {
+  color: green;
 }

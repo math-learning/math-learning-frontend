@@ -1,13 +1,13 @@
-.MathBox-container {
-    display: inline;
-    flex-direction: row;
+:local .container {
+  display: inline;
+  flex-direction: row;
 }
 
-.MathBox-text-box-container {
-    display: flex;
-    margin-bottom: 10px;
+:local .textBoxContainer {
+  display: flex;
+  margin-bottom: 10px;
 }
 
-.MathBox-text-box {
-    flex: 1
+:local .textBox {
+  flex: 1
 }

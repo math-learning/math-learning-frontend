@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MathText from "../MathText/MathText";
 
-import './MathTextBox.css';
+import styles from './MathTextBox.css';
 
 class MathTextBox extends Component {
   constructor(props) {
@@ -31,7 +31,7 @@ class MathTextBox extends Component {
   }
 
   onKeyPress = (event) => {
-    if (event.key === 'Enter'){
+    if (event.key === 'Enter' && this.state.content !== ''){
       this.setState({ isBoxEnabled: false });
       this.props.onEnter(this.state.content);
     }
@@ -40,17 +40,18 @@ class MathTextBox extends Component {
   render() {
     return (
       <div
-        className="MathBox-container"
+        id="math-box-text"
+        className={styles.container}
         onKeyPress={this.onKeyPress}
         onClick={this.onClick}
       >
-        <div className="MathBox-text-box-container">
+        <div className={styles.textBoxContainer}>
           { this.state.isBoxEnabled ?
             (<input
-              id="box"
+              id="text-box"
               type="text"
               autoFocus={this.state.autoFocus}
-              className="MathBox-text-box"
+              className={styles.textBox}
               value={this.state.content}
               onChange={(e) => this.handleContentChange(e.target.value)}
             />
@@ -58,7 +59,7 @@ class MathTextBox extends Component {
           }
         </div>
 
-        <MathText content={this.state.content} />
+        <MathText id="content" content={this.state.content} />
       </div>
     );
   }

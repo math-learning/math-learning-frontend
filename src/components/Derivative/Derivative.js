@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import MathText from "../MathText/MathText"; // TODO: IMPORTS RELATIVOS
+import CheckIcon from "../Icons/CheckIcon/CheckIcon"; // TODO: IMPORTS RELATIVOS
+import WrongIcon from "../Icons/WrongIcon/WrongIcon";
+import MathText from "../MathText/MathText";
 import MathTextBox from '../MathTextBox/MathTextBox';
 import mathClient from '../../clients/mathClient';
 
-import './Derivative.css';
+import styles from './Derivative.css';
 
 class Derivative extends Component {
   constructor(props) {
@@ -46,14 +48,14 @@ class Derivative extends Component {
 
   getLastExpression = () => {
     const stepList = this.state.stepList;
-    if (stepList.length == 0) {
+    if (stepList.length === 0) {
       return this.state.problemInput;
     } else {
       return stepList[stepList.length - 1];
     }
   }
 
-  validateNotInHistory = (currentExpression) => {
+  validateNotInHistory = (currentExpression) => { // TODO: ESTA NO DEBERIA ESTAR DIRECTAMENTE. DEBERIA SER UN VALIDATE STEP SOLO
     let expressionHistory = [this.state.problemInput];
     this.state.stepList.forEach(element => {
       expressionHistory.push(element)
@@ -92,36 +94,38 @@ class Derivative extends Component {
 
   render() {  
     const { className } = this.props;
-    const { isValidInput } = this.state;
+    const { isValidInput, currentExpression } = this.state;
 
     return (
-      <div id="derivative-exercise" className={classNames("Der-container", className)} >
+      <div id="derivative-container" className={classNames(styles.container, className)} >
         <MathText content={this.state.problemInput} />
 
         <div id="exercise-steps">
           {this.state.stepList.map((step, index) => (
-            <div id={`right-step-${index}`} key={`right-step-${index}`} className="Der-right-step">
-              <span className="Der-item">  = </span>
-              <div className="Der-MathBox">
+            <div id={`right-step-${index}`} key={`right-step-${index}`} className={styles.rightStep}>
+              <span className={styles.item}>  = </span>
+              <div className={styles.MathBox}>
                 <MathText content={step} />
               </div>
-              <span className={classNames("Der-item", "Der-right-item")}>  Bien! </span>
+              <CheckIcon className={styles.item} />
             </div>
           ))}
 
-          <div id="current-step" className="Der-current-step">
-            <span className="Der-item" onClick={this.showTheorems}> = </span>
-            <div id="current-content" className="Der-MathBox">
+          <div id="current-step" className={styles.currentStep}>
+            <span className={styles.item}> = </span>
+            <div id="current-content" className={styles.MathBox}>
               <MathTextBox
                 content={this.state.currentExpression}
                 onContentChange={(value) => this.handleContentChange(value)}
                 onEnter={this.validateStep}
               />
             </div>
-            {!isValidInput ? (<span  className={classNames("Der-item", "Der-wrong-item")}> Mal! </span> ) : ''}
+            {!isValidInput ? (
+              <WrongIcon className={styles.item} />
+            ) : ''}
 
-            <div className="Der-item" >
-              <button onClick={this.validateStep}> + </button>
+            <div id="validate-step" className={styles.item}>
+              <button onClick={this.validateStep} disabled={currentExpression === ''}> + </button>
             </div>
           </div>
         </div>
@@ -129,7 +133,6 @@ class Derivative extends Component {
     );
   }
 }
-
 
 Derivative.propTypes = {
   className: PropTypes.string,
