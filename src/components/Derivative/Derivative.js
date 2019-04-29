@@ -2,106 +2,39 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
-import CheckIcon from "../Icons/CheckIcon/CheckIcon"; // TODO: IMPORTS RELATIVOS
-import WrongIcon from "../Icons/WrongIcon/WrongIcon";
-import MathText from "../MathText/MathText";
-import MathTextBox from '../MathTextBox/MathTextBox';
-import mathClient from '../../clients/mathClient';
+import CheckIcon from "../Icons/CheckIcon"; // TODO: IMPORTS RELATIVOS
+import WrongIcon from "../Icons/WrongIcon";
+import MathText from "../MathText";
+import MathTextBox from '../MathTextBox';
 
 import styles from './Derivative.css';
 
 class Derivative extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      stepList: [],
-      isValidInput: true,
-      currentExpression: "",
-      problemInput: props.problemInput,
-
-
-      theorems: [{ // TODO: ESTO NO DEBERIA ESTAR ACA
-        name: "derivada de la suma",
-        left: "Derivative(f(x) + g(x) , x)",
-        right: "Derivative(f(x), x) + Derivative(g(x), x)"
-      },
-      {
-        name: "derivada del producto",
-        left: "Derivative(f(x) * g(x) , x)",
-        right: "Derivative(f(x), x) * g(x) + Derivative(g(x), x) * f(x)"
-      },
-      {
-        name: "derivada de la division",
-        left: "Derivative(f(x) / g(x) , x)",
-        right: "Derivative(( f(x), x) * g(x) - Derivative(g(x), x) * f(x)) / ( g(x)** 2)"
-      }]
-    };
-
-    this.handleContentChange = this.handleContentChange.bind(this);
-    this.validateStep = this.validateStep.bind(this);
-  }
-
 
   handleContentChange(value) {
-    this.setState({ currentExpression: value, isValidInput: true });
+    this.props.onContentChange({ content: value });
   }
 
-  getLastExpression = () => {
-    const stepList = this.state.stepList;
-    if (stepList.length === 0) {
-      return this.state.problemInput;
-    } else {
-      return stepList[stepList.length - 1];
-    }
+  handleValidateStep = () => {
+    const { stepList, problemInput, currentExpression } = this.props;
+
+    const lastExpression = stepList.length === 0 ?
+      this.props.problemInput :
+      stepList[stepList.length - 1];
+
+    this.props.onValidateStep({ stepList, problemInput, lastExpression, currentExpression });
   }
-
-  validateNotInHistory = (currentExpression) => { // TODO: ESTA NO DEBERIA ESTAR DIRECTAMENTE. DEBERIA SER UN VALIDATE STEP SOLO
-    let expressionHistory = [this.state.problemInput];
-    this.state.stepList.forEach(element => {
-      expressionHistory.push(element)
-    });
-
-    return mathClient.validateNotInHistory(currentExpression, expressionHistory);
-  }
-
-  validateStep = async () => {
-    const currentExpression = this.state.currentExpression;
-    const data = await this.validateNotInHistory(currentExpression);
-
-    if( data ) { // TODO: REMOVER ESTA COMPARACION
-      const validationStep = {
-        old_expression: this.getLastExpression(),
-        new_expression: currentExpression,
-        theorems: this.state.theorems
-      }
-      const validationResponse = await mathClient.validateStep(validationStep); // TODO: ESTO DEBERIA TIRAR UN ERROR, NO CHEQUEAR SI ES NULL
-
-      if (validationResponse) {
-        this.setState({
-          isValidInput: true,
-          currentExpression: "",
-          stepList: [...this.state.stepList, currentExpression]
-        }); // TODO: ESTO VA EN EL ACTION Y RESOLVER
-      } else {
-        this.setState({ isValidInput: false })
-      }
-
-    } else {
-      this.setState({ isValidInput: false })
-    }
-  }
-
 
   render() {  
     const { className } = this.props;
-    const { isValidInput, currentExpression } = this.state;
+    const { isValidInput, currentExpression } = this.props;
 
     return (
       <div id="derivative-container" className={classNames(styles.container, className)} >
-        <MathText content={this.state.problemInput} />
+        <MathText content={this.props.problemInput} />
 
         <div id="exercise-steps">
-          {this.state.stepList.map((step, index) => (
+          {this.props.stepList.map((step, index) => (
             <div id={`right-step-${index}`} key={`right-step-${index}`} className={styles.rightStep}>
               <span className={styles.item}>  = </span>
               <div className={styles.MathBox}>
@@ -115,9 +48,9 @@ class Derivative extends Component {
             <span className={styles.item}> = </span>
             <div id="current-content" className={styles.MathBox}>
               <MathTextBox
-                content={this.state.currentExpression}
+                content={this.props.currentExpression}
                 onContentChange={(value) => this.handleContentChange(value)}
-                onEnter={this.validateStep}
+                onEnter={this.handleValidateStep}
               />
             </div>
             {!isValidInput ? (
@@ -125,7 +58,7 @@ class Derivative extends Component {
             ) : ''}
 
             <div id="validate-step" className={styles.item}>
-              <button onClick={this.validateStep} disabled={currentExpression === ''}> + </button>
+              <button onClick={this.handleValidateStep} disabled={currentExpression === ''}> + </button>
             </div>
           </div>
         </div>
@@ -135,8 +68,13 @@ class Derivative extends Component {
 }
 
 Derivative.propTypes = {
+  stepList: PropTypes.array,
   className: PropTypes.string,
-  problemInput: PropTypes.string
+  isValidInput: PropTypes.bool,
+  problemInput: PropTypes.string,
+  currentExpression: PropTypes.string,
+  onValidateStep: PropTypes.func,
+  onContentChange: PropTypes.func
 };
 
 export default Derivative;

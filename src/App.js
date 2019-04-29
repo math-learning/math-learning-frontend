@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Derivative from "./components/Derivative/Derivative";
+import Derivative from "./components/Derivative";
 import './App.css';
 
 const initialProblem = "Derivative(x + x ,x)";
@@ -25,6 +25,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;

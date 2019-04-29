@@ -17,6 +17,22 @@ const validateNotInHistory = async (newExpression, history) => {
 }
 
 const validateStep = async (step) => {
+  step.theorems = [{ // TODO: ESTO NO DEBERIA ESTAR ACA
+    name: "derivada de la suma",
+    left: "Derivative(f(x) + g(x) , x)",
+    right: "Derivative(f(x), x) + Derivative(g(x), x)"
+  },
+  {
+    name: "derivada del producto",
+    left: "Derivative(f(x) * g(x) , x)",
+    right: "Derivative(f(x), x) * g(x) + Derivative(g(x), x) * f(x)"
+  },
+  {
+    name: "derivada de la division",
+    left: "Derivative(f(x) / g(x) , x)",
+    right: "Derivative(( f(x), x) * g(x) - Derivative(g(x), x) * f(x)) / ( g(x)** 2)"
+  }]
+
   try {
     const response = await axios.post(serverUrl + '/validations/new-step', step);
     return response.data;
