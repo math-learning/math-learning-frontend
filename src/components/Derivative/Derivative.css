@@ -1,0 +1,32 @@
+:local .container {
+  display: flex;
+  margin: 20px;
+}
+
+:local .currentStep {
+  display: flex;
+  margin: 1px;
+}
+
+:local  .rightStep {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+:local .item {
+  margin: 0 10px 0 10px;
+  vertical-align: middle;
+}
+
+:local .MathBox {
+  margin: 0 10px 0 0;
+  width: 300px
+}
+
+:local .wrongItem {
+  color: red;
+}
+
+:local .rightItem {
+  color: green;
+}

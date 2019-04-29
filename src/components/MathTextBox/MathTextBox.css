@@ -1,0 +1,13 @@
+:local .container {
+  display: inline;
+  flex-direction: row;
+}
+
+:local .textBoxContainer {
+  display: flex;
+  margin-bottom: 10px;
+}
+
+:local .textBox {
+  flex: 1
+}
