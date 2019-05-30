@@ -1,8 +1,12 @@
 import axios from 'axios' // TODO: CAMBIAR DE LIBRARY POR FETCH
+axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
 
 const confs = require("../configs/variables")
 const serverUrl = confs.serverUrl;
 
+let theorems = require('./theorems.json');// TODO: Esto no deberia estar aca
 
 const validateNotInHistory = async (newExpression, history) => {
   const requestData = { history, new_expression: newExpression };
@@ -17,22 +21,7 @@ const validateNotInHistory = async (newExpression, history) => {
 }
 
 const validateStep = async (step) => {
-  step.theorems = [{ // TODO: ESTO NO DEBERIA ESTAR ACA
-    name: "derivada de la suma",
-    left: "Derivative(f(x) + g(x) , x)",
-    right: "Derivative(f(x), x) + Derivative(g(x), x)"
-  },
-  {
-    name: "derivada del producto",
-    left: "Derivative(f(x) * g(x) , x)",
-    right: "Derivative(f(x), x) * g(x) + Derivative(g(x), x) * f(x)"
-  },
-  {
-    name: "derivada de la division",
-    left: "Derivative(f(x) / g(x) , x)",
-    right: "Derivative(( f(x), x) * g(x) - Derivative(g(x), x) * f(x)) / ( g(x)** 2)"
-  }]
-
+  step.theorems = theorems['theorems'];// TODO: Esto no deberia estar aca
   try {
     const response = await axios.post(serverUrl + '/validations/new-step', step);
     return response.data;

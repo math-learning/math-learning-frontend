@@ -11,3 +11,8 @@
 :local .textBox {
   flex: 1
 }
+
+.mq-math-mode, .mq-math-mode .mq-editable-field {
+  width: 100% !important;
+  border-color: gainsboro !important;
+}

@@ -5,10 +5,12 @@
   "dependencies": {
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "fs": "0.0.1-security",
     "react": "^16.8.5",
     "react-dom": "^16.8.5",
     "react-icons": "^3.6.1",
     "react-mathjax2": "0.0.2",
+    "react-mathquill": "^0.1.4",
     "react-redux": "^7.0.3",
     "react-scripts": "2.1.8",
     "redux": "^4.0.1",

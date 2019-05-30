@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Derivative from "./components/Derivative";
 import './App.css';
 
-const initialProblem = "Derivative(x + x ,x)";
+const initialProblem = "\\frac{d(x + x)}{dx}";
 
 class App extends Component {
   constructor(props) {

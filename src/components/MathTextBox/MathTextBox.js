@@ -1,11 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MathText from "../MathText/MathText";
-
+import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill'
 import styles from './MathTextBox.css';
+
+addMathquillStyles()
+
+String.prototype.replaceAll = function(search, replacement) {
+  var target = this;
+  return target.split(search).join(replacement);
+};
 
 class MathTextBox extends Component {
 
+  state = {
+    rawLatex: ""
+  }
   handleContentChange = (content) => {
     this.props.onContentChange(content);
   }
@@ -16,6 +26,13 @@ class MathTextBox extends Component {
     }
   }
 
+  cleanLatex = (latex) => {
+    let clean = latex.replaceAll("\\left(","(");
+    clean = clean.replaceAll("\\right)",")");
+    clean = clean.replaceAll("\\ ","")
+    return clean;
+  }
+
   render() {
     return (
       <div
@@ -24,7 +41,16 @@ class MathTextBox extends Component {
         onKeyPress={this.onKeyPress}
         onClick={this.onClick}
       >
-        <div id="text-box" className={styles.textBoxContainer}>
+        {/* TODO: Fix and refactor */}
+        <MathQuill
+          latex={this.props.content} // Initial latex value for the input field
+          onChange={(latex) => {
+            this.setState({rawLatex: latex})
+            this.handleContentChange(this.cleanLatex(latex))
+          }}
+        />
+        
+        {/* <div id="text-box" className={styles.textBoxContainer}>
           <input
             type="text"
             autoFocus={true}
@@ -34,7 +60,7 @@ class MathTextBox extends Component {
           />
         </div>
 
-        <MathText id="content" content={this.props.content} />
+        <MathText id="content" content={this.props.content} /> */}
       </div>
     );
   }
