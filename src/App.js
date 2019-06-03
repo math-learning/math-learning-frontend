@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
 import Derivative from "./components/Derivative";
 import './App.css';
+import {cleanLatex} from './utils/latexUtils';
 
-const initialProblem = "\\frac{d(x + x)}{dx}";
+const initialProblem = "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}";
+
 
 class App extends Component {
   constructor(props) {
@@ -19,7 +21,7 @@ class App extends Component {
         </header>
 
         <div id="derivative-problem" className="App-content">
-          <Derivative problemInput={initialProblem} />
+          <Derivative problemInput={cleanLatex(initialProblem)} />
         </div>
       </div>
     );

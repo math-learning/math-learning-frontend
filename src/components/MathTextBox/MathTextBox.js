@@ -3,13 +3,11 @@ import PropTypes from 'prop-types';
 import MathText from "../MathText/MathText";
 import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill'
 import styles from './MathTextBox.css';
+import {cleanLatex} from '../../utils/latexUtils';
 
 addMathquillStyles()
 
-String.prototype.replaceAll = function(search, replacement) {
-  var target = this;
-  return target.split(search).join(replacement);
-};
+
 
 class MathTextBox extends Component {
 
@@ -26,13 +24,6 @@ class MathTextBox extends Component {
     }
   }
 
-  cleanLatex = (latex) => {
-    let clean = latex.replaceAll("\\left(","(");
-    clean = clean.replaceAll("\\right)",")");
-    clean = clean.replaceAll("\\ ","")
-    return clean;
-  }
-
   render() {
     return (
       <div
@@ -46,7 +37,7 @@ class MathTextBox extends Component {
           latex={this.props.content} // Initial latex value for the input field
           onChange={(latex) => {
             this.setState({rawLatex: latex})
-            this.handleContentChange(this.cleanLatex(latex))
+            this.handleContentChange(cleanLatex(latex))
           }}
         />
         
