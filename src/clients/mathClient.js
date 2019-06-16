@@ -1,8 +1,12 @@
 import axios from 'axios' // TODO: CAMBIAR DE LIBRARY POR FETCH
+axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
+axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
 
 const confs = require("../configs/variables")
 const serverUrl = confs.serverUrl;
 
+let theorems = require('./theorems.json');// TODO: Esto no deberia estar aca
 
 const validateNotInHistory = async (newExpression, history) => {
   const requestData = { history, new_expression: newExpression };
@@ -17,6 +21,7 @@ const validateNotInHistory = async (newExpression, history) => {
 }
 
 const validateStep = async (step) => {
+  step.theorems = theorems['theorems'];// TODO: Esto no deberia estar aca
   try {
     const response = await axios.post(serverUrl + '/validations/new-step', step);
     return response.data;

@@ -1,0 +1,64 @@
+{
+    "exercises": [
+        {
+            "input_data": "Derivative(e**x ,x)",
+            "result": "e**x"
+        },
+        {
+            "input_data": "Derivative( (x**2 - 1) / (x + 1) ** 2, x)", 
+            "result": "2 / (x+1) ** 2"
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        },
+        {
+            "input_data": "", 
+            "result": ""
+        }
+    ]
+}

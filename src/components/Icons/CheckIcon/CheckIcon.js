@@ -7,10 +7,6 @@ import { IconContext } from "react-icons";
 import styles from './CheckIcon.css';
 
 class CheckIcon extends Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     const { className } = this.props;
 
