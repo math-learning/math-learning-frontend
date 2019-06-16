@@ -7,8 +7,6 @@ import {cleanLatex} from '../../utils/latexUtils';
 
 addMathquillStyles()
 
-
-
 class MathTextBox extends Component {
 
   state = {
