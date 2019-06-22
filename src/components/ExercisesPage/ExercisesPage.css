@@ -1,0 +1,12 @@
+.exercises-page {
+    
+}
+
+.cards-container {
+    display: flex;
+    justify-content: center;
+}
+
+.exercise-card {
+    margin: 15px !important;
+}

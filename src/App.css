@@ -1,19 +1,3 @@
-.App-header {
-  background-color: gray;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-content {
-  display: flex;
-  margin: 20px 50px 20px 50px;
-}
-
-
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -57,3 +41,18 @@ table {
     border-collapse: collapse;
     border-spacing: 0;
 }
+
+.App-header {
+    padding: 20px 0 20px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: grey;
+  }
+  
+  .App-content {
+    display: flex;
+    margin: 20px 50px 20px 50px;
+  }

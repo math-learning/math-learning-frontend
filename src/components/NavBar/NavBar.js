@@ -13,7 +13,7 @@ class NavBar extends Component {
         return (
             <div id="navbar">
                 <div className='navbar'>
-                    <AppBar>
+                    <AppBar position="static">
                         <Toolbar>
                         <Typography variant="h6" className='title'>
                             Math Learning
