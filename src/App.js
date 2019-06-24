@@ -6,11 +6,26 @@ import NavBar from './components/NavBar'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ExercisesPage from './components/ExercisesPage'
 
-const initialProblem = "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}";
-
 const exercises = [
-  "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}"
+  "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
+  "\\frac{d\\left(x^2+x\\ +\\cos \\left(x\\right)\\right)}{dx}",
+  "\\frac{d(\\frac{sen(x)}{cos(x)})} {dx}",
+  "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
+  "\\frac{d\\left(x^2+x\\ +\\cos \\left(x\\right)\\right)}{dx}",
+
 ]
+
+const renderDerivativePage = ({match}) => {
+  console.log(match)
+  const index = match.params.index
+  return (
+    <DerivativePage inputProblem={exercises[index]} />
+  )
+}
+
+const renderExercisesPage = () => (
+  <ExercisesPage exercises={exercises} />
+)
 
 class App extends Component {
   constructor(props) {
@@ -21,18 +36,14 @@ class App extends Component {
   render() {
     return (
       <div id="app">
-        
+
         <Router>
-          <NavBar/>  
+          <NavBar />
           <div>
-            <Route exact path="/" component={ExercisesPage}/>
-            <Route path="/derivative" component={DerivativePage} /> 
+            <Route exact path="/" render={renderExercisesPage} />
+            <Route exact path="/derivative/:index" render={renderDerivativePage} />
           </div>
         </Router>
-
-        {/* <div id="derivative-problem" className="App-content">
-          <Derivative problemInput={cleanLatex(initialProblem)} />
-        </div> */}
       </div>
     );
   }

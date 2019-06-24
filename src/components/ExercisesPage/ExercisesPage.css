@@ -1,13 +1,16 @@
 .exercises-page {
-    
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center
 }
 
 .cards-container {
     display: flex;
-    justify-content: center;
     flex-wrap: wrap;
+    width: 80%
 }
 
 .exercise-card {
     margin: 15px !important;
+    width: 30%
 }

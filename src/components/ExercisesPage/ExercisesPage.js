@@ -8,20 +8,21 @@ import {Link} from 'react-router-dom'
 class ExercisesPage extends Component {
 
     render() {
-        const exercises = [
-            "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}"
-          ]
 
-        const exerciseCards = exercises.map((key,value) =>   {
+        const exercises = this.props.exercises
+
+        // TODO : Refactor
+        const exerciseCards = exercises.map((element,index) =>   {
+            const exerciseNumber = index + 1
             return (
-                <Link to={{
-                    pathname:'/derivative',
-                    state: { inputProblem: key }
-                }}>
-                    <div className="exercise-card">
-                        <ExerciseCard number={1} statement={key}/>
-                    </div>
-                </Link>
+                <div className="exercise-card">
+                    <Link to={{
+                        pathname:'/derivative/' + index,
+                    }} style={{ color: 'inherit',  textDecoration: 'none' }}>
+                            <ExerciseCard title={"Ejercicio " + exerciseNumber} statement={element}/>
+                        
+                    </Link>
+                </div>
                 )
         })
     

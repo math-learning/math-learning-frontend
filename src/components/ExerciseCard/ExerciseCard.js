@@ -31,17 +31,13 @@ class ExerciseCard extends Component {
             >
                 <CardContent>
                     <Typography className="title" color="textSecondary" gutterBottom>
-                        {this.props.number}
+                        {this.props.title}
                     </Typography>
                 
                     <Typography className="statement" variant="body2" component="p">
                         <MathText content={this.props.statement}/>
                     </Typography>
-        
                 </CardContent>
-                {/* <CardActions>
-                    <Button size="small">Resolver</Button>
-                </CardActions> */}
             </Card>
         )
     }

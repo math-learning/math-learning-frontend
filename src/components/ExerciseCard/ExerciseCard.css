@@ -14,4 +14,7 @@
     margin-bottom: 12;
 }
 
-
+/* TODO: do it right */
+.MuiPaper-root {
+    height: 100% !important;
+}

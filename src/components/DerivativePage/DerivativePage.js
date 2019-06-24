@@ -4,7 +4,7 @@ import Derivative from '../Derivative'
 class DerivativePage extends Component {
 
     render() {
-        const {inputProblem} = this.props.location.state
+        const {inputProblem} = this.props
 
         return (
             <div>
