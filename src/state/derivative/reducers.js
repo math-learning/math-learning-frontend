@@ -4,7 +4,9 @@ const initialState = {
   data: {
     isValidInput: true,
     currentExpression: '',
-    stepList: []
+    stepList: [],
+    isProcessing: false
+
   }
 };
 
@@ -39,6 +41,24 @@ export default function reducers(state = initialState, action) {
           currentExpression: action.content
         }
       }
+    
+    case types.PROCESSING:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isProcessing: true
+        }
+      }
+
+    case types.STOP_PROCESSING:
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            isProcessing: false
+          }
+        }
 
     default:
       return state;

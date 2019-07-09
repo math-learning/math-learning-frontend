@@ -12,6 +12,7 @@ const exercises = [
   "\\frac{d(\\frac{sen(x)}{cos(x)})} {dx}",
   "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
   "\\frac{d\\left(x^2+x\\ +\\cos \\left(x\\right)\\right)}{dx}",
+  "\\frac{d\\left(e^x\\right)}{dx}"
 
 ]
 
@@ -19,7 +20,7 @@ const renderDerivativePage = ({match}) => {
   console.log(match)
   const index = match.params.index
   return (
-    <DerivativePage inputProblem={exercises[index]} />
+    <DerivativePage inputProblem={exercises[index]} problemIndex={index}/>
   )
 }
 

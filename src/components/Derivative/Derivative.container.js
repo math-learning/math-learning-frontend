@@ -4,12 +4,12 @@ import * as selectors from '../../state/derivative/selectors';
 
 import Derivative from './Derivative';
 
-const currentState = (state, { problemInput, className }) => ({
+const currentState = (state, { problemInput, problemIndex, className }) => ({
   className,
   problemInput,
-  stepList: selectors.stepList(state),
-  isValidInput: selectors.isValidInput(state),
-  currentExpression: selectors.currentExpression(state)
+  stepList: selectors.stepList(state, problemIndex),
+  isValidInput: selectors.isValidInput(state, problemIndex),
+  currentExpression: selectors.currentExpression(state, problemIndex)
 });
 
 const currentActions = (dispatch) => ({

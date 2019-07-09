@@ -6,6 +6,7 @@ import CheckIcon from "../Icons/CheckIcon"; // TODO: IMPORTS RELATIVOS
 import WrongIcon from "../Icons/WrongIcon";
 import MathText from "../MathText";
 import MathTextBox from '../MathTextBox';
+import ProgressBar from '../ProgressBar'
 
 import styles from './Derivative.css';
 
@@ -31,6 +32,7 @@ class Derivative extends Component {
 
     return (
       <div id="derivative-container" className={classNames(styles.container, className)} >
+        <ProgressBar />
         <MathText content={this.props.problemInput} />
 
         <div id="exercise-steps">

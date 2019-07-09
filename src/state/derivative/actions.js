@@ -1,5 +1,7 @@
 import * as types from './actionTypes';
 import mathClient from '../../clients/mathClient';
+import { cleanLatex } from '../../utils/latexUtils'
+
 
 function stepIsValid({ currentExpression }) {
   return {
@@ -21,6 +23,17 @@ function contentChange({ content }) {
   }
 }
 
+function processing() {
+  return {
+    type: types.PROCESSING
+  }
+}
+function stopProcessing() {
+  return {
+    type: types.STOP_PROCESSING
+  }
+}
+
 export function validateStep({
   stepList,
   problemInput,
@@ -32,27 +45,34 @@ export function validateStep({
     // const context = {}; // TODO: NECESITAMOS UN CONTEXT?
 
     // TODO: VALIDATE EXPRESSION HISTORY NO DEBERIA ESTAR ACA
-    let expressionHistory = [problemInput];
+    let expressionHistory = [cleanLatex(problemInput)];
     stepList.forEach(element => {
-      expressionHistory.push(element)
+      expressionHistory.push(cleanLatex(element))
     });
-  
-    const data = await mathClient.validateNotInHistory(currentExpression, expressionHistory);
-  
-    if( data ) { // TODO: REMOVER ESTA COMPARACION
-      const validationStep = {
-        old_expression: lastExpression,
-        new_expression: currentExpression
-      }
-      const validationResponse = await mathClient.validateStep(validationStep);
-  
-      if (validationResponse) { // TODO: ESTO DEBERIA TIRAR TRUE O FALSE
-        dispatch(stepIsValid({ currentExpression }))
+
+    dispatch(processing())
+    try {
+      const data = await mathClient.validateNotInHistory(cleanLatex(currentExpression), expressionHistory);
+
+      if (data) { // TODO: REMOVER ESTA COMPARACION
+        const validationStep = {
+          old_expression: cleanLatex(lastExpression),
+          new_expression: cleanLatex(currentExpression)
+        }
+        const validationResponse = await mathClient.validateStep(validationStep);
+
+        if (validationResponse) { // TODO: ESTO DEBERIA TIRAR TRUE O FALSE
+          dispatch(stepIsValid({ currentExpression }))
+        } else {
+          dispatch(stepIsInvalid({ currentExpression }))
+        }
       } else {
         dispatch(stepIsInvalid({ currentExpression }))
       }
-    } else {
-      dispatch(stepIsInvalid({ currentExpression }))
+    } catch (e) {
+      // TODO: Mostrar un mensaje de ocurrio un error por favor vuelva a intentar mas tarde.
+    } finally {
+      dispatch(stopProcessing())
     }
   };
 }
@@ -64,4 +84,3 @@ export function changeContent({
     dispatch(contentChange({ content }))
   };
 }
- 

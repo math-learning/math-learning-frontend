@@ -10,7 +10,7 @@ let theorems = require('./theorems.json');// TODO: Esto no deberia estar aca
 
 const validateNotInHistory = async (newExpression, history) => {
   const requestData = { history, new_expression: newExpression };
-
+  
   try {
     const response = await axios.post(serverUrl + '/validations/not-in-history', requestData);
     return response.data;
