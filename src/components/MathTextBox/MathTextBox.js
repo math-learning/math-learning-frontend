@@ -35,7 +35,7 @@ class MathTextBox extends Component {
           latex={this.props.content} // Initial latex value for the input field
           onChange={(latex) => {
             this.setState({rawLatex: latex})
-            this.handleContentChange(cleanLatex(latex))
+            this.handleContentChange(latex)
           }}
         />
         

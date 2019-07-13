@@ -8,6 +8,7 @@ let cleanLatex   = (latex) => {
     clean = clean.replaceAll("\\right)",")");
     clean = clean.replaceAll("\\ ","")
     clean = clean.replaceAll("\\cdot ","*")
+    clean = clean.replaceAll("cdot ","*")
     clean = clean.replaceAll(".","*")
     clean = clean.replaceAll("sen","\\sin")
     return clean;

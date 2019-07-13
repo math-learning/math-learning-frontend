@@ -7,12 +7,30 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ExercisesPage from './components/ExercisesPage'
 
 const exercises = [
-  "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
-  "\\frac{d\\left(x^2+x\\ +\\cos \\left(x\\right)\\right)}{dx}",
-  "\\frac{d(\\frac{sen(x)}{cos(x)})} {dx}",
-  "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
-  "\\frac{d\\left(x^2+x\\ +\\cos \\left(x\\right)\\right)}{dx}",
-  "\\frac{d\\left(e^x\\right)}{dx}"
+  {
+    input: "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
+    result: "\\frac{1}{\\cos ^2\\left(x\\right)}"
+  },
+  {
+    input: "\\frac{d\\left(x^2+x\\ +\\cos \\left(x\\right)\\right)}{dx}",
+    result: "e^x\\cdot \\left(1\ +x\\right)+\\cos \\left(x\\right)\\cdot x^2+\\sin \\left(x\\right)\\cdot 2 \\cdot x"
+  },
+  {
+    input:"\\frac{d(\\frac{sen(x)}{\\cos(x)})} {dx}",
+    result: "\\frac{1}{\\cos \left(x\\right)^2}"
+  },
+  {
+    input: "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
+    result: "e^x \\cdot \\left(x\ +1\\right)\ + 2\\cdot x\\cdot sen\\left(x\\right)+\\cos \\left(x\\right)\\cdot x^2"
+  },
+  {
+    input: "\\frac{d\\left(x^2+x\\ +\\cos \\left(x\\right)\\right)}{dx}",
+    result: "2*x+1-sin(x)"
+  },
+  {
+    input: "\\frac{d\\left(e^x\\right)}{dx}",
+    result: "e^x"
+  }
 
 ]
 
@@ -20,7 +38,7 @@ const renderDerivativePage = ({match}) => {
   console.log(match)
   const index = match.params.index
   return (
-    <DerivativePage inputProblem={exercises[index]} problemIndex={index}/>
+    <DerivativePage inputProblem={exercises[index].input} problemIndex={index}/>
   )
 }
 

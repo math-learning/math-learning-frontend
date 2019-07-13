@@ -19,7 +19,7 @@ class ExercisesPage extends Component {
                     <Link to={{
                         pathname:'/derivative/' + index,
                     }} style={{ color: 'inherit',  textDecoration: 'none' }}>
-                            <ExerciseCard title={"Ejercicio " + exerciseNumber} statement={element}/>
+                            <ExerciseCard title={"Ejercicio " + exerciseNumber} statement={element.input}/>
                         
                     </Link>
                 </div>
