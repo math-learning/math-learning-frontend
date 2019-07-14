@@ -1,3 +1,4 @@
-export const stepList = (state) => state.derivative.data.stepList;
-export const isValidInput = (state) => state.derivative.data.isValidInput;
-export const currentExpression = (state) => state.derivative.data.currentExpression;
+export const stepList = (state, index) => state.derivative.data.stepList[index];
+export const isValidInput = (state, index) => state.derivative.data.isValidInput[index];
+export const currentExpression = (state, index) => state.derivative.data.currentExpression[index];
+export const isFinished = (state, index) => state.derivative.data.finishedExercises.some( elem => elem == index)

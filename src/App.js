@@ -38,7 +38,7 @@ const renderDerivativePage = ({match}) => {
   console.log(match)
   const index = match.params.index
   return (
-    <DerivativePage inputProblem={exercises[index].input} problemIndex={index}/>
+    <DerivativePage inputProblem={exercises[index].input} problemIndex={index} result={exercises[index].result}/>
   )
 }
 

@@ -9,7 +9,8 @@ const currentState = (state, { problemInput, problemIndex, className }) => ({
   problemInput,
   stepList: selectors.stepList(state, problemIndex),
   isValidInput: selectors.isValidInput(state, problemIndex),
-  currentExpression: selectors.currentExpression(state, problemIndex)
+  currentExpression: selectors.currentExpression(state, problemIndex),
+  isFinished: selectors.isFinished(state, problemIndex)
 });
 
 const currentActions = (dispatch) => ({

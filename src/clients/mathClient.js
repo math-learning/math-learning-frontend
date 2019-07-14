@@ -1,4 +1,5 @@
 import axios from 'axios' // TODO: CAMBIAR DE LIBRARY POR FETCH
+import { cleanLatex } from '../utils/latexUtils';
 axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
@@ -31,6 +32,20 @@ const validateStep = async (step) => {
   }
 }
 
+const compareExpressions = async (expressionOne, expressionTwo) => {
+  try {
+    const data = {
+      expression_one: cleanLatex(expressionOne),
+      expression_two: cleanLatex(expressionTwo)
+    }
+    const response = await axios.post(serverUrl + '/expressions/compare', data)
+    return response.data
+  } catch (e) {
+    console.log("Error while comparing expressions", e);
+    throw e
+  }
+}
+
 const validateResult = async (result) => {
   try {
     const response = await axios.post(serverUrl + '/validations/result', result);
@@ -59,4 +74,5 @@ export default {
   validateNotInHistory,
   validateStep,
   validateResult,
+  compareExpressions,
 }

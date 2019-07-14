@@ -1,44 +1,60 @@
 import * as types from './actionTypes';
 
+const exercisesAmount = 6
+
 const initialState = {
   data: {
-    isValidInput: true,
-    currentExpression: '',
-    stepList: [],
-    isProcessing: false
-
+    isValidInput: new Array(exercisesAmount).fill(true),
+    currentExpression: new Array(exercisesAmount).fill(''),
+    stepList: new Array(exercisesAmount).fill([]),
+    isProcessing: false,
+    finishedExercises: []
   }
 };
 
 export default function reducers(state = initialState, action) {
-  switch (action.type) {
+  const index = action.index;
+
+  const stepList = [...state.data.stepList];
+  const currentExpression = [...state.data.currentExpression];
+  const isValidInput = [...state.data.isValidInput];
+
+  switch (action.type) {    
     case types.STEP_IS_VALID:
+      
+      stepList[index] = [...state.data.stepList[index], action.currentExpression];
+      currentExpression[index] = ''
+      isValidInput[index] = true
+
       return {
         ...state,
         data: {
           ...state.data,
-          isValidInput: true,
-          currentExpression: '',
-          stepList: [...state.data.stepList, action.currentExpression]
+          isValidInput,
+          currentExpression,
+          stepList
         }
       };
 
     case types.STEP_IS_INVALID:
+      isValidInput[index] = false
       return {
         ...state,
         data: {
           ...state.data,
-          isValidInput: false
+          isValidInput
         }
       };
     
     case types.CONTENT_CHANGE:
+      currentExpression[index] = action.content
+      isValidInput[index] = true
       return {
         ...state,
         data: {
           ...state.data,
-          isValidInput: true,
-          currentExpression: action.content
+          isValidInput,
+          currentExpression
         }
       }
     
@@ -59,6 +75,23 @@ export default function reducers(state = initialState, action) {
             isProcessing: false
           }
         }
+    
+    case types.EXERCISE_FINISHED:
+      isValidInput[index] = true
+      currentExpression[index] = ''
+      stepList[index] = [...state.data.stepList[index], action.currentExpression]
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isValidInput,
+          currentExpression,
+          stepList,
+          finishedExercises: [...state.data.finishedExercises, action.index]
+        }
+      }
+  
 
     default:
       return state;

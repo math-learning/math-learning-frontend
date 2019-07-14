@@ -4,7 +4,7 @@ import Derivative from '../Derivative'
 class DerivativePage extends Component {
 
     render() {
-        const {inputProblem, problemIndex} = this.props
+        const {inputProblem, problemIndex, result} = this.props
 
         return (
             <div>
@@ -13,7 +13,7 @@ class DerivativePage extends Component {
                     <h2>Porfavor resuelva paso a paso la siguiente derivada</h2>
                 </header>
             <div id="derivative-problem" className="App-content">
-                <Derivative problemInput={inputProblem} problemIndex={problemIndex}/>
+                <Derivative problemInput={inputProblem} problemIndex={problemIndex} result={result}/>
             </div> 
             </div>
             

@@ -12,23 +12,23 @@ import styles from './Derivative.css';
 
 class Derivative extends Component {
 
-  handleContentChange(value) {
-    this.props.onContentChange({ content: value });
+  handleContentChange({value, index}) {
+    this.props.onContentChange({ content: value, index});
   }
 
   handleValidateStep = () => {
-    const { stepList, problemInput, currentExpression } = this.props;
+    const { stepList, problemInput, currentExpression, result, problemIndex} = this.props;
 
     const lastExpression = stepList.length === 0 ?
       this.props.problemInput :
       stepList[stepList.length - 1];
 
-    this.props.onValidateStep({ stepList, problemInput, lastExpression, currentExpression });
+    this.props.onValidateStep({ stepList, problemInput, lastExpression, currentExpression, result, problemIndex });
   }
 
   render() {  
     const { className } = this.props;
-    const { isValidInput, currentExpression } = this.props;
+    const { isValidInput, currentExpression, isFinished, problemIndex } = this.props;
 
     return (
       <div id="derivative-container" className={classNames(styles.container, className)} >
@@ -46,12 +46,14 @@ class Derivative extends Component {
             </div>
           ))}
 
-          <div id="current-step" className={styles.currentStep}>
+          {
+            !isFinished &&
+            <div id="current-step" className={styles.currentStep}>
             <span className={styles.item}> = </span>
             <div id="current-content" className={styles.MathBox}>
               <MathTextBox
                 content={this.props.currentExpression}
-                onContentChange={(value) => this.handleContentChange(value)}
+                onContentChange={(value) => this.handleContentChange({value, index: problemIndex })}
                 onEnter={this.handleValidateStep}
               />
             </div>
@@ -63,6 +65,14 @@ class Derivative extends Component {
               <button onClick={this.handleValidateStep} disabled={currentExpression === ''}> + </button>
             </div>
           </div>
+          }
+          {
+            isFinished &&
+            <div>
+              Ya resolviste este ejercicio!
+            </div>
+          }
+          
         </div>
       </div>
     );
