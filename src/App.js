@@ -8,26 +8,32 @@ import ExercisesPage from './components/ExercisesPage'
 
 const exercises = [
   {
+    name: "e + sen",
     input: "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
-    result: "\\frac{1}{\\cos ^2\\left(x\\right)}"
+    result: "e^x\\cdot \\left(1\ +x\\right)+ \\cos \\left(x\\right)\\cdot x^2+\\sin \\left(x\\right)\\cdot 2\\cdot x"
   },
   {
+    name: "deriv suma x + x2 + cos",
     input: "\\frac{d\\left(x^2+x\\ +\\cos \\left(x\\right)\\right)}{dx}",
-    result: "e^x\\cdot \\left(1\ +x\\right)+\\cos \\left(x\\right)\\cdot x^2+\\sin \\left(x\\right)\\cdot 2 \\cdot x"
+    result: "2*x+1-\\sin(x)"
   },
   {
+    name: "sen / cos",
     input:"\\frac{d(\\frac{sen(x)}{\\cos(x)})} {dx}",
-    result: "\\frac{1}{\\cos \left(x\\right)^2}"
+    result: "\\frac{1}{\\cos\\left(x\\right)^2}"
   },
   {
-    input: "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
-    result: "e^x \\cdot \\left(x\ +1\\right)\ + 2\\cdot x\\cdot sen\\left(x\\right)+\\cos \\left(x\\right)\\cdot x^2"
+    name: "",
+    input: "TODO",
+    result: "e^x \\cdot \\left(x+1\\right)\ + 2\\cdot x\\cdot sen\\left(x\\right)+\\cos \\left(x\\right)\\cdot x^2"
   },
   {
-    input: "\\frac{d\\left(x^2+x\\ +\\cos \\left(x\\right)\\right)}{dx}",
-    result: "2*x+1-sin(x)"
+    name: "",
+    input: "TODO",
+    result: ""
   },
   {
+    name: " e ",
     input: "\\frac{d\\left(e^x\\right)}{dx}",
     result: "e^x"
   }
