@@ -2,7 +2,8 @@ import ExercisesPage from './ExercisesPage';
 import {connect} from 'react-redux';
 
 const currentState = (state, {exercises}) => ({
-    exercises
+    exercises,
+    finishedExercises: state.derivative.data.finishedExercises
 });
 
 export default connect(

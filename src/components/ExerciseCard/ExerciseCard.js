@@ -23,7 +23,7 @@ class ExerciseCard extends Component {
     }
 
     render() {
-
+        const {finished} = this.props
         return (
             <Card className="card" raised={this.state.hovered}
                 onMouseEnter={this.setHoveredTrue}
@@ -38,6 +38,12 @@ class ExerciseCard extends Component {
                         <MathText content={this.props.statement}/>
                     </Typography>
                 </CardContent>
+                {
+                            finished &&
+                            <div className="finished-text">
+                                Ejercicio resuelto
+                            </div>
+                        }
             </Card>
         )
     }

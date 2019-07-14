@@ -3,23 +3,26 @@ import ExerciseCard from '../ExerciseCard'
 import PropTypes from 'prop-types'
 import styles from './ExercisesPage.css'
 import {Link} from 'react-router-dom'
+import { isFinished } from '../../state/derivative/selectors';
 
 
 class ExercisesPage extends Component {
 
     render() {
 
-        const exercises = this.props.exercises
+        const {exercises, finishedExercises} = this.props
 
         // TODO : Refactor
         const exerciseCards = exercises.map((element,index) =>   {
             const exerciseNumber = index + 1
+            const finished = finishedExercises.some(elem => elem == index)
+        
             return (
-                <div className="exercise-card">
+                <div className={"exercise-card" + (finished ? " finished" : "")}>
                     <Link to={{
                         pathname:'/derivative/' + index,
                     }} style={{ color: 'inherit',  textDecoration: 'none' }}>
-                            <ExerciseCard title={"Ejercicio " + exerciseNumber} statement={element.input}/>
+                            <ExerciseCard title={"Ejercicio " + exerciseNumber} statement={element.input} finished={finished}/>
                         
                     </Link>
                 </div>

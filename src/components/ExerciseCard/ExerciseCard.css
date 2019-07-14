@@ -2,6 +2,11 @@
     padding: 0 15px 10px;
 }
 
+.card .finished-text {
+    background-color: aquamarine;
+    text-align: center
+}
+
 .bullet {
     display: 'inline-block';
     margin: '0 2px';
