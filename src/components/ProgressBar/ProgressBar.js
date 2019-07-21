@@ -15,7 +15,6 @@ class ProgressBar extends Component {
             <div className={clazz}>
                 <div className="spinner">
                     <CircularProgress/>
-                    <div>Processing</div>
                 </div>
             </div>
         )
