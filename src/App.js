@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import DerivativePage from "./components/DerivativePage";
 import './App.css';
-import { cleanLatex } from './utils/latexUtils';
 import NavBar from './components/NavBar'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ExercisesPage from './components/ExercisesPage'
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import Footer from './components/Footer'
 
 const exercises = [
   {
     name: "e + sen",
-    input: "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
+    input: "\\frac{d\\left(e^x \\cdot \\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}",
     result: "e^x\\cdot \\left(1\ +x\\right)+ \\cos \\left(x\\right)\\cdot x^2+\\sin \\left(x\\right)\\cdot 2\\cdot x"
   },
   {
@@ -24,21 +26,52 @@ const exercises = [
   },
   {
     name: "",
-    input: "TODO",
-    result: "e^x \\cdot \\left(x+1\\right)\ + 2\\cdot x\\cdot sen\\left(x\\right)+\\cos \\left(x\\right)\\cdot x^2"
+    input: "\\frac{d(\\frac{ \\frac{d(sen(x))}{dx}}{\\cos(x)})} {dx}",
+    // TODO:
+    result: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}"
   },
   {
     name: "",
-    input: "TODO",
-    result: ""
+    // TODO: TEST
+    input: "\\frac{d^2\\left(e^x\\right)}{dx}",
+    //TODO
+    result: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}"
   },
   {
     name: " e ",
     input: "\\frac{d\\left(e^x\\right)}{dx}",
     result: "e^x"
+  },
+  {
+    name: "",
+    input: "\\frac{d\\left(      \\sin(\\cos(x))         \\right)}{dx}",
+    //TODO
+    result: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}"
+  },
+  {
+    name: "",
+    input: "\\frac{d\\left(x^2 \\cdot x \\cdot \\cos \\left(x\\right)\\right)}{dx}",
+    //TODO
+    result: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}"
+  },
+  {
+    name: "constant times x",
+    input: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}",
+    result: "e^3"
   }
 
 ]
+
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#20232a' }, // Purple and green play nicely together.
+    secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
+  },
+});
+
+
 
 const renderDerivativePage = ({match}) => {
   console.log(match)
@@ -61,14 +94,17 @@ class App extends Component {
   render() {
     return (
       <div id="app">
-
-        <Router>
+<ThemeProvider theme={theme}>
+<Router>
           <NavBar />
-          <div>
+          <div className="page-content">
             <Route exact path="/" render={renderExercisesPage} />
             <Route exact path="/derivative/:index" render={renderDerivativePage} />
           </div>
+          <Footer/>
         </Router>
+</ThemeProvider>
+  
       </div>
     );
   }

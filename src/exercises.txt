@@ -22,3 +22,8 @@ sen / cos
 
 deriv suma x + x2 + cos
 
+\frac{d\left(x^2\right)}{dx}+\frac{d\left(x\ +\cos \left(x\right)\right)}{dx}
+\frac{d\left(x^2\right)}{dx}+\frac{d\left(x\right)}{dx}+\frac{d\left(\cos \left(x\right)\right)}{dx}
+2\cdot x+\frac{d\left(x\right)}{dx}+\frac{d\left(\cos \left(x\right)\right)}{dx}
+2\cdot x+1+\frac{d\left(\cos \left(x\right)\right)}{dx}
+2\cdot x+1-\sin \left(x\right)

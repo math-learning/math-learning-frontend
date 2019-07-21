@@ -14,7 +14,8 @@
 }
 .card .title {
     font-size: 14;
-    text-align: center
+    text-align: center;
+    font-weight: 700
 }
 .pos {
     margin-bottom: 12;
@@ -25,6 +26,6 @@
 }
 
 /* TODO: do it right */
-.MuiPaper-root {
+.exercise-card .MuiPaper-root {
     height: 100% !important;
 }

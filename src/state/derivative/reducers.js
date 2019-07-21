@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 
-const exercisesAmount = 6
+const exercisesAmount = 9
 
 const initialState = {
   data: {
@@ -8,7 +8,8 @@ const initialState = {
     currentExpression: new Array(exercisesAmount).fill(''),
     stepList: new Array(exercisesAmount).fill([]),
     isProcessing: false,
-    finishedExercises: []
+    finishedExercises: [],
+    showFinishedExercise: false
   }
 };
 
@@ -88,10 +89,19 @@ export default function reducers(state = initialState, action) {
           isValidInput,
           currentExpression,
           stepList,
-          finishedExercises: [...state.data.finishedExercises, action.index]
+          finishedExercises: [...state.data.finishedExercises, action.index],
+          showFinishedExercise: true
         }
       }
-  
+    
+    case types.CLOSE_SOLVED_DIALOG:
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            showFinishedExercise: false
+          }
+        }
 
     default:
       return state;

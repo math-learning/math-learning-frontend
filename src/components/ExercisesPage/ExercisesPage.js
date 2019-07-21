@@ -32,8 +32,7 @@ class ExercisesPage extends Component {
         return (
             <div className="exercises-page">
                 <header id="header" className="App-header">
-                    <h1>Ejercicios de derivadas</h1>
-                    <h2>Por favor seleccione el ejercicio que desea resolver</h2>
+                    <h1 className="heading"># Ejercicios de derivadas</h1>
                 </header>
                 <div className="cards-container">
                     {exerciseCards}

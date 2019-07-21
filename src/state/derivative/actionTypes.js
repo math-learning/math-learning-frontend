@@ -4,3 +4,4 @@ export const CONTENT_CHANGE = 'Content Change';
 export const PROCESSING = 'Processing';
 export const STOP_PROCESSING = 'Stop processing';
 export const EXERCISE_FINISHED = 'Exercise finished';
+export const CLOSE_SOLVED_DIALOG = 'Close solved dialog';

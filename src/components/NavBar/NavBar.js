@@ -23,10 +23,6 @@ class NavBar extends Component {
                                         Math Learning
                                     </Link>
                                 </Typography>   
-                            
-                                
-                            
-
                             <Button color="inherit">Login</Button>
 
                         </Toolbar>

@@ -10,6 +10,12 @@ function exerciseFinished({ currentExpression, index }) {
   }
 }
 
+export function closeExerciseSolvedDialog() {
+  return {
+    type: types.CLOSE_SOLVED_DIALOG
+  }
+}
+
 function stepIsValid({ currentExpression, index }) {
   return {
     type: types.STEP_IS_VALID,
@@ -77,8 +83,7 @@ export function validateStep({
           //TODO: handle
           const finished = await mathClient.compareExpressions(currentExpression, result)
           if (finished) {
-            //TODO: handle
-            alert("Resolviste el ejercicio correctamente!")  
+            
             dispatch(exerciseFinished({ currentExpression, index: problemIndex }))
           } else {
             dispatch(stepIsValid({ currentExpression, index: problemIndex }))
