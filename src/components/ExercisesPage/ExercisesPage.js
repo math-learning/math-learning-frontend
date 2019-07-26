@@ -33,6 +33,7 @@ class ExercisesPage extends Component {
             <div className="exercises-page">
                 <header id="header" className="App-header">
                     <h1 className="heading"># Ejercicios de derivadas</h1>
+                    <Link to={{pathname: '/add-exercise'}}>Agregar Ejercicio</Link>
                 </header>
                 <div className="cards-container">
                     {exerciseCards}

@@ -25,17 +25,15 @@ const exercises = [
     result: "\\frac{1}{\\cos\\left(x\\right)^2}"
   },
   {
-    name: "",
+    name: "deriv of a constant",
     input: "\\frac{d(\\frac{ \\frac{d(sen(x))}{dx}}{\\cos(x)})} {dx}",
     // TODO:
-    result: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}"
+    result: "0"
   },
   {
-    name: "",
-    // TODO: TEST
-    input: "\\frac{d^2\\left(e^x\\right)}{dx}",
-    //TODO
-    result: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}"
+    name: "2 derivatives",
+    input: " \\frac{d\\left(  \\frac{d\\left(e^x\\right)}{dx} \\right)}{dx}",
+    result: "e^x"
   },
   {
     name: " e ",
@@ -43,14 +41,13 @@ const exercises = [
     result: "e^x"
   },
   {
-    name: "",
+    name: "function composition",
     input: "\\frac{d\\left(      \\sin(\\cos(x))         \\right)}{dx}",
-    //TODO
-    result: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}"
+    result: "-\\cos (\\cos (x)) \\cdot \\sin(x)"
   },
   {
-    name: "",
-    input: "\\frac{d\\left(x^2 \\cdot x \\cdot \\cos \\left(x\\right)\\right)}{dx}",
+    name: "multiplication of 3 elem",
+    input: "\\frac{d\\left(x^2 \\cdot \\sin(x) \\cdot \\cos \\left(x\\right)\\right)}{dx}",
     //TODO
     result: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}"
   },
@@ -77,11 +74,15 @@ const renderDerivativePage = ({match}) => {
   console.log(match)
   const index = match.params.index
   return (
-    <DerivativePage inputProblem={exercises[index].input} problemIndex={index} result={exercises[index].result}/>
+    <DerivativePage problemIndex={index}/>
   )
 }
 
 const renderExercisesPage = () => (
+  <ExercisesPage exercises={exercises} />
+)
+
+const renderAddExercisePage = () => (
   <ExercisesPage exercises={exercises} />
 )
 
@@ -100,6 +101,7 @@ class App extends Component {
           <div className="page-content">
             <Route exact path="/" render={renderExercisesPage} />
             <Route exact path="/derivative/:index" render={renderDerivativePage} />
+            <Route exact path="/add-exercise" render={renderAddExercisePage} />
           </div>
           <Footer/>
         </Router>
