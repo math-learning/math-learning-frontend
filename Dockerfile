@@ -11,4 +11,4 @@ RUN npm install --only=dev
 RUN npm install --silent
 
 # start app
-CMD ["npm", "start"]
+CMD ["npm", "run build"]
