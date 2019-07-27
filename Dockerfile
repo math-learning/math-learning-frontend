@@ -1,14 +1,12 @@
-# base image
 FROM node:12.2.0-alpine
 
-# set working directory
-WORKDIR /
-
-# add `/app/node_modules/.bin` to $PATH
-ENV PATH /app/node_modules/.bin:$PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
+ADD ./ /usr/src/app
+WORKDIR /usr/src/app
 
 RUN npm install --only=dev
 RUN npm install --silent
 
-# start app
-CMD npm run build
+EXPOSE 3000
+
+CMD [ "npm", "start"]
