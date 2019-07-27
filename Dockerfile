@@ -13,4 +13,4 @@ COPY --from=build /app/build /usr/app
 RUN npm config set unsafe-perm true
 RUN npm install -g serve
 EXPOSE 3000
-CMD [ "serve", "-s", "/usr/app", "-l", "3000"]
+CMD [ "serve", "-s", "/usr/app", "-p", "3000"]
