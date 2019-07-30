@@ -3,23 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@material-ui/core": "^4.1.1",
-    "@material-ui/icons": "^4.2.0",
-    "axios": "^0.18.0",
-    "classnames": "^2.2.6",
+    "@material-ui/core": "~4.1.1",
+    "@material-ui/icons": "~4.2.0",
+    "axios": "~0.18.0",
+    "classnames": "~2.2.6",
     "fs": "0.0.1-security",
-    "mathquill": "^0.10.1-a",
-    "react": "^16.8.5",
-    "react-dom": "^16.8.5",
-    "react-icons": "^3.6.1",
-    "react-mathjax2": "0.0.2",
-    "react-mathquill": "^0.1.4",
-    "react-redux": "^7.0.3",
-    "react-router-dom": "^5.0.1",
+    "mathquill": "~0.10.1-a",
+    "react": "~16.8.5",
+    "react-dom": "~16.8.5",
+    "react-icons": "~3.6.1",
+    "react-mathquill": "~0.1.5",
+    "react-redux": "~7.0.3",
+    "react-router-dom": "~5.0.1",
     "react-scripts": "2.1.8",
-    "redux": "^4.0.1",
-    "redux-thunk": "^2.3.0",
-    "serve": "^11.1.0"
+    "redux": "~4.0.1",
+    "redux-thunk": "~2.3.0",
+    "serve": "~11.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,8 +36,8 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "exports-loader": "^0.7.0",
-    "imports-loader": "^0.8.0",
+    "exports-loader": "~0.7.0",
+    "imports-loader": "~0.8.0",
     "webpack": "4.28.3"
   }
 }

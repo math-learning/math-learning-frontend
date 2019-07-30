@@ -58,7 +58,7 @@ const exercisesAmount = exercises.length
 const initialState = {
   data: {
     isValidInput: new Array(exercisesAmount).fill(true),
-    currentExpression: new Array(exercisesAmount).fill(''),
+    currentExpression: new Array(exercisesAmount).fill(""),
     stepList: new Array(exercisesAmount).fill([]),
     isProcessing: false,
     finishedExercises: [],

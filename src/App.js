@@ -7,6 +7,7 @@ import ExercisesPage from './components/ExercisesPage'
 import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Footer from './components/Footer'
+import AddExercisePage from './components/AddExercisePage/AddExercisePage';
 
 const exercises = [
   {
@@ -83,7 +84,7 @@ const renderExercisesPage = () => (
 )
 
 const renderAddExercisePage = () => (
-  <ExercisesPage exercises={exercises} />
+  <AddExercisePage/>
 )
 
 class App extends Component {

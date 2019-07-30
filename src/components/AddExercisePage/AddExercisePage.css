@@ -1,0 +1,11 @@
+.add-exercise {
+    display: flex;
+    flex-direction: column
+}
+
+.add-exercise .form-title {
+}
+
+.add-exercise .math-text-box {
+    width: 100%
+}

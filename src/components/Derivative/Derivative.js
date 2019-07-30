@@ -65,7 +65,7 @@ class Derivative extends Component {
             <span className={styles.item}> = </span>
             <div id="current-content" className={styles.MathBox}>
               <MathTextBox
-                content={this.props.currentExpression}
+                content={currentExpression}
                 onContentChange={(value) => this.handleContentChange({value, index: problemIndex })}
                 onEnter={this.handleValidateStep}
               />

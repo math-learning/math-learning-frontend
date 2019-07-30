@@ -61,15 +61,15 @@ export function validateStep({
   return async (dispatch, getState) => {
     // const state = getState();
     // const context = {}; // TODO: NECESITAMOS UN CONTEXT?
-
-    // TODO: VALIDATE EXPRESSION HISTORY NO DEBERIA ESTAR ACA
-    let expressionHistory = [cleanLatex(problemInput)];
-    stepList.forEach(element => {
-      expressionHistory.push(cleanLatex(element))
-    });
-
-    dispatch(processing())
     try {
+      // TODO: VALIDATE EXPRESSION HISTORY NO DEBERIA ESTAR ACA
+      let expressionHistory = [cleanLatex(problemInput)];
+      stepList.forEach(element => {
+        expressionHistory.push(cleanLatex(element))
+      });
+
+      dispatch(processing())
+    
       const data = await mathClient.validateNotInHistory(cleanLatex(currentExpression), expressionHistory);
 
       if (data) { // TODO: REMOVER ESTA COMPARACION
