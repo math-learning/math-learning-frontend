@@ -1,7 +1,5 @@
 import * as types from './actionTypes';
 
-
-
 const exercises = [
   {
     name: "e + sen",
@@ -156,6 +154,7 @@ export default function reducers(state = initialState, action) {
             showFinishedExercise: false
           }
         }
+        
 
     default:
       return state;

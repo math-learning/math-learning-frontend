@@ -4,8 +4,13 @@ import {
   reducers as derivativeReducers
 } from './derivative'
 
+import {
+  reducers as addExerciseReducers 
+} from './addExercise'
+
 const reducers = combineReducers({
-  derivative: derivativeReducers
+  derivative: derivativeReducers,
+  addExercise: addExerciseReducers
 });
 
 export default reducers;

@@ -68,6 +68,15 @@ const getTheoremes = async (expression, theorems) => {
   }
 }
 
+const solveExercise = async (expression) => {
+  try {
+    const response = await axios.post(serverUrl + '/solve-derivative', expression)
+    return response.data
+  } catch (e) {
+    console.log("error", e)
+  }
+  
+}
 
 export default {
   getTheoremes,
@@ -75,4 +84,5 @@ export default {
   validateStep,
   validateResult,
   compareExpressions,
+  solveExercise
 }

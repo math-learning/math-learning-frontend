@@ -6,22 +6,28 @@ import styles from './AddExercisePage.css'
 
 class AddExercisePage extends Component {
     
-    handleExpressionChange(newExpression) {
-        
+    handleExpressionChange({newExpression}) {
+        this.props.handleExpressionChange({newExpression});
+    }
+    
+    handleResultChange({newResult}) {
+        this.props.handleResultChange({newResult});
     }
 
-    handleGetResult(expression) {
-
+    handleGetResult() {
+        const expression = this.props.expression;
+        this.props.handleGetResult({expression});
     }
 
-    handleAddExercise(expression) {
-        let {result} = this.props
+    handleAddExercise(event) {
+        let {result, expression} = this.props;
+        this.props.handleAddExercise({result, expression});
     }
 
     render () {
 
-        let {result} = this.props
-
+        let {result, expression} = this.props
+        
         return (
             <div className="add-exercise"> 
                 <div className="App-content">
@@ -32,8 +38,10 @@ class AddExercisePage extends Component {
                 
                 <div className="math-text-box">
                     <MathTextBox 
-                        content={""}
-                        onContentChange={console.log}
+                        content={expression}
+                        onContentChange={latex => {
+                            this.handleExpressionChange(latex)
+                        }}
                         onEnter={console.log}>
                     </MathTextBox>
                 </div>
@@ -53,7 +61,7 @@ class AddExercisePage extends Component {
                     Generar resultado
                 </Button>
 
-                <Button onClick={console.log} color="primary">
+                <Button onClick={console.log("clicked")} color="primary">
                     Agregar Ejercicio
                 </Button>
             </div>
