@@ -1,5 +1,5 @@
 const configs = {
-    serverUrl: "http://localhost:5000"
+    serverUrl: "http://0.0.0.0:5000"
     //serverUrl: "https://math-solver.herokuapp.com"
 };
 

@@ -18,22 +18,31 @@ export function handleAddResultChange({newResult}) {
 
 export function handleAddExercise({result, expression}) {
     return {
-        type: types.ADD_EXERCISE_ADD_EXERCISE,
+        type: types.ADD_EXERCISE,
         result,
         expression
     }
 }
 
+function processing() {
+    return {
+      type: types.PROCESSING
+    }
+  }
+
+  
+
+
 export function handleGetResult ({ expression }) {
     return async (dispatch, getState) => {
         try {
             let cleanLatexExpression = cleanLatex(expression);
-            //dispatch(processing())
+            dispatch(processing())
             const data = await mathClient.solveExercise(cleanLatexExpression);
             if (data) {
-                console.log(data)
+                dispatch(handleAddResultChange({newResult: data}))
             } else {
-                console.log("ERROR")
+                alert("ERROR")
                 console.log(data)
             }
         } catch (e) {

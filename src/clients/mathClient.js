@@ -70,7 +70,8 @@ const getTheoremes = async (expression, theorems) => {
 
 const solveExercise = async (expression) => {
   try {
-    const response = await axios.post(serverUrl + '/solve-derivative', expression)
+    const requestData = {expression}
+    const response = await axios.post(serverUrl + '/solve-derivative', requestData)
     return response.data
   } catch (e) {
     console.log("error", e)
