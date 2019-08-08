@@ -154,6 +154,23 @@ export default function reducers(state = initialState, action) {
             showFinishedExercise: false
           }
         }
+    
+    case types.ADD_EXERCISE:
+      const exercise = {
+        name: "name",
+        input: action.expression,
+        result: action.result
+      }
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          exercises: [
+            ...exercises,
+            exercise
+          ]
+        }
+      }
         
 
     default:

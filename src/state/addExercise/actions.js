@@ -30,7 +30,11 @@ function processing() {
     }
   }
 
-  
+function stopProcessing() {
+    return {
+        type: types.STOP_PROCESSING
+    }
+}
 
 
 export function handleGetResult ({ expression }) {
@@ -40,13 +44,16 @@ export function handleGetResult ({ expression }) {
             dispatch(processing())
             const data = await mathClient.solveExercise(cleanLatexExpression);
             if (data) {
+                dispatch(stopProcessing())
                 dispatch(handleAddResultChange({newResult: data}))
             } else {
                 alert("ERROR")
+                dispatch(stopProcessing())
                 console.log(data)
             }
         } catch (e) {
             //TODO
+            dispatch(stopProcessing())
             console.log(e)
         }
     };

@@ -64,7 +64,7 @@ class AddExercisePage extends Component {
                         Generar resultado
                     </Button>
 
-                    <Button className="mt-md" onClick={console.log} color="primary">
+                    <Button className="mt-md" onClick={this.handleAddExercise.bind(this)} color="primary">
                         Agregar Ejercicio
                 </Button>
                 </div>
