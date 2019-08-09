@@ -8,6 +8,10 @@
     margin-top: 15px;
 }
 
+.mb-lg {
+    margin-bottom: 30px;
+}
+
 .add-exercise .math-text-box {
     width: 100%
 }
