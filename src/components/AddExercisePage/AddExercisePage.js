@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { MathQuill } from '../MathText/mathquill-loader';
-import MathTextBox from '../MathTextBox/MathTextBox';
+import MathTextBox from '../MathTextBox';
 import Button from '@material-ui/core/Button';
 import styles from './AddExercisePage.css'
 import MathText from '../MathText'
@@ -43,20 +42,21 @@ class AddExercisePage extends Component {
                             content={expression}
                             onContentChange={latex => {
                                 this.handleExpressionChange({ newExpression: latex })
-                            }}
-                            onEnter={console.log}>
+                            }}>
                         </MathTextBox>
                     </div>
 
                     <div className="form-title mt-md">
                         Resultado:
                     </div>
-                    <MathText content={result} className="mt-md" />
+                    <div>
+                        <MathText content={this.props.result}/>
+                    </div>
                     <div className="math-text-box mt-md">
                         <MathTextBox
-                            content={result}
+                            content={this.props.result}
                             onContentChange={newResult => this.handleResultChange({ newResult })}
-                            onEnter={console.log}>
+                            >
                         </MathTextBox>
                     </div>
 
