@@ -161,14 +161,16 @@ export default function reducers(state = initialState, action) {
         input: action.expression,
         result: action.result
       }
+      let exercises = [...state.data.exercises]
+      exercises.push(exercise)
       return {
         ...state,
         data: {
           ...state.data,
-          exercises: [
-            ...exercises,
-            exercise
-          ]
+          exercises,
+          isValidInput: [...state.data.isValidInput, true],
+          currentExpression: [...state.data.currentExpression, ""],
+          stepList: [...state.data.stepList, []],
         }
       }
         

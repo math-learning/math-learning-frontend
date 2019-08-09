@@ -13,7 +13,7 @@ e^x\cdot \left(1\ +x\right)+\ \cos \left(x\right)\cdot x^2+\sin \left(x\right)\c
 
 sen / cos
 
-\\frac{d(\\frac{sen(x)}{cos(x)})} {dx}
+\frac{d(\frac{sen(x)}{cos(x)})} {dx}
 \frac{\frac{d\left(sen\left(x\right)\right)}{dx}\cdot \cos \left(x\right)\ -\ sen\left(x\right)\ \cdot \ \frac{d\left(\cos \left(x\right)\right)}{dx}}{\cos ^2\left(x\right)}
 \frac{\cos^2\left(x\right)\ +\ sen^2\left(x\right)\ }{\cos ^2\left(x\right)}
 \frac{1}{\cos^2\left(x\right)}

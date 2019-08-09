@@ -19,7 +19,7 @@ export function handleAddResultChange({newResult}) {
 export function handleAddExercise({result, expression}) {
     return {
         type: types.ADD_EXERCISE,
-        result,
+        result: result.toString(),
         expression
     }
 }
