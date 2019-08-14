@@ -8,6 +8,8 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Footer from './components/Footer'
 import AddExercisePage from './components/AddExercisePage';
+import ProgressBar from './components/ProgressBar';
+import SnackbarWrapper from './components/SnackbarWrapper';
 
 const theme = createMuiTheme({
   palette: {
@@ -43,17 +45,19 @@ class App extends Component {
   render() {
     return (
       <div id="app">
-<ThemeProvider theme={theme}>
-<Router>
-          <NavBar />
-          <div className="page-content">
-            <Route exact path="/" render={renderExercisesPage} />
-            <Route exact path="/derivative/:index" render={renderDerivativePage} />
-            <Route exact path="/add-exercise" render={renderAddExercisePage} />
-          </div>
-          <Footer/>
-        </Router>
-</ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <Router>
+            <NavBar />
+            <ProgressBar />
+            <SnackbarWrapper/>
+            <div className="page-content">
+              <Route exact path="/" render={renderExercisesPage} />
+              <Route exact path="/derivative/:index" render={renderDerivativePage} />
+              <Route exact path="/add-exercise" render={renderAddExercisePage} />
+            </div>
+            <Footer/>
+          </Router>
+        </ThemeProvider>  
   
       </div>
     );

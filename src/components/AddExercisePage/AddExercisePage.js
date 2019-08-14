@@ -22,12 +22,21 @@ class AddExercisePage extends Component {
 
     handleGetResult() {
         const { expression } = this.props;
-        this.props.handleGetResult({ expression });
+        if( expression != null && expression !== '') {
+            this.props.handleGetResult({ expression });
+        } else {
+            this.props.showError("La expresion ingresada es invalida");
+        }
+            
     }
 
     handleAddExercise(event) {
         let { result, expression } = this.props;
         // TODO: check
+        if (result == '' || expression == '') {
+            alert("Por favor complete todos los campos antes de continuar");
+            return;
+        }
         this.goToHomePage()
         this.props.handleAddExercise({ result, expression });
     }
@@ -52,7 +61,9 @@ class AddExercisePage extends Component {
                             content={expression}
                             onContentChange={latex => {
                                 this.handleExpressionChange({ newExpression: latex })
-                            }}>
+                            }}
+                            onEnter={this.handleGetResult.bind(this)}
+                            >
                         </MathTextBox>
                     </div>
 
@@ -61,7 +72,7 @@ class AddExercisePage extends Component {
                     </div>
 
                     <div>
-                        <MathText content={this.props.result}/>
+                        <MathText content={result}/>
                     </div>
 
                     <div className="form-title mt-md">
@@ -70,7 +81,7 @@ class AddExercisePage extends Component {
                     
                     <div className="math-text-box mt-md mb-lg">
                         <MathTextBox
-                            content={this.props.result}
+                            content={result}
                             onContentChange={newResult => this.handleResultChange({ newResult })}
                             >
                         </MathTextBox>

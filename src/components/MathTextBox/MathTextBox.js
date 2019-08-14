@@ -13,7 +13,7 @@ class MathTextBox extends Component {
   }
 
   onKeyPress = (event) => {
-    if (event.key === 'Enter' && this.props.content !== ''){
+    if (event.key === 'Enter'){
       this.props.onEnter(this.props.content);
     }
   }
