@@ -12,6 +12,11 @@ class AddExercisePage extends Component {
         this.props.history.push(path)
     }
 
+    shouldComponentUpdate(nextProps) {
+        const diffResult = this.props.result !== nextProps.result;
+        return diffResult;
+    }
+
     handleExpressionChange({ newExpression }) {
         this.props.handleExpressionChange({ newExpression });
     }
@@ -25,7 +30,7 @@ class AddExercisePage extends Component {
         if( expression != null && expression !== '') {
             this.props.handleGetResult({ expression });
         } else {
-            this.props.showError("La expresion ingresada es invalida");
+            this.props.showError({message: "La expresion ingresada es invalida"});
         }
             
     }
@@ -34,7 +39,7 @@ class AddExercisePage extends Component {
         let { result, expression } = this.props;
         // TODO: check
         if (result == '' || expression == '') {
-            alert("Por favor complete todos los campos antes de continuar");
+            this.props.showError({message: "Por favor complete todos los campos antes de continuar"});
             return;
         }
         this.goToHomePage()
@@ -72,7 +77,7 @@ class AddExercisePage extends Component {
                     </div>
 
                     <div>
-                        <MathText content={result}/>
+                        {<MathText content={result}/>}
                     </div>
 
                     <div className="form-title mt-md">

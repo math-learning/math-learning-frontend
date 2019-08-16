@@ -9,9 +9,9 @@ const currentState = (state) => ({
     autoHideDuration: state.snackbar.data.autoHideDuration
 })
 
-const currentActions = (dispatch) => {
-    handleClose: dispatch(actions.handleClose())
-}
+const currentActions = (dispatch) => ({
+    handleClose: (payload) => dispatch(actions.handleClose())
+})
 
 
 export default connect(

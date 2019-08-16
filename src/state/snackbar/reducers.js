@@ -13,7 +13,7 @@ export default function reducers(state = initialState, action) {
 
     switch (action.type) {
         case types.CLOSE_SNACKBAR:
-            return {
+            return {    
                 ...state,
                 data: {
                     ...state.data,
@@ -30,6 +30,9 @@ export default function reducers(state = initialState, action) {
                     variant: "error"
                 }
             }
+            
+        default:
+            return state;
         
     }
 }

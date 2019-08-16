@@ -48,8 +48,8 @@ class App extends Component {
         <ThemeProvider theme={theme}>
           <Router>
             <NavBar />
-            <ProgressBar />
             <SnackbarWrapper/>
+            <ProgressBar />
             <div className="page-content">
               <Route exact path="/" render={renderExercisesPage} />
               <Route exact path="/derivative/:index" render={renderDerivativePage} />

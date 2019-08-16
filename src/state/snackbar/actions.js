@@ -6,6 +6,9 @@ export function handleClose() {
     }
 }
 
-export function showError() {
-    return {type: types.SHOW_ERROR}
+export function showError({message}) {
+    return {
+        type: types.SHOW_ERROR,
+        message
+    }
 }

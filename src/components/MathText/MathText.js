@@ -20,6 +20,10 @@ class MathText extends React.Component {
     }
   }
 
+  componentDidUpdate() {
+    this.mathField = MQ.StaticMath(this.element);
+  }
+
   render() {
     return (
       <div
