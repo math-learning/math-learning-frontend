@@ -8,6 +8,7 @@
     "axios": "0.18.0",
     "classnames": "2.2.6",
     "fs": "0.0.1-security",
+    "latex-parser": "^0.6.2",
     "mathquill": "0.10.1-a",
     "react": "16.8.5",
     "react-dom": "16.8.5",
@@ -18,7 +19,8 @@
     "react-scripts": "2.1.8",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
-    "serve": "11.1.0"
+    "serve": "11.1.0",
+    "typeface-roboto": "0.0.75"
   },
   "scripts": {
     "start": "react-scripts start",

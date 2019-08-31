@@ -81,7 +81,7 @@ class Derivative extends Component {
           {
             isFinished &&
             <div className="solved-exercise-text">
-              Ejercicio resuelto!
+              <Typography>Ejercicio resuelto!</Typography>
             </div>
           }
         </div>

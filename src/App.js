@@ -1,68 +1,70 @@
 import React, { Component } from 'react';
 import DerivativePage from "./components/DerivativePage";
-import './App.css';
 import NavBar from './components/NavBar'
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import ExercisesPage from './components/ExercisesPage'
-import { createMuiTheme } from '@material-ui/core/styles';
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Footer from './components/Footer'
 import AddExercisePage from './components/AddExercisePage';
 import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
+import 'typeface-roboto';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { Box, Container } from '@material-ui/core';
 
-const theme = createMuiTheme({
-  palette: {
-    primary: { main: '#20232a' }, // Purple and green play nicely together.
-    secondary: { main: '#11cb5f' }, // This is just green.A700 as hex.
+
+
+
+const useStyles = makeStyles(theme => ({
+  mainContent: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
   },
-});
+  root: {
+    minHeight: '100vh',
+  },
+}));
 
-
-
-const renderDerivativePage = ({match}) => {
+const renderDerivativePage = ({ match }) => {
   console.log(match)
   const index = match.params.index
   return (
-    <DerivativePage problemIndex={index}/>
+    <DerivativePage problemIndex={index} />
   )
 }
 
 const renderExercisesPage = () => (
-  <ExercisesPage/>
+  <ExercisesPage />
 )
 
 const renderAddExercisePage = () => (
-  <AddExercisePage/>
+  <AddExercisePage />
 )
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
+export default function App() {
+  
+  const classes = useStyles();
 
-  render() {
-    return (
-      <div id="app">
-        <ThemeProvider theme={theme}>
+  return (
+        <main className={classes.root}>
           <Router>
             <NavBar />
-            <SnackbarWrapper/>
-            <ProgressBar />
-            <div className="page-content">
+            <SnackbarWrapper />
+            <div className={classes.contentAndFooter}> 
+            <Container className={classes.mainContent} maxWidth="md" >
+              <ProgressBar />
               <Route exact path="/" render={renderExercisesPage} />
               <Route exact path="/derivative/:index" render={renderDerivativePage} />
               <Route exact path="/add-exercise" render={renderAddExercisePage} />
-            </div>
+            </Container>
             <Footer/>
+            </div>
+            
           </Router>
-        </ThemeProvider>  
-  
-      </div>
-    );
-  }
+        </main>
+      
+    
+  );
+
 }
-
-
-export default App;

@@ -1,5 +1,7 @@
 import axios from 'axios' // TODO: CAMBIAR DE LIBRARY POR FETCH
 import { cleanLatex } from '../utils/latexUtils';
+import {latexParser} from "latex-parser";
+
 axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
@@ -70,11 +72,12 @@ const getTheoremes = async (expression, theorems) => {
 
 const solveExercise = async (expression) => {
   try {
+    console.log(latexParser.parse(expression))
     const requestData = {expression: cleanLatex(expression)}
     const response = await axios.post(serverUrl + '/solve-derivative', requestData)
     return response.data
   } catch (e) {
-    console.log("error", e)
+    console.log("error", e) 
   }
   
 }
