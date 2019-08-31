@@ -59,8 +59,11 @@ export default function NavBar() {
           <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
             <MenuIcon />
           </IconButton>
+
           <Typography variant="h6" className={classes.title}>
-            Math Learning
+            <Link color="textPrimary" to={{
+                        pathname:'/',
+                    }} style={{ color: 'inherit',  textDecoration: 'none' }}>Math Learning </Link>
                     </Typography>
           <Button color="inherit">Login</Button>
         </Toolbar>
