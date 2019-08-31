@@ -1,4 +1,7 @@
 import axios from 'axios' // TODO: CAMBIAR DE LIBRARY POR FETCH
+import { cleanLatex } from '../utils/latexUtils';
+import {latexParser} from "latex-parser";
+
 axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
@@ -10,7 +13,7 @@ let theorems = require('./theorems.json');// TODO: Esto no deberia estar aca
 
 const validateNotInHistory = async (newExpression, history) => {
   const requestData = { history, new_expression: newExpression };
-
+  
   try {
     const response = await axios.post(serverUrl + '/validations/not-in-history', requestData);
     return response.data;
@@ -28,6 +31,20 @@ const validateStep = async (step) => {
   } catch (e) {
     console.log('Error while validating step', e);
     throw e;
+  }
+}
+
+const compareExpressions = async (expressionOne, expressionTwo) => {
+  try {
+    const data = {
+      expression_one: cleanLatex(expressionOne),
+      expression_two: cleanLatex(expressionTwo)
+    }
+    const response = await axios.post(serverUrl + '/expressions/compare', data)
+    return response.data
+  } catch (e) {
+    console.log("Error while comparing expressions", e);
+    throw e
   }
 }
 
@@ -53,10 +70,23 @@ const getTheoremes = async (expression, theorems) => {
   }
 }
 
+const solveExercise = async (expression) => {
+  try {
+    console.log(latexParser.parse(expression))
+    const requestData = {expression: cleanLatex(expression)}
+    const response = await axios.post(serverUrl + '/solve-derivative', requestData)
+    return response.data
+  } catch (e) {
+    console.log("error", e) 
+  }
+  
+}
 
 export default {
   getTheoremes,
   validateNotInHistory,
   validateStep,
   validateResult,
+  compareExpressions,
+  solveExercise
 }

@@ -1,32 +1,70 @@
 import React, { Component } from 'react';
-import Derivative from "./components/Derivative";
-import './App.css';
-import {cleanLatex} from './utils/latexUtils';
+import DerivativePage from "./components/DerivativePage";
+import NavBar from './components/NavBar'
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ExercisesPage from './components/ExercisesPage'
+import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+import Footer from './components/Footer'
+import AddExercisePage from './components/AddExercisePage';
+import ProgressBar from './components/ProgressBar';
+import SnackbarWrapper from './components/SnackbarWrapper';
+import 'typeface-roboto';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { Box, Container } from '@material-ui/core';
 
-const initialProblem = "\\frac{d\\left(e^x.\\ x\\right)}{dx}\\ +\\ \\frac{d\\left(sen\\left(x\\right)\\cdot x^2\\right)}{dx}";
 
 
-class App extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {}
-  }
 
-  render() {
-    return (
-      <div id="app">
-        <header id="header" className="App-header">
-          <h1>Math Learning</h1>
-          <h2>Calcule paso a paso la siguiente derivada</h2>
-        </header>
+const useStyles = makeStyles(theme => ({
+  mainContent: {
+    paddingTop: theme.spacing(8),
+    paddingBottom: theme.spacing(8),
+  },
+  root: {
+    minHeight: '100vh',
+  },
+}));
 
-        <div id="derivative-problem" className="App-content">
-          <Derivative problemInput={cleanLatex(initialProblem)} />
-        </div>
-      </div>
-    );
-  }
+const renderDerivativePage = ({ match }) => {
+  console.log(match)
+  const index = match.params.index
+  return (
+    <DerivativePage problemIndex={index} />
+  )
 }
 
+const renderExercisesPage = () => (
+  <ExercisesPage />
+)
 
-export default App;
+const renderAddExercisePage = () => (
+  <AddExercisePage />
+)
+
+export default function App() {
+  
+  const classes = useStyles();
+
+  return (
+        <main className={classes.root}>
+          <Router>
+            <NavBar />
+            <SnackbarWrapper />
+            <div className={classes.contentAndFooter}> 
+            <Container className={classes.mainContent} maxWidth="md" >
+              <ProgressBar />
+              <Route exact path="/" render={renderExercisesPage} />
+              <Route exact path="/derivative/:index" render={renderDerivativePage} />
+              <Route exact path="/add-exercise" render={renderAddExercisePage} />
+            </Container>
+            <Footer/>
+            </div>
+            
+          </Router>
+        </main>
+      
+    
+  );
+
+}

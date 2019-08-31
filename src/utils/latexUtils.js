@@ -5,11 +5,13 @@ String.prototype.replaceAll = function(search, replacement) {
 
 let cleanLatex   = (latex) => {
     let clean = latex.replaceAll("\\left(","(");
+    clean = clean.replaceAll("left(","(");
     clean = clean.replaceAll("\\right)",")");
-    clean = clean.replaceAll("\\ ","")
     clean = clean.replaceAll("\\cdot ","*")
+    clean = clean.replaceAll("cdot ","*")
     clean = clean.replaceAll(".","*")
     clean = clean.replaceAll("sen","\\sin")
+    clean = clean.replaceAll("\\ ","")
     return clean;
   }
 

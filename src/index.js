@@ -5,13 +5,21 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/configurationStore';
+import { ThemeProvider } from '@material-ui/styles';
+import { CssBaseline } from '@material-ui/core';
+import theme from './theme'
+
 
 const store = configureStore({});
 
+
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>
+  <ThemeProvider theme={theme}>
+    <CssBaseline />
+    <Provider store={store}>
+      <App />
+    </Provider> 
+  </ThemeProvider>
   , document.getElementById('root')
 );
 

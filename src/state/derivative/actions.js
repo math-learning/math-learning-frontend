@@ -1,23 +1,52 @@
 import * as types from './actionTypes';
 import mathClient from '../../clients/mathClient';
+import { cleanLatex } from '../../utils/latexUtils'
 
-function stepIsValid({ currentExpression }) {
+function exerciseFinished({ currentExpression, index }) {
+  return {
+    type: types.EXERCISE_FINISHED,
+    currentExpression,
+    index
+  }
+}
+
+export function closeExerciseSolvedDialog() {
+  return {
+    type: types.CLOSE_SOLVED_DIALOG
+  }
+}
+
+function stepIsValid({ currentExpression, index }) {
   return {
     type: types.STEP_IS_VALID,
-    currentExpression
+    currentExpression,
+    index
   };
 }
 
-function stepIsInvalid() {
+function stepIsInvalid({index }) {
   return {
-    type: types.STEP_IS_INVALID
+    type: types.STEP_IS_INVALID,
+    index
   };
 }
 
-function contentChange({ content }) {
+function contentChange({ content, index }) {
   return {
     type: types.CONTENT_CHANGE,
-    content
+    content,
+    index
+  }
+}
+
+function processing() {
+  return {
+    type: types.PROCESSING
+  }
+}
+function stopProcessing() {
+  return {
+    type: types.STOP_PROCESSING
   }
 }
 
@@ -25,43 +54,60 @@ export function validateStep({
   stepList,
   problemInput,
   lastExpression,
+  result,
+  problemIndex,
   currentExpression
 }) {
   return async (dispatch, getState) => {
     // const state = getState();
     // const context = {}; // TODO: NECESITAMOS UN CONTEXT?
+    try {
+      // TODO: VALIDATE EXPRESSION HISTORY NO DEBERIA ESTAR ACA
+      let expressionHistory = [cleanLatex(problemInput)];
+      stepList.forEach(element => {
+        expressionHistory.push(cleanLatex(element))
+      });
 
-    // TODO: VALIDATE EXPRESSION HISTORY NO DEBERIA ESTAR ACA
-    let expressionHistory = [problemInput];
-    stepList.forEach(element => {
-      expressionHistory.push(element)
-    });
-  
-    const data = await mathClient.validateNotInHistory(currentExpression, expressionHistory);
-  
-    if( data ) { // TODO: REMOVER ESTA COMPARACION
-      const validationStep = {
-        old_expression: lastExpression,
-        new_expression: currentExpression
-      }
-      const validationResponse = await mathClient.validateStep(validationStep);
-  
-      if (validationResponse) { // TODO: ESTO DEBERIA TIRAR TRUE O FALSE
-        dispatch(stepIsValid({ currentExpression }))
+      dispatch(processing())
+    
+      const data = await mathClient.validateNotInHistory(cleanLatex(currentExpression), expressionHistory);
+
+      if (data) { // TODO: REMOVER ESTA COMPARACION
+        const validationStep = {
+          old_expression: cleanLatex(lastExpression),
+          new_expression: cleanLatex(currentExpression)
+        }
+        const validationResponse = await mathClient.validateStep(validationStep);
+
+        if (validationResponse) { // TODO: ESTO DEBERIA TIRAR TRUE O FALSE
+          //TODO: handle
+          const finished = await mathClient.compareExpressions(currentExpression, result)
+          if (finished) {
+            
+            dispatch(exerciseFinished({ currentExpression, index: problemIndex }))
+          } else {
+            dispatch(stepIsValid({ currentExpression, index: problemIndex }))
+          }
+
+        } else {
+          dispatch(stepIsInvalid({ currentExpression, index: problemIndex }))
+        }
       } else {
-        dispatch(stepIsInvalid({ currentExpression }))
+        dispatch(stepIsInvalid({ currentExpression, index: problemIndex }))
       }
-    } else {
-      dispatch(stepIsInvalid({ currentExpression }))
+    } catch (e) {
+      // TODO: Mostrar un mensaje de ocurrio un error por favor vuelva a intentar mas tarde.
+    } finally {
+      dispatch(stopProcessing())
     }
   };
 }
 
 export function changeContent({
-  content
+  content,
+  index
 }) {
   return async (dispatch, getState) => {
-    dispatch(contentChange({ content }))
+    dispatch(contentChange({ content, index }))
   };
 }
- 

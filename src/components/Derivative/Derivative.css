@@ -1,6 +1,7 @@
 :local .container {
   display: flex;
   margin: 20px;
+  justify-content: center
 }
 
 :local .currentStep {
@@ -29,4 +30,9 @@
 
 :local .rightItem {
   color: green;
+}
+
+.solved-exercise-text {
+  width: 100%;
+  text-align: center
 }
