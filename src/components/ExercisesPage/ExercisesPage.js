@@ -3,35 +3,52 @@ import ExerciseCard from '../ExerciseCard'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
 import { isFinished } from '../../state/derivative/selectors';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, makeStyles } from '@material-ui/core';
+import clsx from 'clsx'
+
+const useStyles = makeStyles(theme => ({
+    
+    cardGrid: {
+      paddingTop: theme.spacing(8),
+      paddingBottom: theme.spacing(8),
+    },
+    card: {
+      height: '100%',
+      display: 'flex',
+      flexDirection: 'column',
+    },
+    cardContent: {
+      flexGrow: 1,
+    },
+    linkCard: {
+      height: '100%',
+      textDecoration: 'none',
+      color: 'inherit'
+    }
+  }));
 
 
-class ExercisesPage extends Component {
+export default function ExercisesPage(props) {
 
-    render() {
-
-        const {exercises, finishedExercises} = this.props
+        const classes = useStyles()
+        const {exercises, finishedExercises} = props
 
         // TODO : Refactor
         const exerciseCards = exercises.map((element,index) =>   {
-            const exerciseNumber = index + 1
-            const finished = finishedExercises.some(elem => elem == index)
+        const exerciseNumber = index + 1
+        const finished = finishedExercises.some(elem => elem == index)
         
-            return (
-                
-                    <Grid item key={index} xs={12} sm={6} md={4}>
-                        <div className={(finished ? " finished" : "")}>
-                        <Link to={{
-                            pathname:'/derivative/' + index,
-                        }} style={{ color: 'inherit',  textDecoration: 'none' }}>
-                            
-                                <ExerciseCard title={"Ejercicio " + exerciseNumber} statement={element.input} finished={finished}/>
-                            
-                        </Link>
-                        </div>
-                    </Grid>
-                
-                )
+        return (
+            <Grid item key={index} xs={12} sm={6} md={4} >
+                <div className={clsx(finished && "finished", classes.card)}>
+                  <Link to={{
+                      pathname:'/derivative/' + index,
+                  }} className={classes.linkCard}>
+                      <ExerciseCard title={"Ejercicio " + exerciseNumber} statement={element.input} finished={finished} className={classes.card}/>
+                  </Link>
+                </div>
+            </Grid>
+            )
         })
     
         return (
@@ -49,12 +66,10 @@ class ExercisesPage extends Component {
                 
             </div>
         )
-    }
+    
 }
 
 ExercisesPage.propTypes = {
     //TODO: array of exercise
     exercises: PropTypes.array
 }
-
-export default ExercisesPage;

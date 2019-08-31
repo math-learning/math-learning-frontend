@@ -6,49 +6,45 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 
 import MathText from '../MathText'
+import { makeStyles } from '@material-ui/core';
 
-class ExerciseCard extends Component {
 
+const useStyles = makeStyles(theme => ({
+    card: {
+        height: '100%',
+        display: 'flex',
+        flexDirection: 'column',
+        textAlign: 'center'
+    },
+    cardContent: {
+        flexGrow: 1,
+    },
+}));
+
+
+export default function ExerciseCard(props) {
+    const classes = useStyles()
     // TODO: analyze how to do this better
-    state = {
-        hovered: false
-    }
+    const { finished, title, statement } = props
+    return (
+        <Card className="card"
+            className={classes.card}
+        >
+            <CardContent className={classes.cardContent}>
+                <Typography className="title" color="textPrimary" gutterBottom>
+                    {title}
+                </Typography>
 
-    setHoveredTrue = () => {
-        this.setState({hovered: true})
-    }
-
-    setHoveredFalse = () => {
-        this.setState({hovered: false})
-    }
-
-    render() {
-        const {finished} = this.props
-        return (
-            <Card className="card" raised={this.state.hovered}
-                onMouseEnter={this.setHoveredTrue}
-                onMouseLeave={this.setHoveredFalse}
-            >
-                <CardContent>
-                    <Typography className="title" color="textSecondary" gutterBottom>
-                        {this.props.title}
-                    </Typography>
-                
-                    <Typography className="statement" variant="body2" component="p">
-                        <MathText content={this.props.statement}/>
-                    </Typography>
-                </CardContent>
-                {
-                            finished &&
-                            <div className="finished-text">
-                                Ejercicio resuelto
+                <Typography className="statement" color="textSecondary"variant="body2" component="p">
+                    <MathText content={statement} />
+                </Typography>
+            </CardContent>
+            {
+                finished &&
+                <div className="finished-text">
+                    Ejercicio resuelto
                             </div>
-                        }
-            </Card>
-        )
-    }
-
+            }
+        </Card>
+    )
 }
-
-
-export default ExerciseCard;
