@@ -20,10 +20,15 @@ const useStyles = makeStyles(theme => ({
   mainContent: {
     paddingTop: theme.spacing(8),
     paddingBottom: theme.spacing(8),
+    flexGrow: 1
   },
   root: {
     minHeight: '100vh',
+    display: 'flex',
+    flexDirection: 'column'
   },
+  
+  
 }));
 
 const renderDerivativePage = ({ match }) => {
@@ -50,17 +55,19 @@ export default function App() {
         <main className={classes.root}>
           <Router>
             <NavBar />
-            <SnackbarWrapper />
-            <div className={classes.contentAndFooter}> 
-            <Container className={classes.mainContent} maxWidth="md" >
-              <ProgressBar />
+            
+            <Container className={classes.mainContent} maxWidth="md" >            
               <Route exact path="/" render={renderExercisesPage} />
               <Route exact path="/derivative/:index" render={renderDerivativePage} />
               <Route exact path="/add-exercise" render={renderAddExercisePage} />
             </Container>
-            <Footer/>
-            </div>
             
+            <Footer className={classes.footer}/>
+
+            {/* UTILS */}
+            <SnackbarWrapper />
+            <ProgressBar />
+
           </Router>
         </main>
       

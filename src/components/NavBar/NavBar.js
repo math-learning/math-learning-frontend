@@ -16,6 +16,9 @@ const useStyles = makeStyles(theme => ({
     navbar: {
       flexGrow: 1,
     },
+    navbarContainer: {
+      display:'flex'
+    },
     menuButton: {
       marginRight: theme.spacing(2),
     },
@@ -36,7 +39,8 @@ const useStyles = makeStyles(theme => ({
     const classes = useStyles();  
 
         return (
-                <AppBar position="static" classes={{colorPrimary: 'red'}}>
+          <div className={classes.navbarContainer}>
+            <AppBar position="static" classes={{colorPrimary: 'red'}}>
                     <Toolbar>
                     <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
                         <MenuIcon />
@@ -47,7 +51,6 @@ const useStyles = makeStyles(theme => ({
                     <Button color="inherit">Login</Button>
                     </Toolbar>
                 </AppBar>
-            
-
+          </div>
         )
     }
