@@ -1,7 +1,8 @@
 :local .container {
   display: flex;
   margin: 20px;
-  justify-content: center
+  justify-content: center;
+  
 }
 
 :local .currentStep {
@@ -21,7 +22,7 @@
 
 :local .MathBox {
   margin: 0 10px 0 0;
-  width: 500px
+  width: 100%
 }
 
 :local .wrongItem {

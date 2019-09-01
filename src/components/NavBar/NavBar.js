@@ -45,7 +45,7 @@ const overrideTheme = createMuiTheme({
 
 
 
-export default function NavBar() {
+export default function NavBar(props) {
 
   const classes = useStyles();
 

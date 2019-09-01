@@ -74,7 +74,7 @@ class Derivative extends Component {
             ) : ''}
 
             <div id="validate-step" className={styles.item}>
-              <button onClick={this.handleValidateStep} disabled={currentExpression === ''}> + </button>
+              <Button onClick={this.handleValidateStep} disabled={currentExpression === ''} color="primary"> + </Button>
             </div>
           </div>
           }

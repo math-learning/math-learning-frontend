@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import mathClient from '../../clients/mathClient';
 import { cleanLatex } from '../../utils/latexUtils'
+import * as common from '../common'
 
 function exerciseFinished({ currentExpression, index }) {
   return {
@@ -39,17 +40,6 @@ function contentChange({ content, index }) {
   }
 }
 
-function processing() {
-  return {
-    type: types.PROCESSING
-  }
-}
-function stopProcessing() {
-  return {
-    type: types.STOP_PROCESSING
-  }
-}
-
 export function validateStep({
   stepList,
   problemInput,
@@ -59,16 +49,14 @@ export function validateStep({
   currentExpression
 }) {
   return async (dispatch, getState) => {
-    // const state = getState();
-    // const context = {}; // TODO: NECESITAMOS UN CONTEXT?
     try {
+      dispatch(common.actions.showSpinner())
+      
       // TODO: VALIDATE EXPRESSION HISTORY NO DEBERIA ESTAR ACA
       let expressionHistory = [cleanLatex(problemInput)];
       stepList.forEach(element => {
         expressionHistory.push(cleanLatex(element))
       });
-
-      dispatch(processing())
     
       const data = await mathClient.validateNotInHistory(cleanLatex(currentExpression), expressionHistory);
 
@@ -83,12 +71,11 @@ export function validateStep({
           //TODO: handle
           const finished = await mathClient.compareExpressions(currentExpression, result)
           if (finished) {
-            
             dispatch(exerciseFinished({ currentExpression, index: problemIndex }))
           } else {
             dispatch(stepIsValid({ currentExpression, index: problemIndex }))
           }
-
+          return
         } else {
           dispatch(stepIsInvalid({ currentExpression, index: problemIndex }))
         }
@@ -98,7 +85,7 @@ export function validateStep({
     } catch (e) {
       // TODO: Mostrar un mensaje de ocurrio un error por favor vuelva a intentar mas tarde.
     } finally {
-      dispatch(stopProcessing())
+      dispatch(common.actions.hideSpinner());
     }
   };
 }

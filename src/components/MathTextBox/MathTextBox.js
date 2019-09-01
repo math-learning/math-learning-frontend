@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import MathText from "../MathText/MathText";
 import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill'
 import styles from './MathTextBox.css';
+import { Typography } from '@material-ui/core';
 
 addMathquillStyles()
 
@@ -29,12 +30,14 @@ class MathTextBox extends Component {
         onKeyPress={this.onKeyPress}
         onClick={this.onClick}
       >
-        <MathQuill
-          latex={content}
-          onChange={mathField => {
-            this.handleContentChange(mathField.latex())
-          }}
-        />
+        <Typography>
+          <MathQuill
+            latex={content}
+            onChange={mathField => {
+              this.handleContentChange(mathField.latex())
+            }}
+          />
+        </Typography>
       </div>
     );
   }

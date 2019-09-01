@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import styles from './AddExercisePage.css'
 import MathText from '../MathText'
 import { withRouter } from 'react-router-dom';
+import { Typography } from '@material-ui/core';
 
 class AddExercisePage extends Component {
 
@@ -27,22 +28,15 @@ class AddExercisePage extends Component {
 
     handleGetResult() {
         const { expression } = this.props;
-        if( expression != null && expression !== '') {
-            this.props.handleGetResult({ expression });
-        } else {
-            this.props.showError({message: "La expresion ingresada es invalida"});
-        }
+        
+        this.props.handleGetResult({ expression });
+        
             
     }
 
     handleAddExercise(event) {
         let { result, expression } = this.props;
         // TODO: check
-        if (result === '' || expression === '') {
-            this.props.showError({message: "Por favor complete todos los campos antes de continuar"});
-            return;
-        }
-        this.goToHomePage()
         this.props.handleAddExercise({ result, expression });
     }
 
@@ -54,11 +48,15 @@ class AddExercisePage extends Component {
             <div className="App-content">
                 <div className="add-exercise">
                     <div className="form-title">
+                        <Typography>
                         Nuevo Ejercicio
+                        </Typography>
                     </div>
 
                     <div className="form-title mt-md">
+                    <Typography>
                         Expresion inicial:
+                    </Typography>
                     </div>
 
                     <div className="math-text-box mt-md">
@@ -73,7 +71,9 @@ class AddExercisePage extends Component {
                     </div>
 
                     <div className="form-title mt-md">
-                        Resultado:
+                        <Typography>
+                            Resultado:
+                        </Typography>
                     </div>
 
                     <div>
@@ -81,7 +81,9 @@ class AddExercisePage extends Component {
                     </div>
 
                     <div className="form-title mt-md">
-                        Si el resultado  no es el esperado puede colocar el correcto aqui:
+                        <Typography>
+                            Si el resultado  no es el esperado puede colocar el correcto aqui:
+                        </Typography>
                     </div>
                     
                     <div className="math-text-box mt-md mb-lg">
@@ -92,7 +94,7 @@ class AddExercisePage extends Component {
                         </MathTextBox>
                     </div>
                                 
-                    <Button className="mt-md" onClick={this.handleGetResult.bind(this)} color="primary">
+                    <Button variant="outlined" className="mt-md" onClick={this.handleGetResult.bind(this)} color="primary">
                         Generar resultado
                     </Button>
 

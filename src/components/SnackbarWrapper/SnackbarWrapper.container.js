@@ -1,12 +1,13 @@
 import {connect} from 'react-redux';
 import SnackBarWrapper from './SnackbarWrapper'
-import * as actions from '../../state/snackbar/actions'
+import {actions, selectors} from '../../state/common'
+
 
 const currentState = (state) => ({
-    variant: state.snackbar.data.variant,
-    message: state.snackbar.data.message,
-    open: state.snackbar.data.open,
-    autoHideDuration: state.snackbar.data.autoHideDuration
+    variant: selectors.snackbar(state).variant,
+    message: selectors.snackbar(state).message,
+    open: selectors.snackbar(state).open,
+    autoHideDuration: selectors.snackbar(state).autoHideDuration
 })
 
 const currentActions = (dispatch) => ({

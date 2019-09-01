@@ -9,13 +9,13 @@ import {
 } from './addExercise'
 
 import {
-  reducers as snackbarReducers
-} from './snackbar'
+  reducers as commonReducers
+} from './common'
 
 const reducers = combineReducers({
+  common: commonReducers,
   derivative: derivativeReducers,
   addExercise: addExerciseReducers,
-  snackbar: snackbarReducers
 });
 
 export default reducers;
