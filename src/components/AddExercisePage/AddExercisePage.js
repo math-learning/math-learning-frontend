@@ -38,7 +38,7 @@ class AddExercisePage extends Component {
     handleAddExercise(event) {
         let { result, expression } = this.props;
         // TODO: check
-        if (result == '' || expression == '') {
+        if (result === '' || expression === '') {
             this.props.showError({message: "Por favor complete todos los campos antes de continuar"});
             return;
         }

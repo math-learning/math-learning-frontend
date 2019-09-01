@@ -1,7 +1,8 @@
-import { createMuiTheme } from "@material-ui/core";
+import { createMuiTheme, responsiveFontSizes } from '@material-ui/core/styles';
 
-const theme = createMuiTheme({
+let theme = createMuiTheme({
     palette: {
+      contrastThreshold: 3,
       type: 'dark',
       common: {
         black: "#000",
@@ -13,31 +14,28 @@ const theme = createMuiTheme({
         dark: "#212121"
       },
       primary: {
-        light: "rgba(139, 195, 74, 0.7)",
-        main: "rgba(0, 0, 0, 1)",
-        dark: "rgba(65, 117, 5, 1)",
+        main: "#80CBC4",
+        contrastText: "#fff"
+      },
+      third: {
+        main: '#84b8d3',
         contrastText: "#fff"
       },
       secondary: {
-        light: "#ff4081",
-        main: "rgba(128, 203, 196, 1)",
-        dark: "#c51162",
+        main: "#b079ac",
         contrastText: "#fff"
       },
       error: {
-        light: "#e57373",
         main: "#f44336",
-        dark: "#d32f2f",
         contrastText: "#fff",
-        text:"#fff"
       },
       text: {
         primary: "rgba(255, 255, 255, 1)",
-        secondary: "rgba(255, 255, 255, 0.54)",
-        disabled: "rgba(255, 255, 255, 0.38)",
-        hint: "rgba(255, 255, 255, 0.38)"
       }
+      
     },
   });
+
+theme = responsiveFontSizes(theme);
 
 export default theme

@@ -1,8 +1,7 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ExerciseCard from '../ExerciseCard'
 import PropTypes from 'prop-types'
 import {Link} from 'react-router-dom'
-import { isFinished } from '../../state/derivative/selectors';
 import { Typography, Grid, makeStyles, Button } from '@material-ui/core';
 import clsx from 'clsx'
 
@@ -40,7 +39,7 @@ export default function ExercisesPage(props) {
         // TODO : Refactor
         const exerciseCards = exercises.map((element,index) =>   {
           const exerciseNumber = index + 1
-          const finished = finishedExercises.some(elem => elem == index)
+          const finished = finishedExercises.some(elem => elem === index)
           
           return (
               <Grid item key={index} xs={12} sm={6} md={4} >
@@ -67,7 +66,8 @@ export default function ExercisesPage(props) {
                         {exerciseCards}
                     </Grid>
                 </div>
-                <Link to={{pathname: '/add-exercise'}} className={classes.fullWidth}><Button className={classes.fullWidth} color="secondary">Agregar Ejercicio</Button></Link>
+                <Link to={{pathname: '/add-exercise'}} className={classes.fullWidth}
+                style={{ color: 'inherit',  textDecoration: 'none' }}><Button className={classes.fullWidth} color="secondary">Agregar Ejercicio</Button></Link>
             </div>
         )
     
