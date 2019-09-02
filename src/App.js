@@ -6,6 +6,7 @@ import ExercisesPage from './components/ExercisesPage'
 import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
 import { ThemeProvider } from '@material-ui/styles';
 import Footer from './components/Footer'
+import Main from './components/Main';
 import AddExercisePage from './components/AddExercisePage';
 import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
@@ -47,6 +48,10 @@ const renderAddExercisePage = () => (
   <AddExercisePage />
 )
 
+const renderMainPage = () => (
+  <Main />
+)
+
 export default function App() {
   
   const classes = useStyles();
@@ -54,6 +59,8 @@ export default function App() {
   return (
         <main className={classes.root}>
           <Router>
+            {/* <Route exact path="/principal" render={renderMainPage} /> */}
+
             <NavBar />
             
             <Container className={classes.mainContent} maxWidth="md" >            
