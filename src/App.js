@@ -12,6 +12,9 @@ import SnackbarWrapper from './components/SnackbarWrapper';
 import 'typeface-roboto';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { Box, Container } from '@material-ui/core';
+import { ProfilePage } from './components/ProfilePage/ProfilePage';
+import { CoursesPage } from './components/CoursesPage/CoursesPage';
+import { StatisticsPage } from './components/StatisticsPage/StatisticsPage';
 
 
 
@@ -46,6 +49,18 @@ const renderExercisesPage = () => (
 const renderAddExercisePage = () => (
   <AddExercisePage />
 )
+const renderProfilePage = () => (
+  <ProfilePage />
+)
+const renderCoursesPage = () => (
+  <CoursesPage />
+)
+
+const renderStatisticsPage = () => (
+  <StatisticsPage />
+)
+
+
 
 export default function App() {
   
@@ -60,6 +75,9 @@ export default function App() {
               <Route exact path="/" render={renderExercisesPage} />
               <Route exact path="/derivative/:index" render={renderDerivativePage} />
               <Route exact path="/add-exercise" render={renderAddExercisePage} />
+              <Route exact path="/profile" render={renderProfilePage} />
+              <Route exact path="/courses" render={renderCoursesPage} />
+              <Route exact path="/statistics" render={renderStatisticsPage} />
             </Container>
             
             <Footer className={classes.footer}/>

@@ -52,7 +52,7 @@ export default function NavBar(props) {
       <div className={classes.navbarContainer}>
       <AppBar position="static">
         <Toolbar>
-        { profile !== null &&
+        { profile === null &&
           <TemporaryDrawer></TemporaryDrawer>
         } 
 

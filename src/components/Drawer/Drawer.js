@@ -14,6 +14,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import CollectionsBookmarkRoundedIcon from '@material-ui/icons/CollectionsBookmarkRounded';
 import InsertChartRoundedIcon from '@material-ui/icons/InsertChartRounded';
 import { Divider, ListItemAvatar, Avatar } from '@material-ui/core';
+import { Link } from 'react-router-dom';
 
 const useStyles = makeStyles(theme => ({
   list: {
@@ -41,45 +42,63 @@ const useStyles = makeStyles(theme => ({
 }));
 
 
+
 function DrawerItems(props) {
   const classes = useStyles();
+
   return (
-    
-      <List>
-          <ListItem button key={"Account"} className={classes.profileAvatar}>
+
+    <List>
+      <Link to={{
+        pathname: '/profile',
+      }} style={{ color: 'inherit', textDecoration: 'none' }}>
+        <ListItem button key={"Account"} className={classes.profileAvatar} >
           <ListItemAvatar>
-              <Avatar>
-                <AccountBoxIcon />
-              </Avatar>
-            </ListItemAvatar>
-            <ListItemText primary={"Nombre"} secondary="Ver Perfil" />
-          </ListItem>
+            <Avatar>
+              <AccountBoxIcon />
+            </Avatar>
+          </ListItemAvatar>
+          <ListItemText primary={"Nombre"} secondary="Ver Perfil" />
+        </ListItem>
+      </Link>
 
-          <Divider variant="middle" light="true" className={classes.divider}/>
-          
-          <ListItem button key={"Courses"}>
-            <ListItemIcon> <CollectionsBookmarkRoundedIcon color="primary"/> </ListItemIcon>
-            <ListItemText primary={"Mis Cursos"} />
-          </ListItem>
 
-          {props.children}
+      <Divider variant="middle" light="true" className={classes.divider} />
 
-      </List>
-      
+      <Link to={{
+        pathname: '/courses',
+      }} style={{ color: 'inherit', textDecoration: 'none' }}>
+        <ListItem button key={"Courses"}>
+          <ListItemIcon> <CollectionsBookmarkRoundedIcon color="primary" /> </ListItemIcon>
+          <ListItemText primary={"Mis Cursos"} />
+        </ListItem>
+      </Link>
+
+
+      {props.children}
+
+    </List>
+
   );
 }
+
 
 function ProfessorItems(props) {
   const classes = useStyles();
   return (
-      <DrawerItems>
-        {/* Professor extra items */}
-          <ListItem button key={"Statistics"}>
-            <ListItemIcon> <InsertChartRoundedIcon className={classes.violetColor}/> </ListItemIcon>
-            <ListItemText primary={"Estadisticas"} />
-          </ListItem>
-      </DrawerItems>
+    <DrawerItems>
+      {/* Professor extra items */}
+      <Link to={{
+        pathname: '/statistics',
+      }} style={{ color: 'inherit', textDecoration: 'none' }}>
+        <ListItem button key={"Statistics"}>
+        <ListItemIcon> <InsertChartRoundedIcon className={classes.violetColor} /> </ListItemIcon>
+        <ListItemText primary={"Estadisticas"} />
+      </ListItem>  
+      </Link>
       
+    </DrawerItems>
+
   );
 }
 
@@ -89,7 +108,7 @@ export default function TemporaryDrawer(props) {
     opened: false,
   });
 
-  const {accountType} = props
+  const { accountType } = props
 
   const toggleDrawer = (open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
@@ -101,21 +120,22 @@ export default function TemporaryDrawer(props) {
   return (
     <div>
       <IconButton onClick={toggleDrawer(true)} edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
+        <MenuIcon />
       </IconButton>
       <Drawer open={state.opened} onClose={toggleDrawer(false)}>
         <div
-        className={classes.list}
-        role="presentation"
-        onClick={toggleDrawer(false)}
-        onKeyDown={toggleDrawer(false)}
+          className={classes.list}
+          role="presentation"
+          onClick={toggleDrawer(false)}
+          onKeyDown={toggleDrawer(false)}
         >
-        {
-          accountType === 'PROFESSOR' ?
-          <ProfessorItems/> : <DrawerItems/>
-        }
+          {
+            accountType !== 'STUDENT' ?
+              <ProfessorItems /> : <DrawerItems />
+          }
         </div>
       </Drawer>
     </div>
   );
 }
+
