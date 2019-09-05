@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import MathTextBox from '../MathTextBox';
 import Button from '@material-ui/core/Button';
-import styles from './AddExercisePage.css'
+import  './AddExercisePage.module.sass'
 import MathText from '../MathText'
 import { withRouter } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 
+// TODO: redo this page
 class AddExercisePage extends Component {
 
     goToHomePage() {

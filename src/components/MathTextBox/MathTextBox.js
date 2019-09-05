@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import MathText from "../MathText/MathText";
 import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill'
+//TODO: ver como pasarlo a sass (edita estilos de mathquill)
 import styles from './MathTextBox.css';
 import { Typography } from '@material-ui/core';
 
@@ -25,7 +26,6 @@ class MathTextBox extends Component {
 
     return (
       <div
-        id="math-box-text"
         className={styles.container}
         onKeyPress={this.onKeyPress}
         onClick={this.onClick}

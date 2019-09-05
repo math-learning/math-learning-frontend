@@ -1,23 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DerivativePage from "./components/DerivativePage";
 import NavBar from './components/NavBar'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import ExercisesPage from './components/ExercisesPage'
-import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
+
 import Footer from './components/Footer'
 import AddExercisePage from './components/AddExercisePage';
 import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
 import 'typeface-roboto';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { Box, Container } from '@material-ui/core';
+import { Container } from '@material-ui/core';
 import { ProfilePage } from './components/ProfilePage/ProfilePage';
 import { CoursesPage } from './components/CoursesPage/CoursesPage';
 import { StatisticsPage } from './components/StatisticsPage/StatisticsPage';
-
-
-
 
 const useStyles = makeStyles(theme => ({
   mainContent: {
