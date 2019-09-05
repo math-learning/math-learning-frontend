@@ -37,8 +37,8 @@ export class DrawerItems extends Component {
         <Link className={styles.linkWithoutStyles} to={{pathname: '/courses'}}>
           <ListItem button key={"Courses"}>
 
-            <ListItemIcon> <CollectionsBookmarkRoundedIcon color="primary" /> </ListItemIcon>
-            <ListItemText primary={"Mis Cursos"} color="inherit" />
+            <ListItemIcon> <CollectionsBookmarkRoundedIcon className={styles.tcGreen} /> </ListItemIcon>
+            <ListItemText primary={"Mis Cursos"}/>
 
           </ListItem>
         </Link>
