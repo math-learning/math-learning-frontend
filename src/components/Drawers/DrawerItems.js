@@ -9,24 +9,22 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import CollectionsBookmarkRoundedIcon from '@material-ui/icons/CollectionsBookmarkRounded';
 import { Divider, ListItemAvatar, Avatar } from '@material-ui/core';
 import { Link } from 'react-router-dom';
-import styles from './DrawerItems.module.sass'
-
+import styles from './DrawerItems.module.sass';
 
 export class DrawerItems extends Component {
-
   render() {
     return (
 
       <List>
         <div className={styles.profileAvatar}>
-          <Link className={styles.linkWithoutStyles} to={{pathname: "/profile"}}>
-            <ListItem button key={"Account"} >
+          <Link className={styles.linkWithoutStyles} to={{ pathname: '/profile' }}>
+            <ListItem button key="Account">
               <ListItemAvatar>
                 <Avatar>
                   <AccountBoxIcon />
                 </Avatar>
               </ListItemAvatar>
-              <ListItemText primary={"Nombre"} secondary="Ver Perfil" />
+              <ListItemText primary="Nombre" secondary="Ver Perfil" />
             </ListItem>
           </Link>
         </div>
@@ -34,11 +32,15 @@ export class DrawerItems extends Component {
         <div className={styles.divider}>
           <Divider variant="middle" />
         </div>
-        <Link className={styles.linkWithoutStyles} to={{pathname: '/courses'}}>
-          <ListItem button key={"Courses"}>
+        <Link className={styles.linkWithoutStyles} to={{ pathname: '/courses' }}>
+          <ListItem button key="Courses">
 
-            <ListItemIcon> <CollectionsBookmarkRoundedIcon className={styles.tcGreen} /> </ListItemIcon>
-            <ListItemText primary={"Mis Cursos"}/>
+            <ListItemIcon>
+              {' '}
+              <CollectionsBookmarkRoundedIcon className={styles.tcGreen} />
+              {' '}
+            </ListItemIcon>
+            <ListItemText primary="Mis Cursos" />
 
           </ListItem>
         </Link>
@@ -49,5 +51,4 @@ export class DrawerItems extends Component {
 
     );
   }
-
 }

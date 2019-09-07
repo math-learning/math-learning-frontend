@@ -9,5 +9,5 @@ const currentActions = (dispatch) => ({
 });
 
 export default connect(
-  currentActions
+  currentActions,
 )(Main);

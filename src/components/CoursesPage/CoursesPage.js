@@ -1,10 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 export function CoursesPage(props) {
-
-    return (
-        <div>
+  return (
+    <div>
             CoursesPage
-        </div>
-    )
+    </div>
+  );
 }

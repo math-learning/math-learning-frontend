@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { FaCheck } from 'react-icons/fa';
-import { IconContext } from "react-icons";
+import { IconContext } from 'react-icons';
 
 import styles from './CheckIcon.css';
 
@@ -15,13 +15,13 @@ class CheckIcon extends Component {
         <div id="check-icon">
           <FaCheck />
         </div>
-      </IconContext.Provider> 
+      </IconContext.Provider>
     );
   }
 }
 
 CheckIcon.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default CheckIcon;

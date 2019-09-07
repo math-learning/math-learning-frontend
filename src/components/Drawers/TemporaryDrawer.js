@@ -3,19 +3,18 @@ import Drawer from '@material-ui/core/Drawer';
 
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import { DrawerItems } from './DrawerItems'
+import { DrawerItems } from './DrawerItems';
 import { ProfessorItems } from './ProfessorItems';
 
-import styles from './TemporaryDrawer.module.sass'
+import styles from './TemporaryDrawer.module.sass';
 
 export default class TemporaryDrawer extends Component {
-
   constructor(props) {
     super(props);
-    this.state = {opened: false}
+    this.state = { opened: false };
   }
 
-  toggleDrawer = (open) => event => {
+  toggleDrawer = (open) => (event) => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
@@ -23,9 +22,9 @@ export default class TemporaryDrawer extends Component {
   };
 
   render() {
-    const { accountType } = this.props
-  
-    const isStudent = accountType === 'STUDENT'
+    const { accountType } = this.props;
+
+    const isStudent = accountType === 'STUDENT';
 
     return (
       <div>
@@ -40,14 +39,13 @@ export default class TemporaryDrawer extends Component {
             onKeyDown={this.toggleDrawer(false).bind(this)}
           >
             {
-              !isStudent ?
-                <ProfessorItems /> : <DrawerItems />
+              !isStudent
+                ? <ProfessorItems /> : <DrawerItems />
             }
           </div>
         </Drawer>
       </div>
     );
   }
-  
 }
 

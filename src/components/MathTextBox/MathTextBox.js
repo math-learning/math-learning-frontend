@@ -1,28 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import MathText from "../MathText/MathText";
-import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill'
-//TODO: ver como pasarlo a sass (edita estilos de mathquill)
-import styles from './MathTextBox.css';
+import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill';
 import { Typography } from '@material-ui/core';
+import MathText from '../MathText/MathText';
+// TODO: ver como pasarlo a sass (edita estilos de mathquill)
+import styles from './MathTextBox.css';
 
-addMathquillStyles()
+addMathquillStyles();
 
 class MathTextBox extends Component {
-
   handleContentChange = (content) => {
     this.props.onContentChange(content);
   }
 
   onKeyPress = (event) => {
-    if (event.key === 'Enter'){
+    if (event.key === 'Enter') {
       this.props.onEnter(this.props.content);
     }
   }
 
   render() {
-
-    let {content} = this.props;
+    const { content } = this.props;
 
     return (
       <div
@@ -33,8 +31,8 @@ class MathTextBox extends Component {
         <Typography>
           <MathQuill
             latex={content}
-            onChange={mathField => {
-              this.handleContentChange(mathField.latex())
+            onChange={(mathField) => {
+              this.handleContentChange(mathField.latex());
             }}
           />
         </Typography>
@@ -46,7 +44,7 @@ class MathTextBox extends Component {
 MathText.propTypes = {
   content: PropTypes.string,
   onContentChange: PropTypes.func,
-  onEnter: PropTypes.func
+  onEnter: PropTypes.func,
 };
 
 export default MathTextBox;

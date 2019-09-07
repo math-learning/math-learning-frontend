@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import { FaTimes } from 'react-icons/fa';
-import { IconContext } from "react-icons";
+import { IconContext } from 'react-icons';
 
 import styles from './WrongIcon.css';
 
@@ -15,13 +15,13 @@ class WrongIcon extends Component {
         <div id="wrong-icon">
           <FaTimes />
         </div>
-      </IconContext.Provider> 
+      </IconContext.Provider>
     );
   }
 }
 
 WrongIcon.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
 
 export default WrongIcon;

@@ -1,23 +1,23 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import { MQ } from './mathquill-loader'
+import React from 'react';
+import PropTypes from 'prop-types';
 import { Typography } from '@material-ui/core';
+import { MQ } from './mathquill-loader';
 
 class MathText extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
 
-    this.element = null
-    this.mathField = null
+    this.element = null;
+    this.mathField = null;
 
     // MathJax apparently fire 4 edit events on startup.
-    this.ignoreEditEvents = 4
+    this.ignoreEditEvents = 4;
   }
 
   componentDidMount() {
     this.mathField = MQ.StaticMath(this.element);
     if (this.props.className) {
-      this.element.classList.add(this.props.className)
+      this.element.classList.add(this.props.className);
     }
   }
 
@@ -29,19 +29,19 @@ class MathText extends React.Component {
     return (
       <Typography>
         <div
-          ref={x => {
-            this.element = x
+          ref={(x) => {
+            this.element = x;
           }}
         >
           {this.props.content}
         </div>
       </Typography>
-    )
+    );
   }
 }
 
 MathText.propTypes = {
-  content: PropTypes.string
-}
+  content: PropTypes.string,
+};
 
-export default MathText
+export default MathText;

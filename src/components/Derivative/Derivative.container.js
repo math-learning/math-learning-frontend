@@ -11,16 +11,16 @@ const currentState = (state, { problemInput, problemIndex, className }) => ({
   isValidInput: selectors.isValidInput(state, problemIndex),
   currentExpression: selectors.currentExpression(state, problemIndex),
   isFinished: selectors.isFinished(state, problemIndex),
-  showFinishedExercise: selectors.showFinishedExercise(state)
+  showFinishedExercise: selectors.showFinishedExercise(state),
 });
 
 const currentActions = (dispatch) => ({
   onValidateStep: (payload) => dispatch(actions.validateStep(payload)),
   onContentChange: (payload) => dispatch(actions.changeContent(payload)),
-  onCloseExerciseSolvedDialog: (payload) => dispatch(actions.closeExerciseSolvedDialog())
+  onCloseExerciseSolvedDialog: (payload) => dispatch(actions.closeExerciseSolvedDialog()),
 });
 
 export default connect(
   currentState,
-  currentActions
+  currentActions,
 )(Derivative);

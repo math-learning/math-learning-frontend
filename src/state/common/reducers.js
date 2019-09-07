@@ -1,73 +1,72 @@
 import * as types from './actionTypes';
 
 const initialState = {
-    data: {
-        snackbar: {
-            variant: "info",
-            message: "",
-            open: false,
-            autoHideDuration: 3000
-        },
-        progressbar: {
-            isVisible: false
-        },
-        profile: null
-        
-    }
-}
+  data: {
+    snackbar: {
+      variant: 'info',
+      message: '',
+      open: false,
+      autoHideDuration: 3000,
+    },
+    progressbar: {
+      isVisible: false,
+    },
+    profile: null,
+
+  },
+};
 
 export default function reducers(state = initialState, action) {
+  switch (action.type) {
+    case types.CLOSE_SNACKBAR:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          snackbar: {
+            ...state.data.snackbar,
+            open: false,
+          },
+        },
+      };
+    case types.SHOW_ERROR:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          snackbar: {
+            ...state.data.snackbar,
+            open: true,
+            message: action.message,
+            variant: 'error',
+          },
+        },
+      };
 
-    switch (action.type) {
-        case types.CLOSE_SNACKBAR:
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    snackbar: { 
-                        ...state.data.snackbar,
-                        open: false
-                    }
-                }
-            }
-        case types.SHOW_ERROR:
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    snackbar: {
-                        ...state.data.snackbar,
-                        open: true,
-                        message: action.message,
-                        variant: "error"}
-                }
-            }
+    case types.PROCESSING:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          progressbar: {
+            isVisible: true,
+          },
+        },
+      };
 
-        case types.PROCESSING:
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    progressbar: {
-                        isVisible: true
-                    }
-                }
-            }
+    case types.STOP_PROCESSING:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          progressbar: {
+            isVisible: false,
+          },
 
-        case types.STOP_PROCESSING:
-            return {
-                ...state,
-                data: {
-                    ...state.data,
-                    progressbar: {
-                        isVisible: false
-                    }
-                    
-                }
-            }
+        },
+      };
 
-        default:
-            return state;
-
-    }
+    default:
+      return state;
+  }
 }

@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 export function StatisticsPage(props) {
-    return (
-        <div>
+  return (
+    <div>
             StatisticsPage
-        </div>
-    )
+    </div>
+  );
 }

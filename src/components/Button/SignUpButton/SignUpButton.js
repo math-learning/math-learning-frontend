@@ -12,11 +12,12 @@ class SignUpButton extends Component {
       <div className={classNames(styles.button, className)}>
         <Button
           onClick={onClick}
-          size={size || "large"}>
+          size={size || 'large'}
+        >
           Sign up
         </Button>
       </div>
-    )
+    );
   }
 }
 
