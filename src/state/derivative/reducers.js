@@ -48,7 +48,6 @@ const exercises = [
     input: "\\frac{d\\left(e^3  \\cdot x \\right)}{dx}",
     result: "e^3"
   }
-
 ]
 
 const exercisesAmount = exercises.length
@@ -58,7 +57,6 @@ const initialState = {
     isValidInput: new Array(exercisesAmount).fill(true),
     currentExpression: new Array(exercisesAmount).fill(""),
     stepList: new Array(exercisesAmount).fill([]),
-    isProcessing: false,
     finishedExercises: [],
     showFinishedExercise: false,
     exercises
@@ -110,24 +108,6 @@ export default function reducers(state = initialState, action) {
           currentExpression
         }
       }
-    
-    case types.PROCESSING:
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          isProcessing: true
-        }
-      }
-
-    case types.STOP_PROCESSING:
-        return {
-          ...state,
-          data: {
-            ...state.data,
-            isProcessing: false
-          }
-        }
     
     case types.EXERCISE_FINISHED:
       isValidInput[index] = true

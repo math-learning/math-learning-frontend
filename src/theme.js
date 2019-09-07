@@ -14,15 +14,27 @@ let theme = createMuiTheme({
         dark: "#212121"
       },
       primary: {
+        // Green
         main: "#80CBC4",
         contrastText: "#fff"
       },
-      third: {
-        main: '#84b8d3',
+      secondary: {
+        // Yellow
+        main: '#dcdc10',
         contrastText: "#fff"
       },
-      secondary: {
-        main: "#b079ac",
+      blue: {
+        // Blue
+        main: 'rgb(132, 184, 211, 0.7)',
+        dark: 'rgb(132, 184, 211, 1)',
+        light: 'rgb(132, 184, 211, 0.3)',
+        contrastText: "#fff"
+      },
+      violet: {
+        // Violet
+        main: "rgb(176, 121, 172,0.7)",
+        light: "rgb(176, 121, 172,0.3)",
+        dark: "rgb(176, 121, 172, 1)",
         contrastText: "#fff"
       },
       error: {

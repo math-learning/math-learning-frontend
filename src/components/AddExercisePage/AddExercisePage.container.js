@@ -1,11 +1,10 @@
 import {connect} from 'react-redux'
-import * as actions from '../../state/addExercise/actions'
-import * as snackBarActions from '../../state/snackbar/actions'
+import {actions, selectors} from '../../state/addExercise'
 import AddExercisePage from './AddExercisePage'
 
 const currentState = (state) => ({
-    expression: state.addExercise.data.expression,
-    result: state.addExercise.data.result,
+    expression: selectors.expression(state),
+    result: selectors.result(state),
 })
 
 const currentActions = (dispatch) => ({
@@ -13,7 +12,6 @@ const currentActions = (dispatch) => ({
     handleResultChange: (payload) => dispatch(actions.handleAddResultChange(payload)),
     handleGetResult: (payload) => dispatch(actions.handleGetResult(payload)),
     handleAddExercise: (payload) => dispatch(actions.handleAddExercise(payload)),
-    showError: (payload) => dispatch(snackBarActions.showError(payload))
 })
 
 export default connect(

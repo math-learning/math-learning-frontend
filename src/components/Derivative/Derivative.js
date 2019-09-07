@@ -15,7 +15,7 @@ import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
-import styles from './Derivative.css';
+import styles from './Derivative.module.sass';
 
 class Derivative extends Component {
 
@@ -60,9 +60,9 @@ class Derivative extends Component {
 
           {
             !isFinished &&
-            <div id="current-step" className={styles.currentStep}>
+            <div className={styles.currentStep}>
             <span className={styles.item}> = </span>
-            <div id="current-content" className={styles.MathBox}>
+            <div className={styles.mathBox}>
               <MathTextBox
                 content={currentExpression}
                 onContentChange={(value) => this.handleContentChange({value, index: problemIndex })}
@@ -74,13 +74,13 @@ class Derivative extends Component {
             ) : ''}
 
             <div id="validate-step" className={styles.item}>
-              <button onClick={this.handleValidateStep} disabled={currentExpression === ''}> + </button>
+              <Button onClick={this.handleValidateStep} disabled={currentExpression === ''} color="primary"> + </Button>
             </div>
           </div>
           }
           {
             isFinished &&
-            <div className="solved-exercise-text">
+            <div className={styles.solvedExerciseText}>
               <Typography>Ejercicio resuelto!</Typography>
             </div>
           }
@@ -102,9 +102,7 @@ class Derivative extends Component {
             </Typography>
           </DialogContent>
           <DialogActions>
-          <Link to={{
-                        pathname:'/',
-                    }} style={{ color: 'inherit',  textDecoration: 'none' }}>
+          <Link className={styles.linkWithoutStyles} to={{pathname:'/',}}>
             <Button onClick={this.handleSolvedDialogClose.bind(this)} color="primary">
               Ir a la pagina principal
             </Button>

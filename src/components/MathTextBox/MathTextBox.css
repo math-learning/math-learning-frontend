@@ -1,4 +1,4 @@
-:local .container {
+.container {
   display: inline;
   flex-direction: row;
 }

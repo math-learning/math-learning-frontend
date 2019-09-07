@@ -1,6 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { MQ } from './mathquill-loader'
+import { Typography } from '@material-ui/core';
 
 class MathText extends React.Component {
   constructor(props) {
@@ -26,13 +27,15 @@ class MathText extends React.Component {
 
   render() {
     return (
-      <div
-        ref={x => {
-          this.element = x
-        }}
-      >
-        {this.props.content}
-      </div>
+      <Typography>
+        <div
+          ref={x => {
+            this.element = x
+          }}
+        >
+          {this.props.content}
+        </div>
+      </Typography>
     )
   }
 }

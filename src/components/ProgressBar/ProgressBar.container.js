@@ -1,8 +1,9 @@
 import ProgressBar from './ProgressBar';
 import {connect} from 'react-redux';
+import * as common from '../../state/common'
 
 const currentState = (state) => ({
-    isVisible: state.derivative.data.isProcessing
+    isVisible: common.selectors.progressbar(state).isVisible
 })
 
 export default connect(

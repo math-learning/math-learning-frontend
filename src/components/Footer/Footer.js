@@ -1,31 +1,19 @@
 import React from 'react';
 import { Typography, Container } from '@material-ui/core';
-import { makeStyles } from '@material-ui/styles';
+import styles from './Footer.module.sass'
 
-const useStyles = makeStyles(theme => ({
-    footer: {
-        backgroundColor: theme.palette.background.dark,
-        padding: theme.spacing(4),
-        width: "100%",
-        maxHeight: '140px'
-    },
-}));
-
-export default function Footer(props) {
-    const classes = useStyles();
-
+export default function Footer() {
     return (
-        <footer className={classes.footer}>
+        <footer className={styles.footer}>
             <Container maxWidth="md">
-                {props.node}
-                {/* <Typography variant="h6" align="center" gutterBottom color="textPrimary">
-                  Footer
-                </Typography>
-                <Typography variant="subtitle1" align="center" color="textSecondary" component="p">
-                  Something here to give the footer a purpose!
-                </Typography> */}
-            </Container>   
+                <div className={styles.content}>
+                    <p>
+                        Pricing ⋅ Contact ⋅ Blog ⋅ Docs ⋅ Terms and Privacy ⋅ Public GitHub
+                        <br/>
+                        Copyright © Pivit Inc. 2019. All Rights Reserved
+                    </p>
+                </div>
+            </Container>
         </footer>
     )
-    
 }

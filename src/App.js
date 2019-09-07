@@ -1,26 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import DerivativePage from "./components/DerivativePage";
 import NavBar from './components/NavBar'
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import ExercisesPage from './components/ExercisesPage'
-import { createMuiTheme, makeStyles } from '@material-ui/core/styles';
-import { ThemeProvider } from '@material-ui/styles';
+import { makeStyles } from '@material-ui/core/styles';
+
+import Main from './components/Main'
 import Footer from './components/Footer'
-import Main from './components/Main';
 import AddExercisePage from './components/AddExercisePage';
 import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
 import 'typeface-roboto';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { Box, Container } from '@material-ui/core';
-
-
-
+import { Container } from '@material-ui/core';
+import { ProfilePage } from './components/ProfilePage/ProfilePage';
+import { CoursesPage } from './components/CoursesPage/CoursesPage';
+import { StatisticsPage } from './components/StatisticsPage/StatisticsPage';
 
 const useStyles = makeStyles(theme => ({
   mainContent: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+    // paddingTop: theme.spacing(8),
+    // paddingBottom: theme.spacing(8),
     flexGrow: 1
   },
   root: {
@@ -47,6 +46,16 @@ const renderExercisesPage = () => (
 const renderAddExercisePage = () => (
   <AddExercisePage />
 )
+const renderProfilePage = () => (
+  <ProfilePage />
+)
+const renderCoursesPage = () => (
+  <CoursesPage />
+)
+
+const renderStatisticsPage = () => (
+  <StatisticsPage />
+)
 
 const renderMainPage = () => (
   <Main />
@@ -62,25 +71,23 @@ export default function App() {
             <NavBar />
 
             <Route exact path="/principal" render={renderMainPage} />
-
-            {/*
             
             <Container className={classes.mainContent} maxWidth="md" >            
               <Route exact path="/" render={renderExercisesPage} />
               <Route exact path="/derivative/:index" render={renderDerivativePage} />
               <Route exact path="/add-exercise" render={renderAddExercisePage} />
-            </Container> */}
+              <Route exact path="/profile" render={renderProfilePage} />
+              <Route exact path="/courses" render={renderCoursesPage} />
+              <Route exact path="/statistics" render={renderStatisticsPage} />
+            </Container>
             
-            {/* <Footer className={classes.footer}/> */}
+            <Footer className={classes.footer}/>
 
             {/* UTILS */}
-            {/* <SnackbarWrapper />
-            <ProgressBar /> */}
+            <SnackbarWrapper />
+            <ProgressBar />
 
           </Router>
         </main>
-      
-    
   );
-
 }
