@@ -59,21 +59,23 @@ export default function App() {
   return (
         <main className={classes.root}>
           <Router>
-            {/* <Route exact path="/principal" render={renderMainPage} /> */}
-
             <NavBar />
+
+            <Route exact path="/principal" render={renderMainPage} />
+
+            {/*
             
             <Container className={classes.mainContent} maxWidth="md" >            
               <Route exact path="/" render={renderExercisesPage} />
               <Route exact path="/derivative/:index" render={renderDerivativePage} />
               <Route exact path="/add-exercise" render={renderAddExercisePage} />
-            </Container>
+            </Container> */}
             
-            <Footer className={classes.footer}/>
+            {/* <Footer className={classes.footer}/> */}
 
             {/* UTILS */}
-            <SnackbarWrapper />
-            <ProgressBar />
+            {/* <SnackbarWrapper />
+            <ProgressBar /> */}
 
           </Router>
         </main>
