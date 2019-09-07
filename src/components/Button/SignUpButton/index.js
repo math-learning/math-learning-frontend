@@ -1,3 +1,3 @@
-import SignUpButton from './SignUpButton.js';
+import SignUpButton from './SignUpButton.container.js';
 
 export default SignUpButton;

@@ -21,9 +21,9 @@ class Main extends Component {
         <div className={styles.imageContent}>
           <p className={styles.imageContentText}>
             Aprender matemática<br/>
-            nunca fue tan fácil
+            nunca fue tan fácil ...
           </p>
-          <SignUpButton/>
+          <SignUpButton size="large"/>
         </div>
       </div>)
   }
