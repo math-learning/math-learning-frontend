@@ -5,7 +5,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import InsertChartRoundedIcon from '@material-ui/icons/InsertChartRounded';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { DrawerItems } from './DrawerItems';
+import DrawerItems from './DrawerItems';
 import styles from './ProfesorItems.module.sass';
 
 export default function ProfessorItems() {

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Snackbar from '@material-ui/core/Snackbar';
-import { SnackbarContentWrapper } from './SnackbarContentWrapper';
+import SnackbarContentWrapper from './SnackbarContentWrapper';
 
 class SnackbarWrapper extends Component {
   handleClose() {

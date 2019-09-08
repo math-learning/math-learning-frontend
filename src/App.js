@@ -12,9 +12,9 @@ import AddExercisePage from './components/AddExercisePage';
 import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
 import 'typeface-roboto';
-import { ProfilePage } from './components/ProfilePage/ProfilePage';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 import CoursesPage from './components/CoursesPage/CoursesPage';
-import { StatisticsPage } from './components/StatisticsPage/StatisticsPage';
+import StatisticsPage from './components/StatisticsPage/StatisticsPage';
 
 const useStyles = makeStyles(() => ({
   mainContent: {

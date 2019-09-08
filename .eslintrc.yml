@@ -24,5 +24,6 @@ rules: {
   import/named: off,
   react/no-array-index-key: off,
   react/forbid-prop-types: off,
-  react/require-default-props: off
+  react/require-default-props: off,
+  import/prefer-default-export: off
 }
