@@ -1,0 +1,28 @@
+env:
+  browser: true
+  es6: true
+  mocha: true
+extends:
+  - airbnb
+globals:
+  Atomics: readonly
+  SharedArrayBuffer: readonly
+parserOptions:
+  ecmaFeatures:
+    jsx: true
+  ecmaVersion: 6
+  sourceType: module
+plugins:
+  - react
+parser: "babel-eslint"
+rules: {
+  no-multiple-empty-lines: [2, {"max": 1}],
+  react/jsx-filename-extension: [1, { "extensions": [".js", ".jsx"] }],
+  max-len: ["error", { "code": 200 }],
+  react/prop-types: off,
+  no-console: off,
+  import/named: off,
+  react/no-array-index-key: off,
+  react/forbid-prop-types: off,
+  react/require-default-props: off
+}

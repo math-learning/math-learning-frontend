@@ -1,16 +1,16 @@
 import { combineReducers } from 'redux';
 
 import {
-  reducers as derivativeReducers
-} from './derivative'
+  reducers as derivativeReducers,
+} from './derivative';
 
 import {
-  reducers as addExerciseReducers 
-} from './addExercise'
+  reducers as addExerciseReducers,
+} from './addExercise';
 
 import {
-  reducers as commonReducers
-} from './common'
+  reducers as commonReducers,
+} from './common';
 
 const reducers = combineReducers({
   common: commonReducers,

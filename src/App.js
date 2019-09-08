@@ -1,93 +1,90 @@
 import React from 'react';
-import DerivativePage from "./components/DerivativePage";
-import NavBar from './components/NavBar'
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import ExercisesPage from './components/ExercisesPage'
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
+import { Container } from '@material-ui/core';
 
-import Main from './components/Main'
-import Footer from './components/Footer'
+import Main from './components/Main';
+import NavBar from './components/NavBar';
+import Footer from './components/Footer';
+import DerivativePage from './components/DerivativePage';
+import ExercisesPage from './components/ExercisesPage';
 import AddExercisePage from './components/AddExercisePage';
 import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
 import 'typeface-roboto';
-import { Container } from '@material-ui/core';
 import { ProfilePage } from './components/ProfilePage/ProfilePage';
-import { CoursesPage } from './components/CoursesPage/CoursesPage';
+import CoursesPage from './components/CoursesPage/CoursesPage';
 import { StatisticsPage } from './components/StatisticsPage/StatisticsPage';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles(() => ({
   mainContent: {
     // paddingTop: theme.spacing(8),
     // paddingBottom: theme.spacing(8),
-    flexGrow: 1
+    flexGrow: 1,
   },
   root: {
     minHeight: '100vh',
     display: 'flex',
-    flexDirection: 'column'
+    flexDirection: 'column',
   },
-  
-  
+
 }));
 
 const renderDerivativePage = ({ match }) => {
-  console.log(match)
-  const index = match.params.index
+  const { index } = match.params;
   return (
     <DerivativePage problemIndex={index} />
-  )
-}
+  );
+};
 
 const renderExercisesPage = () => (
   <ExercisesPage />
-)
+);
 
 const renderAddExercisePage = () => (
   <AddExercisePage />
-)
+);
 const renderProfilePage = () => (
   <ProfilePage />
-)
+);
 const renderCoursesPage = () => (
   <CoursesPage />
-)
+);
 
 const renderStatisticsPage = () => (
   <StatisticsPage />
-)
+);
 
 const renderMainPage = () => (
   <Main />
-)
+);
 
 export default function App() {
-  
   const classes = useStyles();
 
   return (
-        <main className={classes.root}>
-          <Router>
-            <NavBar />
+    <main className={classes.root}>
+      <Router>
+        <NavBar />
 
-            <Route exact path="/principal" render={renderMainPage} />
-            
-            <Container className={classes.mainContent} maxWidth="md" >            
-              <Route exact path="/" render={renderExercisesPage} />
-              <Route exact path="/derivative/:index" render={renderDerivativePage} />
-              <Route exact path="/add-exercise" render={renderAddExercisePage} />
-              <Route exact path="/profile" render={renderProfilePage} />
-              <Route exact path="/courses" render={renderCoursesPage} />
-              <Route exact path="/statistics" render={renderStatisticsPage} />
-            </Container>
-            
-            <Footer className={classes.footer}/>
+        <Route exact path="/principal" render={renderMainPage} />
 
-            {/* UTILS */}
-            <SnackbarWrapper />
-            <ProgressBar />
+        <Container className={classes.mainContent} maxWidth="md">
+          <Route exact path="/" render={renderExercisesPage} />
+          <Route exact path="/derivative/:index" render={renderDerivativePage} />
+          <Route exact path="/add-exercise" render={renderAddExercisePage} />
+          <Route exact path="/profile" render={renderProfilePage} />
+          <Route exact path="/courses" render={renderCoursesPage} />
+          <Route exact path="/statistics" render={renderStatisticsPage} />
+        </Container>
 
-          </Router>
-        </main>
+        <Footer className={classes.footer} />
+
+        {/* UTILS */}
+        <SnackbarWrapper />
+        <ProgressBar />
+
+      </Router>
+    </main>
   );
 }

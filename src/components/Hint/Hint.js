@@ -1,13 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-
-class Hint extends Component {
-    render() {
-
-        return (
-            <div className="hint">
-                
-            </div>
-        );
-    }
+export default function Hint() {
+  return (
+    <div className="hint" />
+  );
 }

@@ -1,3 +1,3 @@
-import ProgressBar from './ProgressBar.container'
+import ProgressBar from './ProgressBar.container';
 
-export default ProgressBar
+export default ProgressBar;

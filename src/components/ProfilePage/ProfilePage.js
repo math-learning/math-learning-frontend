@@ -1,9 +1,9 @@
-import React from 'react'
+import React from 'react';
 
-export function ProfilePage(props) {
-    return (
-        <div>
-            ProfilePage
-            </div>
-    )
+export default function ProfilePage() {
+  return (
+    <div>
+      ProfilePage
+    </div>
+  );
 }

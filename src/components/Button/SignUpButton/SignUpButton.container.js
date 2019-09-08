@@ -5,9 +5,9 @@ import SignUpButton from './SignUpButton';
 const currentState = (state, { size, className, onClick }) => ({
   size,
   onClick,
-  className
+  className,
 });
 
 export default connect(
-  currentState
+  currentState,
 )(SignUpButton);

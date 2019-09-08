@@ -1,27 +1,22 @@
-import React, { Component } from 'react';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import React from 'react';
+import { IconContext } from 'react-icons';
 import { FaTimes } from 'react-icons/fa';
-import { IconContext } from "react-icons";
-
 import styles from './WrongIcon.css';
 
-class WrongIcon extends Component {
-  render() {
-    const { className } = this.props;
+export default function WrongIcon(props) {
+  const { className } = props;
 
-    return (
-      <IconContext.Provider value={{ className: classNames(className, styles.wrong) }}>
-        <div id="wrong-icon">
-          <FaTimes />
-        </div>
-      </IconContext.Provider> 
-    );
-  }
+  return (
+    <IconContext.Provider value={{ className: classNames(className, styles.wrong) }}>
+      <div id="wrong-icon">
+        <FaTimes />
+      </div>
+    </IconContext.Provider>
+  );
 }
 
 WrongIcon.propTypes = {
-  className: PropTypes.string
+  className: PropTypes.string,
 };
-
-export default WrongIcon;

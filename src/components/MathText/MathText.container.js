@@ -2,9 +2,9 @@ import { connect } from 'react-redux';
 import MathText from './MathText';
 
 const currentState = (state, { content }) => ({
-  content
+  content,
 });
 
 export default connect(
-  currentState
+  currentState,
 )(MathText);
