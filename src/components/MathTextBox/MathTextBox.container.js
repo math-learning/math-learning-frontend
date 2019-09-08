@@ -4,9 +4,9 @@ import MathTextBox from './MathTextBox';
 const currentState = (state, { content, onContentChange, onEnter }) => ({
   content,
   onEnter,
-  onContentChange
+  onContentChange,
 });
 
 export default connect(
-  currentState
+  currentState,
 )(MathTextBox);

@@ -2,33 +2,39 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "lint": "eslint src",
+    "lint:fix": "eslint --fix src",
+    "test": "eslint src",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
     "@material-ui/core": "4.1.1",
     "@material-ui/icons": "4.2.0",
+    "@material-ui/styles": "^4.3.3",
     "axios": "0.18.0",
+    "babel-eslint": "^10.0.2",
     "classnames": "2.2.6",
     "clsx": "^1.0.4",
+    "eslint": "^6.3.0",
     "fs": "0.0.1-security",
     "latex-parser": "^0.6.2",
     "mathquill": "0.10.1-a",
     "node-sass": "^4.12.0",
-    "react": "16.8.5",
-    "react-dom": "16.8.5",
+    "prop-types": "^15.7.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-icons": "3.6.1",
     "react-mathquill": "0.1.5",
     "react-redux": "7.0.3",
     "react-router-dom": "5.0.1",
-    "react-scripts": "2.1.8",
+    "react-scripts": "^3.1.1",
     "redux": "4.0.1",
     "redux-thunk": "2.3.0",
     "serve": "11.1.0",
     "typeface-roboto": "0.0.75"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -40,8 +46,13 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "eslint-config-airbnb": "^18.0.1",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^1.7.0",
     "exports-loader": "0.7.0",
     "imports-loader": "0.8.0",
-    "webpack": "4.28.3"
+    "webpack": "^4.39.1"
   }
 }

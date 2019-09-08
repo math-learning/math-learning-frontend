@@ -3,4 +3,4 @@ export const STEP_IS_INVALID = 'Step is Invalid';
 export const CONTENT_CHANGE = 'Content Change';
 export const EXERCISE_FINISHED = 'Exercise finished';
 export const CLOSE_SOLVED_DIALOG = 'Close solved dialog';
-export const ADD_EXERCISE = "ADD_EXERCISE";
+export const ADD_EXERCISE = 'ADD_EXERCISE';

@@ -1,86 +1,89 @@
-import axios from 'axios' // TODO: CAMBIAR DE LIBRARY POR FETCH
+import axios from 'axios'; // TODO: CAMBIAR DE LIBRARY POR FETCH
+import { latexParser } from 'latex-parser';
 import { cleanLatex } from '../utils/latexUtils';
-import {latexParser} from "latex-parser";
 
-axios.defaults.headers.post['Content-Type'] ='application/json;charset=utf-8';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=utf-8';
 axios.defaults.headers.post['Access-Control-Allow-Origin'] = '*';
 axios.defaults.headers.get['Access-Control-Allow-Origin'] = '*';
 
-const confs = require("../configs/variables")
-const serverUrl = confs.serverUrl;
+const confs = require('../configs/variables');
 
-let theorems = require('./theorems.json');// TODO: Esto no deberia estar aca
+const { serverUrl } = confs;
+
+const theorems = require('./theorems.json');// TODO: Esto no deberia estar aca
 
 const validateNotInHistory = async (newExpression, history) => {
   const requestData = { history, new_expression: newExpression };
-  
+
   try {
-    const response = await axios.post(serverUrl + '/validations/not-in-history', requestData);
+    const response = await axios.post(`${serverUrl}/validations/not-in-history`, requestData);
     return response.data;
   } catch (e) {
     console.log('Error while validating not in history', e);
     throw e;
   }
-}
+};
 
 const validateStep = async (step) => {
-  step.theorems = theorems['theorems'];// TODO: Esto no deberia estar aca
+  const stepToSend = step;
+
+  stepToSend.theorems = theorems.theorems;// TODO: Esto no deberia estar aca
   try {
-    const response = await axios.post(serverUrl + '/validations/new-step', step);
+    const response = await axios.post(`${serverUrl}/validations/new-step`, stepToSend);
     return response.data;
   } catch (e) {
     console.log('Error while validating step', e);
     throw e;
   }
-}
+};
 
 const compareExpressions = async (expressionOne, expressionTwo) => {
   try {
     const data = {
       expression_one: cleanLatex(expressionOne),
-      expression_two: cleanLatex(expressionTwo)
-    }
-    const response = await axios.post(serverUrl + '/expressions/compare', data)
-    return response.data
+      expression_two: cleanLatex(expressionTwo),
+    };
+    const response = await axios.post(`${serverUrl}/expressions/compare`, data);
+    return response.data;
   } catch (e) {
-    console.log("Error while comparing expressions", e);
-    throw e
+    console.log('Error while comparing expressions', e);
+    throw e;
   }
-}
+};
 
 const validateResult = async (result) => {
   try {
-    const response = await axios.post(serverUrl + '/validations/result', result);
+    const response = await axios.post(`${serverUrl}/validations/result`, result);
     return response.data;
   } catch (e) {
     console.log('Error while validating result', e);
     throw e;
   }
-}
+};
 
-const getTheoremes = async (expression, theorems) => {
-  const requestData = { expression, theorems };
+const getTheoremes = async (expression, definedTheorems) => {
+  const requestData = { expression, theorems: definedTheorems };
 
   try {
-    const response = await axios.post(serverUrl + '/hints/theorems-that-apply', requestData);
+    const response = await axios.post(`${serverUrl}/hints/theorems-that-apply`, requestData);
     return response.data;
   } catch (e) {
     console.log('Error while getting theoremes', e);
     throw e;
   }
-}
+};
 
 const solveExercise = async (expression) => {
   try {
-    console.log(latexParser.parse(expression))
-    const requestData = {expression: cleanLatex(expression)}
-    const response = await axios.post(serverUrl + '/solve-derivative', requestData)
-    return response.data
+    console.log(latexParser.parse(expression));
+    const requestData = { expression: cleanLatex(expression) };
+    const response = await axios.post(`${serverUrl}/solve-derivative`, requestData);
+    return response.data;
   } catch (e) {
-    console.log("error", e) 
+    console.log('Error while solving exercise', e);
+    throw e;
   }
-  
-}
+};
 
 export default {
   getTheoremes,
@@ -88,5 +91,5 @@ export default {
   validateStep,
   validateResult,
   compareExpressions,
-  solveExercise
-}
+  solveExercise,
+};

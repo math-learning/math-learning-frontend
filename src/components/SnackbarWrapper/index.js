@@ -1,3 +1,3 @@
-import SnackbarWrapper from './SnackbarWrapper.container'
+import SnackbarWrapper from './SnackbarWrapper.container';
 
-export default SnackbarWrapper
+export default SnackbarWrapper;
