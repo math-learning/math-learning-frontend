@@ -20,7 +20,6 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 ### `npm run lint`
 
 Launches the linter test runner to check the code syntaxis.
-It is required to install first the global dependecy `npm install -g eslint`
 
 ### `npm run build`
 
