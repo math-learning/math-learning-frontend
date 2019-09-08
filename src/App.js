@@ -5,6 +5,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import ExercisesPage from './components/ExercisesPage'
 import { makeStyles } from '@material-ui/core/styles';
 
+import Main from './components/Main'
 import Footer from './components/Footer'
 import AddExercisePage from './components/AddExercisePage';
 import ProgressBar from './components/ProgressBar';
@@ -17,8 +18,8 @@ import { StatisticsPage } from './components/StatisticsPage/StatisticsPage';
 
 const useStyles = makeStyles(theme => ({
   mainContent: {
-    paddingTop: theme.spacing(8),
-    paddingBottom: theme.spacing(8),
+    // paddingTop: theme.spacing(8),
+    // paddingBottom: theme.spacing(8),
     flexGrow: 1
   },
   root: {
@@ -56,7 +57,9 @@ const renderStatisticsPage = () => (
   <StatisticsPage />
 )
 
-
+const renderMainPage = () => (
+  <Main />
+)
 
 export default function App() {
   
@@ -66,6 +69,8 @@ export default function App() {
         <main className={classes.root}>
           <Router>
             <NavBar />
+
+            <Route exact path="/principal" render={renderMainPage} />
             
             <Container className={classes.mainContent} maxWidth="md" >            
               <Route exact path="/" render={renderExercisesPage} />
@@ -84,8 +89,5 @@ export default function App() {
 
           </Router>
         </main>
-      
-    
   );
-
 }
