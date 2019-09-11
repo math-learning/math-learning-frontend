@@ -15,6 +15,7 @@ import 'typeface-roboto';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import CoursesPage from './components/CoursesPage/CoursesPage';
 import StatisticsPage from './components/StatisticsPage/StatisticsPage';
+import EmptyCoursesPage from './components/CoursesPage/EmptyCoursesPage';
 
 const useStyles = makeStyles(() => ({
   mainContent: {
@@ -48,7 +49,7 @@ const renderProfilePage = () => (
   <ProfilePage />
 );
 const renderCoursesPage = () => (
-  <CoursesPage />
+  <EmptyCoursesPage />
 );
 
 const renderStatisticsPage = () => (
@@ -70,7 +71,8 @@ export default function App() {
         <Route exact path="/principal" render={renderMainPage} />
 
         <Container className={classes.mainContent} maxWidth="md">
-          <Route exact path="/" render={renderExercisesPage} />
+          {/* <Route exact path="/" render={renderExercisesPage} /> */}
+          <Route exact path="/" render={renderCoursesPage} />
           <Route exact path="/derivative/:index" render={renderDerivativePage} />
           <Route exact path="/add-exercise" render={renderAddExercisePage} />
           <Route exact path="/profile" render={renderProfilePage} />
