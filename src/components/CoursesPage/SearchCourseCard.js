@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import styles from "./CourseCard.module.sass"
 import { Card, CardContent, Typography, Grid, Button } from '@material-ui/core'
 
-export default class CourseCard extends Component {
+export default class SearchCourseCard extends Component {
 
   render() {
     const { course } = this.props

@@ -22,10 +22,10 @@ export default class TemporaryDrawer extends Component {
   };
 
   render() {
-    const { accountType } = this.props;
+    const { profile } = this.props;
     const { opened } = this.state;
 
-    const isStudent = accountType === 'STUDENT';
+    const isStudent = profile === 'STUDENT';
 
     return (
       <div>

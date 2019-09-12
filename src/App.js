@@ -50,7 +50,7 @@ const renderProfilePage = () => (
   <ProfilePage />
 );
 const renderCoursesPage = () => (
-  <EmptyCoursesPage />
+  <CoursesPage />
 );
 
 const renderStatisticsPage = () => (

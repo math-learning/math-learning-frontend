@@ -3,7 +3,7 @@ import { Container, Typography, Grid, CardContent, Card, TextField } from '@mate
 import styles from './SearchCourses.module.sass'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import CourseCard from './CourseCard';
+import CourseCard from './SearchCourseCard';
 
 const mockedCourses = [
   {
@@ -46,6 +46,9 @@ function handleChange() {
 
 export default class SearchCourses extends Component {
   render() {
+    const registerButton = {
+      text: "Matricularme"
+    }
     return (
       <Container className={styles.defaultContainer}>
         <Typography variant="h4" className={styles.title}>Buscar Cursos</Typography>
@@ -70,7 +73,7 @@ export default class SearchCourses extends Component {
           {
             mockedCourses.map( course => {
               return (
-                <CourseCard course={course}></CourseCard>
+                <CourseCard course={course} button={registerButton}></CourseCard>
                 )
             })
           }

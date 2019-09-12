@@ -11,7 +11,11 @@ const initialState = {
     progressbar: {
       isVisible: false,
     },
-    profile: null,
+    profile: {
+      name: "Diego",
+      photo: "https://thehappypuppysite.com/wp-content/uploads/2018/05/shiba-inu-header.jpg",
+      type: "PROFESSOR"
+    },
 
   },
 };
