@@ -3,6 +3,7 @@ import { Container, Typography, Grid, CardContent, Card, TextField } from '@mate
 import styles from './SearchCourses.module.sass'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import CourseCard from './CourseCard';
 
 const mockedCourses = [
   {
@@ -24,14 +25,14 @@ const mockedCourses = [
     ]
   },
   {
-    name: "Analisis matematico II - Curso 2",
+    name: "Fisica II - Curso 2",
     professors: [
       "Pedro",
       "Pedro2"
     ]
   },
   {
-    name: "Analisis matematico II - Curso 2",
+    name: "Algebra II - Curso 3",
     professors: [
       "Pedro",
       "Pedro2"
@@ -69,19 +70,7 @@ export default class SearchCourses extends Component {
           {
             mockedCourses.map( course => {
               return (
-                <Card className={styles.courseCard}>
-          
-                <CardContent>
-                  <Typography className="title" color="textPrimary" gutterBottom>
-                    {course.name}
-                  </Typography>
-          
-                  <Typography className="statement" color="textSecondary" variant="body2" component="p">
-                    {course.professors}
-                  </Typography>
-                </CardContent>
-                
-              </Card>
+                <CourseCard course={course}></CourseCard>
                 )
             })
           }
