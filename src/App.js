@@ -74,7 +74,7 @@ export default function App() {
         <NavBar />
 
         <Route exact path="/principal" render={renderMainPage} />
-        {/* <Route exact path="/" render={renderExercisesPage} /> */}
+        <Route exact path="/exercises" render={renderExercisesPage} />
         <Route exact path="/" render={renderCoursesPage} />
         <Route exact path="/search-courses" render={renderSearchCoursesPage} />
         <Route exact path="/derivative/:index" render={renderDerivativePage} />

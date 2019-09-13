@@ -1,8 +1,20 @@
 import React, {Component} from 'react';
-import { Container, Typography, Grid, CardContent, Card, TextField } from '@material-ui/core'
+import { Container, Typography, Grid, CardContent, Card, TextField, Button } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import styles from './CoursesPage.module.sass'
+import EmptyCoursesPage from './EmptyCoursesPage'
+import MyCoursesPage from './MyCoursesPage';
+
+const onlyOneCourse = [
+  {
+    name: "Analisis matematico II - Curso 2",
+    professors: [
+      "Pedro",
+      "Pedro2"
+    ]
+  }
+]
 
 const mockedCourses = [
   {
@@ -41,36 +53,34 @@ const mockedCourses = [
 
 
 export default class CoursesPage extends Component {
+
+  constructor(props) {
+    super(props)
+    this.state = {courses: mockedCourses}
+  }
+
   render() {
+    const {courses} = this.state
+    let pageToDisplay = (<EmptyCoursesPage/>)
+    if (courses.length === 1) {
+      pageToDisplay = ""
+    }
+    else if (courses.length > 1) {
+      pageToDisplay = (<MyCoursesPage courses={courses}/>)
+    }
+
     return (
       <Container className={styles.defaultContainer}>
-        <Typography variant="h4" className={styles.title}>Mis Cursos</Typography>
-        <Grid container spacing={4}>
-          
-            {
-              mockedCourses.map( course => {
-                return (
-                  <Grid item xs={12} sm={6} md={4}>
-                    <Card className={styles.courseCard}>
-                      <Typography>{course.name}</Typography>
-                      {
-              course.professors.map(professor => {
-                return (
-                  <Typography className={styles.professorItem} color="textSecondary" variant="body2" component="p">
-                    * {professor}
-                  </Typography>
-                )
-              })
-            }
-                    </Card>
-                  </Grid> 
-                  )
-              })
-            }
-          
-        </Grid>
-        
-        
+
+        {/* TODO: Eliminar */}
+        <Button onClick={event=> this.setState({courses: onlyOneCourse})}>Un Curso</Button>
+        <Button onClick={event=> this.setState({courses: mockedCourses})}>Varios Cursos</Button>
+        <Button onClick={event=> this.setState({courses: []})}>Ningun Curso</Button>
+
+        {
+          pageToDisplay
+        }
+
       </Container>
     )
   }

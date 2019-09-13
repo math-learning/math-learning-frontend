@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
-import { Container, Typography, Grid, CardContent, Card, TextField } from '@material-ui/core'
+import { Container, Typography, Grid, CardContent, Card, TextField, Button } from '@material-ui/core'
 import styles from './SearchCourses.module.sass'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
-import CourseCard from './SearchCourseCard';
+import SearchCourseCard from './SearchCourseCard';
+
+
 
 const mockedCourses = [
   {
@@ -45,12 +47,14 @@ function handleChange() {
 }
 
 export default class SearchCourses extends Component {
+
   render() {
     const registerButton = {
       text: "Matricularme"
     }
     return (
       <Container className={styles.defaultContainer}>
+
         <Typography variant="h4" className={styles.title}>Buscar Cursos</Typography>
         <TextField
         startAd
@@ -73,7 +77,7 @@ export default class SearchCourses extends Component {
           {
             mockedCourses.map( course => {
               return (
-                <CourseCard course={course} button={registerButton}></CourseCard>
+                <SearchCourseCard course={course} button={registerButton}></SearchCourseCard>
                 )
             })
           }

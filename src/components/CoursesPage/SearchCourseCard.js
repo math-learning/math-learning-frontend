@@ -27,7 +27,7 @@ export default class SearchCourseCard extends Component {
             }
           </Grid>
           <Grid item xs={12} sm={4} md={2} className={styles.buttonContainer}>
-            <Button color="secondary" className={styles.button}>Matricularme</Button>
+            <Button color="primary" className={styles.button}>Matricularme</Button>
           </Grid>
         </Grid>
           
