@@ -57,7 +57,7 @@ export default class CoursesPage extends Component {
 
   constructor(props) {
     super(props)
-    this.state = {courses: mockedCourses}
+    this.state = {courses: onlyOneCourse}
   }
 
   render() {

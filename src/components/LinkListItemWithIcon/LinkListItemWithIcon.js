@@ -15,7 +15,7 @@ export default class LinkListItemWithIcon extends Component {
             {icon}
             {' '}
           </ListItemIcon>
-          <ListItemText primary={text} />
+          <ListItemText primary={text} className={styles.textCenter} />
         </ListItem>
       </Link>
     )
