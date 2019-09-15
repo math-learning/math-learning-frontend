@@ -1,3 +1,4 @@
 import TemporaryDrawer from './TemporaryDrawer';
+import ClippedDrawerUnderAppBar from './ClippedDrawerUnderAppBar'
 
-export default TemporaryDrawer;
+export {TemporaryDrawer, ClippedDrawerUnderAppBar};

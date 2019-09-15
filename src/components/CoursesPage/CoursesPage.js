@@ -1,10 +1,11 @@
-import React, {Component} from 'react';
+import React, {Component, Fragment} from 'react';
 import { Container, Typography, Grid, CardContent, Card, TextField, Button } from '@material-ui/core'
 import SearchIcon from '@material-ui/icons/Search';
 import InputAdornment from '@material-ui/core/InputAdornment';
 import styles from './CoursesPage.module.sass'
 import EmptyCoursesPage from './EmptyCoursesPage'
 import MyCoursesPage from './MyCoursesPage';
+import CoursePage from '../CoursePage/CoursePage';
 
 const onlyOneCourse = [
   {
@@ -63,14 +64,14 @@ export default class CoursesPage extends Component {
     const {courses} = this.state
     let pageToDisplay = (<EmptyCoursesPage/>)
     if (courses.length === 1) {
-      pageToDisplay = ""
+      pageToDisplay = (<CoursePage course={courses[0]}/>)
     }
     else if (courses.length > 1) {
       pageToDisplay = (<MyCoursesPage courses={courses}/>)
     }
 
     return (
-      <Container className={styles.defaultContainer}>
+      <Fragment>
 
         {/* TODO: Eliminar */}
         <Button onClick={event=> this.setState({courses: onlyOneCourse})}>Un Curso</Button>
@@ -81,7 +82,7 @@ export default class CoursesPage extends Component {
           pageToDisplay
         }
 
-      </Container>
+      </Fragment>
     )
   }
 }

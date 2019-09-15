@@ -6,7 +6,7 @@ export default class MyCoursesPage extends Component {
   render() {
     const {courses} = this.props
     return (
-      <Container className={styles.defaultContainer}>
+      <Container className={styles.defaultContainer} maxWidth="md">
         <Typography variant="h4" className={styles.title}>Mis Cursos</Typography>
         <Grid container spacing={4}>
           {

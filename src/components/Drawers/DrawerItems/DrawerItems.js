@@ -8,6 +8,7 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox';
 import CollectionsBookmarkRoundedIcon from '@material-ui/icons/CollectionsBookmarkRounded';
 import { Link } from 'react-router-dom';
 import styles from './DrawerItems.module.sass';
+import LinkListItemWithIcon from '../../LinkListItemWithIcon/LinkListItemWithIcon';
 
 export default class DrawerItems extends Component {
   render() {
@@ -15,51 +16,17 @@ export default class DrawerItems extends Component {
 
     return (
       <List>
-        <div className={styles.profileAvatar}>
-          <Link className={styles.linkWithoutStyles} to={{ pathname: '/profile' }}>
-            <ListItem button key="Account">
-              <ListItemAvatar>
-                <Avatar>
-                  {
-                    profile.photo ?
-                      <img src={profile.photo} /> : <AccountBoxIcon />
-                  }
-
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={profile.name} secondary="Ver Perfil" />
-            </ListItem>
-          </Link>
-        </div>
+        
 
         <div className={styles.divider}>
           <Divider variant="middle" />
         </div>
-        <Link className={styles.linkWithoutStyles} to={{ pathname: '/courses' }}>
-          <ListItem button key="Courses">
 
-            <ListItemIcon>
-              {' '}
-              <CollectionsBookmarkRoundedIcon className={styles.tcGreen} />
-              {' '}
-            </ListItemIcon>
-            <ListItemText primary="Mis Cursos" />
+        <LinkListItemWithIcon to={{ pathname: '/courses' }} text="Cursos" 
+          icon={(<CollectionsBookmarkRoundedIcon className={styles.tcGreen} />)}/>
 
-          </ListItem>
-        </Link>
-
-        <Link className={styles.linkWithoutStyles} to={{ pathname: '/search-courses' }}>
-          <ListItem button key="Search Courses">
-
-            <ListItemIcon>
-              {' '}
-              <CollectionsBookmarkRoundedIcon className={styles.tcBlue} />
-              {' '}
-            </ListItemIcon>
-            <ListItemText primary="Buscar Cursos" />
-
-          </ListItem>
-        </Link>
+        <LinkListItemWithIcon to={{ pathname: '/search-courses' }} text="Buscar Cursos" 
+          icon={(<CollectionsBookmarkRoundedIcon className={styles.tcBlue} />)}/>
 
         {children}
       </List>
