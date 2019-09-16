@@ -10,6 +10,7 @@ import CoursePage from '../CoursePage/CoursePage';
 const onlyOneCourse = [
   {
     name: "Analisis matematico II - Curso 2",
+    id: "hash",
     professors: [
       "Pedro",
       "Pedro2"
@@ -64,7 +65,7 @@ export default class CoursesPage extends Component {
     const {courses} = this.state
     let pageToDisplay = (<EmptyCoursesPage/>)
     if (courses.length === 1) {
-      pageToDisplay = (<CoursePage course={courses[0]}/>)
+      pageToDisplay = (<CoursePage courseId={"hash"}/>)
     }
     else if (courses.length > 1) {
       pageToDisplay = (<MyCoursesPage courses={courses}/>)

@@ -17,6 +17,7 @@ import CoursesPage from './components/CoursesPage/CoursesPage';
 import StatisticsPage from './components/StatisticsPage/StatisticsPage';
 import EmptyCoursesPage from './components/CoursesPage/EmptyCoursesPage';
 import SearchCourses from './components/CoursesPage/SearchCourses';
+import CoursePage from './components/CoursePage';
 
 const useStyles = makeStyles(() => ({
   mainContent: {
@@ -65,6 +66,13 @@ const renderSearchCoursesPage = () => (
   <SearchCourses />
 );
 
+const renderCoursePage = ({match}) => {
+  const {courseId, moduleId} = match.params
+return (
+<CoursePage courseId={courseId} moduleId={moduleId}/>
+)
+}
+
 export default function App() {
   const classes = useStyles();
 
@@ -82,6 +90,7 @@ export default function App() {
         <Route exact path="/profile" render={renderProfilePage} />
         <Route exact path="/courses" render={renderCoursesPage} />
         <Route exact path="/statistics" render={renderStatisticsPage} />
+        <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage}/>
 
         <Footer className={classes.footer} />
 
