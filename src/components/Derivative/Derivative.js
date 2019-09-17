@@ -14,9 +14,12 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
-
+import mathClient from '../../clients/mathClient'
 import styles from './Derivative.css';
 
+import {cleanLatex} from '../../utils/latexUtils'
+let theorems = require('../../clients/theorems.json');
+theorems = theorems["theorems"]
 class Derivative extends Component {
 
   handleContentChange({value, index}) {
@@ -35,6 +38,22 @@ class Derivative extends Component {
       stepList[stepList.length - 1];
 
     this.props.onValidateStep({ stepList, problemInput, lastExpression, currentExpression, result, problemIndex });
+  }
+
+  printHints(hints) {
+    return hints.map(hint=> hint.name + "\n")
+                .reduce((accum, hint) => accum + hint, "")
+  }
+  displayHints() {
+    const { stepList, problemInput} = this.props;
+    const lastExpression = stepList.length === 0 ?
+      problemInput :
+      stepList[stepList.length - 1];
+    mathClient.getTheorems(cleanLatex(lastExpression), theorems)
+    .then(hints => {
+      alert("Posibles pasos a seguir:\n " + this.printHints(hints))
+    })
+    
   }
 
   render() {  
@@ -61,7 +80,7 @@ class Derivative extends Component {
           {
             !isFinished &&
             <div id="current-step" className={styles.currentStep}>
-            <span className={styles.item}> = </span>
+            <span className={styles.item} onClick={this.displayHints.bind(this)}> = </span>
             <div id="current-content" className={styles.MathBox}>
               <MathTextBox
                 content={currentExpression}

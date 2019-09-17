@@ -56,7 +56,7 @@ const validateResult = async (result) => {
   }
 }
 
-const getTheoremes = async (expression, theorems) => {
+const getTheorems = async (expression, theorems) => {
   const requestData = { expression, theorems };
 
   try {
@@ -80,7 +80,7 @@ const solveExercise = async (expression) => {
 }
 
 export default {
-  getTheoremes,
+  getTheorems,
   validateNotInHistory,
   validateStep,
   validateResult,
