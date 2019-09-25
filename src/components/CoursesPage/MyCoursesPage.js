@@ -18,11 +18,11 @@ export default class MyCoursesPage extends Component {
               return (
                 <Grid item xs={12}>
                   <InteractiveLinkCard className={styles.courseCard} path="/pathname">
-                    <Grid container spacing={2}>
-                      <Grid item xs={4}>
+                    <Grid container spacing={2} >
+                      <Grid item xs={4} className={styles.center}>
                       <Typography>{course.name}</Typography>
                       </Grid>
-                      <Grid item xs={5}>
+                      <Grid item xs={7} className={styles.center}>
                       {
                       course.professors.map(professor => {
                         return (
@@ -33,12 +33,12 @@ export default class MyCoursesPage extends Component {
                       })
                     }
                       </Grid>
-                      <Grid item xs={3}>
+                      <Grid item xs={1} className={styles.center}>
+                        <Typography >
                         [100%]
+                        </Typography>
                       </Grid>
                     </Grid>
-                    
-                    
                     
                   </InteractiveLinkCard>
                 </Grid>
