@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import SignUpButton from '../Button/SignUpButton';
 
 import styles from './Main.module.sass';
+import { Container } from '@material-ui/core';
 
 class Main extends Component {
   footer = () => (

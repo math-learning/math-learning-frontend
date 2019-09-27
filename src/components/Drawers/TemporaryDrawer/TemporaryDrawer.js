@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import Drawer from '@material-ui/core/Drawer';
 
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import DrawerItems from './DrawerItems';
-import ProfessorItems from './ProfessorItems';
+import DrawerItems from '../DrawerItems';
+import ProfessorItems from '../ProfessorItems';
 
 import styles from './TemporaryDrawer.module.sass';
 
@@ -22,13 +22,10 @@ export default class TemporaryDrawer extends Component {
   };
 
   render() {
-    const { accountType } = this.props;
     const { opened } = this.state;
 
-    const isStudent = accountType === 'STUDENT';
-
     return (
-      <div>
+      <Fragment>
         <IconButton onClick={this.toggleDrawer(true).bind(this)} edge="start" className={styles.menuButton} color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
@@ -40,12 +37,11 @@ export default class TemporaryDrawer extends Component {
             onKeyDown={this.toggleDrawer(false).bind(this)}
           >
             {
-              !isStudent
-                ? <ProfessorItems /> : <DrawerItems />
+              this.props.children
             }
           </div>
         </Drawer>
-      </div>
+      </Fragment>
     );
   }
 }

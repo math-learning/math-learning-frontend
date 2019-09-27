@@ -6,10 +6,13 @@ $palette-green: #80CBC4;
 $palette-violet: #b079ac;
 $palette-yellow: #dcdc10;
 $palette-red: #f44336
+$palette-black: #000000
 
 $palette-primary: $palette-green
 $palette-error: $palette-red
 $palette-background-dark: #212121
+$palette-background-paper: #424242
+
 
 .tcViolet
     color: $palette-violet
@@ -26,6 +29,15 @@ $palette-background-dark: #212121
 .tcRed
     color: $palette-red
 
+.tcBlack
+    color: $palette-black
+
+.tcDark
+  color: $palette-background-paper
+
+.tcAquamarine
+  color: aquamarine
+
 // Spacing (unit: 8px)
 
 $spacing-unit: 8px
@@ -34,7 +46,19 @@ $spacing-sm: 2 * $spacing-unit
 $spacing-md: 3 * $spacing-unit
 $spacing-lg: 4 * $spacing-unit
 $spacing-xlg: 5 * $spacing-unit
+$spacing-xxlg: 6 * $spacing-unit
+
 
 .linkWithoutStyles
     text-decoration: none
     color: inherit
+
+.defaultContainer
+  margin-top: $spacing-xlg
+  margin-bottom: $spacing-xlg
+  flex-grow: 1
+
+.centerVertically
+
+.textCenter
+  text-align: center

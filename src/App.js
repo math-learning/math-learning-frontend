@@ -15,6 +15,9 @@ import 'typeface-roboto';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import CoursesPage from './components/CoursesPage/CoursesPage';
 import StatisticsPage from './components/StatisticsPage/StatisticsPage';
+import EmptyCoursesPage from './components/CoursesPage/EmptyCoursesPage';
+import SearchCourses from './components/CoursesPage/SearchCourses';
+import CoursePage from './components/CoursePage';
 
 const useStyles = makeStyles(() => ({
   mainContent: {
@@ -59,6 +62,17 @@ const renderMainPage = () => (
   <Main />
 );
 
+const renderSearchCoursesPage = () => (
+  <SearchCourses />
+);
+
+const renderCoursePage = ({match}) => {
+  const {courseId, moduleId} = match.params
+return (
+<CoursePage courseId={courseId} moduleId={moduleId}/>
+)
+}
+
 export default function App() {
   const classes = useStyles();
 
@@ -68,15 +82,15 @@ export default function App() {
         <NavBar />
 
         <Route exact path="/principal" render={renderMainPage} />
-
-        <Container className={classes.mainContent} maxWidth="md">
-          <Route exact path="/" render={renderExercisesPage} />
-          <Route exact path="/derivative/:index" render={renderDerivativePage} />
-          <Route exact path="/add-exercise" render={renderAddExercisePage} />
-          <Route exact path="/profile" render={renderProfilePage} />
-          <Route exact path="/courses" render={renderCoursesPage} />
-          <Route exact path="/statistics" render={renderStatisticsPage} />
-        </Container>
+        <Route exact path="/exercises" render={renderExercisesPage} />
+        <Route exact path="/" render={renderCoursesPage} />
+        <Route exact path="/search-courses" render={renderSearchCoursesPage} />
+        <Route exact path="/derivative/:index" render={renderDerivativePage} />
+        <Route exact path="/add-exercise" render={renderAddExercisePage} />
+        <Route exact path="/profile" render={renderProfilePage} />
+        <Route exact path="/courses" render={renderCoursesPage} />
+        <Route exact path="/statistics" render={renderStatisticsPage} />
+        <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage}/>
 
         <Footer className={classes.footer} />
 
