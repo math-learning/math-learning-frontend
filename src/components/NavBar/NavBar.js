@@ -71,11 +71,11 @@ export default function NavBar(props) {
     )
   } else {
     loginSignUpButtons = (
-      <div display-if={!!profile}>
+      <div>
         <SignUpButton size="small" className={styles.signUpButton} />
         <Button color="inherit">Login</Button>
       </div>
-    )
+    );
   }
 
   return (

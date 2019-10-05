@@ -11,12 +11,16 @@ const initialState = {
     progressbar: {
       isVisible: false,
     },
-    profile: {
-      name: "Diego",
-      photo: "https://thehappypuppysite.com/wp-content/uploads/2018/05/shiba-inu-header.jpg",
-      type: "PROFESSOR"
+    context: {
+      accessToken: null
     },
-
+    modalType: null,
+    profile: null
+    // profile: {
+    //   name: "Diego",
+    //   photo: "https://thehappypuppysite.com/wp-content/uploads/2018/05/shiba-inu-header.jpg",
+    //   type: "PROFESSOR"
+    // },
   },
 };
 
@@ -66,8 +70,28 @@ export default function reducers(state = initialState, action) {
           progressbar: {
             isVisible: false,
           },
-
         },
+      };
+
+    case types.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          profile: action.userProfile
+        }
+      };
+
+    case types.GOOGLE_LOGIN_SUCCESS:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          context: {
+            ...state.data.context,
+            accessToken: action.accessToken
+          }
+        }
       };
 
     default:

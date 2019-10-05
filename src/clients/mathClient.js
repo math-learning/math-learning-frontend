@@ -1,4 +1,4 @@
-import axios from 'axios'; // TODO: CAMBIAR DE LIBRARY POR FETCH
+import axios from 'axios'; // TODO: CAMBIAR DE LIBRARY POR node-fetch como usersClient.js
 import { latexParser } from 'latex-parser';
 import { cleanLatex } from '../utils/latexUtils';
 
