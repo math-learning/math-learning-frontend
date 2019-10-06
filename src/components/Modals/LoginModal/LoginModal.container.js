@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import * as commonActions from '../../state/common/actions';
-import * as modalActions from '../../state/modals/actions';
-import configs from '../../configs/variables';
+import * as commonActions from '../../../state/common/actions';
+import * as modalActions from '../../../state/modals/actions';
+import configs from '../../../configs/variables';
 
 import LoginModal from './LoginModal';
 

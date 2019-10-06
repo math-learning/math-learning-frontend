@@ -6,6 +6,7 @@ class Modal extends Component {
   constructor(props) {
     super(props);
     this.onOverlayClick = this.onOverlayClick.bind(this);
+    this.onDialogClick = this.onDialogClick.bind(this);
   }
 
   componentDidMount() {
@@ -30,6 +31,10 @@ class Modal extends Component {
     onClose();
   }
 
+  onDialogClick(event) {
+    event.stopPropagation();
+  }
+
   listenKeyboard(event) {
     const { onClose } = this.props;
 
@@ -39,13 +44,15 @@ class Modal extends Component {
   }
 
   render() {
-    const { children } = this.props;
+    const { children, className } = this.props;
 
     return (
       <div>
         <div className={styles.overlay} />
         <div className={styles.content} onClick={this.onOverlayClick}>
-          {children}
+          <div className={className} onClick={this.onDialogClick}>
+            {children}
+          </div>
         </div>
       </div>
     );

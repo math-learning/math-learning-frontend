@@ -9,22 +9,22 @@ const login = async ({ context }) => {
 
   const response = await fetch(profileUrl, {
     headers: {
-      authorization: context.token
+      Authorization: context.accessToken
     }
   });
   return { status: response.status, body: await response.json() };
 };
 
-const signup = async ({ context, name, type }) => {
+const signup = async ({ context, name, rol }) => {
   const profileUrl = `${url}/signup`;
 
   let response;
   try {
     response = await fetch(profileUrl, {
       method: 'post',
-      body: JSON.stringify({ name, type }),
+      body: JSON.stringify({ name, rol }),
       headers: {
-        authorization: context.token,
+        authorization: context.accessToken,
         'Content-Type': 'application/json'
       }
     });

@@ -67,13 +67,13 @@ export function signUpFail() {
   };
 }
 
-export function signUp({ name, type }) {
+export function signUp({ name, rol }) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = selectors.context(state);
 
     try {
-      const userProfile = await usersClient.signup({ context, name, type });
+      const userProfile = await usersClient.signup({ context, name, rol });
       dispatch(signUpSuccess({ userProfile }));
       dispatch(hideModal());
     } catch (err) {
@@ -89,7 +89,6 @@ export function login() {
 
     try {
       const userProfile = await usersClient.login({ context });
-      console.log("user profile", userProfile)
       dispatch(loginSuccess({ userProfile }));
       dispatch(hideModal());
     } catch (err) {

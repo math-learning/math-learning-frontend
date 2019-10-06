@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 
-import ModalContainer from './components/ModalContainer';
+import ModalContainer from './components/Modals/ModalContainer';
 
 import Main from './components/Main';
 import NavBar from './components/NavBar';
