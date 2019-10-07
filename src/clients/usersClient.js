@@ -12,7 +12,7 @@ const login = async ({ context }) => {
       Authorization: context.accessToken
     }
   });
-  return { status: response.status, body: await response.json() };
+  return response.json();
 };
 
 const signup = async ({ context, name, rol }) => {
@@ -32,7 +32,7 @@ const signup = async ({ context, name, rol }) => {
     console.log('Error while signing up', e);
     throw e;
   }
-  return { status: response.status, body: await response.json() };
+  return response.json();
 };
 
 export default {

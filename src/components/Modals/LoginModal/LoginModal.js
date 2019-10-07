@@ -22,7 +22,7 @@ class LoginModal extends Component {
 
   onClickSignUp = () => {
     const { onSignUp } = this.props;
-    const { name, rol } = this.props;
+    const { name, rol } = this.state;
 
     onSignUp({ name, rol });
   };
