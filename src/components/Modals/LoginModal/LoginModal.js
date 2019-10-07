@@ -18,12 +18,21 @@ class LoginModal extends Component {
       createAccountDisabled: true
     };
     this.onClickSignUp = this.onClickSignUp.bind(this);
+    this.onClickLogin = this.onClickLogin.bind(this);
   }
 
-  onClickSignUp = () => {
-    const { onSignUp } = this.props;
+  onClickLogin = (googleUserProfile) => {
+    const { onLogin, onGoogleLogin } = this.props;
+
+    onGoogleLogin(googleUserProfile);
+    onLogin();
+  };
+
+  onClickSignUp = (googleUserProfile) => {
+    const { onSignUp, onGoogleLogin } = this.props;
     const { name, rol } = this.state;
 
+    onGoogleLogin(googleUserProfile);
     onSignUp({ name, rol });
   };
 
@@ -89,14 +98,21 @@ class LoginModal extends Component {
           </RadioGroup>
         </FormControl>
 
-        <Button
-          onClick={this.onClickSignUp}
-          size="large"
-          disabled={createAccountDisabled}
-          className={styles.createAccount}
-        >
-          Crear cuenta
-        </Button>
+        <GoogleLogin
+          clientId={googleClientId}
+          onSuccess={this.onClickSignUp}
+          onFailure={(e) => console.log('TODO: Sign up error', e)}
+          render={(renderProps) => (
+            <Button
+              onClick={renderProps.onClick}
+              size="large"
+              disabled={createAccountDisabled || renderProps.disabled}
+              className={styles.createAccount}
+            >
+              Crear cuenta
+            </Button>
+          )}
+        />
       </Modal>
     );
   }

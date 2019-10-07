@@ -10,10 +10,8 @@ const currentState = () => ({
 });
 
 const currentActions = (dispatch) => ({
-  onLogin: (googleUserProfile) => {
-    dispatch(commonActions.onGoogleLogin(googleUserProfile));
-    dispatch(commonActions.login());
-  },
+  onGoogleLogin: (googleUserProfile) => dispatch(commonActions.onGoogleLogin(googleUserProfile)),
+  onLogin: () => dispatch(commonActions.login()),
   onClose: () => dispatch(modalActions.hideModal()),
   onSignUp: (userMetadata) => dispatch(commonActions.signUp(userMetadata)),
 });
