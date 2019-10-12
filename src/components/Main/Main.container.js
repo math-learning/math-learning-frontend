@@ -1,13 +1,17 @@
 import { connect } from 'react-redux';
-// import * as actions from '../../state/commons/actions';
+import * as actions from '../../state/modals/actions';
+import * as modalTypes from '../../state/modals/modalTypes';
 
 import Main from './Main';
 
-const currentActions = () => ({
-  // onSignUp: (payload) => dispatch(actions.signUp(payload)),
-  // onLogin: (payload) => dispatch(actions.login(payload))
+const currentState = () => ({ });
+
+const currentActions = (dispatch) => ({
+  // onSignUp: () => dispatch(actions.signUp(payload)),
+  onLogin: () => dispatch(actions.loadModal(modalTypes.LOGIN_MODAL))
 });
 
 export default connect(
+  currentState,
   currentActions,
 )(Main);

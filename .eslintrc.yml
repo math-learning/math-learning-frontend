@@ -22,6 +22,7 @@ rules: {
   react/prop-types: off,
   no-console: off,
   import/named: off,
+  comma-dangle: off,
   react/no-array-index-key: off,
   react/forbid-prop-types: off,
   react/require-default-props: off,

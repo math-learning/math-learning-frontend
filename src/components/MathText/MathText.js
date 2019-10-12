@@ -31,15 +31,13 @@ class MathText extends React.Component {
     const { content } = this.props;
 
     return (
-      <Typography>
-        <div
-          ref={(x) => {
-            this.element = x;
-          }}
-        >
-          {content}
-        </div>
-      </Typography>
+      <p
+        ref={(x) => {
+          this.element = x;
+        }}
+      >
+        {content}
+      </p>
     );
   }
 }

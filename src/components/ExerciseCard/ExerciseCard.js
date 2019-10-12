@@ -49,7 +49,7 @@ export default function ExerciseCard(props) {
           {title}
         </Typography>
 
-        <Typography className="statement" color="textSecondary" variant="body2" component="p">
+        <Typography className="statement" color="textSecondary" variant="body2" component="div">
           <MathText content={statement} />
         </Typography>
       </CardContent>

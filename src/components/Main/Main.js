@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import SignUpButton from '../Button/SignUpButton';
 
 import styles from './Main.module.sass';
-import { Container } from '@material-ui/core';
 
 class Main extends Component {
   footer = () => (
@@ -14,6 +13,8 @@ class Main extends Component {
   )
 
   render() {
+    const { onLogin } = this.props;
+
     return (
       <div className={styles.content}>
         <div className={styles.imageContent}>
@@ -22,7 +23,7 @@ class Main extends Component {
             <br />
             nunca fue tan fácil ...
           </p>
-          <SignUpButton size="large" />
+          <SignUpButton onClick={onLogin} size="large" />
         </div>
       </div>
     );
