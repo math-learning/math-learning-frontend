@@ -1,10 +1,11 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { Router, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
 
 import ModalContainer from './components/Modals/ModalContainer';
 
+import history from './store/history';
 import Main from './components/Main';
 import NavBar from './components/NavBar';
 import Footer from './components/Footer';
@@ -80,17 +81,16 @@ export default function App() {
 
   return (
     <main className={classes.root}>
-      <Router>
+      <Router history={history}>
         <NavBar />
 
-        <Route exact path="/principal" render={renderMainPage} />
+        <Route exact path="/" render={renderMainPage} />
+        <Route exact path="/courses" render={renderSearchCoursesPage} />
         <Route exact path="/exercises" render={renderExercisesPage} />
-        <Route exact path="/" render={renderCoursesPage} />
-        <Route exact path="/search-courses" render={renderSearchCoursesPage} />
         <Route exact path="/derivative/:index" render={renderDerivativePage} />
         <Route exact path="/add-exercise" render={renderAddExercisePage} />
         <Route exact path="/profile" render={renderProfilePage} />
-        <Route exact path="/courses" render={renderCoursesPage} />
+        <Route exact path="/my-courses" render={renderCoursesPage} />
         <Route exact path="/statistics" render={renderStatisticsPage} />
         <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage}/>
 

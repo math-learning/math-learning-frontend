@@ -9,6 +9,9 @@ const configs = {
       url: 'http://0.0.0.0:7000'
     }
   },
+  paths: {
+    courses: '/courses'
+  },
   // serverUrl: "http://0.0.0.0:5000"
   serverUrl: 'https://math-solver.herokuapp.com',
 };

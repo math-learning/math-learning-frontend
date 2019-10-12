@@ -1,7 +1,7 @@
-import requestUtils from './requestUtils';
+import fetch from 'node-fetch';
 
-const fetch = require('node-fetch');
-const confs = require('../configs/variables');
+import requestUtils from './requestUtils';
+import confs from '../configs/variables';
 
 const { url } = confs.services.users;
 

@@ -2,6 +2,8 @@ import * as types from './actionTypes';
 import * as modalTypes from '../modals/actionTypes';
 import * as modalActions from '../modals/actions';
 import * as selectors from './selectors';
+import configs from '../../configs/variables';
+import history from '../../store/history';
 import usersClient from '../../clients/usersClient';
 
 export function showSpinner() {
@@ -65,6 +67,8 @@ export function signUp({ name, rol }) {
       const userProfile = await usersClient.signup({ context, name, rol });
       dispatch(signUpSuccess({ userProfile }));
       dispatch(hideModal());
+
+      history.push(configs.paths.courses);
     } catch (err) {
       if (err.status === 409) {
         dispatch(modalActions.showError('El usuario que intenta crear ya existe. Pruebe utilizando otra cuenta'));
@@ -82,6 +86,8 @@ export function login() {
       const userProfile = await usersClient.login({ context });
       dispatch(loginSuccess({ userProfile }));
       dispatch(hideModal());
+
+      history.push(configs.paths.courses);
     } catch (err) {
       if (err.status === 404) {
         dispatch(modalActions.showError('El usuario asoaciado a la cuenta no existe. Debe crearlo previamente'));
