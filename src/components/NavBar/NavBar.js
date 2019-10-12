@@ -81,7 +81,6 @@ export default function NavBar(props) {
         <GoogleLogin
           clientId={googleClientId}
           onSuccess={onGoogleLogin}
-          onFailure={(e) => console.log('TODO: Sign up error', e)}
           render={(renderProps) => (
             <Button onClick={renderProps.onClick} color="inherit">
               Login

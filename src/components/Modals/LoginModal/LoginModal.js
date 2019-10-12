@@ -63,7 +63,6 @@ class LoginModal extends Component {
           clientId={googleClientId}
           buttonText="Log in con Google"
           onSuccess={(result) => this.onClickLogin(result)}
-          onFailure={(e) => console.log('TODO: error', e)}
         />
         <p className={styles.divider}>ó</p>
         <TextField
@@ -98,7 +97,6 @@ class LoginModal extends Component {
         <GoogleLogin
           clientId={googleClientId}
           onSuccess={this.onClickSignUp}
-          onFailure={(e) => console.log('TODO: Sign up error', e)}
           render={(renderProps) => (
             <Button
               onClick={renderProps.onClick}
