@@ -2,7 +2,8 @@ import * as types from './actionTypes';
 
 const initialState = {
   data: {
-    modalType: null
+    modalType: null,
+    modalError: null
   }
 };
 
@@ -12,6 +13,7 @@ export default function reducers(state = initialState, action) {
       return {
         ...state,
         data: {
+          ...state.data,
           modalType: action.modalType
         }
       };
@@ -20,7 +22,26 @@ export default function reducers(state = initialState, action) {
       return {
         ...state,
         data: {
+          ...state.data,
           modalType: null
+        }
+      };
+
+    case types.SHOW_ERROR:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          modalError: action.error
+        }
+      };
+
+    case types.HIDE_ERROR:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          modalError: null
         }
       };
 

@@ -10,10 +10,15 @@ const currentState = () => ({
 });
 
 const currentActions = (dispatch) => ({
-  onGoogleLogin: (googleUserProfile) => dispatch(commonActions.onGoogleLogin(googleUserProfile)),
-  onLogin: () => dispatch(commonActions.login()),
+  onGoogleLogin: (googleUserProfile) => {
+    dispatch(commonActions.onGoogleLogin(googleUserProfile));
+    dispatch(commonActions.login());
+  },
   onClose: () => dispatch(modalActions.hideModal()),
-  onSignUp: (userMetadata) => dispatch(commonActions.signUp(userMetadata)),
+  onGoogleSignUp: (googleUserProfile, userMetadata) => {
+    dispatch(commonActions.onGoogleLogin(googleUserProfile));
+    dispatch(commonActions.signUp(userMetadata));
+  }
 });
 
 export default connect(

@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import * as modalTypes from '../modals/actionTypes';
+import * as modalActions from '../modals/actions';
 import * as selectors from './selectors';
 import usersClient from '../../clients/usersClient';
 
@@ -41,12 +42,6 @@ export function loginSuccess({ userProfile }) {
   };
 }
 
-export function loginFail() {
-  return {
-    type: types.LOGIN_FAIL
-  };
-}
-
 export function onGoogleLogin({ accessToken }) {
   return {
     type: types.GOOGLE_LOGIN_SUCCESS,
@@ -61,12 +56,6 @@ export function signUpSuccess({ userProfile }) {
   };
 }
 
-export function signUpFail() {
-  return {
-    type: types.SIGNUP_FAIL
-  };
-}
-
 export function signUp({ name, rol }) {
   return async (dispatch, getState) => {
     const state = getState();
@@ -77,7 +66,9 @@ export function signUp({ name, rol }) {
       dispatch(signUpSuccess({ userProfile }));
       dispatch(hideModal());
     } catch (err) {
-      dispatch(signUpFail());
+      if (err.status === 409) {
+        dispatch(modalActions.showError('El usuario que intenta crear ya existe. Pruebe utilizando otra cuenta'));
+      }
     }
   };
 }
@@ -92,7 +83,9 @@ export function login() {
       dispatch(loginSuccess({ userProfile }));
       dispatch(hideModal());
     } catch (err) {
-      dispatch(loginFail());
+      if (err.status === 404) {
+        dispatch(modalActions.showError('El usuario asoaciado a la cuenta no existe. Debe crearlo previamente'));
+      }
     }
   };
 }
