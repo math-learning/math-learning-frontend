@@ -9,8 +9,8 @@ export default function WrongIcon(props) {
   const { className } = props;
 
   return (
-    <IconContext.Provider value={{ className: classNames(className, styles.wrong) }}>
-      <div id="wrong-icon">
+    <IconContext.Provider value={{ className: classNames(className, styles.right) }}>
+      <div id="check-icon">
         <FaTimes />
       </div>
     </IconContext.Provider>

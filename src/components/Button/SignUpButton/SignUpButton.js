@@ -8,13 +8,12 @@ export default function SignUpButton(props) {
   const { size, className, onClick } = props;
 
   return (
-    <div className={classNames(styles.button, className)}>
-      <Button
-        onClick={onClick}
-        size={size || 'large'}
-      >
-        Sign up
-      </Button>
-    </div>
+    <Button
+      onClick={onClick}
+      size={size || 'large'}
+      className={classNames(styles.button, className)}
+    >
+      Sign up
+    </Button>
   );
 }
