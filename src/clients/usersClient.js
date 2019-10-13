@@ -1,6 +1,7 @@
-const fetch = require('node-fetch');
+import fetch from 'node-fetch';
 
-const confs = require('../configs/variables');
+import requestUtils from './requestUtils';
+import confs from '../configs/variables';
 
 const { url } = confs.services.users;
 
@@ -12,27 +13,23 @@ const login = async ({ context }) => {
       Authorization: context.accessToken
     }
   });
-  return response.json();
+
+  return requestUtils.processResponse(response);
 };
 
 const signup = async ({ context, name, rol }) => {
   const profileUrl = `${url}/signup`;
 
-  let response;
-  try {
-    response = await fetch(profileUrl, {
-      method: 'post',
-      body: JSON.stringify({ name, rol }),
-      headers: {
-        authorization: context.accessToken,
-        'Content-Type': 'application/json'
-      }
-    });
-  } catch (e) {
-    console.log('Error while signing up', e);
-    throw e;
-  }
-  return response.json();
+  const response = await fetch(profileUrl, {
+    method: 'post',
+    body: JSON.stringify({ name, rol }),
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
 };
 
 export default {

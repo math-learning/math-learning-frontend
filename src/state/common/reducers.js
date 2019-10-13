@@ -74,6 +74,7 @@ export default function reducers(state = initialState, action) {
       };
 
     case types.SIGNUP_SUCCESS:
+    case types.LOGIN_SUCCESS:
       return {
         ...state,
         data: {

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { Container } from '@material-ui/core';
 
-const styles = require('./Modal.module.sass');
+import styles from './Modal.module.sass';
 
 class Modal extends Component {
   constructor(props) {
@@ -32,7 +33,12 @@ class Modal extends Component {
   }
 
   onDialogClick(event) {
+    const { hideError, modalError } = this.props;
+
     event.stopPropagation();
+    if (modalError) {
+      hideError();
+    }
   }
 
   listenKeyboard(event) {
@@ -44,17 +50,18 @@ class Modal extends Component {
   }
 
   render() {
-    const { children, className } = this.props;
+    const { children, className, modalError } = this.props;
 
     return (
-      <div>
+      <Container>
         <div className={styles.overlay} />
         <div className={styles.content} onClick={this.onOverlayClick}>
           <div className={className} onClick={this.onDialogClick}>
+            {modalError ? (<span className={styles.error}>{modalError}</span>) : ''}
             {children}
           </div>
         </div>
-      </div>
+      </Container>
     );
   }
 }

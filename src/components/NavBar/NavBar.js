@@ -4,6 +4,7 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { ThemeProvider } from '@material-ui/styles';
+import { GoogleLogin } from 'react-google-login';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import theme from '../../theme';
@@ -52,7 +53,7 @@ const commonDrawerItems = [
 ]
 
 export default function NavBar(props) {
-  const { profile } = props;
+  const { profile, googleClientId, onSignUp, onGoogleLogin } = props;
 
   let drawer = null;
   let loginSignUpButtons = null;
@@ -72,8 +73,20 @@ export default function NavBar(props) {
   } else {
     loginSignUpButtons = (
       <div>
-        <SignUpButton size="small" className={styles.signUpButton} />
-        <Button color="inherit">Login</Button>
+        <SignUpButton
+          size="small"
+          onClick={onSignUp}
+          className={styles.signUpButton}
+        />
+        <GoogleLogin
+          clientId={googleClientId}
+          onSuccess={onGoogleLogin}
+          render={(renderProps) => (
+            <Button onClick={renderProps.onClick} color="inherit">
+              Login
+            </Button>
+          )}
+        />
       </div>
     );
   }

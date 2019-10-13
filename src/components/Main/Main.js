@@ -13,7 +13,7 @@ class Main extends Component {
   )
 
   render() {
-    const { onLogin } = this.props;
+    const { onSignUp } = this.props;
 
     return (
       <div className={styles.content}>
@@ -23,7 +23,7 @@ class Main extends Component {
             <br />
             nunca fue tan fácil ...
           </p>
-          <SignUpButton onClick={onLogin} size="large" />
+          <SignUpButton onClick={onSignUp} size="large" />
         </div>
       </div>
     );

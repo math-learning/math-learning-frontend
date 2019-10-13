@@ -22,18 +22,16 @@ class LoginModal extends Component {
   }
 
   onClickLogin = (googleUserProfile) => {
-    const { onLogin, onGoogleLogin } = this.props;
+    const { onGoogleLogin } = this.props;
 
     onGoogleLogin(googleUserProfile);
-    onLogin();
   };
 
   onClickSignUp = (googleUserProfile) => {
-    const { onSignUp, onGoogleLogin } = this.props;
+    const { onGoogleSignUp } = this.props;
     const { name, rol } = this.state;
 
-    onGoogleLogin(googleUserProfile);
-    onSignUp({ name, rol });
+    onGoogleSignUp(googleUserProfile, { name, rol });
   };
 
   onChangeName = (event) => {
@@ -54,7 +52,7 @@ class LoginModal extends Component {
 
   render() {
     const {
-      googleClientId, onClose, onLogin
+      googleClientId, onClose
     } = this.props;
     const { createAccountDisabled } = this.state;
 
@@ -64,12 +62,10 @@ class LoginModal extends Component {
           className={styles.button}
           clientId={googleClientId}
           buttonText="Log in con Google"
-          onSuccess={(result) => onLogin(result)}
-          onFailure={(e) => console.log('TODO: error', e)}
+          onSuccess={(result) => this.onClickLogin(result)}
         />
         <p className={styles.divider}>ó</p>
         <TextField
-          startAd
           id="signup-name"
           label="Nombre completo"
           onChange={this.onChangeName}
@@ -101,7 +97,6 @@ class LoginModal extends Component {
         <GoogleLogin
           clientId={googleClientId}
           onSuccess={this.onClickSignUp}
-          onFailure={(e) => console.log('TODO: Sign up error', e)}
           render={(renderProps) => (
             <Button
               onClick={renderProps.onClick}
