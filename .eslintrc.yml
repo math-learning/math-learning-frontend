@@ -7,6 +7,8 @@ extends:
 globals:
   Atomics: readonly
   SharedArrayBuffer: readonly
+  sandbox: true
+  sinon: true
 parserOptions:
   ecmaFeatures:
     jsx: true
@@ -26,5 +28,6 @@ rules: {
   react/no-array-index-key: off,
   react/forbid-prop-types: off,
   react/require-default-props: off,
-  import/prefer-default-export: off
+  import/prefer-default-export: off,
+  no-unused-expressions: off
 }

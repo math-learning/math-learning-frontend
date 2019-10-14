@@ -2,8 +2,10 @@ import React from 'react';
 import { Router, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
 import { Container } from '@material-ui/core';
+import { hot } from 'react-hot-loader';
 
 import ModalContainer from './components/Modals/ModalContainer';
+
 
 import history from './store/history';
 import Main from './components/Main';
@@ -76,7 +78,7 @@ return (
 )
 }
 
-export default function App() {
+const App = () => {
   const classes = useStyles();
 
   return (
@@ -103,4 +105,6 @@ export default function App() {
       </Router>
     </main>
   );
-}
+};
+
+export default hot(module)(App);
