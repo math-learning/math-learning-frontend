@@ -18,7 +18,7 @@ class Main extends Component {
     return (
       <div className={styles.content}>
         <div className={styles.imageContent}>
-          <p className={styles.imageContentText}>
+          <p id="main-content" className={styles.imageContentText}>
             Aprender matemática
             <br />
             nunca fue tan fácil ...

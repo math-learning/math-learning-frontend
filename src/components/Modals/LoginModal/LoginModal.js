@@ -78,6 +78,7 @@ class LoginModal extends Component {
           <FormLabel className={styles.rolType} component="legend">Tipo de usuario</FormLabel>
           <RadioGroup className={styles.radioGroup} aria-label="position" name="position" onChange={this.onChangeRol} row>
             <FormControlLabel
+              id="student-label"
               className={styles.radioButton}
               value="student"
               control={<Radio color="primary" />}
@@ -85,6 +86,7 @@ class LoginModal extends Component {
               labelPlacement="bottom"
             />
             <FormControlLabel
+              id="professor-label"
               className={styles.radioButton}
               value="professor"
               control={<Radio color="primary" />}
@@ -99,6 +101,7 @@ class LoginModal extends Component {
           onSuccess={this.onClickSignUp}
           render={(renderProps) => (
             <Button
+              id="create-account-button"
               onClick={renderProps.onClick}
               size="large"
               disabled={createAccountDisabled || renderProps.disabled}

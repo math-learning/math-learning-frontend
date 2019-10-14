@@ -33,6 +33,6 @@ describe('SignUpButton', () => {
     const wrapper = shallow(<SignUpButton size="small" onClick={onClick} />);
 
     wrapper.simulate('click');
-    sandbox.assert.called(onClick);
+    sinon.assert.calledOnce(onClick);
   });
 });
