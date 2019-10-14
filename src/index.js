@@ -22,4 +22,3 @@ ReactDOM.render(
 );
 
 serviceWorker.unregister();
-module.hot.accept();
