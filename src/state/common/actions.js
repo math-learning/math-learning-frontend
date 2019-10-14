@@ -2,7 +2,9 @@ import * as types from './actionTypes';
 import * as modalTypes from '../modals/actionTypes';
 import * as modalActions from '../modals/actions';
 import * as selectors from './selectors';
+
 import configs from '../../configs/variables';
+import messages from '../../configs/messages';
 import history from '../../store/history';
 import usersClient from '../../clients/usersClient';
 
@@ -71,7 +73,7 @@ export function signUp({ name, rol }) {
       history.push(configs.paths.courses);
     } catch (err) {
       if (err.status === 409) {
-        dispatch(modalActions.showError('El usuario que intenta crear ya existe. Pruebe utilizando otra cuenta'));
+        dispatch(modalActions.showError(messages.error.userAlreadyExist));
       }
     }
   };
@@ -90,7 +92,7 @@ export function login() {
       history.push(configs.paths.courses);
     } catch (err) {
       if (err.status === 404) {
-        dispatch(modalActions.showError('El usuario asoaciado a la cuenta no existe. Debe crearlo previamente'));
+        dispatch(modalActions.showError(messages.error.userDoesNotExist));
       }
     }
   };
