@@ -8,7 +8,7 @@
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
     "eject": "react-scripts eject",
-    "test": "mocha --require @babel/register --require ./test/dom.js --require ignore-styles ./test/configs.js \"./src/**/*.test.js\"",
+    "test": "nyc mocha --require @babel/register --require ./test/dom.js --require ignore-styles ./test/configs.js \"./src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch",
     "dev:hot": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./"
   },
@@ -79,6 +79,7 @@
     "jsdom": "^15.1.1",
     "mocha": "^6.2.1",
     "nock": "^11.4.0",
+    "nyc": "^14.1.1",
     "react-addons-test-utils": "^15.6.2",
     "redux-mock-store": "^1.5.3",
     "redux-thunk": "^2.3.0",
