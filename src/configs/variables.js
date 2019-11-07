@@ -19,8 +19,13 @@ const configs = {
     main: '/',
     courses: '/courses',
     coursesSearch: '/courses/search',
-    course: (courseId) => `/courses/${courseId}`,
+    courseGuide: '/courses/:courseId/guides/:guideId',
+    course: '/courses/:courseId',
     statistics: '/statistics'
+  },
+  pathGenerators: {
+    course: (courseId) => `/courses/${courseId}`,
+    courseGuide: (courseId, guideId) => `/courses/${courseId}/guides/${guideId}`,
   },
   // serverUrl: "http://0.0.0.0:5000"
   serverUrl: 'https://math-solver.herokuapp.com'

@@ -1,5 +1,8 @@
+import {courseGuideId} from "../../utils/idUtils";
 import _ from 'lodash';
-import * as courseUtils from '../../utils/courseUtils';
+import * as courseUtils from '../../utils/idUtils';
+
+export const getExercises = (state, courseId, guideId) => state.exercises.data.list[courseGuideId({courseId, guideId})]
 
 export const getExercise = (state, {
   courseId, guideId, exerciseId

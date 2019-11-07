@@ -9,7 +9,10 @@ const initialState = {
     list: {
       courses: [],
       isLoadingCourses: true
-    }
+    },
+    // TODO: ver como hacer que no ocupe mucho espacio
+    detail: {},
+    isLoadingCourseDetail: true,
   },
 };
 
@@ -26,6 +29,46 @@ export default function reducers(state = initialState, action) {
           }
         }
       };
+    }
+
+    case types.GET_COURSE_DETAIL_SUCCESS: {
+      const detail = { ...state.data.detail };
+      console.log(action);
+      detail[action.course.courseId] = action.course;
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail,
+          isLoadingCourseDetail: false,
+        }
+      }
+    }
+
+    case types.UPDATE_COURSE_SUCCESS: {
+      let detail = { ...state.data.detail };
+      detail[action.course.courseId] = {
+        ...detail[action.course.courseId],
+        ...action.course,
+      };
+      console.log(action);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail,
+        }
+      }
+    }
+
+    case types.COURSE_DETAIL_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isLoadingCourseDetail: true,
+        }
+      }
     }
 
     case types.LIST_COURSES_SUCCESS: {

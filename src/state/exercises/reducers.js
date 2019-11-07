@@ -1,11 +1,12 @@
 import * as _ from 'lodash';
 import * as types from './actionTypes';
-import * as courseUtils from '../../utils/courseUtils';
+import * as idUtils from '../../utils/idUtils';
 
 const initialState = {
   data: {
     list: {},
-    detail: {}
+    detail: {},
+    isLoadingExercises: false,
   },
 };
 
@@ -36,21 +37,63 @@ function updateExerciseState({
 
 export default function reducers(state = initialState, action) {
   switch (action.type) {
-    case types.CREATE_EXERCISE_SUCCESS: {
-      const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
-      const listExercises = state.data.list[courseGuideId] || [];
 
+    case types.GET_EXERCISES_REQUEST: {
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isLoadingExercises: true,
+        }
+      }
+    }
+
+    case types.GET_EXERCISES_SUCCESS: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      let detail = { ...state.data.detail };
+      action.exercises.forEach(exercise => {
+        const courseGuideExerciseId = idUtils.courseGuideExerciseId(
+            _.pick(action, 'courseId', 'guideId', 'exerciseId')
+        );
+        detail[courseGuideExerciseId] = exercise;
+      });
       return {
         ...state,
         data: {
           ...state.data,
           list: {
             ...state.data.list,
+            [courseGuideId]: action.exercises,
+          },
+          detail,
+          isLoadingExercises: false,
+        }
+      }
+    }
+
+    case types.CREATE_EXERCISE_SUCCESS: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const courseGuideExerciseId = idUtils.courseGuideExerciseId(
+          _.pick(action, 'courseId', 'guideId', 'exerciseId'),
+      );
+      const currentExercises = state.data.list[courseGuideId] || [];
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail: {
+            ...state.data.detail,
+            [courseGuideExerciseId]: action.exercise
+          },
+          list: {
+            ...state.data.list,
             [courseGuideId]: [
-              ...listExercises,
+              ...currentExercises,
               action.exercise
             ]
-          }
+          },
         }
       };
     }
