@@ -12,6 +12,19 @@ import Modal from '../Modal';
 import MathTextBox from '../../MathTextBox';
 
 import styles from './CreateExerciseModal.module.sass';
+// const materialStyles = () => ({
+//   select: {
+//     '&:before': {
+//       borderColor: '#000',
+//     },
+//     '&:after': {
+//       borderColor: '#000',
+//     }
+//   },
+//   icon: {
+//     fill: '#000',
+//   },
+// });
 
 class CreateExerciseModal extends Component {
   constructor(props) {
@@ -102,51 +115,57 @@ class CreateExerciseModal extends Component {
     return (
       <Modal className={styles.modal} onClose={onClose}>
         <TextField
-          id="signup-name"
-          label="Nombre del ejercicio"
           onChange={this.onChangeName}
           className={styles.name}
-          fullWidth
-          margin="normal"
+          id="outlined-dense-multiline"
+          label="Nombre del ejercicio"
+          margin="dense"
           variant="outlined"
         />
 
         <div className={styles.dropdownContainer}>
-          {/* <InputLabel id="type-label" shrink className={styles.selectLabel}>Tipo de ejercicio</InputLabel> */}
-          <span className={styles.label}>Tipo de ejercicio</span>
+          <span className={styles.dropdownLabel}>Tipo de ejercicio</span>
           <Select value={type} onChange={this.onChangeType} className={styles.dropdown}>
             <MenuItem value="derivada">Derivada</MenuItem>
             <MenuItem value="integral">Integral</MenuItem>
           </Select>
         </div>
 
-        {/* <InputLabel id="type-label" shrink className={styles.exerciseLabel}>Escriba su ejercicio</InputLabel> */}
-        <span className={styles.label}>Escriba su ejercicio</span>
-        <MathTextBox
-          content={exercise}
-          className={styles.exercise}
-          onEnter={() => {}}
-          onContentChange={(context) => this.onChangeExercise({ target: { value: context } })}
-        />
+        <div className={styles.exerciseContainer}>
+          <span className={styles.exerciseLabel}>Escriba su ejercicio</span>
+          <MathTextBox
+            content={exercise}
+            className={styles.exercise}
+            onEnter={() => {}}
+            onContentChange={(context) => this.onChangeExercise({ target: { value: context } })}
+          />
+        </div>
 
         <div className={styles.dropdownContainer}>
-          {/* <InputLabel id="difficulty-label" shrink className={styles.selectLabel}>Dificultad</InputLabel> */}
-          <span className={styles.label}>Dificultad del ejercicio</span>
+          <span className={styles.dropdownLabel}>Dificultad del ejercicio</span>
           <Select value={difficulty} onChange={this.onChangeDifficulty} className={styles.dropdown}>
             <MenuItem value="facil">Facil</MenuItem>
             <MenuItem value="medio">Medio</MenuItem>
             <MenuItem value="dificil">Dificil</MenuItem>
           </Select>
         </div>
+        {/* <FormControl className={styles.dropdownContainer}>
+          <InputLabel id="demo-simple-select-label">Dificultad del ejercicio</InputLabel>
+          <Select value={difficulty} onChange={this.onChangeDifficulty} className={styles.dropdown}>
+            <MenuItem value="facil">Facil</MenuItem>
+            <MenuItem value="medio">Medio</MenuItem>
+            <MenuItem value="dificil">Dificil</MenuItem>
+          </Select>
+        </FormControl> */}
 
-        {/* <InputLabel id="type-label" shrink className={styles.exerciseLabel}>Agregar una descricion</InputLabel> */}
-        <span className={styles.label}>Agregar una description</span>
         <TextField
-          id="signup-name"
+          id="create-ex-description"
+          label="Descripción del ejercicio"
           onChange={this.onChangeName}
           className={styles.description}
           fullWidth
           multiline
+          rowsMax="4"
           margin="normal"
           variant="outlined"
         />
@@ -157,7 +176,7 @@ class CreateExerciseModal extends Component {
           size="large"
           disabled={createExerciseDisabled}
           className={classNames(
-            styles.createAccount,
+            styles.button,
             createExerciseDisabled ? styles.createExerciseDisabled : styles.createExerciseEnabled
           )}
         >
