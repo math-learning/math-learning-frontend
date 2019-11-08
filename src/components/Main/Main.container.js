@@ -7,7 +7,7 @@ import Main from './Main';
 const currentState = () => ({ });
 
 const currentActions = (dispatch) => ({
-  onSignUp: () => dispatch(actions.loadModal(modalTypes.LOGIN_MODAL))
+  onSignUp: () => dispatch(actions.loadModal(modalTypes.CREATE_EXERCISE_MODAL))
 });
 
 export default connect(

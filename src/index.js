@@ -12,6 +12,9 @@ import theme from './theme';
 const store = configureStore({});
 
 ReactDOM.render(
+  // <Provider store={store}>
+  //   <App />
+  // </Provider>,
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>
