@@ -1,16 +1,16 @@
 .modal
-  min-width: 550px
-  background-color: #303030
+  min-width: 600px
+  background-color: white
   display: flex
   flex-direction: column
-  padding: 40px 30px
+  padding: 30px 50px
   position: absolute
   transform: translate(-50%,-50%);
   top: 50%
   left: 50%
 
 .name
-  margin-bottom: 15px
+  margin: 20px 0 !important
 
   root
     font-size: 1em
@@ -18,8 +18,12 @@
   label
     font-size: 1em
 
+.dropdownContainer
+  margin: 20px 0 !important
+  text-align: left
+
 .exerciseContainer
-  margin: 15px 0 
+  margin: 20px 0 !important
   text-align: left;
   align-items: center;
   vertical-align: middle
@@ -28,32 +32,8 @@
   div
     min-height: 50px;
 
-.exerciseLabel
-  align-self: self-start
-  margin: 10px 0 
-
-
-.dropdownContainer
-  margin: 15px 0
-  text-align: left
-  align-items: center
-  vertical-align: middle
-  flex-direction: row
-
-.dropdown
-
-.dropdownLabel
-  margin-right: 20px
-
-
-.descriptionContainer
-  margin: 15px 0
-  text-align: left;
-  align-items: center;
-  vertical-align: middle
-
 .description
-  margin: 15px 0
+  margin: 20px 0 !important
 
   root
     font-size: 1em
@@ -61,16 +41,6 @@
   label
     font-size: 1em
 
-.createAccount
-  display: inline-block
-  border-radius: 2px
-  margin: 15px 0 
-  text-transform: none 
-
-.createExerciseEnabled
-  color: white 
-  background-color: #18a0fb 
-
-.createExerciseDisabled
-  color: grey 
-  background-color: #d7d7d7 
+.button
+  margin-top: 20px !important
+  max-width: 200px

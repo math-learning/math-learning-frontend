@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Container } from '@material-ui/core';
 
+import { ThemeProvider } from '@material-ui/styles';
+import modalTheme from '../../../themes/modalTheme';
+
 import styles from './Modal.module.sass';
 
 class Modal extends Component {
@@ -53,15 +56,17 @@ class Modal extends Component {
     const { children, className, modalError } = this.props;
 
     return (
-      <Container>
-        <div className={styles.overlay} />
-        <div className={styles.content} onClick={this.onOverlayClick}>
-          <div className={className} onClick={this.onDialogClick}>
-            {modalError ? (<span className={styles.error}>{modalError}</span>) : ''}
-            {children}
+      <ThemeProvider theme={modalTheme}>
+        <Container>
+          <div className={styles.overlay} />
+          <div className={styles.content} onClick={this.onOverlayClick}>
+            <div className={className} onClick={this.onDialogClick}>
+              {modalError ? (<span className={styles.error}>{modalError}</span>) : ''}
+              {children}
+            </div>
           </div>
-        </div>
-      </Container>
+        </Container>
+      </ThemeProvider>
     );
   }
 }

@@ -7,14 +7,11 @@ import { CssBaseline } from '@material-ui/core';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import configureStore from './store/configurationStore';
-import theme from './theme';
+import theme from './themes/defaultTheme';
 
 const store = configureStore({});
 
 ReactDOM.render(
-  // <Provider store={store}>
-  //   <App />
-  // </Provider>,
   <ThemeProvider theme={theme}>
     <CssBaseline />
     <Provider store={store}>

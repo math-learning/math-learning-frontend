@@ -1,30 +1,46 @@
 import React, { Component } from 'react';
-import {
-  TextField, Radio, FormControl, FormLabel, RadioGroup, FormControlLabel
-} from '@material-ui/core';
-import InputLabel from '@material-ui/core/InputLabel';
-import Button from '@material-ui/core/Button';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import { makeStyles } from '@material-ui/core/styles';
 import classNames from 'classnames';
+import { TextField, Typography, FormControl, InputLabel, Button, Select, InputBase, MenuItem } from '@material-ui/core';
+import { withStyles } from '@material-ui/core/styles';
+
 import Modal from '../Modal';
 import MathTextBox from '../../MathTextBox';
-
 import styles from './CreateExerciseModal.module.sass';
-// const materialStyles = () => ({
-//   select: {
-//     '&:before': {
-//       borderColor: '#000',
-//     },
-//     '&:after': {
-//       borderColor: '#000',
-//     }
-//   },
-//   icon: {
-//     fill: '#000',
-//   },
-// });
+
+const BootstrapInput = withStyles((theme) => ({
+  root: {
+    'label + &': {
+      marginTop: theme.spacing(3),
+    },
+  },
+  input: {
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: theme.palette.background.paper,
+    border: '1px solid #ced4da',
+    fontSize: 15,
+    padding: '10px 26px 10px 12px',
+    transition: theme.transitions.create(['border-color', 'box-shadow']),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      borderRadius: 4,
+      borderColor: '#80bdff',
+      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.25)',
+    }
+  },
+}))(InputBase);
 
 class CreateExerciseModal extends Component {
   constructor(props) {
@@ -32,9 +48,9 @@ class CreateExerciseModal extends Component {
 
     this.state = {
       name: null,
-      type: "derivada",
+      type: 'derivada',
       exercise: null,
-      difficulty: "facil",
+      difficulty: 'facil',
       description: null,
       createExerciseDisabled: true
     };
@@ -110,29 +126,44 @@ class CreateExerciseModal extends Component {
 
   render() {
     const { onClose } = this.props;
-    const { createExerciseDisabled, type, difficulty, exercise } = this.state;
+    const {
+      createExerciseDisabled,
+      type,
+      difficulty,
+      exercise
+    } = this.state;
 
     return (
       <Modal className={styles.modal} onClose={onClose}>
+        <Typography color="textPrimary" variant="standard" component="h1">
+          Creación de ejercicio
+        </Typography>
+
         <TextField
           onChange={this.onChangeName}
           className={styles.name}
           id="outlined-dense-multiline"
-          label="Nombre del ejercicio"
+          label="Nombre"
           margin="dense"
-          variant="outlined"
         />
 
-        <div className={styles.dropdownContainer}>
-          <span className={styles.dropdownLabel}>Tipo de ejercicio</span>
-          <Select value={type} onChange={this.onChangeType} className={styles.dropdown}>
+        <FormControl className={styles.dropdownContainer}>
+          <InputLabel id="dropdown-input-label">Tipo de ejercicio</InputLabel>
+          <Select
+            id="dropdown-selector"
+            value={type}
+            onChange={this.onChangeType}
+            input={<BootstrapInput />}
+          >
             <MenuItem value="derivada">Derivada</MenuItem>
             <MenuItem value="integral">Integral</MenuItem>
           </Select>
-        </div>
+        </FormControl>
 
         <div className={styles.exerciseContainer}>
-          <span className={styles.exerciseLabel}>Escriba su ejercicio</span>
+          <Typography color="textSecondary" variant="h7">
+            Escriba el ejercicio
+          </Typography>
           <MathTextBox
             content={exercise}
             className={styles.exercise}
@@ -141,26 +172,23 @@ class CreateExerciseModal extends Component {
           />
         </div>
 
-        <div className={styles.dropdownContainer}>
-          <span className={styles.dropdownLabel}>Dificultad del ejercicio</span>
-          <Select value={difficulty} onChange={this.onChangeDifficulty} className={styles.dropdown}>
-            <MenuItem value="facil">Facil</MenuItem>
+        <FormControl className={styles.dropdownContainer}>
+          <InputLabel variant="h7" id="dropdown-input-label">Dificultad</InputLabel>
+          <Select
+            id="dropdown-selector"
+            value={difficulty}
+            onChange={this.onChangeDifficulty}
+            input={<BootstrapInput />}
+          >
+            <MenuItem value="facil">Fácil</MenuItem>
             <MenuItem value="medio">Medio</MenuItem>
-            <MenuItem value="dificil">Dificil</MenuItem>
+            <MenuItem value="dificil">Difícil</MenuItem>
           </Select>
-        </div>
-        {/* <FormControl className={styles.dropdownContainer}>
-          <InputLabel id="demo-simple-select-label">Dificultad del ejercicio</InputLabel>
-          <Select value={difficulty} onChange={this.onChangeDifficulty} className={styles.dropdown}>
-            <MenuItem value="facil">Facil</MenuItem>
-            <MenuItem value="medio">Medio</MenuItem>
-            <MenuItem value="dificil">Dificil</MenuItem>
-          </Select>
-        </FormControl> */}
+        </FormControl>
 
         <TextField
           id="create-ex-description"
-          label="Descripción del ejercicio"
+          label="Descripción (opcional)"
           onChange={this.onChangeName}
           className={styles.description}
           fullWidth
@@ -170,18 +198,22 @@ class CreateExerciseModal extends Component {
           variant="outlined"
         />
 
-        <Button
-          id="create-exercise-button"
-          onClick={this.onCreateExercise}
-          size="large"
-          disabled={createExerciseDisabled}
-          className={classNames(
-            styles.button,
-            createExerciseDisabled ? styles.createExerciseDisabled : styles.createExerciseEnabled
-          )}
-        >
-          Crear ejercicio
-        </Button>
+        <div className={styles.buttonContainer}>
+          <Button
+            color="primary"
+            variant="contained"
+            id="create-exercise-button"
+            onClick={this.onCreateExercise}
+            size="large"
+            disabled={createExerciseDisabled}
+            className={classNames(
+              styles.button,
+              createExerciseDisabled ? styles.createExerciseDisabled : styles.createExerciseEnabled
+            )}
+          >
+            Crear ejercicio
+          </Button>
+        </div>
       </Modal>
     );
   }
