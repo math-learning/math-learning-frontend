@@ -1,6 +1,7 @@
 .container {
   display: inline;
   flex-direction: row;
+  border-radius: 5px;
 }
 
 :local .textBoxContainer {
@@ -13,9 +14,12 @@
 }
 
 .mq-math-mode, .mq-math-mode .mq-editable-field {
-  width: 100% !important;
+  border-radius: 4px;
+  width: 100%;
 }
 
-.mq-cursor {
-  border-left-color: #80CBC4 !important
+.mq-root-block {
+  text-align: center;
+  font-size: 20px !important;
+  padding: 10px !important;
 }
