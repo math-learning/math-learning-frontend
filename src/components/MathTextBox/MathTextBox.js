@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import classNames from 'classnames';
 import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill';
 import { Typography } from '@material-ui/core';
-import MathText from '../MathText/MathText';
+
 // TODO: ver como pasarlo a sass (edita estilos de mathquill)
 import styles from './MathTextBox.css';
 
@@ -24,15 +25,18 @@ class MathTextBox extends Component {
   }
 
   render() {
-    const { content } = this.props;
+    const { content, className } = this.props;
 
     return (
-      <div
-        className={styles.container}
+      <div // eslint-disable-line jsx-a11y/no-static-element-interactions
         onKeyPress={this.onKeyPress}
         onClick={this.onClick}
+        className={classNames(
+          styles.container,
+          className
+        )}
       >
-        <Typography>
+        <Typography color="textPrimary">
           <MathQuill
             latex={content}
             onChange={(mathField) => {
@@ -45,8 +49,9 @@ class MathTextBox extends Component {
   }
 }
 
-MathText.propTypes = {
+MathTextBox.propTypes = {
   content: PropTypes.string,
+  className: PropTypes.string,
   onContentChange: PropTypes.func,
   onEnter: PropTypes.func,
 };
