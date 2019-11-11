@@ -135,7 +135,7 @@ export default function reducers(state = initialState, action) {
         },
       };
 
-    case types.ADD_EXERCISE:
+    case types.ADD_EXERCISE: {
       const exercise = {
         name: 'name',
         input: action.expression,
@@ -143,6 +143,7 @@ export default function reducers(state = initialState, action) {
       };
       const newExercises = [...state.data.exercises];
       newExercises.push(exercise);
+
       return {
         ...state,
         data: {
@@ -153,6 +154,7 @@ export default function reducers(state = initialState, action) {
           stepList: [...state.data.stepList, []],
         },
       };
+    }
 
     default:
       return state;

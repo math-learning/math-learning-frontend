@@ -1,3 +1,3 @@
-import LinkListItemWithIcon from "./LinkListItemWithIcon";
+import LinkListItemWithIcon from './LinkListItemWithIcon';
 
 export default LinkListItemWithIcon;

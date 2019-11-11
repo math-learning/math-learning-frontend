@@ -1,3 +1,1 @@
-export const courseGuideId = ({ courseId, guideId }) => {
-  return `${courseId}/${guideId}`;
-};
+export const courseGuideId = ({ courseId, guideId }) => `${courseId}/${guideId}`;

@@ -9,8 +9,11 @@ export default function ProfessorItems() {
   return (
     <DrawerItems>
       {/* Professor extra items */}
-      <LinkListItemWithIcon to={{ pathname: '/statistics' }} text="Estadisticas" 
-          icon={(<InsertChartRoundedIcon className={styles.tcViolet} />)}/>
+      <LinkListItemWithIcon
+        to={{ pathname: '/statistics' }}
+        text="Estadisticas"
+        icon={(<InsertChartRoundedIcon className={styles.tcViolet} />)}
+      />
 
     </DrawerItems>
 

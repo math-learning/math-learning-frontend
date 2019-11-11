@@ -14,6 +14,8 @@ import MathText from '../MathText';
 import MathTextBox from '../MathTextBox';
 import styles from './Derivative.module.sass';
 
+// TODO: Remove eslint-disable
+/* eslint-disable react/jsx-no-bind */
 class Derivative extends Component {
   handleValidateStep = () => {
     const {

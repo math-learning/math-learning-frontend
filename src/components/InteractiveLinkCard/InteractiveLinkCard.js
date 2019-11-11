@@ -1,12 +1,16 @@
-import React, { Component } from "react";
-import styles from '../../App.module.sass'
-import {Link} from 'react-router-dom'
-import { Card } from "@material-ui/core";
+import { Card } from '@material-ui/core';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
+import styles from '../../App.module.sass';
+
+// TODO: Remove eslint-disable
+/* eslint-disable react/jsx-no-bind */
+/* eslint-disable react/no-access-state-in-setstate */
 export default class InteractiveLinkCard extends Component {
   constructor(props) {
     super(props);
-    this.state = { raised: false }
+    this.state = { raised: false };
   }
 
   onMouseEnter = () => {
@@ -19,21 +23,20 @@ export default class InteractiveLinkCard extends Component {
 
   render() {
     const { raised } = this.state;
-    let { path, className } = this.props;
-    
-    className = className !== undefined && className !== null ? className : "";
+    const { path, className, children } = this.props;
+
+    const newClassName = className !== undefined && className !== null ? className : '';
     return (
       <Link className={styles.linkWithoutStyles} to={{ pathname: path }}>
         <Card
-          className={className}
+          className={newClassName}
           raised={raised}
           onMouseEnter={this.onMouseEnter.bind(this)}
           onMouseLeave={this.onMouseLeave.bind(this)}
         >
-          {this.props.children}
-
+          {children}
         </Card>
       </Link>
-    )
+    );
   }
 }
