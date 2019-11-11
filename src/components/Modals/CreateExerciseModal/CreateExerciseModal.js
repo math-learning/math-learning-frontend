@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import classNames from 'classnames';
-import { TextField, Typography, FormControl, InputLabel, Button, Select, MenuItem } from '@material-ui/core';
+import {
+  TextField, Typography, FormControl, InputLabel, Button, Select, MenuItem
+} from '@material-ui/core';
 
 import Modal from '../Modal';
 import MathTextBox from '../../MathTextBox';
@@ -13,9 +15,9 @@ class CreateExerciseModal extends Component {
 
     this.state = {
       name: null,
-      type: 'derivada',
+      type: 'derivative',
       exercise: null,
-      difficulty: 'facil',
+      difficulty: 'easy',
       description: null,
       createExerciseDisabled: true
     };
@@ -24,7 +26,7 @@ class CreateExerciseModal extends Component {
   }
 
   onCreateExercise = () => {
-    const { onCreateExercise } = this.props;
+    const { onCreateExercise, guideId, courseId } = this.props;
     const {
       name,
       type,
@@ -34,11 +36,15 @@ class CreateExerciseModal extends Component {
     } = this.state;
 
     onCreateExercise({
-      name,
-      type,
-      exercise,
-      difficulty,
-      description
+      guideId,
+      courseId,
+      exercise: {
+        name,
+        type,
+        exercise,
+        difficulty,
+        description
+      }
     });
   };
 
@@ -100,7 +106,7 @@ class CreateExerciseModal extends Component {
 
     return (
       <Modal className={styles.modal} onClose={onClose}>
-        <Typography color="textPrimary" variant="standard" component="h1">
+        <Typography color="textPrimary" variant="h4" component="h1">
           Creación de ejercicio
         </Typography>
 
@@ -120,7 +126,7 @@ class CreateExerciseModal extends Component {
             onChange={this.onChangeType}
             input={<BootstrapDropdownInput />}
           >
-            <MenuItem value="derivada">Derivada</MenuItem>
+            <MenuItem value="derivative">Derivada</MenuItem>
             <MenuItem value="integral">Integral</MenuItem>
           </Select>
         </FormControl>
@@ -138,16 +144,16 @@ class CreateExerciseModal extends Component {
         </div>
 
         <FormControl className={styles.dropdownContainer}>
-          <InputLabel variant="h7" id="dropdown-input-label">Dificultad</InputLabel>
+          <InputLabel id="dropdown-input-label">Dificultad</InputLabel>
           <Select
             id="dropdown-selector"
             value={difficulty}
             onChange={this.onChangeDifficulty}
             input={<BootstrapDropdownInput />}
           >
-            <MenuItem value="facil">Fácil</MenuItem>
-            <MenuItem value="medio">Medio</MenuItem>
-            <MenuItem value="dificil">Difícil</MenuItem>
+            <MenuItem value="easy">Fácil</MenuItem>
+            <MenuItem value="medium">Medio</MenuItem>
+            <MenuItem value="hard">Difícil</MenuItem>
           </Select>
         </FormControl>
 

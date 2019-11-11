@@ -1,11 +1,17 @@
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
+
 import * as exerciseActions from '../../../state/exercises/actions';
 import * as modalActions from '../../../state/modals/actions';
-import configs from '../../../configs/variables';
 
 import CreateExerciseModal from './CreateExerciseModal';
 
-const currentState = () => ({}); // TODO: de donde sacamos el courseId y guideId ? de la ruta
+const currentState = (state, { location }) => { // eslint-disable-line
+  return {
+    guideId: 'guia-inventada',
+    courseId: 'curso-inventado'
+  };
+}; // TODO: tomar de location el courseId y guideId para armar el ejercicio
 
 const currentActions = (dispatch) => ({
   onCreateExercise: (exercise) => {
@@ -14,7 +20,7 @@ const currentActions = (dispatch) => ({
   onClose: () => dispatch(modalActions.hideModal())
 });
 
-export default connect(
+export default withRouter(connect(
   currentState,
   currentActions,
-)(CreateExerciseModal);
+)(CreateExerciseModal));

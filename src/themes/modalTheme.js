@@ -22,6 +22,4 @@ const defaultTheme = createMuiTheme({
 
 const theme = responsiveFontSizes(defaultTheme);
 
-console.log(theme)
-
 export default theme;

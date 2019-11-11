@@ -5,15 +5,19 @@ import configureMockStore from 'redux-mock-store';
 import * as types from './actionTypes';
 import * as actions from './actions';
 import * as modalTypes from '../modals/actionTypes';
-import usersClient from '../../clients/usersClient';
+import exercisesClient from '../../clients/exercisesClient';
 
 const mockStore = configureMockStore([thunk]);
 
-describe('common actions', () => {
+describe('exercises actions', () => {
   let store;
+  let courseId;
+  let guideId;
   let expectedActions;
 
   beforeEach(() => {
+    courseId = 'course';
+    guideId = 'guide';
     store = mockStore({
       common: {
         data: {}
@@ -21,100 +25,38 @@ describe('common actions', () => {
     });
   });
 
-  describe('login() function', () => {
-    let userProfile;
+  describe('createExercise() function', () => {
+    let exercise;
+    let createdExercise;
 
-    describe('when user exists', () => {
+    describe('when the exercise is created successfully', () => {
       beforeEach(() => {
-        userProfile = {
-          name: 'Pride',
-          rol: 'student'
+        exercise = {
+          name: 'ex name',
+          type: 'derivative',
+          exercise: 'xdx',
+          difficulty: 'easy',
+          description: 'descripcion'
         };
-        expectedActions = [
-          { type: types.LOGIN_SUCCESS, userProfile },
-          { type: modalTypes.HIDE_MODAL }
-        ];
-        sandbox
-          .stub(usersClient, 'login')
-          .callsFake(() => userProfile);
-
-        return store.dispatch(actions.login());
-      });
-
-      it('executes the expected actions', () => {
-        expect(store.getActions()).to.be.deep.equal(expectedActions);
-      });
-    });
-
-    describe('when user does not exist', () => {
-      beforeEach(() => {
-        expectedActions = [
-          {
-            type: modalTypes.SHOW_ERROR,
-            error: 'El usuario asociado a la cuenta no existe. Debe crearlo previamente'
-          }
-        ];
-        const error = new Error();
-        error.status = 404;
-
-        sandbox
-          .stub(usersClient, 'login')
-          .callsFake(() => Promise.reject(error));
-
-        return store.dispatch(actions.login());
-      });
-
-      it('executes the expected actions', () => {
-        expect(store.getActions()).to.be.deep.equal(expectedActions);
-      });
-    });
-  });
-
-  describe('signUp() function', () => {
-    let userProfile;
-
-    describe('when user does not exist yet', () => {
-      beforeEach(() => {
-        userProfile = {
-          name: 'Pride',
-          rol: 'student'
-        };
-        expectedActions = [
-          { type: types.SIGNUP_SUCCESS, userProfile },
-          { type: modalTypes.HIDE_MODAL }
-        ];
-        sandbox
-          .stub(usersClient, 'signup')
-          .callsFake(() => userProfile);
-
-        return store.dispatch(actions.signUp(userProfile));
-      });
-
-      it('executes the expected actions', () => {
-        expect(store.getActions()).to.be.deep.equal(expectedActions);
-      });
-    });
-
-    describe('when user already has an account', () => {
-      beforeEach(() => {
-        userProfile = {
-          name: 'Pride',
-          rol: 'student'
+        createdExercise = {
+          ...exercise,
+          courseId,
+          guideId
         };
         expectedActions = [
           {
-            type: modalTypes.SHOW_ERROR,
-            error: 'El usuario que intenta crear ya existe. Pruebe utilizando otra cuenta'
-          }
+            type: types.CREATE_EXERCISE_SUCCESS,
+            guideId,
+            courseId,
+            exercise: createdExercise
+          },
+          { type: modalTypes.HIDE_MODAL }
         ];
-        const error = new Error();
-        error.status = 409;
-
         sandbox
-          .stub(usersClient, 'signup')
-          .callsFake(() => Promise.reject(error));
+          .stub(exercisesClient, 'createExercise')
+          .callsFake(() => createdExercise);
 
-        return store.dispatch(actions.signUp(userProfile));
+        return store.dispatch(actions.createExercise({ guideId, courseId, exercise }));
       });
 
       it('executes the expected actions', () => {

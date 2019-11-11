@@ -5,9 +5,11 @@ import * as selectors from './selectors';
 // import messages from '../../configs/messages';
 import exercisesClient from '../../clients/exercisesClient';
 
-export function createExerciseSuccess({ exercise }) {
+export function createExerciseSuccess({ courseId, guideId, exercise }) {
   return {
     type: types.CREATE_EXERCISE_SUCCESS,
+    courseId,
+    guideId,
     exercise
   };
 }
