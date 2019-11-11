@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import NavBar from './NavBar';
-import * as actions from '../../state/modals/actions';
-import * as commonActions from '../../state/common/actions';
-import * as modalTypes from '../../state/modals/modalTypes';
-import * as common from '../../state/common';
 import configs from '../../configs/variables';
+import * as common from '../../state/common';
+import * as commonActions from '../../state/common/actions';
+import * as actions from '../../state/modals/actions';
+import * as modalTypes from '../../state/modals/modalTypes';
+import NavBar from './NavBar';
 
 const currentState = (state) => ({
   profile: common.selectors.profile(state),

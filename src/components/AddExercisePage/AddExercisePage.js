@@ -1,12 +1,14 @@
-import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import './AddExercisePage.module.sass';
-import { withRouter } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
+import Button from '@material-ui/core/Button';
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+
 import MathText from '../MathText';
 import MathTextBox from '../MathTextBox';
+import './AddExercisePage.module.sass';
 
-// TODO: redo this page
+// TODO: redo this page. Remove eslint-disable. Fix it as CreateExerciseModal.js
+/* eslint-disable react/jsx-no-bind */
 class AddExercisePage extends Component {
   shouldComponentUpdate(nextProps) {
     const { result } = this.props;

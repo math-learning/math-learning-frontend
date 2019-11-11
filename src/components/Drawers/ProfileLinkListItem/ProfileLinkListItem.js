@@ -1,37 +1,32 @@
-import React, { Component } from "react";
-
-import { Avatar, Divider, ListItemAvatar } from '@material-ui/core';
-import List from '@material-ui/core/List';
+import { Avatar, ListItemAvatar } from '@material-ui/core';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import AccountBoxIcon from '@material-ui/icons/AccountBox';
-import CollectionsBookmarkRoundedIcon from '@material-ui/icons/CollectionsBookmarkRounded';
+import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import LinkListItemWithIcon from '../../LinkListItemWithIcon/LinkListItemWithIcon';
-import styles from './ProfileLinkListItem.module.sass'
+import styles from './ProfileLinkListItem.module.sass';
 
-
-export default class ProfileLinkListItem extends Component {
+// TODO: Remove eslint-disable
+export default class ProfileLinkListItem extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
-    const {profile} = this.props;
+    const { profile } = this.props;
     return (
       <div className={styles.profileAvatar}>
-          <Link className={styles.linkWithoutStyles} to={{ pathname: '/profile' }}>
-            <ListItem button key="Account">
-              <ListItemAvatar>
-                <Avatar>
-                  {
-                    profile.photo ?
-                      <img src={profile.photo} /> : <AccountBoxIcon />
+        <Link className={styles.linkWithoutStyles} to={{ pathname: '/profile' }}>
+          <ListItem button key="Account">
+            <ListItemAvatar>
+              <Avatar>
+                {
+                    profile.photo
+                      ? <img src={profile.photo} /> : <AccountBoxIcon /> // eslint-disable-line jsx-a11y/alt-text
                   }
 
-                </Avatar>
-              </ListItemAvatar>
-              <ListItemText primary={profile.name} secondary="Ver Perfil" />
-            </ListItem>
-          </Link>
-        </div>
-    )
+              </Avatar>
+            </ListItemAvatar>
+            <ListItemText primary={profile.name} secondary="Ver Perfil" />
+          </ListItem>
+        </Link>
+      </div>
+    );
   }
 }

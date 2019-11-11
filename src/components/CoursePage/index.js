@@ -1,3 +1,3 @@
-import CoursePage from "./CoursePage";
+import CoursePage from './CoursePage';
 
-export default CoursePage
+export default CoursePage;

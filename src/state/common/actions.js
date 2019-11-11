@@ -1,12 +1,12 @@
-import * as types from './actionTypes';
-import * as modalTypes from '../modals/actionTypes';
-import * as modalActions from '../modals/actions';
-import * as selectors from './selectors';
-
-import configs from '../../configs/variables';
-import messages from '../../configs/messages';
-import history from '../../store/history';
 import usersClient from '../../clients/usersClient';
+import messages from '../../configs/messages';
+import configs from '../../configs/variables';
+import history from '../../store/history';
+
+import * as modalActions from '../modals/actions';
+import * as modalTypes from '../modals/actionTypes';
+import * as types from './actionTypes';
+import * as selectors from './selectors';
 
 export function showSpinner() {
   return {

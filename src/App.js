@@ -1,28 +1,24 @@
-import React from 'react';
-import { Router, Route } from 'react-router-dom';
 import { makeStyles } from '@material-ui/core/styles';
-import { Container } from '@material-ui/core';
+import React from 'react';
 import { hot } from 'react-hot-loader';
+import { Route, Router } from 'react-router-dom';
+import 'typeface-roboto';
 
-import ModalContainer from './components/Modals/ModalContainer';
-
-
-import history from './store/history';
-import Main from './components/Main';
-import NavBar from './components/NavBar';
-import Footer from './components/Footer';
+import AddExercisePage from './components/AddExercisePage';
+import CoursePage from './components/CoursePage';
+import CoursesPage from './components/CoursesPage/CoursesPage';
+import SearchCourses from './components/CoursesPage/SearchCourses';
 import DerivativePage from './components/DerivativePage';
 import ExercisesPage from './components/ExercisesPage';
-import AddExercisePage from './components/AddExercisePage';
+import Footer from './components/Footer';
+import Main from './components/Main';
+import ModalContainer from './components/Modals/ModalContainer';
+import NavBar from './components/NavBar';
+import ProfilePage from './components/ProfilePage/ProfilePage';
 import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
-import 'typeface-roboto';
-import ProfilePage from './components/ProfilePage/ProfilePage';
-import CoursesPage from './components/CoursesPage/CoursesPage';
 import StatisticsPage from './components/StatisticsPage/StatisticsPage';
-import EmptyCoursesPage from './components/CoursesPage/EmptyCoursesPage';
-import SearchCourses from './components/CoursesPage/SearchCourses';
-import CoursePage from './components/CoursePage';
+import history from './store/history';
 
 const useStyles = makeStyles(() => ({
   mainContent: {
@@ -34,8 +30,7 @@ const useStyles = makeStyles(() => ({
     minHeight: '100vh',
     display: 'flex',
     flexDirection: 'column',
-  },
-
+  }
 }));
 
 const renderDerivativePage = ({ match }) => {
@@ -71,12 +66,12 @@ const renderSearchCoursesPage = () => (
   <SearchCourses />
 );
 
-const renderCoursePage = ({match}) => {
-  const {courseId, moduleId} = match.params
-return (
-<CoursePage courseId={courseId} moduleId={moduleId}/>
-)
-}
+const renderCoursePage = ({ match }) => {
+  const { courseId, moduleId } = match.params;
+  return (
+    <CoursePage courseId={courseId} moduleId={moduleId} />
+  );
+};
 
 const App = () => {
   const classes = useStyles();
@@ -94,7 +89,7 @@ const App = () => {
         <Route exact path="/profile" render={renderProfilePage} />
         <Route exact path="/my-courses" render={renderCoursesPage} />
         <Route exact path="/statistics" render={renderStatisticsPage} />
-        <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage}/>
+        <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage} />
 
         <Footer className={classes.footer} />
 

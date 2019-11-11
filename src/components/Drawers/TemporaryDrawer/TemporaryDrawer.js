@@ -1,13 +1,11 @@
-import React, { Component, Fragment } from 'react';
 import Drawer from '@material-ui/core/Drawer';
-
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import DrawerItems from '../DrawerItems';
-import ProfessorItems from '../ProfessorItems';
-
+import React, { Component } from 'react';
 import styles from './TemporaryDrawer.module.sass';
 
+// TODO: Remove eslint-disable
+/* eslint-disable react/jsx-no-bind */
 export default class TemporaryDrawer extends Component {
   constructor(props) {
     super(props);
@@ -23,9 +21,10 @@ export default class TemporaryDrawer extends Component {
 
   render() {
     const { opened } = this.state;
+    const { children } = this.props;
 
     return (
-      <Fragment>
+      <>
         <IconButton onClick={this.toggleDrawer(true).bind(this)} edge="start" className={styles.menuButton} color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
@@ -36,12 +35,10 @@ export default class TemporaryDrawer extends Component {
             onClick={this.toggleDrawer(false).bind(this)}
             onKeyDown={this.toggleDrawer(false).bind(this)}
           >
-            {
-              this.props.children
-            }
+            {children}
           </div>
         </Drawer>
-      </Fragment>
+      </>
     );
   }
 }

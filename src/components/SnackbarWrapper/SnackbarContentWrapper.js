@@ -17,6 +17,7 @@ const variantIcon = {
   info: InfoIcon,
 };
 
+// TODO: Remove eslint-disable
 export default function SnackbarContentWrapper(props) {
   const {
     className, message, onClose, variant, ...other
@@ -38,7 +39,7 @@ export default function SnackbarContentWrapper(props) {
           <CloseIcon className={styles.icon} />
         </IconButton>,
       ]}
-      {...other}
+      {...other} // eslint-disable-line react/jsx-props-no-spreading
     />
   );
 }

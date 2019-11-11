@@ -1,3 +1,3 @@
-import ProfileLinkListItem from "./ProfileLinkListItem.container";
+import ProfileLinkListItem from './ProfileLinkListItem.container';
 
 export default ProfileLinkListItem;
