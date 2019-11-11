@@ -2,7 +2,6 @@ import * as types from './actionTypes';
 import * as modalActions from '../modals/actions';
 import * as selectors from './selectors';
 
-// import messages from '../../configs/messages';
 import exercisesClient from '../../clients/exercisesClient';
 
 export function createExerciseSuccess({ courseId, guideId, exercise }) {

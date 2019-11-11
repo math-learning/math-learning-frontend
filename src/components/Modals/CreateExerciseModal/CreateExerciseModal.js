@@ -106,22 +106,22 @@ class CreateExerciseModal extends Component {
 
     return (
       <Modal className={styles.modal} onClose={onClose}>
-        <Typography color="textPrimary" variant="h4" component="h1">
+        <Typography id="creation-label" color="textPrimary" variant="h4" component="h1">
           Creación de ejercicio
         </Typography>
 
         <TextField
-          onChange={this.onChangeName}
-          className={styles.name}
-          id="outlined-dense-multiline"
+          id="exercise-name"
           label="Nombre"
           margin="dense"
+          onChange={this.onChangeName}
+          className={styles.name}
         />
 
         <FormControl className={styles.dropdownContainer}>
           <InputLabel id="dropdown-input-label">Tipo de ejercicio</InputLabel>
           <Select
-            id="dropdown-selector"
+            id="exercise-type-selector"
             value={type}
             onChange={this.onChangeType}
             input={<BootstrapDropdownInput />}
@@ -136,6 +136,7 @@ class CreateExerciseModal extends Component {
             Escriba el ejercicio
           </Typography>
           <MathTextBox
+            id="exercise-math-textbox"
             content={exercise}
             className={styles.exercise}
             onEnter={() => {}}
@@ -146,7 +147,7 @@ class CreateExerciseModal extends Component {
         <FormControl className={styles.dropdownContainer}>
           <InputLabel id="dropdown-input-label">Dificultad</InputLabel>
           <Select
-            id="dropdown-selector"
+            id="exercise-difficulty-selector"
             value={difficulty}
             onChange={this.onChangeDifficulty}
             input={<BootstrapDropdownInput />}
@@ -158,7 +159,7 @@ class CreateExerciseModal extends Component {
         </FormControl>
 
         <TextField
-          id="create-ex-description"
+          id="exercise-description"
           label="Descripción (opcional)"
           onChange={this.onChangeName}
           className={styles.description}

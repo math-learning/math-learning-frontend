@@ -1,102 +1,93 @@
-// import React from 'react';
-// import { shallow } from 'enzyme';
-// import { expect } from 'chai';
-// import { GoogleLogin } from 'react-google-login';
+import React from 'react';
+import { shallow } from 'enzyme';
+import { expect } from 'chai';
 
-// import LoginModal from './LoginModal';
+import CreateExerciseModal from './CreateExerciseModal';
 
-// describe('LoginModal', () => {
-//   let onGoogleLogin;
-//   let onGoogleSignUp;
-//   let googleClientId;
-//   let onClose;
+describe('CreateExerciseModal', () => {
+  let onCreateExercise;
+  let onClose;
 
-//   describe('should render properties and components', () => {
-//     beforeEach(() => {
-//       googleClientId = 'google-client';
-//     });
+  describe('should render properties and components', () => {
+    it('should render the exercise name', () => {
+      const wrapper = shallow(<CreateExerciseModal />);
+      const textField = wrapper.find('[id="exercise-name"]');
 
-//     it('should render the Google login button', () => {
-//       const wrapper = shallow(<LoginModal googleClientId={googleClientId} />);
-//       const googleLogin = wrapper.find(GoogleLogin).at(0);
+      expect(textField).to.exist;
+      expect(textField.props().label).to.be.equal('Nombre');
+    });
 
-//       expect(googleLogin).to.exist;
-//       expect(googleLogin.props().buttonText).to.be.equal('Log in con Google');
-//       expect(googleLogin.props().clientId).to.be.equal(googleClientId);
-//     });
+    it('should render the exercise description', () => {
+      const wrapper = shallow(<CreateExerciseModal />);
+      const textField = wrapper.find('[id="exercise-description"]');
 
-//     it('should render the TextField', () => {
-//       const wrapper = shallow(<LoginModal />);
-//       const textField = wrapper.find('[id="signup-name"]');
+      expect(textField).to.exist;
+      expect(textField.props().label).to.be.equal('Descripción (opcional)');
+    });
 
-//       expect(textField).to.exist;
-//       expect(textField.props().label).to.be.equal('Nombre completo');
-//     });
+    it('should render the exercise', () => {
+      const wrapper = shallow(<CreateExerciseModal />);
+      const textField = wrapper.find('MathTextBox');
 
-//     it('should render the FormControlLabels', () => {
-//       const wrapper = shallow(<LoginModal />);
-//       const studentLabel = wrapper.find('[id="student-label"]');
-//       const professorLabel = wrapper.find('[id="professor-label"]');
+      expect(textField).to.exist;
+    });
 
-//       expect(studentLabel).to.exist;
-//       expect(studentLabel.props().label).to.be.equal('Estudiante');
-//       expect(professorLabel).to.exist;
-//       expect(professorLabel.props().label).to.be.equal('Profesor');
-//     });
+    it('should render the exercise type dropdown', () => {
+      const wrapper = shallow(<CreateExerciseModal />);
+      const exerciseType = wrapper.find('[id="exercise-type-selector"]');
 
-//     it('should render the Google signup button', () => {
-//       const wrapper = shallow(<LoginModal googleClientId={googleClientId} />);
-//       const googleSignUp = wrapper.find(GoogleLogin).at(1);
+      expect(exerciseType).to.exist;
+      expect(exerciseType.props().children[0].props.value).to.be.equal('derivative');
+      expect(exerciseType.props().children[1].props.value).to.be.equal('integral');
+    });
 
-//       expect(googleSignUp).to.exist;
-//       expect(googleSignUp.props().clientId).to.be.equal(googleClientId);
-//     });
-//   });
+    it('should render the exercise difficulty dropdown', () => {
+      const wrapper = shallow(<CreateExerciseModal />);
+      const exerciseType = wrapper.find('[id="exercise-difficulty-selector"]');
 
-//   describe('when click on login', () => {
-//     beforeEach(() => {
-//       onClose = sandbox.stub();
-//       onGoogleLogin = sandbox.stub();
-//       onGoogleSignUp = sandbox.stub();
-//     });
+      expect(exerciseType).to.exist;
+      expect(exerciseType.props().children[0].props.value).to.be.equal('easy');
+      expect(exerciseType.props().children[1].props.value).to.be.equal('medium');
+      expect(exerciseType.props().children[2].props.value).to.be.equal('hard');
+    });
+  });
 
-//     it('when executes onLogin, should call the given onLogin', () => {
-//       const wrapper = shallow(
-//         <LoginModal
-//           onClose={onClose}
-//           onGoogleLogin={onGoogleLogin}
-//           onGoogleSignUp={onGoogleSignUp}
-//         />
-//       );
+  describe('when click on create exercise', () => {
+    let exercise;
+    let courseId;
+    let guideId;
 
-//       wrapper.instance().onClickLogin('token');
-//       sinon.assert.calledWith(onGoogleLogin, 'token');
-//     });
-//   });
+    beforeEach(() => {
+      courseId = 'course';
+      guideId = 'guide';
+      exercise = {
+        description: 'description',
+        difficulty: 'easy',
+        exercise: 'dx',
+        name: 'nombre',
+        type: 'derivative'
+      };
+      onClose = sandbox.stub();
+      onCreateExercise = sandbox.stub();
+    });
 
-//   describe('when click on sign up', () => {
-//     beforeEach(() => {
-//       onClose = sandbox.stub();
-//       onGoogleLogin = sandbox.stub();
-//       onGoogleSignUp = sandbox.stub();
-//     });
+    it('when executes onLogin, should call the given onLogin', () => {
+      const wrapper = shallow(
+        <CreateExerciseModal
+          guideId={guideId}
+          courseId={courseId}
+          onClose={onClose}
+          onCreateExercise={onCreateExercise}
+        />
+      );
+      wrapper.setState(exercise);
 
-//     it('when executes onSignUp, should call the given onSignUp', () => {
-//       const wrapper = shallow(
-//         <LoginModal
-//           onClose={onClose}
-//           onGoogleLogin={onGoogleLogin}
-//           onGoogleSignUp={onGoogleSignUp}
-//         />
-//       );
-//       const userProfile = {
-//         name: 'Diego',
-//         rol: 'professor'
-//       };
-//       wrapper.setState(userProfile);
-
-//       wrapper.instance().onClickSignUp('token');
-//       sinon.assert.calledWith(onGoogleSignUp, 'token', userProfile);
-//     });
-//   });
-// });
+      wrapper.instance().onCreateExercise();
+      sinon.assert.calledWith(onCreateExercise, {
+        exercise,
+        courseId,
+        guideId
+      });
+    });
+  });
+});
