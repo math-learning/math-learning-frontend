@@ -3,12 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "coverage": "nyc report --reporter=text-lcov | coveralls",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
     "eject": "react-scripts eject",
-    "test": "nyc mocha --require @babel/register --require ./test/dom.js --require ignore-styles ./test/configs.js \"./src/**/*.test.js\"",
+    "test": "nyc --reporter=html --reporter=text mocha --require @babel/register --require ./test/dom.js --require ignore-styles ./test/configs.js \"./src/**/*.test.js\"",
     "test:watch": "npm run test -- --watch",
     "dev:hot": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./"
   },
@@ -67,6 +68,7 @@
     "@babel/plugin-transform-runtime": "^7.6.2",
     "@babel/register": "^7.6.2",
     "chai": "^4.2.0",
+    "coveralls": "^3.0.7",
     "css-loader": "^3.2.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.15.1",
