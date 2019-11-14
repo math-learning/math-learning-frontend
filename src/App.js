@@ -6,7 +6,7 @@ import 'typeface-roboto';
 
 import AddExercisePage from './components/AddExercisePage';
 import CoursePage from './components/CoursePage';
-import CoursesPage from './components/CoursesPage/CoursesPage';
+import OwnCoursesPage from './components/scenes/ownCourses/OwnCoursesPage';
 import SearchCourses from './components/CoursesPage/SearchCourses';
 import DerivativePage from './components/DerivativePage';
 import ExercisesPage from './components/ExercisesPage';
@@ -50,9 +50,6 @@ const renderAddExercisePage = () => (
 const renderProfilePage = () => (
   <ProfilePage />
 );
-const renderCoursesPage = () => (
-  <CoursesPage />
-);
 
 const renderStatisticsPage = () => (
   <StatisticsPage />
@@ -87,7 +84,7 @@ const App = () => {
         <Route exact path="/derivative/:index" render={renderDerivativePage} />
         <Route exact path="/add-exercise" render={renderAddExercisePage} />
         <Route exact path="/profile" render={renderProfilePage} />
-        <Route exact path="/my-courses" render={renderCoursesPage} />
+        <Route exact path="/courses/own" component={OwnCoursesPage} />
         <Route exact path="/statistics" render={renderStatisticsPage} />
         <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage} />
 

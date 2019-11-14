@@ -9,6 +9,10 @@ import {
 } from './addExercise';
 
 import {
+  reducers as coursesReducers,
+} from './courses';
+
+import {
   reducers as commonReducers,
 } from './common';
 
@@ -19,6 +23,7 @@ import {
 const reducers = combineReducers({
   common: commonReducers,
   modals: modalReducers,
+  courses: coursesReducers,
   derivative: derivativeReducers,
   addExercise: addExerciseReducers,
 });
