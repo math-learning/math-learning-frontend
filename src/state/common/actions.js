@@ -60,13 +60,13 @@ export function signUpSuccess({ userProfile }) {
   };
 }
 
-export function signUp({ name, rol }) {
+export function signUp({ name, role }) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = selectors.context(state);
 
     try {
-      const userProfile = await usersClient.signup({ context, name, rol });
+      const userProfile = await usersClient.signup({ context, name, role });
       dispatch(signUpSuccess({ userProfile }));
       dispatch(hideModal());
 

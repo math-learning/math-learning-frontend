@@ -1,1 +1,1 @@
-export const canAddCourse = (profile) => profile.rol === 'professor';
+export const canAddCourse = (profile) => profile.role === 'professor';

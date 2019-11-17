@@ -8,7 +8,7 @@ const { url } = confs.services.courses;
 const getCourses = async ({
   context
 }) => {
-  const profileUrl = `${url}/courses`;
+  const profileUrl = `${url}/courses/search`;
 
   const response = await fetch(profileUrl, {
     headers: {

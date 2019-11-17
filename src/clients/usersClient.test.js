@@ -21,7 +21,7 @@ describe('users client', () => {
     beforeEach(async () => {
       userProfile = {
         name: 'Pride',
-        rol: 'student'
+        role: 'student'
       };
 
       nock(url)
@@ -41,7 +41,7 @@ describe('users client', () => {
     beforeEach(async () => {
       userProfile = {
         name: 'Pride',
-        rol: 'student'
+        role: 'student'
       };
 
       nock(url)

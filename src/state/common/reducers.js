@@ -20,7 +20,7 @@ const initialState = {
     //   userId: "diego-id",
     //   name: "Diego",
     //   photo: "https://thehappypuppysite.com/wp-content/uploads/2018/05/shiba-inu-header.jpg",
-    //   rol: "professor"
+    //   role: "professor"
     // },
   },
 };

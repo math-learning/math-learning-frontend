@@ -53,10 +53,6 @@ const renderStatisticsPage = () => (
   <StatisticsPage />
 );
 
-const renderMainPage = () => (
-  <Main />
-);
-
 const renderSearchCoursesPage = () => (
   <SearchCourses />
 );
@@ -76,13 +72,13 @@ const App = () => {
       <Router history={history}>
         <NavBar />
 
-        <Route exact path="/" render={renderMainPage} />
+        <Route exact path="/" component={Main} />
         <Route exact path="/courses" render={renderSearchCoursesPage} />
         <Route exact path="/exercises" render={renderExercisesPage} />
         <Route exact path="/derivative/:index" render={renderDerivativePage} />
         <Route exact path="/add-exercise" render={renderAddExercisePage} />
         <Route exact path="/profile" render={renderProfilePage} />
-        <Route path="/courses/list" component={OwnCoursesPage} />
+        <Route exact path="/courses/list" component={OwnCoursesPage} />
         <Route exact path="/statistics" render={renderStatisticsPage} />
         <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage} />
 
