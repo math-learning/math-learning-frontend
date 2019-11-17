@@ -4,7 +4,7 @@ import * as types from './actionTypes';
 
 const initialState = {
   data: {
-    ownCourses: {},
+    ownCourses: [],
     isLoadingCourses: true
   },
 };
@@ -16,9 +16,7 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          ownCourses: {
-            pepe: action.courses
-          },
+          ownCourses: action.courses,
           isLoadingCourses: false
         }
       };

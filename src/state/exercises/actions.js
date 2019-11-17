@@ -1,6 +1,6 @@
 import * as types from './actionTypes';
 import * as modalActions from '../modals/actions';
-import * as selectors from './selectors';
+import * as commonSelectors from '../common/selectors';
 
 import exercisesClient from '../../clients/exercisesClient';
 
@@ -16,7 +16,7 @@ export function createExerciseSuccess({ courseId, guideId, exercise }) {
 export function createExercise({ guideId, courseId, exercise }) {
   return async (dispatch, getState) => {
     const state = getState();
-    const context = selectors.context(state);
+    const context = commonSelectors.context(state);
 
     try {
       const createdExercise = await exercisesClient.createExercise({

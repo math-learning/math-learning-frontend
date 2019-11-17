@@ -15,11 +15,12 @@ const initialState = {
       accessToken: null
     },
     modalType: null,
-    profile: null
+    profile: null,
     // profile: {
+    //   userId: "diego-id",
     //   name: "Diego",
     //   photo: "https://thehappypuppysite.com/wp-content/uploads/2018/05/shiba-inu-header.jpg",
-    //   type: "PROFESSOR"
+    //   rol: "professor"
     // },
   },
 };

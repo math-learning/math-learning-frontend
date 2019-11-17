@@ -1,8 +1,7 @@
 import * as types from './actionTypes';
-import * as modalActions from '../modals/actions';
-import * as selectors from './selectors';
+import * as commonSelectors from '../common/selectors';
 
-import exercisesClient from '../../clients/exercisesClient';
+import coursesClient from '../../clients/coursesClient';
 
 export function getCoursesSuccess({ courses }) {
   return {
@@ -13,50 +12,10 @@ export function getCoursesSuccess({ courses }) {
 
 export function getCourses() {
   return async (dispatch, getState) => {
-    console.log('GET COURSES')
     const state = getState();
-    const context = selectors.context(state);
+    const context = commonSelectors.context(state);
+    const courses = await coursesClient.getCourses({ context });
 
-    try {
-      // const courses = await coursesClient.getCourses({ context });
-      const courses = [
-        {
-          name: 'Analisis matematico II - Curso 2',
-          professors: [
-            'Pedro',
-            'Pedro2'
-          ]
-        },
-        {
-          name: 'Analisis matematico Infinito - Curso 3',
-          professors: [
-            'Juan Manuel Fernandez Caeiro',
-            'Pedro',
-            'Pedro',
-            'Pedro',
-            'Pedro',
-            'Pedro2'
-          ]
-        },
-        {
-          name: 'Fisica II - Curso 2',
-          professors: [
-            'Pedro',
-            'Pedro2'
-          ]
-        },
-        {
-          name: 'Algebra II - Curso 3',
-          professors: [
-            'Pedro',
-            'Pedro2'
-          ]
-        }
-      ];
-
-      dispatch(getCoursesSuccess({ courses }));
-    } catch (err) {
-      // dispatch(modalActions.showError(err.message));
-    }
+    dispatch(getCoursesSuccess({ courses }));
   };
 }

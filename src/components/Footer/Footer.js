@@ -6,7 +6,7 @@ export default function Footer() {
   return (
     <footer className={styles.footer}>
       <Container maxWidth="md">
-        <Typography variant="h8" align="center" color="textSecondary" component="p">
+        <Typography variant="body2" align="center" color="textSecondary" component="p">
           Pricing ⋅ Contact ⋅ Blog ⋅ Docs ⋅ Terms and Privacy ⋅ Public GitHub
           <br />
           Copyright © Math Learning. 2019. All Rights Reserved

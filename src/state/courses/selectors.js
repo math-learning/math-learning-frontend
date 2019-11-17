@@ -1,3 +1,2 @@
-export const getOwnCourses = (state) => state.courses.ownCourses;
-export const isLoadingCourses = (state) => state.courses.isLoadingCourses;
-export const context = (state) => state.common.data.context; // TODO: REMOVE
+export const getOwnCourses = (state) => state.courses.data.ownCourses;
+export const isLoadingCourses = (state) => state.courses.data.isLoadingCourses;
