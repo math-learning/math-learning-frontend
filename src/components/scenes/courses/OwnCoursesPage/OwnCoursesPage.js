@@ -34,7 +34,7 @@ export default class OwnCourses extends Component {
     return (
       <Grid item xs={12} sm={12} md={12}>
         {courses.map((course) => (
-          <CourseCard key={course.courseId} course={course} />
+          <CourseCard id={`course-${course.courseId}`} key={course.courseId} course={course} />
         ))}
       </Grid>
     );
@@ -46,10 +46,12 @@ export default class OwnCourses extends Component {
     return (
       <Container className={styles.defaultContainer}>
         <div className={styles.title}>
-          <Typography variant="h4">Mis cursos</Typography>
+          <Typography id="my-courses" variant="h4">
+            Mis cursos
+          </Typography>
           {canAddCourse
             ? (
-              <Button variant="outlined" color="primary">
+              <Button id="create-new-course" variant="outlined" color="primary">
                   Crear nuevo curso
               </Button>
             ) : ''}

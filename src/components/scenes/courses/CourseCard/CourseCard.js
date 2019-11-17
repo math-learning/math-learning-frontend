@@ -19,7 +19,13 @@ export default class CourseCard extends Component {
         }
 
         return (
-          <Typography key={professor.userId} color="textSecondary" variant="body2" className={className}>
+          <Typography
+            id={`professor-${professor.userId}`}
+            key={professor.userId}
+            color="textSecondary"
+            variant="body2"
+            className={className}
+          >
             {professor.name}
           </Typography>
         );
@@ -39,31 +45,31 @@ export default class CourseCard extends Component {
     } = this.props;
 
     return (
-      <Card onClick={() => onClickCourse(course)} className={styles.courseCard}>
+      <Card onClick={() => onClickCourse()} className={styles.courseCard}>
         <CardContent>
           <Grid container spacing={3} justify="space-between">
             <Grid item xs={12} sm={8} md={6}>
-              <Typography variant="h5" color="textPrimary" className={styles.name}>
+              <Typography id="course-title" variant="h5" color="textPrimary" className={styles.name}>
                 {isMine
-                  ? <SchoolIcon fontSize="small" className={styles.icon} />
+                  ? <SchoolIcon id="school-icon" fontSize="small" className={styles.icon} />
                   : ''}
                 {isDraft
-                  ? <AccessTime fontSize="small" className={styles.icon} />
+                  ? <AccessTime id="draft-icon" fontSize="small" className={styles.icon} />
                   : ''}
                 {course.name}
               </Typography>
 
-              <Typography variant="body1" color="textSecondary" className={styles.description}>
+              <Typography id="course-description" variant="body1" color="textSecondary" className={styles.description}>
                 {course.description}
               </Typography>
 
-              <Typography variant="body2" color="textSecondary">
+              <Typography id="course-date" variant="body2" color="textSecondary">
                 {this.getCourseDate()}
               </Typography>
             </Grid>
 
             <Grid item xs={12} sm={4} md={2}>
-              <Typography variant="subtitle1" color="textSecondary">
+              <Typography id="professors header" variant="subtitle1" color="textSecondary">
                 Profesores
               </Typography>
               {this.getProfessorsGrid()}
