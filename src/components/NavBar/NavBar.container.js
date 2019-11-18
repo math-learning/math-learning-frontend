@@ -16,7 +16,8 @@ const currentActions = (dispatch) => ({
     dispatch(commonActions.onGoogleLogin(googleUserProfile));
     dispatch(commonActions.login());
   },
-  onSignUp: () => dispatch(actions.loadModal(modalTypes.LOGIN_MODAL))
+  onSignUp: () => dispatch(actions.loadModal(modalTypes.LOGIN_MODAL)),
+  onLogout: () => dispatch(commonActions.logout())
 });
 
 export default connect(

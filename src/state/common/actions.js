@@ -1,7 +1,8 @@
+import { push } from 'connected-react-router';
+
 import usersClient from '../../clients/usersClient';
 import messages from '../../configs/messages';
 import configs from '../../configs/variables';
-import history from '../../store/history';
 
 import * as modalActions from '../modals/actions';
 import * as modalTypes from '../modals/actionTypes';
@@ -39,6 +40,12 @@ export function hideModal() {
   };
 }
 
+export function logoutSucess() {
+  return {
+    type: types.LOGOUT_SUCCESS
+  };
+}
+
 export function loginSuccess({ userProfile }) {
   return {
     type: types.LOGIN_SUCCESS,
@@ -70,7 +77,7 @@ export function signUp({ name, role }) {
       dispatch(signUpSuccess({ userProfile }));
       dispatch(hideModal());
 
-      history.push(configs.paths.courses);
+      await dispatch(push(configs.paths.courses));
     } catch (err) {
       if (err.status === 409) {
         dispatch(modalActions.showError(messages.error.userAlreadyExist));
@@ -89,11 +96,19 @@ export function login() {
       dispatch(loginSuccess({ userProfile }));
       dispatch(hideModal());
 
-      history.push(configs.paths.courses);
+      await dispatch(push(configs.paths.courses));
     } catch (err) {
       if (err.status === 404) {
         dispatch(modalActions.showError(messages.error.userDoesNotExist));
       }
     }
+  };
+}
+
+export function logout() {
+  return async (dispatch) => {
+    await dispatch(push(configs.paths.main));
+
+    dispatch(logoutSucess());
   };
 }

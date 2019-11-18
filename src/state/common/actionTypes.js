@@ -5,4 +5,5 @@ export const SHOW_ERROR = 'SHOW_ERROR';
 export const HIDE_MODAL = 'Hide Modal';
 export const LOGIN_SUCCESS = 'Login success';
 export const SIGNUP_SUCCESS = 'Sign up success';
+export const LOGOUT_SUCCESS = 'Logout sucess';
 export const GOOGLE_LOGIN_SUCCESS = 'Google login success';

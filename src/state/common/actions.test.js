@@ -32,7 +32,16 @@ describe('common actions', () => {
         };
         expectedActions = [
           { type: types.LOGIN_SUCCESS, userProfile },
-          { type: modalTypes.HIDE_MODAL }
+          { type: modalTypes.HIDE_MODAL },
+          {
+            payload: {
+              args: [
+                '/courses/list'
+              ],
+              method: 'push'
+            },
+            type: '@@router/CALL_HISTORY_METHOD'
+          }
         ];
         sandbox
           .stub(usersClient, 'login')
@@ -81,7 +90,16 @@ describe('common actions', () => {
         };
         expectedActions = [
           { type: types.SIGNUP_SUCCESS, userProfile },
-          { type: modalTypes.HIDE_MODAL }
+          { type: modalTypes.HIDE_MODAL },
+          {
+            payload: {
+              args: [
+                '/courses/list'
+              ],
+              method: 'push'
+            },
+            type: '@@router/CALL_HISTORY_METHOD'
+          }
         ];
         sandbox
           .stub(usersClient, 'signup')

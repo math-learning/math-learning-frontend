@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import { Divider } from '@material-ui/core';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
@@ -7,10 +8,11 @@ import Typography from '@material-ui/core/Typography';
 import CollectionsBookmarkRoundedIcon from '@material-ui/icons/CollectionsBookmarkRounded';
 import InsertChartRoundedIcon from '@material-ui/icons/InsertChartRounded';
 import { ThemeProvider } from '@material-ui/styles';
-import React from 'react';
 import { GoogleLogin } from 'react-google-login';
 import { Link } from 'react-router-dom';
+
 import theme from '../../themes/defaultTheme';
+import variables from '../../configs/variables';
 import SignUpButton from '../Button/SignUpButton';
 import { TemporaryDrawer } from '../Drawers';
 import ProfileLinkListItem from '../Drawers/ProfileLinkListItem';
@@ -36,32 +38,31 @@ const overrideTheme = createMuiTheme({
 
 const commonDrawerItems = [
   {
-    path: '/courses',
+    path: variables.paths.courses,
     text: 'Mis Cursos',
     icon: (<CollectionsBookmarkRoundedIcon className={styles.tcGreen} />)
   },
   {
-    path: '/search-courses',
+    path: variables.paths.coursesSearch,
     text: 'Buscar Cursos',
     icon: (<CollectionsBookmarkRoundedIcon className={styles.tcBlue} />)
   },
   {
-    path: '/statistics',
+    path: variables.paths.statistics,
     text: 'Estadisticas',
     icon: (<InsertChartRoundedIcon className={styles.tcViolet} />)
   }
 ];
 
-export default function NavBar(props) {
-  const {
-    profile, googleClientId, onSignUp, onGoogleLogin
-  } = props;
+class NavBar extends Component {
+  getDrawer = () => {
+    const { profile } = this.props;
 
-  let drawer = null;
-  let loginSignUpButtons = null;
+    if (!profile) {
+      return '';
+    }
 
-  if (profile !== null) {
-    drawer = (
+    return (
       <TemporaryDrawer>
         <ProfileLinkListItem />
         <div className={styles.divider}>
@@ -72,8 +73,22 @@ export default function NavBar(props) {
         ))}
       </TemporaryDrawer>
     );
-  } else {
-    loginSignUpButtons = (
+  }
+
+  getLoginButtons = () => {
+    const {
+      onGoogleLogin, onSignUp, onLogout, googleClientId, profile
+    } = this.props;
+
+    if (profile) {
+      return (
+        <Button onClick={onLogout} color="inherit">
+          Log out
+        </Button>
+      );
+    }
+
+    return (
       <div>
         <SignUpButton
           size="small"
@@ -93,17 +108,21 @@ export default function NavBar(props) {
     );
   }
 
-  return (
-    <ThemeProvider theme={overrideTheme}>
-      <AppBar position="static">
-        <Toolbar>
-          {drawer}
-          <Typography variant="h6" className={styles.title}>
-            <Link className={styles.linkWithoutStyles} color="textPrimary" to={{ pathname: '/' }}>Math Learning </Link>
-          </Typography>
-          {loginSignUpButtons}
-        </Toolbar>
-      </AppBar>
-    </ThemeProvider>
-  );
+  render() {
+    return (
+      <ThemeProvider theme={overrideTheme}>
+        <AppBar position="static">
+          <Toolbar>
+            {this.getDrawer()}
+            <Typography variant="h6" className={styles.title}>
+              <Link className={styles.linkWithoutStyles} color="textPrimary" to={{ pathname: '/' }}>Math Learning </Link>
+            </Typography>
+            {this.getLoginButtons()}
+          </Toolbar>
+        </AppBar>
+      </ThemeProvider>
+    );
+  }
 }
+
+export default NavBar;
