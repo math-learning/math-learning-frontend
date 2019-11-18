@@ -48,9 +48,10 @@ describe('CourseCard', () => {
       const courseDate = wrapper.find('[id="course-date"]');
 
       expect(courseDate.exists()).to.be.equal(true);
-      expect(courseDate.text() === (
-        'Creado en: 2019-11-16' || 'Creado en: 11/16/2019'
-      )).to.be.equal(true);
+      expect(
+        courseDate.text() === 'Creado en: 2019-11-16'
+        || courseDate.text() === 'Creado en: 11/16/2019'
+      ).to.be.equal(true);
     });
 
     it('should render each professor label', () => {
