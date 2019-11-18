@@ -1,8 +1,8 @@
+import 'typeface-roboto';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { hot } from 'react-hot-loader';
 import { Route, Router } from 'react-router-dom';
-import 'typeface-roboto';
 
 import AddExercisePage from './components/AddExercisePage';
 import CoursePage from './components/CoursePage';

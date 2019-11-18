@@ -1,5 +1,8 @@
 import * as types from './actionTypes';
 
+const contextFromStorage = JSON.parse(localStorage.getItem('context')) || {};
+const profileFromStorage = JSON.parse(localStorage.getItem('profile'));
+
 const initialState = {
   data: {
     snackbar: {
@@ -11,11 +14,9 @@ const initialState = {
     progressbar: {
       isVisible: false,
     },
-    context: {
-      accessToken: null
-    },
     modalType: null,
-    profile: null,
+    context: contextFromStorage,
+    profile: profileFromStorage
     // profile: {
     //   userId: "diego-id",
     //   name: "Diego",
@@ -75,7 +76,11 @@ export default function reducers(state = initialState, action) {
       };
 
     case types.SIGNUP_SUCCESS:
-    case types.LOGIN_SUCCESS:
+    case types.LOGIN_SUCCESS: {
+      // to keep it through the navigation of the pages
+      localStorage.setItem('profile', JSON.stringify(action.userProfile));
+      // TODO: HANDLE 403 AND REDIRECT TO LOGIN
+
       return {
         ...state,
         data: {
@@ -83,8 +88,25 @@ export default function reducers(state = initialState, action) {
           profile: action.userProfile
         }
       };
+    }
+
+    case types.LOGOUT_SUCCESS: {
+      localStorage.removeItem('profile', JSON.stringify(action.userProfile));
+      localStorage.removeItem('context', JSON.stringify(action.userProfile));
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          profile: null,
+          context: {}
+        }
+      };
+    }
 
     case types.GOOGLE_LOGIN_SUCCESS:
+      localStorage.setItem('context', JSON.stringify({ accessToken: action.accessToken }));
+
       return {
         ...state,
         data: {

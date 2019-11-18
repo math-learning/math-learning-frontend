@@ -1,4 +1,5 @@
 import { combineReducers } from 'redux';
+import { connectRouter } from 'connected-react-router';
 
 import {
   reducers as derivativeReducers,
@@ -20,12 +21,13 @@ import {
   reducers as modalReducers,
 } from './modals';
 
-const reducers = combineReducers({
+const createRootReducer = (history) => combineReducers({
+  addExercise: addExerciseReducers,
   common: commonReducers,
-  modals: modalReducers,
   courses: coursesReducers,
   derivative: derivativeReducers,
-  addExercise: addExerciseReducers,
+  modals: modalReducers,
+  router: connectRouter(history),
 });
 
-export default reducers;
+export default createRootReducer;
