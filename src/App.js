@@ -6,7 +6,7 @@ import 'typeface-roboto';
 
 import AddExercisePage from './components/AddExercisePage';
 import CoursePage from './components/CoursePage';
-import CoursesPage from './components/CoursesPage/CoursesPage';
+import OwnCoursesPage from './components/scenes/courses/OwnCoursesPage';
 import SearchCourses from './components/CoursesPage/SearchCourses';
 import DerivativePage from './components/DerivativePage';
 import ExercisesPage from './components/ExercisesPage';
@@ -22,8 +22,6 @@ import history from './store/history';
 
 const useStyles = makeStyles(() => ({
   mainContent: {
-    // paddingTop: theme.spacing(8),
-    // paddingBottom: theme.spacing(8),
     flexGrow: 1,
   },
   root: {
@@ -50,16 +48,9 @@ const renderAddExercisePage = () => (
 const renderProfilePage = () => (
   <ProfilePage />
 );
-const renderCoursesPage = () => (
-  <CoursesPage />
-);
 
 const renderStatisticsPage = () => (
   <StatisticsPage />
-);
-
-const renderMainPage = () => (
-  <Main />
 );
 
 const renderSearchCoursesPage = () => (
@@ -81,13 +72,13 @@ const App = () => {
       <Router history={history}>
         <NavBar />
 
-        <Route exact path="/" render={renderMainPage} />
+        <Route exact path="/" component={Main} />
         <Route exact path="/courses" render={renderSearchCoursesPage} />
         <Route exact path="/exercises" render={renderExercisesPage} />
         <Route exact path="/derivative/:index" render={renderDerivativePage} />
         <Route exact path="/add-exercise" render={renderAddExercisePage} />
         <Route exact path="/profile" render={renderProfilePage} />
-        <Route exact path="/my-courses" render={renderCoursesPage} />
+        <Route exact path="/courses/list" component={OwnCoursesPage} />
         <Route exact path="/statistics" render={renderStatisticsPage} />
         <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage} />
 

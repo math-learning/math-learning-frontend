@@ -17,12 +17,12 @@ const login = async ({ context }) => {
   return requestUtils.processResponse(response);
 };
 
-const signup = async ({ context, name, rol }) => {
+const signup = async ({ context, name, role }) => {
   const profileUrl = `${url}/signup`;
 
   const response = await fetch(profileUrl, {
     method: 'post',
-    body: JSON.stringify({ name, rol }),
+    body: JSON.stringify({ name, role }),
     headers: {
       authorization: context.accessToken,
       'Content-Type': 'application/json'

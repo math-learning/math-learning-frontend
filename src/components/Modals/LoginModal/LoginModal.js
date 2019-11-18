@@ -15,7 +15,7 @@ class LoginModal extends Component {
 
     this.state = {
       name: null,
-      rol: null,
+      role: null,
       createAccountDisabled: true
     };
     this.onClickSignUp = this.onClickSignUp.bind(this);
@@ -30,25 +30,25 @@ class LoginModal extends Component {
 
   onClickSignUp = (googleUserProfile) => {
     const { onGoogleSignUp } = this.props;
-    const { name, rol } = this.state;
+    const { name, role } = this.state;
 
-    onGoogleSignUp(googleUserProfile, { name, rol });
+    onGoogleSignUp(googleUserProfile, { name, role });
   };
 
   onChangeName = (event) => {
-    const { rol } = this.state;
+    const { role } = this.state;
     const newName = event.target.value;
-    const createAccountDisabled = !newName || !rol;
+    const createAccountDisabled = !newName || !role;
 
     this.setState({ name: newName, createAccountDisabled });
   };
 
-  onChangeRol = (event) => {
+  onChangerole = (event) => {
     const { name } = this.state;
-    const newRol = event.target.value;
-    const createAccountDisabled = !name || !newRol;
+    const newrole = event.target.value;
+    const createAccountDisabled = !name || !newrole;
 
-    this.setState({ rol: newRol, createAccountDisabled });
+    this.setState({ role: newrole, createAccountDisabled });
   };
 
   render() {
@@ -75,9 +75,9 @@ class LoginModal extends Component {
           margin="normal"
           variant="outlined"
         />
-        <FormControl className={styles.rol} component="fieldset">
-          <FormLabel className={styles.rolType} component="legend">Tipo de usuario</FormLabel>
-          <RadioGroup className={styles.radioGroup} aria-label="position" name="position" onChange={this.onChangeRol} row>
+        <FormControl className={styles.role} component="fieldset">
+          <FormLabel className={styles.roleType} component="legend">Tipo de usuario</FormLabel>
+          <RadioGroup className={styles.radioGroup} aria-label="position" name="position" onChange={this.onChangerole} row>
             <FormControlLabel
               id="student-label"
               className={styles.radioButton}

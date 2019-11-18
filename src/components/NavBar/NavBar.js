@@ -67,7 +67,9 @@ export default function NavBar(props) {
         <div className={styles.divider}>
           <Divider variant="middle" />
         </div>
-        {commonDrawerItems.map((item) => (<LinkListItemWithIcon path={item.path} text={item.text} icon={item.icon} />))}
+        {commonDrawerItems.map((item) => (
+          <LinkListItemWithIcon key={item.path} path={item.path} text={item.text} icon={item.icon} />
+        ))}
       </TemporaryDrawer>
     );
   } else {

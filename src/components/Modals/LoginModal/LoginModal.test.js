@@ -91,7 +91,7 @@ describe('LoginModal', () => {
       );
       const userProfile = {
         name: 'Diego',
-        rol: 'professor'
+        role: 'professor'
       };
       wrapper.setState(userProfile);
 

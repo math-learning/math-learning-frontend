@@ -28,7 +28,7 @@ describe('common actions', () => {
       beforeEach(() => {
         userProfile = {
           name: 'Pride',
-          rol: 'student'
+          role: 'student'
         };
         expectedActions = [
           { type: types.LOGIN_SUCCESS, userProfile },
@@ -77,7 +77,7 @@ describe('common actions', () => {
       beforeEach(() => {
         userProfile = {
           name: 'Pride',
-          rol: 'student'
+          role: 'student'
         };
         expectedActions = [
           { type: types.SIGNUP_SUCCESS, userProfile },
@@ -99,7 +99,7 @@ describe('common actions', () => {
       beforeEach(() => {
         userProfile = {
           name: 'Pride',
-          rol: 'student'
+          role: 'student'
         };
         expectedActions = [
           {
