@@ -5,7 +5,6 @@ import messages from '../../configs/messages';
 import configs from '../../configs/variables';
 
 import * as modalActions from '../modals/actions';
-import * as modalTypes from '../modals/actionTypes';
 import * as types from './actionTypes';
 import * as selectors from './selectors';
 
@@ -31,12 +30,6 @@ export function showError({ message }) {
   return {
     type: types.SHOW_ERROR,
     message,
-  };
-}
-
-export function hideModal() {
-  return {
-    type: modalTypes.HIDE_MODAL
   };
 }
 
@@ -75,7 +68,7 @@ export function signUp({ name, role }) {
     try {
       const userProfile = await usersClient.signup({ context, name, role });
       dispatch(signUpSuccess({ userProfile }));
-      dispatch(hideModal());
+      dispatch(modalActions.hideModal());
 
       await dispatch(push(configs.paths.courses));
     } catch (err) {
@@ -94,7 +87,7 @@ export function login() {
     try {
       const userProfile = await usersClient.login({ context });
       dispatch(loginSuccess({ userProfile }));
-      dispatch(hideModal());
+      dispatch(modalActions.hideModal());
 
       await dispatch(push(configs.paths.courses));
     } catch (err) {

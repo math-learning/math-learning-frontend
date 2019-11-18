@@ -1,6 +1,4 @@
-import * as _ from 'lodash';
 import * as types from './actionTypes';
-// import * as courseUtils from '../../utils/courseUtils';
 
 const initialState = {
   data: {
@@ -18,6 +16,19 @@ export default function reducers(state = initialState, action) {
           ...state.data,
           ownCourses: action.courses,
           isLoadingCourses: false
+        }
+      };
+    }
+
+    case types.CREATE_COURSE_SUCCESS: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          ownCourses: [
+            action.course,
+            ...state.data.ownCourses
+          ]
         }
       };
     }

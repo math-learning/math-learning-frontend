@@ -6,6 +6,9 @@ import * as coursesActions from '../../../../state/courses/actions';
 import * as coursesSelector from '../../../../state/courses/selectors';
 import * as commonSelector from '../../../../state/common/selectors';
 
+import * as modalActions from '../../../../state/modals/actions';
+import * as modalTypes from '../../../../state/modals/modalTypes';
+
 import OwnCoursesPage from './OwnCoursesPage';
 
 const currentState = (state) => {
@@ -23,7 +26,8 @@ const currentState = (state) => {
 };
 
 const currentActions = (dispatch) => ({
-  onLoadCourses: () => dispatch(coursesActions.getCourses({}))
+  onLoadCourses: () => dispatch(coursesActions.getCourses({})),
+  onClickCreateCourse: () => dispatch(modalActions.loadModal(modalTypes.CREATE_COURSE_MODAL))
 });
 
 export default withRouter(connect(
