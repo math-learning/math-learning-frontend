@@ -5,13 +5,15 @@ import * as selectors from '../../../state/modals/selectors';
 
 /** Modal Components */
 import LoginModal from '../LoginModal';
+import CreateCourseModal from '../CreateCourseModal';
 import CreateExerciseModal from '../CreateExerciseModal';
 
 /** Modal Type Constants */
-import { LOGIN_MODAL, CREATE_EXERCISE_MODAL } from '../../../state/modals/modalTypes';
+import { LOGIN_MODAL, CREATE_EXERCISE_MODAL, CREATE_COURSE_MODAL } from '../../../state/modals/modalTypes';
 
 const MODAL_COMPONENTS = {
   [LOGIN_MODAL]: LoginModal,
+  [CREATE_COURSE_MODAL]: CreateCourseModal,
   [CREATE_EXERCISE_MODAL]: CreateExerciseModal
 };
 

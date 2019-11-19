@@ -31,6 +31,25 @@ describe('courses client', () => {
       response = await coursesClient.getCourses({ context });
     });
 
-    it('exercise is created', () => expect(response).to.be.deep.equal(course));
+    it('courses has been fetched', () => expect(response).to.be.deep.equal(course));
+  });
+
+  describe('createCourse() function', () => {
+    let course;
+
+    beforeEach(async () => {
+      course = {
+        name: 'Analisis matematico II - Curso 2'
+      };
+
+      nock(url)
+        .post('/courses')
+        .matchHeader('Authorization', context.accessToken)
+        .reply(200, course);
+
+      response = await coursesClient.createCourse({ context, course });
+    });
+
+    it('course is created', () => expect(response).to.be.deep.equal(course));
   });
 });

@@ -57,6 +57,7 @@ class CreateExerciseModal extends Component {
     } = this.state;
     const createExerciseDisabled = !name || !type || !exercise || !difficulty;
 
+    // TODO: FIX BUG, THE STATE IS NOT UPDATED
     this.setState({ createExerciseDisabled });
   }
 

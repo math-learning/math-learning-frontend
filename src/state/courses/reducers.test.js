@@ -32,4 +32,37 @@ describe('courses reducer', () => {
       });
     });
   });
+
+  describe('should handle CREATE_COURSE_SUCCESS', () => {
+    let existingCourses;
+    let course;
+    let finalState;
+
+    describe('when there was nothing in the state', () => {
+      beforeEach(() => {
+        course = { courseId: 'new-course' };
+        existingCourses = [{ courseId: 'course-id' }];
+        initialState = { data: { ownCourses: existingCourses, isLoadingCourses: false } };
+
+        finalState = reducer(initialState, {
+          type: types.CREATE_COURSE_SUCCESS,
+          course
+        });
+      });
+
+      it('should make the expected state', () => {
+        expect(finalState).deep.equal(
+          {
+            data: {
+              ownCourses: [
+                course,
+                ...existingCourses
+              ],
+              isLoadingCourses: false
+            }
+          }
+        );
+      });
+    });
+  });
 });
