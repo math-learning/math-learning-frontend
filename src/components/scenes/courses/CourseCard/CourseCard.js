@@ -45,7 +45,7 @@ export default class CourseCard extends Component {
     } = this.props;
 
     return (
-      <Card onClick={() => onClickCourse()} className={styles.courseCard}>
+      <Card onClick={onClickCourse} className={styles.courseCard}>
         <CardContent>
           <Grid container spacing={3} justify="space-between">
             <Grid item xs={12} sm={8} md={6}>

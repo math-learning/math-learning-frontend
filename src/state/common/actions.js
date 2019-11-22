@@ -100,6 +100,7 @@ export function login() {
 
 export function logout() {
   return async (dispatch) => {
+    // TODO: should clear all the state of everything here?
     await dispatch(push(configs.paths.main));
 
     dispatch(logoutSucess());

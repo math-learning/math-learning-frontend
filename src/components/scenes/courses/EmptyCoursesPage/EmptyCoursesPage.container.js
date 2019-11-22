@@ -5,10 +5,10 @@ import configs from '../../../../configs/variables';
 import EmptyCoursesPage from './EmptyCoursesPage';
 
 const currentState = () => {
-  const searchCoursesPath = configs.paths.courses;
+  const { coursesSearch } = configs.paths;
 
   return {
-    searchCoursesPath
+    searchCoursesPath: coursesSearch
   };
 };
 

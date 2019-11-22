@@ -18,7 +18,7 @@ export default class OwnCourses extends Component {
   }
 
   getContent = () => {
-    const { isLoadingCourses, courses } = this.props;
+    const { isLoadingCourses, courses, onClickCourse } = this.props;
 
     if (isLoadingCourses) {
       return (
@@ -34,7 +34,12 @@ export default class OwnCourses extends Component {
     return (
       <Grid item xs={12} sm={12} md={12}>
         {courses.map((course) => (
-          <CourseCard id={`course-${course.courseId}`} key={course.courseId} course={course} />
+          <CourseCard
+            id={`course-${course.courseId}`}
+            key={course.courseId}
+            course={course}
+            onClickCourse={onClickCourse}
+          />
         ))}
       </Grid>
     );

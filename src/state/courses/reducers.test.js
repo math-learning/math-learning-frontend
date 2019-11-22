@@ -12,7 +12,7 @@ describe('courses reducer', () => {
     describe('when there was nothing in the state', () => {
       beforeEach(() => {
         courses = [{ courseId: 'course-id' }];
-        initialState = { data: { ownCourses: [], isLoadingCourses: true } };
+        initialState = { data: { own: { courses: [], isLoadingCourses: true } } };
 
         finalState = reducer(initialState, {
           type: types.GET_COURSES_SUCCESS,
@@ -24,8 +24,10 @@ describe('courses reducer', () => {
         expect(finalState).deep.equal(
           {
             data: {
-              ownCourses: courses,
-              isLoadingCourses: false
+              own: {
+                courses,
+                isLoadingCourses: false
+              }
             }
           }
         );
@@ -42,7 +44,7 @@ describe('courses reducer', () => {
       beforeEach(() => {
         course = { courseId: 'new-course' };
         existingCourses = [{ courseId: 'course-id' }];
-        initialState = { data: { ownCourses: existingCourses, isLoadingCourses: false } };
+        initialState = { data: { own: { courses: existingCourses, isLoadingCourses: false } } };
 
         finalState = reducer(initialState, {
           type: types.CREATE_COURSE_SUCCESS,
@@ -54,11 +56,13 @@ describe('courses reducer', () => {
         expect(finalState).deep.equal(
           {
             data: {
-              ownCourses: [
-                course,
-                ...existingCourses
-              ],
-              isLoadingCourses: false
+              own: {
+                courses: [
+                  course,
+                  ...existingCourses
+                ],
+                isLoadingCourses: false
+              }
             }
           }
         );

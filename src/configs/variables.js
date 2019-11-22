@@ -17,7 +17,7 @@ const configs = {
   },
   paths: {
     main: '/',
-    courses: '/courses/list',
+    courses: '/courses',
     coursesSearch: '/courses/search',
     course: (courseId) => `/courses/${courseId}`,
     statistics: '/statistics'

@@ -1,8 +1,9 @@
 import * as types from './actionTypes';
 
-export const loadModal = (modalType) => ({
+export const loadModal = (modalType, modalParams) => ({
   type: types.SHOW_MODAL,
-  modalType
+  modalType,
+  modalParams
 });
 
 export const hideModal = () => ({
