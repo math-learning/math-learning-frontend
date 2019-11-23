@@ -1,8 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import configs from '../../../../configs/variables';
-import history from '../../../../store/history';
 import * as commonSelector from '../../../../state/common/selectors';
 
 import CourseCard from './CourseCard';
@@ -21,10 +19,8 @@ const currentState = (state, { course }) => {
   };
 };
 
-const currentActions = (dispatch, { course }) => ({
-  onClickCourse: () => {
-    history.push(configs.paths.course(course.courseId));
-  }
+const currentActions = (dispatch, { course, onClickCourse }) => ({
+  onClickCourse: () => onClickCourse(course)
 });
 
 export default withRouter(connect(

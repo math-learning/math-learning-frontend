@@ -36,7 +36,7 @@ describe('common actions', () => {
           {
             payload: {
               args: [
-                '/courses/list'
+                '/courses'
               ],
               method: 'push'
             },
@@ -94,7 +94,7 @@ describe('common actions', () => {
           {
             payload: {
               args: [
-                '/courses/list'
+                '/courses'
               ],
               method: 'push'
             },

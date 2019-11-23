@@ -46,6 +46,35 @@ describe('courses actions', () => {
     });
   });
 
+  describe('searchCourses() function', () => {
+    let search;
+    let courses;
+
+    describe('when the courses are fetched successfully', () => {
+      beforeEach(() => {
+        courses = [];
+        expectedActions = [
+          {
+            type: types.LIST_COURSES_REQUEST
+          },
+          {
+            type: types.LIST_COURSES_SUCCESS,
+            courses
+          }
+        ];
+        sandbox
+          .stub(coursesClient, 'searchCourses')
+          .callsFake(() => courses);
+
+        return store.dispatch(actions.searchCourses({ search }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
+
   describe('createCourse() function', () => {
     let course;
     let courseId;
@@ -75,6 +104,54 @@ describe('courses actions', () => {
           .callsFake(() => course);
 
         return store.dispatch(actions.createCourse({ course }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
+
+  describe('addUserToCourse() function', () => {
+    let course;
+    let courseId;
+    let password;
+    let userId;
+    let role;
+
+    describe('when the course is created successfully', () => {
+      beforeEach(() => {
+        password = 'secret';
+        userId = 'user-id';
+        role = 'student';
+        courseId = 'course-id';
+        course = { courseId };
+        expectedActions = [
+          {
+            type: types.JOIN_COURSE_SUCCESS,
+            course
+          },
+          { type: modalTypes.HIDE_MODAL },
+          {
+            payload: {
+              args: [
+                `/courses/${courseId}`
+              ],
+              method: 'push'
+            },
+            type: '@@router/CALL_HISTORY_METHOD'
+          }
+        ];
+        sandbox
+          .stub(coursesClient, 'addUserToCourse')
+          .callsFake(() => {});
+
+        return store.dispatch(actions.addUserToCourse({
+          course,
+          userId,
+          role,
+          password
+        }));
       });
 
       it('executes the expected actions', () => {

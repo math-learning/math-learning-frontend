@@ -2,8 +2,14 @@ import * as types from './actionTypes';
 
 const initialState = {
   data: {
-    ownCourses: [],
-    isLoadingCourses: true
+    own: {
+      courses: [],
+      isLoadingCourses: true
+    },
+    list: {
+      courses: [],
+      isLoadingCourses: true
+    }
   },
 };
 
@@ -14,8 +20,62 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          ownCourses: action.courses,
-          isLoadingCourses: false
+          own: {
+            courses: action.courses,
+            isLoadingCourses: false
+          }
+        }
+      };
+    }
+
+    case types.LIST_COURSES_SUCCESS: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          list: {
+            ...state.data.list,
+            courses: action.courses,
+            isLoadingCourses: false
+          }
+        }
+      };
+    }
+
+    case types.LIST_COURSES_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          list: {
+            ...state.data.list,
+            isLoadingCourses: true
+          }
+        }
+      };
+    }
+
+    case types.JOIN_COURSE_SUCCESS: {
+      const newListCourses = state.data.list.courses.filter(
+        (course) => course.courseId !== action.course.courseId
+      );
+      const newOwnCourses = [
+        action.course,
+        ...state.data.own.courses
+      ];
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          list: {
+            ...state.data.list,
+            courses: newListCourses
+          },
+          own: {
+            ...state.data.own,
+            courses: newOwnCourses
+          }
         }
       };
     }
@@ -25,10 +85,13 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          ownCourses: [
-            action.course,
-            ...state.data.ownCourses
-          ]
+          own: {
+            ...state.data.own,
+            courses: [
+              action.course,
+              ...state.data.own.courses
+            ]
+          }
         }
       };
     }

@@ -1,9 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { push } from 'connected-react-router';
 
-import configs from '../../../../configs/variables';
-import * as userUtils from '../../../../utils/userUtils';
 import * as coursesActions from '../../../../state/courses/actions';
 import * as coursesSelector from '../../../../state/courses/selectors';
 import * as commonSelector from '../../../../state/common/selectors';
@@ -11,31 +8,26 @@ import * as commonSelector from '../../../../state/common/selectors';
 import * as modalActions from '../../../../state/modals/actions';
 import * as modalTypes from '../../../../state/modals/modalTypes';
 
-import OwnCoursesPage from './OwnCoursesPage';
+import SearchCoursesPage from './SearchCoursesPage';
 
 const currentState = (state) => {
-  const courses = coursesSelector.getOwnCourses(state);
+  const courses = coursesSelector.getCoursesList(state);
   const profile = commonSelector.profile(state);
-  const canAddCourse = userUtils.canAddCourse(profile);
-  const isLoadingCourses = coursesSelector.isLoadingCourses(state);
+  const isLoadingCourses = coursesSelector.isLoadingCoursesList(state);
 
   return {
     profile,
     courses,
-    canAddCourse,
     isLoadingCourses
   };
 };
 
 const currentActions = (dispatch) => ({
-  onLoadCourses: () => dispatch(coursesActions.getCourses({})),
-  onClickCourse: async (course) => {
-    await dispatch(push(configs.paths.course(course.courseId)));
-  },
-  onClickCreateCourse: () => dispatch(modalActions.loadModal(modalTypes.CREATE_COURSE_MODAL))
+  onSearchCourses: (params) => dispatch(coursesActions.searchCourses(params)),
+  onClickCourse: (course) => dispatch(modalActions.loadModal(modalTypes.REGISTRATION_MODAL, { course }))
 });
 
 export default withRouter(connect(
   currentState,
   currentActions,
-)(OwnCoursesPage));
+)(SearchCoursesPage));

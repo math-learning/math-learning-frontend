@@ -20,6 +20,43 @@ const getCourses = async ({
   return requestUtils.processResponse(response);
 };
 
+const addUserToCourse = async ({
+  context,
+  courseId,
+  password,
+  userId,
+  role
+}) => {
+  const profileUrl = `${url}/courses/${courseId}/users`;
+
+  const response = await fetch(profileUrl, {
+    method: 'post',
+    body: JSON.stringify({ role, userId, password }),
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
+const searchCourses = async ({
+  context,
+  search
+}) => {
+  const profileUrl = `${url}/courses/search?search=${search}`;
+
+  const response = await fetch(profileUrl, {
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 const createCourse = async ({
   context,
   course
@@ -40,5 +77,7 @@ const createCourse = async ({
 
 export default {
   createCourse,
-  getCourses
+  getCourses,
+  addUserToCourse,
+  searchCourses
 };
