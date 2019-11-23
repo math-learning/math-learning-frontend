@@ -37,7 +37,7 @@ class RegistrationModal extends Component {
     return (
       <Modal className={styles.modal} onClose={onClose}>
         <Typography
-          id="creation-label"
+          id="title"
           color="textPrimary"
           variant="h4"
           component="h1"
@@ -61,7 +61,7 @@ class RegistrationModal extends Component {
           <Button
             color="primary"
             variant="contained"
-            id="create-button"
+            id="join-button"
             onClick={this.onJoinCourse}
             size="large"
             className={styles.button}

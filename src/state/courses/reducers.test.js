@@ -35,6 +35,63 @@ describe('courses reducer', () => {
     });
   });
 
+  describe('should handle LIST_COURSES_REQUEST', () => {
+    let finalState;
+
+    describe('when there was nothing in the state', () => {
+      beforeEach(() => {
+        initialState = { data: { list: { courses: [{ courseId: 'course-id' }], isLoadingCourses: true } } };
+
+        finalState = reducer(initialState, {
+          type: types.LIST_COURSES_REQUEST
+        });
+      });
+
+      it('should make the expected state', () => {
+        expect(finalState).deep.equal(
+          {
+            data: {
+              list: {
+                ...initialState.data.list,
+                isLoadingCourses: true
+              }
+            }
+          }
+        );
+      });
+    });
+  });
+
+  describe('should handle LIST_COURSES_SUCCESS', () => {
+    let courses;
+    let finalState;
+
+    describe('when there was nothing in the state', () => {
+      beforeEach(() => {
+        courses = [{ courseId: 'course-id' }];
+        initialState = { data: { list: { courses: [], isLoadingCourses: true } } };
+
+        finalState = reducer(initialState, {
+          type: types.LIST_COURSES_SUCCESS,
+          courses
+        });
+      });
+
+      it('should make the expected state', () => {
+        expect(finalState).deep.equal(
+          {
+            data: {
+              list: {
+                courses,
+                isLoadingCourses: false
+              }
+            }
+          }
+        );
+      });
+    });
+  });
+
   describe('should handle CREATE_COURSE_SUCCESS', () => {
     let existingCourses;
     let course;

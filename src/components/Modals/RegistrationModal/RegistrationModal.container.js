@@ -20,7 +20,7 @@ const currentState = (state) => {
 
 const currentActions = (dispatch) => ({
   onJoinCourse: (params) => {
-    dispatch(courseActions.joinUserToCourse(params));
+    dispatch(courseActions.addUserToCourse(params));
   },
   onClose: () => dispatch(modalActions.hideModal())
 });

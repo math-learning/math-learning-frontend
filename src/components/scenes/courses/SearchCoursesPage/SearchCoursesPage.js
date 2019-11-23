@@ -7,7 +7,7 @@ import CourseCard from '../CourseCard';
 
 import styles from './SearchCoursesPage.module.sass';
 
-export default class OwnCourses extends Component {
+export default class SearchCoursesPage extends Component {
   constructor(props) {
     super(props);
 

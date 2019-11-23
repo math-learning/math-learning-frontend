@@ -52,7 +52,7 @@ export function getCourses() {
   };
 }
 
-export function joinUserToCourse({
+export function addUserToCourse({
   course,
   password,
   userId,
@@ -63,16 +63,16 @@ export function joinUserToCourse({
     const context = commonSelectors.context(state);
 
     try {
-      await coursesClient.joinUserToCourse({
+      await coursesClient.addUserToCourse({
         context,
-        course,
+        courseId: course.courseId,
         password,
         userId,
         role
       });
 
-      dispatch(modalActions.hideModal());
       dispatch(joinCourseSuccess({ course }));
+      dispatch(modalActions.hideModal());
 
       await dispatch(push(configs.paths.course(course.courseId)));
     } catch (err) {

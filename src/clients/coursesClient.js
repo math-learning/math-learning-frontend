@@ -20,14 +20,14 @@ const getCourses = async ({
   return requestUtils.processResponse(response);
 };
 
-const joinUserToCourse = async ({
+const addUserToCourse = async ({
   context,
-  course,
+  courseId,
   password,
   userId,
   role
 }) => {
-  const profileUrl = `${url}/courses/${course.courseId}/users`;
+  const profileUrl = `${url}/courses/${courseId}/users`;
 
   const response = await fetch(profileUrl, {
     method: 'post',
@@ -78,6 +78,6 @@ const createCourse = async ({
 export default {
   createCourse,
   getCourses,
-  joinUserToCourse,
+  addUserToCourse,
   searchCourses
 };
