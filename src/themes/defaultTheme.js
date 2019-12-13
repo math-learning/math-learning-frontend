@@ -42,7 +42,7 @@ const defaultTheme = createMuiTheme({
       contrastText: '#fff',
     },
     text: {
-      primary: 'rgba(255, 255, 255, 1)',
+      primary: 'rgba(255, 255, 255, 1)'
     }
   },
 });

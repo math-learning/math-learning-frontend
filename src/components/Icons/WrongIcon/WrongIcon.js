@@ -6,13 +6,11 @@ import { FaTimes } from 'react-icons/fa';
 import styles from './WrongIcon.css';
 
 export default function WrongIcon(props) {
-  const { className } = props;
+  const { className, size } = props;
 
   return (
-    <IconContext.Provider value={{ className: classNames(className, styles.right) }}>
-      <div id="wrong-icon">
-        <FaTimes />
-      </div>
+    <IconContext.Provider value={{ className: classNames(className, styles.wrong) }}>
+      <FaTimes color="red" size={size || '25px'} />
     </IconContext.Provider>
   );
 }

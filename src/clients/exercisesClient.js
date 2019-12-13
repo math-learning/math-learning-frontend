@@ -25,6 +25,55 @@ const createExercise = async ({
   return requestUtils.processResponse(response);
 };
 
+const getExercise = async ({
+  context,
+  courseId,
+  guideId,
+  exerciseId
+}) => {
+  const profileUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`;
+
+  const response = await fetch(profileUrl, {
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
+const resolveExercise = async ({
+  context,
+  courseId,
+  guideId,
+  exerciseId,
+  stepList,
+  problemInput,
+  lastExpression,
+  currentExpression
+}) => {
+  const profileUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}/resolve`;
+
+  const response = await fetch(profileUrl, {
+    method: 'post',
+    body: JSON.stringify({
+      stepList,
+      problemInput,
+      lastExpression,
+      currentExpression
+    }),
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 export default {
-  createExercise
+  createExercise,
+  getExercise,
+  resolveExercise
 };

@@ -9,4 +9,4 @@ const currentState = (state, { content, onContentChange, onEnter }) => ({
 
 export default connect(
   currentState,
-)(MathTextBox);
+)(MathTextBox); // TODO: NO HACE FALTA

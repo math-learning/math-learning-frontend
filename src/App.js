@@ -8,7 +8,7 @@ import AddExercisePage from './components/AddExercisePage';
 import CoursePage from './components/CoursePage';
 import OwnCoursesPage from './components/scenes/courses/OwnCoursesPage';
 import SearchCoursesPage from './components/scenes/courses/SearchCoursesPage';
-import DerivativePage from './components/DerivativePage';
+import ExercisePage from './components/scenes/exercises/ExercisePage';
 import ExercisesPage from './components/ExercisesPage';
 import Footer from './components/Footer';
 import Main from './components/Main';
@@ -32,12 +32,12 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const renderDerivativePage = ({ match }) => {
-  const { index } = match.params;
-  return (
-    <DerivativePage problemIndex={index} />
-  );
-};
+// const renderDerivativePage = ({ match }) => {
+//   const { index } = match.params;
+//   return (
+//     <DerivativePage problemIndex={index} />
+//   );
+// };
 
 const renderExercisesPage = () => (
   <ExercisesPage />
@@ -70,7 +70,6 @@ const App = () => {
         <NavBar />
 
         <Route exact path="/exercises" render={renderExercisesPage} />
-        <Route exact path="/derivative/:index" render={renderDerivativePage} />
         <Route exact path="/add-exercise" render={renderAddExercisePage} />
         <Route exact path="/profile" render={renderProfilePage} />
         <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage} />
@@ -78,6 +77,7 @@ const App = () => {
         <Route exact path={configs.paths.main} component={Main} />
         <Route exact path={configs.paths.courses} component={OwnCoursesPage} />
         <Route exact path={configs.paths.coursesSearch} component={SearchCoursesPage} />
+        <Route exact path="/courses/:courseId/:guideId/exercises/:exerciseId" component={ExercisePage} />
         <Route exact path={configs.paths.statistics} render={renderStatisticsPage} />
 
         <Footer className={classes.footer} />
