@@ -32,13 +32,6 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-// const renderDerivativePage = ({ match }) => {
-//   const { index } = match.params;
-//   return (
-//     <DerivativePage problemIndex={index} />
-//   );
-// };
-
 const renderExercisesPage = () => (
   <ExercisesPage />
 );

@@ -13,7 +13,7 @@ const currentState = (state, { match }) => {
   return {
     courseId,
     guideId,
-    exerciseId, // todo: es necesario?
+    exerciseId,
     exercise,
     isLoadingExercise
   };
