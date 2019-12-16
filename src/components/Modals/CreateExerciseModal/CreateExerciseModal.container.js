@@ -3,15 +3,18 @@ import { withRouter } from 'react-router-dom';
 
 import * as exerciseActions from '../../../state/exercises/actions';
 import * as modalActions from '../../../state/modals/actions';
+import * as modalSelector from '../../../state/modals/selectors';
 
 import CreateExerciseModal from './CreateExerciseModal';
 
-const currentState = (state, { location }) => { // eslint-disable-line
+const currentState = (state) => {
+  const modalParams = modalSelector.modalParams(state);
+
   return {
-    guideId: 'guia-inventada',
-    courseId: 'curso-inventado'
+    courseId: modalParams.courseId,
+    guideId: modalParams.guideId
   };
-}; // TODO: tomar de location el courseId y guideId para armar el ejercicio
+};
 
 const currentActions = (dispatch) => ({
   onCreateExercise: (exercise) => {

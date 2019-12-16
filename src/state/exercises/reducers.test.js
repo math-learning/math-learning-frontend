@@ -11,7 +11,7 @@ describe('exercises reducer', () => {
     describe('when there was nothing in the state', () => {
       beforeEach(() => {
         exercise = { id: 'exercise' };
-        initialState = { data: { exercises: {} } };
+        initialState = { data: { list: {} } };
 
         finalState = reducer(initialState, {
           type: types.CREATE_EXERCISE_SUCCESS,
@@ -25,7 +25,7 @@ describe('exercises reducer', () => {
         expect(finalState).deep.equal(
           {
             data: {
-              exercises: {
+              list: {
                 'c-id/g-id': [exercise]
               }
             }
@@ -42,7 +42,7 @@ describe('exercises reducer', () => {
         previousExercise = { id: 'exercise-2' };
         initialState = {
           data: {
-            exercises: {
+            list: {
               'c-id/g-id': [previousExercise]
             }
           }
@@ -60,7 +60,7 @@ describe('exercises reducer', () => {
         expect(finalState).deep.equal(
           {
             data: {
-              exercises: {
+              list: {
                 'c-id/g-id': [
                   previousExercise,
                   exercise

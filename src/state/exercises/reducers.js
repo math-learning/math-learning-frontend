@@ -38,16 +38,16 @@ export default function reducers(state = initialState, action) {
   switch (action.type) {
     case types.CREATE_EXERCISE_SUCCESS: {
       const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
-      const currentExercises = state.data.exercises[courseGuideId] || [];
+      const listExercises = state.data.list[courseGuideId] || [];
 
       return {
         ...state,
         data: {
           ...state.data,
-          exercises: {
-            ...state.data.exercises,
+          list: {
+            ...state.data.list,
             [courseGuideId]: [
-              ...currentExercises,
+              ...listExercises,
               action.exercise
             ]
           }

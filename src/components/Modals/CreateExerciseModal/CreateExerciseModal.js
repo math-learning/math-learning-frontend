@@ -83,17 +83,13 @@ class CreateExerciseModal extends Component {
   };
 
   onChangeExercise = (event) => {
+    const { exercise } = this.state;
     const newExercise = event.target.value;
 
-    this.setState({ exercise: newExercise });
-    this.checkIfCanCreate();
-  };
-
-  onChangeExercise = (event) => {
-    const newExercise = event.target.value;
-
-    this.setState({ exercise: newExercise });
-    this.checkIfCanCreate();
+    if (exercise !== newExercise) {
+      this.setState({ exercise: newExercise });
+      this.checkIfCanCreate();
+    }
   };
 
   render() {
