@@ -10,6 +10,10 @@ import {
 } from './addExercise';
 
 import {
+  reducers as exercisesReducers,
+} from './exercises';
+
+import {
   reducers as coursesReducers,
 } from './courses';
 
@@ -26,6 +30,7 @@ const createRootReducer = (history) => combineReducers({
   common: commonReducers,
   courses: coursesReducers,
   derivative: derivativeReducers,
+  exercises: exercisesReducers,
   modals: modalReducers,
   router: connectRouter(history),
 });

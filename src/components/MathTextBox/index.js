@@ -1,3 +1,3 @@
-import MathTextBox from './MathTextBox.container';
+import MathTextBox from './MathTextBox';
 
 export default MathTextBox;

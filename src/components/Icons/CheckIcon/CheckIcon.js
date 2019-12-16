@@ -6,13 +6,11 @@ import { FaCheck } from 'react-icons/fa';
 import styles from './CheckIcon.css';
 
 export default function CheckIcon(props) {
-  const { className } = props;
+  const { className, size } = props;
 
   return (
     <IconContext.Provider value={{ className: classNames(className, styles.right) }}>
-      <div id="check-icon">
-        <FaCheck />
-      </div>
+      <FaCheck color="green" size={size || '25px'} />
     </IconContext.Provider>
   );
 }

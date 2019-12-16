@@ -44,4 +44,83 @@ describe('exercises client', () => {
 
     it('exercise is created', () => expect(response).to.be.deep.equal(exercise));
   });
+
+  describe('getExercise() function', () => {
+    let exercise;
+    let courseId;
+    let guideId;
+    let exerciseId;
+
+    beforeEach(async () => {
+      courseId = 'course-id';
+      guideId = 'guide-id';
+      exerciseId = 'exercise-id';
+      exercise = {
+        name: 'Pride',
+        type: 'integral',
+        difficulty: 'medium'
+      };
+
+      nock(url)
+        .get(`/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`)
+        .matchHeader('Authorization', context.accessToken)
+        .reply(200, exercise);
+
+      response = await exercisesClient.getExercise({
+        context,
+        guideId,
+        courseId,
+        exerciseId
+      });
+    });
+
+    it('exercise is getted', () => expect(response).to.be.deep.equal(exercise));
+  });
+
+  describe('resolveExercise() function', () => {
+    let exerciseStatus;
+    let courseId;
+    let guideId;
+    let exerciseId;
+    let stepList;
+    let problemInput;
+    let lastExpression;
+    let currentExpression;
+
+    beforeEach(async () => {
+      courseId = 'course-id';
+      guideId = 'guide-id';
+      exerciseId = 'exercise-id';
+      stepList = [];
+      problemInput = '2x';
+      lastExpression = '2x + 1';
+      currentExpression = '2';
+      exerciseStatus = {
+        status: 'resolved'
+      };
+
+      nock(url)
+        .post(`/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}/resolve`, {
+          stepList,
+          problemInput,
+          lastExpression,
+          currentExpression
+        })
+        .matchHeader('Authorization', context.accessToken)
+        .reply(200, exerciseStatus);
+
+      response = await exercisesClient.resolveExercise({
+        context,
+        courseId,
+        guideId,
+        exerciseId,
+        stepList,
+        problemInput,
+        lastExpression,
+        currentExpression
+      });
+    });
+
+    it('exercise is resolved', () => expect(response).to.be.deep.equal(exerciseStatus));
+  });
 });

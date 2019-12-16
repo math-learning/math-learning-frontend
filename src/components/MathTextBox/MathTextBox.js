@@ -10,6 +10,21 @@ import styles from './MathTextBox.css';
 addMathquillStyles();
 
 class MathTextBox extends Component {
+  constructor(props) {
+    super(props);
+
+    this.mathQuillEl = null;
+  }
+
+  // eslint-disable-next-line camelcase
+  UNSAFE_componentWillReceiveProps(props) {
+    const { content } = props;
+
+    if (!content) {
+      this.onClear();
+    }
+  }
+
   handleContentChange = (content) => {
     const { onContentChange } = this.props;
 
@@ -24,6 +39,10 @@ class MathTextBox extends Component {
     }
   }
 
+  onClear = () => {
+    this.mathQuillEl.latex('');
+  }
+
   render() {
     const { content, className } = this.props;
 
@@ -36,11 +55,14 @@ class MathTextBox extends Component {
           className
         )}
       >
-        <Typography color="textPrimary">
+        <Typography color="textPrimary" variant="h6">
           <MathQuill
             latex={content}
             onChange={(mathField) => {
               this.handleContentChange(mathField.latex());
+            }}
+            mathquillDidMount={(el) => {
+              this.mathQuillEl = el;
             }}
           />
         </Typography>

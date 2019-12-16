@@ -27,10 +27,11 @@ class MathText extends React.Component {
   }
 
   render() {
-    const { content } = this.props;
+    const { id, content } = this.props;
 
     return (
       <p
+        id={id}
         ref={(x) => {
           this.element = x;
         }}
@@ -42,6 +43,7 @@ class MathText extends React.Component {
 }
 
 MathText.propTypes = {
+  id: PropTypes.string,
   className: PropTypes.string,
   content: PropTypes.string,
 };
