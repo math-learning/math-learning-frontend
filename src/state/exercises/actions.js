@@ -13,7 +13,9 @@ export function resolveExerciseRequest({ courseId, guideId, exerciseId }) {
   };
 }
 
-export function exerciseStepValid({ courseId, guideId, exerciseId, currentExpression }) {
+export function exerciseStepValid({
+  courseId, guideId, exerciseId, currentExpression
+}) {
   return {
     type: types.EXERCISE_STEP_IS_VALID,
     courseId,
@@ -32,7 +34,9 @@ export function exerciseStepIsValid({ courseId, guideId, exerciseId }) {
   };
 }
 
-export function exerciseResolved({ courseId, guideId, exerciseId, currentExpression }) {
+export function exerciseResolved({
+  courseId, guideId, exerciseId, currentExpression
+}) {
   return {
     type: types.EXERCISE_RESOLVED,
     courseId,
@@ -154,9 +158,13 @@ export function resolveExercise({
     });
 
     if (result.status === 'valid') {
-      dispatch(exerciseStepValid({ courseId, guideId, exerciseId, currentExpression }));
+      dispatch(exerciseStepValid({
+        courseId, guideId, exerciseId, currentExpression
+      }));
     } else if (result.status === 'resolved') {
-      dispatch(exerciseResolved({ courseId, guideId, exerciseId, currentExpression }));
+      dispatch(exerciseResolved({
+        courseId, guideId, exerciseId, currentExpression
+      }));
     } else {
       dispatch(exerciseStepIsValid({ courseId, guideId, exerciseId }));
     }

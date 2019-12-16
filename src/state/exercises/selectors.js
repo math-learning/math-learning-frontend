@@ -51,11 +51,11 @@ export const stepList = (state, {
   const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
   const courseExercises = state.exercises.data.detail[courseGuideId];
 
-  const stepList = courseExercises
+  const exerciseStepList = courseExercises
     && courseExercises[exerciseId]
     && courseExercises[exerciseId].stepList;
 
-  return stepList || [];
+  return exerciseStepList || [];
 };
 
 export const isLoadingExercise = (state, {

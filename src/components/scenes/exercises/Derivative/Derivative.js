@@ -36,6 +36,7 @@ class Derivative extends Component {
         <div key={`right-step-${index}`} className={styles.rightStep}>
           <span className={styles.item}> = </span>
           <MathText
+            id={`step-${index}`}
             content={step}
             className={styles.mathText}
           />
@@ -65,6 +66,7 @@ class Derivative extends Component {
       <div className={styles.step}>
         <span className={styles.item}> = </span>
         <MathTextBox
+          id="current-step"
           content={currentExpression}
           className={styles.mathBox}
           onContentChange={this.handleContentChange}
@@ -72,6 +74,7 @@ class Derivative extends Component {
         />
         {this.getCurrentStepState()}
         <Button
+          id="validate-step"
           className={styles.item}
           onClick={this.handleValidateStep}
           disabled={!currentExpression}
@@ -91,6 +94,7 @@ class Derivative extends Component {
       <div>
         <div className={styles.container}>
           <MathText
+            id="problem-input"
             className={styles.problemInput}
             content={exercise.exercise}
           />
@@ -103,10 +107,16 @@ class Derivative extends Component {
           </div>
         </div>
 
-        {isResolved ? (
-          <Typography className={styles.solvedExerciseText} variant="h4">
-            Ejercicio resuelto!
-          </Typography>)
+        {isResolved
+          ? (
+            <Typography
+              id="exercise-resolved"
+              className={styles.solvedExerciseText}
+              variant="h4"
+            >
+              Ejercicio resuelto!
+            </Typography>
+          )
           : null}
       </div>
     );
@@ -115,8 +125,7 @@ class Derivative extends Component {
 
 Derivative.propTypes = {
   stepList: PropTypes.array,
-  className: PropTypes.string,
-  isValidInput: PropTypes.bool,
+  isResolved: PropTypes.bool,
   problemInput: PropTypes.string,
   currentExpression: PropTypes.string,
   onValidateStep: PropTypes.func,

@@ -36,18 +36,16 @@ export default class ExercisePage extends Component {
     );
   }
 
-  render = () => {
-    return (
-      <Container className={styles.defaultContainer}>
-        <Typography
-          id="exercise-title"
-          variant="h4"
-          className={styles.title}
-        >
+  render = () => (
+    <Container className={styles.defaultContainer}>
+      <Typography
+        id="exercise-title"
+        variant="h4"
+        className={styles.title}
+      >
           Resuelva el siguiente ejercicio
-        </Typography>
-        {this.getContent()}
-      </Container>
-    );
-  };
+      </Typography>
+      {this.getContent()}
+    </Container>
+  );
 }

@@ -16,6 +16,7 @@ class MathTextBox extends Component {
     this.mathQuillEl = null;
   }
 
+  // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(props) {
     const { content } = props;
 
