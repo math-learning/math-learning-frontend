@@ -7,7 +7,10 @@ const processResponse = async (response) => {
 
     throw processedError;
   }
-  return response.json();
+  if (response.status !== 204) {
+    return response.json();
+  }
+  return Promise.resolve();
 };
 
 export default {

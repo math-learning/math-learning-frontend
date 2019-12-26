@@ -34,30 +34,6 @@ export const exerciseStatus = (state, {
     && courseExercises[exerciseId].exerciseStatus;
 };
 
-export const isExerciseResolved = (state, {
-  courseId, guideId, exerciseId
-}) => {
-  const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
-  const courseExercises = state.exercises.data.detail[courseGuideId];
-
-  return courseExercises
-    && courseExercises[exerciseId]
-    && courseExercises[exerciseId].exerciseStatus === 'resolved';
-};
-
-export const stepList = (state, {
-  courseId, guideId, exerciseId
-}) => {
-  const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
-  const courseExercises = state.exercises.data.detail[courseGuideId];
-
-  const exerciseStepList = courseExercises
-    && courseExercises[exerciseId]
-    && courseExercises[exerciseId].stepList;
-
-  return exerciseStepList || [];
-};
-
 export const isLoadingExercise = (state, {
   courseId, guideId, exerciseId
 }) => {

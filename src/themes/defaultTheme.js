@@ -20,7 +20,7 @@ const defaultTheme = createMuiTheme({
     },
     secondary: {
       // Yellow
-      main: '#dcdc10',
+      main: '#CCCC0B',
       contrastText: '#fff',
     },
     blue: {

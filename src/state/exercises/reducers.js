@@ -10,10 +10,11 @@ const initialState = {
 };
 
 function updateExerciseState({
-  state, courseId, guideId, exerciseId, exerciseProps
+  state, courseId, guideId, exerciseId, exerciseProps = {}
 }) {
   const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
   const exercises = state.data.detail[courseGuideId] || {};
+
   const newExercisesState = {
     ...exercises,
     [exerciseId]: {
@@ -48,7 +49,7 @@ export default function reducers(state = initialState, action) {
             ...state.data.list,
             [courseGuideId]: [
               ...listExercises,
-              action.exercise
+              { ...action.exercise, stepList: [] }
             ]
           }
         }
@@ -64,8 +65,7 @@ export default function reducers(state = initialState, action) {
           exercise: action.exercise,
           isLoading: false,
           exerciseStatus: 'editing',
-          currentExpression: '',
-          stepList: []
+          currentExpression: ''
         }
       };
 
@@ -93,6 +93,7 @@ export default function reducers(state = initialState, action) {
 
     case types.EXERCISE_RESOLVED: {
       const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
 
       return updateExerciseState({
         state,
@@ -100,18 +101,23 @@ export default function reducers(state = initialState, action) {
         guideId: action.guideId,
         exerciseId: action.exerciseId,
         exerciseProps: {
-          stepList: [
-            ...state.data.detail[courseGuideId][action.exerciseId].stepList,
-            action.currentExpression
-          ],
-          exerciseStatus: 'resolved',
-          currentExpression: ''
+          exerciseStatus: 'editing',
+          currentExpression: '',
+          exercise: {
+            ...currentExercise,
+            stepList: [
+              ...currentExercise.stepList,
+              action.currentExpression
+            ],
+            state: 'resolved'
+          },
         }
       });
     }
 
     case types.EXERCISE_STEP_IS_VALID: {
       const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
 
       return updateExerciseState({
         state,
@@ -119,12 +125,15 @@ export default function reducers(state = initialState, action) {
         guideId: action.guideId,
         exerciseId: action.exerciseId,
         exerciseProps: {
-          stepList: [
-            ...state.data.detail[courseGuideId][action.exerciseId].stepList,
-            action.currentExpression
-          ],
           exerciseStatus: 'editing',
-          currentExpression: ''
+          currentExpression: '',
+          exercise: {
+            ...currentExercise,
+            stepList: [
+              ...currentExercise.stepList,
+              action.currentExpression
+            ]
+          },
         }
       });
     }
@@ -148,6 +157,38 @@ export default function reducers(state = initialState, action) {
         exerciseProps: {
           exerciseStatus: 'editing',
           currentExpression: action.currentExpression
+        }
+      });
+    }
+
+    case types.UPDATE_EXERCISE: {
+      return updateExerciseState({
+        state,
+        courseId: action.courseId,
+        guideId: action.guideId,
+        exerciseId: action.exerciseId,
+        exerciseProps: {
+          exercise: action.exercise,
+        }
+      });
+    }
+
+    case types.REMOVE_EXERCISE_STEP: {
+      const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
+
+      return updateExerciseState({
+        state,
+        courseId: action.courseId,
+        guideId: action.guideId,
+        exerciseId: action.exerciseId,
+        exerciseProps: {
+          exerciseStatus: 'editing',
+          exercise: {
+            ...currentExercise,
+            state: 'incompleted',
+            stepList: currentExercise.stepList.slice(0, -1)
+          }
         }
       });
     }

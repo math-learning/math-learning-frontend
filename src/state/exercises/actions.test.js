@@ -98,13 +98,11 @@ describe('exercises actions', () => {
     let stepList;
     let exerciseStatus;
     let problemInput;
-    let lastExpression;
     let currentExpression;
 
     beforeEach(() => {
       stepList = [];
       problemInput = '2x';
-      lastExpression = '2';
       currentExpression = '2';
       exerciseId = 'exercise-id';
       exercise = { name: 'ex name' };
@@ -138,7 +136,6 @@ describe('exercises actions', () => {
           exerciseId,
           stepList,
           problemInput,
-          lastExpression,
           currentExpression
         }));
       });
@@ -175,7 +172,6 @@ describe('exercises actions', () => {
           exerciseId,
           stepList,
           problemInput,
-          lastExpression,
           currentExpression
         }));
       });
@@ -213,7 +209,6 @@ describe('exercises actions', () => {
           exerciseId,
           stepList,
           problemInput,
-          lastExpression,
           currentExpression
         }));
       });

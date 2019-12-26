@@ -13,6 +13,29 @@ export function resolveExerciseRequest({ courseId, guideId, exerciseId }) {
   };
 }
 
+export function updateExercise({
+  courseId, guideId, exerciseId, exercise
+}) {
+  return {
+    type: types.UPDATE_EXERCISE,
+    courseId,
+    guideId,
+    exerciseId,
+    exercise
+  };
+}
+
+export function removeExerciseStep({
+  courseId, guideId, exerciseId
+}) {
+  return {
+    type: types.REMOVE_EXERCISE_STEP,
+    courseId,
+    guideId,
+    exerciseId
+  };
+}
+
 export function exerciseStepValid({
   courseId, guideId, exerciseId, currentExpression
 }) {
@@ -103,6 +126,26 @@ export function createExercise({ guideId, courseId, exercise }) {
   };
 }
 
+export function deleteExerciseStep({ guideId, courseId, exerciseId, exercise }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    dispatch(removeExerciseStep({ courseId, guideId, exerciseId }));
+    dispatch(modalActions.hideModal());
+
+    try {
+      await exercisesClient.removeExerciseStep({
+        context, guideId, courseId, exerciseId
+      });
+    } catch (err) {
+      console.log("error", err)
+      // back to the previous state
+      dispatch(updateExercise({ courseId, guideId, exerciseId, exercise }));
+    }
+  };
+}
+
 export function getExercise({ guideId, courseId, exerciseId }) {
   return async (dispatch, getState) => {
     const state = getState();
@@ -131,8 +174,6 @@ export function resolveExercise({
   guideId,
   exerciseId,
   stepList,
-  problemInput,
-  lastExpression,
   currentExpression
 }) {
   return async (dispatch, getState) => {
@@ -141,27 +182,20 @@ export function resolveExercise({
 
     dispatch(resolveExerciseRequest({ courseId, guideId, exerciseId }));
 
-    // setTimeout(() => { Used to test it
-    //   // dispatch(exerciseStepIsValid({ courseId, guideId, exerciseId }));
-    //   dispatch(exerciseStepValid({ courseId, guideId, exerciseId, currentExpression }));
-    // }, 300);
-
     const result = await exercisesClient.resolveExercise({
       context,
       courseId,
       guideId,
       exerciseId,
       stepList,
-      problemInput,
-      lastExpression,
       currentExpression
     });
 
-    if (result.status === 'valid') {
+    if (result.exerciseStatus === 'valid') {
       dispatch(exerciseStepValid({
         courseId, guideId, exerciseId, currentExpression
       }));
-    } else if (result.status === 'resolved') {
+    } else if (result.exerciseStatus === 'resolved') {
       dispatch(exerciseResolved({
         courseId, guideId, exerciseId, currentExpression
       }));

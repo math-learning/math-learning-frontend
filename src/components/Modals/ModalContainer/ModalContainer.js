@@ -8,17 +8,19 @@ import LoginModal from '../LoginModal';
 import CreateCourseModal from '../CreateCourseModal';
 import CreateExerciseModal from '../CreateExerciseModal';
 import RegistrationModal from '../RegistrationModal';
+import ConfirmActionModal from '../ConfirmActionModal';
 
 /** Modal Type Constants */
 import {
-  LOGIN_MODAL, CREATE_EXERCISE_MODAL, CREATE_COURSE_MODAL, REGISTRATION_MODAL
+  LOGIN_MODAL, CREATE_EXERCISE_MODAL, CREATE_COURSE_MODAL, REGISTRATION_MODAL, CONFIRM_ACTION_MODAL
 } from '../../../state/modals/modalTypes';
 
 const MODAL_COMPONENTS = {
   [LOGIN_MODAL]: LoginModal,
   [CREATE_COURSE_MODAL]: CreateCourseModal,
   [CREATE_EXERCISE_MODAL]: CreateExerciseModal,
-  [REGISTRATION_MODAL]: RegistrationModal
+  [REGISTRATION_MODAL]: RegistrationModal,
+  [CONFIRM_ACTION_MODAL]: ConfirmActionModal
 };
 
 const ModalContainer = (props) => {
