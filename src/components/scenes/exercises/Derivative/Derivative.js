@@ -37,27 +37,32 @@ class Derivative extends Component {
   getStepList = () => {
     const { exercise: { stepList } } = this.props;
 
+    // TODO: try using a table
     return (
-      (stepList).map((step, index) => (
-        <div key={`right-step-${index}`} className={styles.rightStep}>
-          <span className={styles.item}> = </span>
-          <MathText
-            id={`step-${index}`}
-            content={step}
-            className={styles.mathText}
-          />
-          <div className={styles.stepActions}>
-            <CheckIcon size="20px" className={styles.item} />
-            {index === stepList.length - 1 ? ( // the last step
-              <DeleteIcon
-                id="delete-step"
-                className={classNames(styles.item, styles.deleteStep)}
-                onClick={this.handleDeleteStep}
-              />
-            ) : null}
+      (stepList).map((step, index) => {
+        const isLastStep = index === stepList.length - 1;
+
+        return (
+          <div key={`right-step-${index}`} className={styles.rightStep}>
+            <span className={styles.item}> = </span>
+            <MathText
+              id={`step-${index}`}
+              content={step}
+              className={styles.mathText}
+            />
+            <div className={classNames(styles.stepActions, !isLastStep && styles.stepWithoutDelete)}>
+              <CheckIcon size="20px" className={styles.item} />
+              {isLastStep ? (
+                <DeleteIcon
+                  id="delete-step"
+                  className={classNames(styles.item, styles.deleteStep)}
+                  onClick={this.handleDeleteStep}
+                />
+              ) : null}
+            </div>
           </div>
-        </div>
-      ))
+        );
+      })
     );
   }
 
