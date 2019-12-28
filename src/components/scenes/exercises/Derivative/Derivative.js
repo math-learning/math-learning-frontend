@@ -11,7 +11,7 @@ import CheckIcon from '../../../Icons/CheckIcon';
 
 import styles from './Derivative.module.sass';
 
-const HELP_TEST = 'derivada de la suma'; // TODO: IMPLEMENT IT
+const HELP_TEST = 'Intenta con esto: derivada de la suma'; // TODO: Implement it
 
 class Derivative extends Component {
   handleValidateStep = () => {
@@ -46,14 +46,16 @@ class Derivative extends Component {
             content={step}
             className={styles.mathText}
           />
-          <CheckIcon size="20px" className={styles.item} />
-          {index === stepList.length - 1 ? ( // the last step
-            <DeleteIcon
-              id="delete-step"
-              className={classNames(styles.item, styles.deleteStep)}
-              onClick={this.handleDeleteStep}
-            />
-          ) : null}
+          <div className={styles.stepActions}>
+            <CheckIcon size="20px" className={styles.item} />
+            {index === stepList.length - 1 ? ( // the last step
+              <DeleteIcon
+                id="delete-step"
+                className={classNames(styles.item, styles.deleteStep)}
+                onClick={this.handleDeleteStep}
+              />
+            ) : null}
+          </div>
         </div>
       ))
     );

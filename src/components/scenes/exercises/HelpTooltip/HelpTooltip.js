@@ -21,12 +21,14 @@ export default function HelpTooltip(props) {
   return (
     <div className={className}>
       <HelpIcon
+        id="help-icon"
         fontSize="small"
         className={styles.helpIcon}
         onClick={handleHelpAsked}
       />
       <Popover
         open={open}
+        id="help-popover"
         anchorEl={anchorEl}
         onClose={handleHelpClose}
         anchorOrigin={{
@@ -39,7 +41,7 @@ export default function HelpTooltip(props) {
         }}
       >
         <Typography className={styles.helpText} variant="body2">
-          Intenta con esto: {help}
+          {help}
         </Typography>
       </Popover>
       {/* TODO: Fix issue: https://github.com/mui-org/material-ui/issues/17353, https://github.com/mui-org/material-ui/issues/17636 */}

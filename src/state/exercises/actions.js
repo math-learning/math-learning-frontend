@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as modalActions from '../modals/actions';
 import * as commonSelectors from '../common/selectors';
+import * as exerciseSelectors from './selectors';
 
 import exercisesClient from '../../clients/exercisesClient';
 
@@ -126,10 +127,13 @@ export function createExercise({ guideId, courseId, exercise }) {
   };
 }
 
-export function deleteExerciseStep({ guideId, courseId, exerciseId, exercise }) {
+export function deleteExerciseStep({
+  guideId, courseId, exerciseId
+}) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
+    const currentExercise = exerciseSelectors.getExercise(state, { courseId, guideId, exerciseId });
 
     dispatch(removeExerciseStep({ courseId, guideId, exerciseId }));
     dispatch(modalActions.hideModal());
@@ -139,9 +143,10 @@ export function deleteExerciseStep({ guideId, courseId, exerciseId, exercise }) 
         context, guideId, courseId, exerciseId
       });
     } catch (err) {
-      console.log("error", err)
       // back to the previous state
-      dispatch(updateExercise({ courseId, guideId, exerciseId, exercise }));
+      dispatch(updateExercise({
+        courseId, guideId, exerciseId, exercise: currentExercise
+      }));
     }
   };
 }
@@ -173,7 +178,6 @@ export function resolveExercise({
   courseId,
   guideId,
   exerciseId,
-  stepList,
   currentExpression
 }) {
   return async (dispatch, getState) => {
@@ -187,7 +191,6 @@ export function resolveExercise({
       courseId,
       guideId,
       exerciseId,
-      stepList,
       currentExpression
     });
 

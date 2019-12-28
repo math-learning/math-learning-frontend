@@ -48,7 +48,6 @@ const resolveExercise = async ({
   courseId,
   guideId,
   exerciseId,
-  stepList,
   currentExpression
 }) => {
   const profileUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}/resolve`;
@@ -56,7 +55,6 @@ const resolveExercise = async ({
   const response = await fetch(profileUrl, {
     method: 'post',
     body: JSON.stringify({
-      stepList,
       currentExpression
     }),
     headers: {

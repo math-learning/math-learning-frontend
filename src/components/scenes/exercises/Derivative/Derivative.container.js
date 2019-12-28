@@ -34,14 +34,13 @@ const currentActions = (dispatch, { exercise }) => ({
   },
   onDeleteStep: () => {
     dispatch(modalActions.loadModal(modalTypes.CONFIRM_ACTION_MODAL, {
-      title: 'Desea borrar el paso anterior ?',
+      title: '¿ Desea borrar el paso anterior ?',
       explanation: 'Al borrar el paso anterior, no podrás recuperarlo',
       acceptButton: 'Borrar paso',
       actionProps: {
         guideId: exercise.guideId,
         courseId: exercise.courseId,
-        exerciseId: exercise.exerciseId,
-        exercise
+        exerciseId: exercise.exerciseId
       },
       actionFunction: actions.deleteExerciseStep
     }));

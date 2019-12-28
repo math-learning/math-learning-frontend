@@ -1,7 +1,6 @@
 import { expect } from 'chai';
 import thunk from 'redux-thunk';
 import configureMockStore from 'redux-mock-store';
-
 import * as types from './actionTypes';
 import * as actions from './actions';
 import * as modalTypes from '../modals/actionTypes';
@@ -95,28 +94,23 @@ describe('exercises actions', () => {
   });
 
   describe('resolveExercise() function', () => {
-    let stepList;
     let exerciseStatus;
-    let problemInput;
     let currentExpression;
 
     beforeEach(() => {
-      stepList = [];
-      problemInput = '2x';
       currentExpression = '2';
       exerciseId = 'exercise-id';
-      exercise = { name: 'ex name' };
     });
 
     describe('when exercise is valid', () => {
       beforeEach(() => {
-        exerciseStatus = { status: 'valid' };
+        exerciseStatus = { exerciseStatus: 'valid' };
         expectedActions = [
           {
             type: types.RESOLVE_EXERCISE_REQUEST,
             guideId,
             courseId,
-            exerciseId,
+            exerciseId
           },
           {
             type: types.EXERCISE_STEP_IS_VALID,
@@ -134,8 +128,6 @@ describe('exercises actions', () => {
           guideId,
           courseId,
           exerciseId,
-          stepList,
-          problemInput,
           currentExpression
         }));
       });
@@ -147,7 +139,7 @@ describe('exercises actions', () => {
 
     describe('when exercise is invalid', () => {
       beforeEach(() => {
-        exerciseStatus = { status: 'invalid' };
+        exerciseStatus = { exerciseStatus: 'invalid' };
         expectedActions = [
           {
             type: types.RESOLVE_EXERCISE_REQUEST,
@@ -170,8 +162,6 @@ describe('exercises actions', () => {
           guideId,
           courseId,
           exerciseId,
-          stepList,
-          problemInput,
           currentExpression
         }));
       });
@@ -183,7 +173,7 @@ describe('exercises actions', () => {
 
     describe('when exercise is resolved', () => {
       beforeEach(() => {
-        exerciseStatus = { status: 'resolved' };
+        exerciseStatus = { exerciseStatus: 'resolved' };
         expectedActions = [
           {
             type: types.RESOLVE_EXERCISE_REQUEST,
@@ -207,9 +197,106 @@ describe('exercises actions', () => {
           guideId,
           courseId,
           exerciseId,
-          stepList,
-          problemInput,
           currentExpression
+        }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
+
+  describe('removeExerciseStep() function', () => {
+    beforeEach(() => {
+      exerciseId = 'exercise-id';
+    });
+
+    describe('when exercise is deleted successfully', () => {
+      beforeEach(() => {
+        store = mockStore({
+          common: {
+            data: {}
+          },
+          exercises: {
+            data: {
+              detail: {
+                [`${courseId}/${guideId}`]: {
+                  [exerciseId]: { id: 'current-course' }
+                }
+              }
+            }
+          }
+        });
+        expectedActions = [
+          {
+            type: types.REMOVE_EXERCISE_STEP,
+            guideId,
+            courseId,
+            exerciseId
+          },
+          { type: modalTypes.HIDE_MODAL }
+        ];
+        sandbox
+          .stub(exercisesClient, 'removeExerciseStep')
+          .callsFake(() => {});
+
+        return store.dispatch(actions.deleteExerciseStep({
+          guideId,
+          courseId,
+          exerciseId
+        }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+
+    describe('when deleting fails', () => {
+      beforeEach(() => {
+        store = mockStore({
+          common: {
+            data: {}
+          },
+          exercises: {
+            data: {
+              detail: {
+                [`${courseId}/${guideId}`]: {
+                  [exerciseId]: {
+                    exercise: { id: 'current-course' }
+                  }
+                }
+              }
+            }
+          }
+        });
+        expectedActions = [
+          {
+            type: types.REMOVE_EXERCISE_STEP,
+            guideId,
+            courseId,
+            exerciseId
+          },
+          { type: modalTypes.HIDE_MODAL },
+          {
+            type: types.UPDATE_EXERCISE,
+            guideId,
+            courseId,
+            exerciseId,
+            exercise: { id: 'current-course' }
+          }
+        ];
+        sandbox
+          .stub(exercisesClient, 'removeExerciseStep')
+          .callsFake(() => {
+            throw new Error();
+          });
+
+        return store.dispatch(actions.deleteExerciseStep({
+          guideId,
+          courseId,
+          exerciseId
         }));
       });
 

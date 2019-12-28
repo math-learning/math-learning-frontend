@@ -49,7 +49,7 @@ export default function reducers(state = initialState, action) {
             ...state.data.list,
             [courseGuideId]: [
               ...listExercises,
-              { ...action.exercise, stepList: [] }
+              { ...action.exercise }
             ]
           }
         }
