@@ -22,7 +22,6 @@ const updateCourse = async ({
   return requestUtils.processResponse(response);
 };
 
-
 const getCourses = async ({
   context
 }) => {
@@ -39,9 +38,9 @@ const getCourses = async ({
 };
 
 const getCourse = async ({
-                            context,
-                            courseId
-                          }) => {
+  context,
+  courseId
+}) => {
   const courseUrl = `${url}/courses/${courseId}`;
 
   const response = await fetch(courseUrl, {
@@ -108,7 +107,6 @@ const createCourse = async ({
 
   return requestUtils.processResponse(response);
 };
-
 
 export default {
   createCourse,

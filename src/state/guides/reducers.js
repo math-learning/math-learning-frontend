@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import { courseGuideId } from "../../utils/idUtils";
+import { courseGuideId } from '../../utils/idUtils';
 
 const initialState = {
   data: {
@@ -11,7 +11,6 @@ const initialState = {
 
 export default function reducers(state = initialState, action) {
   switch (action.type) {
-
     case types.CREATE_GUIDE_SUCCESS: {
       const courseIdGuideId = courseGuideId({
         courseId: action.courseId,
@@ -30,8 +29,8 @@ export default function reducers(state = initialState, action) {
           list: {
             ...state.data.list,
             [action.courseId]: [
-                ...state.data.list[action.courseId],
-                action.guide
+              ...state.data.list[action.courseId],
+              action.guide
             ]
 
           },
@@ -44,11 +43,10 @@ export default function reducers(state = initialState, action) {
         courseId: action.courseId,
         guideId: action.guide.guideId,
       });
-      let list = [ ...state.data.list[action.courseId] ];
+      const list = [...state.data.list[action.courseId]];
       let indexOfGuide;
       list.forEach((value, index) => {
-        if (value.guideId === action.guide.guideId)
-          indexOfGuide = index
+        if (value.guideId === action.guide.guideId) indexOfGuide = index;
       });
       list[indexOfGuide] = action.guide;
       return {
@@ -67,7 +65,7 @@ export default function reducers(state = initialState, action) {
             [action.courseId]: list,
           }
         }
-      }
+      };
     }
 
     case types.GET_GUIDES_REQUEST: {
@@ -77,15 +75,14 @@ export default function reducers(state = initialState, action) {
           ...state.data,
           isLoadingGuides: true,
         }
-      }
+      };
     }
 
     case types.GET_GUIDES_SUCCESS: {
+      const detail = { ...state.data.detail };
 
-      let detail = { ...state.data.detail };
-
-      action.guides.forEach(guide => {
-        const key = courseGuideId({courseId: guide.courseId, guideId: guide.guideId});
+      action.guides.forEach((guide) => {
+        const key = courseGuideId({ courseId: guide.courseId, guideId: guide.guideId });
         detail[key] = guide;
       });
 
@@ -100,7 +97,7 @@ export default function reducers(state = initialState, action) {
           },
           isLoadingGuides: false,
         }
-      }
+      };
     }
 
     default:

@@ -1,3 +1,3 @@
-import LinkListItem from "./LinkListItem";
+import LinkListItem from './LinkListItem';
 
 export default LinkListItem;

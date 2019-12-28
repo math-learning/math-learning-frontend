@@ -1,3 +1,3 @@
-import EditableGuidesLeftPanel from "./EditableGuidesLeftPanel.container";
+import EditableGuidesLeftPanel from './EditableGuidesLeftPanel.container';
 
 export default EditableGuidesLeftPanel;

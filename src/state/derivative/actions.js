@@ -89,8 +89,6 @@ export function validateStep({
   };
 }
 
-
-
 export function changeContent({
   content,
   index,

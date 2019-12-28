@@ -42,11 +42,11 @@ export default function reducers(state = initialState, action) {
           detail,
           isLoadingCourseDetail: false,
         }
-      }
+      };
     }
 
     case types.UPDATE_COURSE_SUCCESS: {
-      let detail = { ...state.data.detail };
+      const detail = { ...state.data.detail };
       detail[action.course.courseId] = {
         ...detail[action.course.courseId],
         ...action.course,
@@ -58,7 +58,7 @@ export default function reducers(state = initialState, action) {
           ...state.data,
           detail,
         }
-      }
+      };
     }
 
     case types.COURSE_DETAIL_REQUEST: {
@@ -68,7 +68,7 @@ export default function reducers(state = initialState, action) {
           ...state.data,
           isLoadingCourseDetail: true,
         }
-      }
+      };
     }
 
     case types.LIST_COURSES_SUCCESS: {

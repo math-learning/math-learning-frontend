@@ -1,3 +1,3 @@
-import CourseManagement from "./CourseManagement.container";
+import CourseManagement from './CourseManagement.container';
 
 export default CourseManagement;

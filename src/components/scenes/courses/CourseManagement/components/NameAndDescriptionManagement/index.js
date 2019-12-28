@@ -1,3 +1,3 @@
-import NameAndDescriptionManagement from "./NameAndDescriptionManagement.container";
+import NameAndDescriptionManagement from './NameAndDescriptionManagement.container';
 
 export default NameAndDescriptionManagement;

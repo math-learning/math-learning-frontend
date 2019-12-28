@@ -10,13 +10,13 @@ export function getExercisesSuccess({ courseId, guideId, exercises }) {
     courseId,
     guideId,
     exercises
-  }
+  };
 }
 
 export function getExercisesRequest() {
   return {
     type: types.GET_EXERCISES_REQUEST,
-  }
+  };
 }
 
 export function resolveExerciseRequest({ courseId, guideId, exerciseId }) {
@@ -129,8 +129,8 @@ export function getExercises({ courseId, guideId }) {
     const state = getState();
     const context = commonSelectors.context(state);
     const exercises = await exercisesClient.getExercises({ context, courseId, guideId });
-    dispatch(getExercisesSuccess({ courseId, guideId, exercises: exercises }));
-  }
+    dispatch(getExercisesSuccess({ courseId, guideId, exercises }));
+  };
 }
 
 export function getExercise({ guideId, courseId, exerciseId }) {

@@ -37,24 +37,22 @@ function updateExerciseState({
 
 export default function reducers(state = initialState, action) {
   switch (action.type) {
-
     case types.GET_EXERCISES_REQUEST: {
-
       return {
         ...state,
         data: {
           ...state.data,
           isLoadingExercises: true,
         }
-      }
+      };
     }
 
     case types.GET_EXERCISES_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
-      let detail = { ...state.data.detail };
-      action.exercises.forEach(exercise => {
+      const detail = { ...state.data.detail };
+      action.exercises.forEach((exercise) => {
         const courseGuideExerciseId = idUtils.courseGuideExerciseId(
-            _.pick(action, 'courseId', 'guideId', 'exerciseId')
+          _.pick(action, 'courseId', 'guideId', 'exerciseId')
         );
         detail[courseGuideExerciseId] = exercise;
       });
@@ -69,13 +67,13 @@ export default function reducers(state = initialState, action) {
           detail,
           isLoadingExercises: false,
         }
-      }
+      };
     }
 
     case types.CREATE_EXERCISE_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const courseGuideExerciseId = idUtils.courseGuideExerciseId(
-          _.pick(action, 'courseId', 'guideId', 'exerciseId'),
+        _.pick(action, 'courseId', 'guideId', 'exerciseId'),
       );
       const currentExercises = state.data.list[courseGuideId] || [];
 

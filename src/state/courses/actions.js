@@ -5,7 +5,7 @@ import * as commonSelectors from '../common/selectors';
 import * as modalActions from '../modals/actions';
 import messages from '../../configs/messages';
 import configs from '../../configs/variables';
-import * as  common from '../common'
+import * as common from '../common';
 
 import coursesClient from '../../clients/coursesClient';
 
@@ -57,14 +57,12 @@ export function createCourseSuccess({ course }) {
   };
 }
 
-
-
-export function update({courseId, updatedValues}) {
+export function update({ courseId, updatedValues }) {
   return async (dispatch, getState) => {
     dispatch(common.actions.showSpinner());
     const state = getState();
     const context = commonSelectors.context(state);
-    let newCourse = {...state.courses.data.detail[courseId] };
+    let newCourse = { ...state.courses.data.detail[courseId] };
     newCourse = {
       ...newCourse,
       ...updatedValues,
@@ -73,7 +71,7 @@ export function update({courseId, updatedValues}) {
     console.log(course);
     dispatch(updateCourseSuccess({ course }));
     dispatch(common.actions.hideSpinner());
-  }
+  };
 }
 
 export function getCourses() {
@@ -89,10 +87,10 @@ export function getCourse({ courseId }) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
-    const course = await coursesClient.getCourse({context, courseId});
+    const course = await coursesClient.getCourse({ context, courseId });
 
-    dispatch(getCourseSuccess({course}));
-  }
+    dispatch(getCourseSuccess({ course }));
+  };
 }
 
 export function addUserToCourse({
@@ -158,6 +156,4 @@ export function createCourse({ course }) {
     }
   };
 }
-
-
 

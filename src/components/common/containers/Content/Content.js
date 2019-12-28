@@ -1,18 +1,17 @@
 import React, { Component } from 'react';
-import Grid from "@material-ui/core/Grid";
+import Grid from '@material-ui/core/Grid';
 
 export default class Content extends Component {
-    render() {
-
-        const { hasLeftPanel } = this.props;
-        let gridColumns = { xs: 12, sm: 9, md: 10 };
-        if (!hasLeftPanel) {
-            gridColumns = { xs: 12, sm: 12, md: 12 };
-        }
-        return (
-            <Grid item xs={gridColumns.xs} sm={gridColumns.sm} md={gridColumns.md}>
-                {this.props.children}
-            </Grid>
-        )
+  render() {
+    const { hasLeftPanel } = this.props;
+    let gridColumns = { xs: 12, sm: 9, md: 10 };
+    if (!hasLeftPanel) {
+      gridColumns = { xs: 12, sm: 12, md: 12 };
     }
+    return (
+      <Grid item xs={gridColumns.xs} sm={gridColumns.sm} md={gridColumns.md}>
+        {this.props.children}
+      </Grid>
+    );
+  }
 }
