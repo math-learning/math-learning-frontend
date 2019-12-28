@@ -31,7 +31,8 @@ export default class LeftPanelEditableElements extends Component {
 
   create(onCreateCallback) {
     return () => {
-      onCreateCallback(this.state.toCreateValue);
+      const { toCreateValue } = this.state;
+      onCreateCallback(toCreateValue);
       this.notCreating();
     };
   }
@@ -41,23 +42,24 @@ export default class LeftPanelEditableElements extends Component {
   }
 
   render() {
-    let {
+    const {
       elements, addElementText, onCreateElement, onElementUpdate, onClickActionsById
     } = this.props;
-    elements = elements || [];
+    const { creatingNewElement, value } = this.state;
+    const elementsToUse = elements || [];
 
     let addElementComponent = '';
 
     if (addElementText) {
       addElementComponent = (
         <>
-          { this.state.creatingNewElement
+          { creatingNewElement
             ? (
               <ListItem button={false}>
                 <ListItemText>
                   <TextField
                     className={styles.tcGray1}
-                    defaultValue={this.state.value}
+                    defaultValue={value}
                     onChange={this.changeCreatingValue}
                   />
                 </ListItemText>
@@ -84,7 +86,7 @@ export default class LeftPanelEditableElements extends Component {
 
     return (
       <>
-        {elements.map((element) => (
+        {elementsToUse.map((element) => (
           <EditableTextListItem
             text={element.name}
             onListItemClick={onClickActionsById[element.id]}

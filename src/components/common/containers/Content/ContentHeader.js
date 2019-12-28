@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styles from './ContentHeader.module.sass';
 
-export default class ContentHeader extends Component {
-  render() {
-    return (
-      <div className={styles.contentHeader}>
-        {this.props.children}
-      </div>
-    );
-  }
+export default function ContentHeader(props) {
+  const { children } = props;
+  return (
+    <div className={styles.contentHeader}>
+      {children}
+    </div>
+  );
 }
+

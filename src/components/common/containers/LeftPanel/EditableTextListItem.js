@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { ListItem, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
@@ -15,27 +15,29 @@ export default class EditableTextListItem extends EditableText {
   }
 
   render() {
-    let text; let
-      icon;
-    const { onChangeValue, onListItemClick } = this.props;
-    if (this.state.editing) {
-      text = (<TextField className={styles.tcGray1} defaultValue={this.props.text} onChange={this._handleTextFieldChange} />);
-      icon = (<DoneIcon className={styles.tcGray1} onClick={this.valueChanged(onChangeValue)} />);
+    const { onChangeValue, onListItemClick, text } = this.props;
+    const { editing, value } = this.state;
+    let textComponent;
+    let iconComponent;
+
+    if (editing) {
+      textComponent = (<TextField className={styles.tcGray1} defaultValue={text} onChange={this.handleTextFieldChange} />);
+      iconComponent = (<DoneIcon className={styles.tcGray1} onClick={this.valueChanged(onChangeValue)} />);
     } else {
-      text = (<Typography className={styles.tcGray1}>{this.state.value}</Typography>);
-      icon = (<EditIcon className={styles.tcGray1} onClick={this.toggleEditing} />);
+      textComponent = (<Typography className={styles.tcGray1}>{value}</Typography>);
+      iconComponent = (<EditIcon className={styles.tcGray1} onClick={this.toggleEditing} />);
     }
 
-    const itemClicked = !this.state.editing ? onListItemClick : void (0);
+    const itemClicked = !this.state.editing ? onListItemClick : () => {};
 
     return (
       <ListItem button={!this.state.editing} onClick={itemClicked}>
         <ListItemText>
-          {text}
+          {textComponent}
         </ListItemText>
         <ListItemSecondaryAction>
           <IconButton edge="end">
-            {icon}
+            {iconComponent}
           </IconButton>
         </ListItemSecondaryAction>
       </ListItem>

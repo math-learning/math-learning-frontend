@@ -13,7 +13,7 @@ const initialState = {
 function updateExerciseState({
   state, courseId, guideId, exerciseId, exerciseProps
 }) {
-  const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const exercises = state.data.detail[courseGuideId] || {};
   const newExercisesState = {
     ...exercises,
@@ -97,7 +97,7 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.GET_EXERCISE_SUCCESS: {
-      const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const exercises = state.data.detail[courseGuideId] || {};
       const newExercisesState = {
         ...exercises,
@@ -133,7 +133,7 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.EXERCISE_RESOLVED: {
-      const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
 
       return updateExerciseState({
         state,
@@ -152,7 +152,7 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.EXERCISE_STEP_IS_VALID: {
-      const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
 
       return updateExerciseState({
         state,

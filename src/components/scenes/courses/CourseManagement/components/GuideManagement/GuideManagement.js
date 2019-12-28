@@ -7,21 +7,21 @@ import ExerciseManagement from '../ExerciseManagement/ExerciseManagement';
 import styles from '../ExerciseManagement/ExerciseManagement.module.sass';
 
 export default class GuideManagement extends Component {
-  updateExercises() {
-    const { getExercises, courseId, guide } = this.props;
-    console.log(guide);
-    if (guide) getExercises({ courseId, guideId: guide.guideId });
-  }
-
   componentDidMount() {
     this.updateExercises();
   }
 
   componentDidUpdate(prevProps) {
-    console.log('location', this.props.location, prevProps.location);
-    if (this.props.location !== prevProps.location) {
+    const { location } = this.props;
+    if (location !== prevProps.location) {
       this.updateExercises();
     }
+  }
+
+  updateExercises() {
+    const { getExercises, courseId, guide } = this.props;
+    console.log(guide);
+    if (guide) getExercises({ courseId, guideId: guide.guideId });
   }
 
   render() {

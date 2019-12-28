@@ -27,8 +27,8 @@ export default class ExerciseManagement extends Component {
   }
 
   render() {
-    const { exercise, number } = this.props;
-
+    const { exercise } = this.props;
+    const { anchorEl } = this.state;
     return (
       <Card className={styles.card}>
         <div className={styles.displayLine}>
@@ -72,9 +72,9 @@ export default class ExerciseManagement extends Component {
           </IconButton>
           <Menu
             id="simple-menu"
-            anchorEl={this.state.anchorEl}
+            anchorEl={anchorEl}
             keepMounted
-            open={Boolean(this.state.anchorEl)}
+            open={Boolean(anchorEl)}
             onClose={this.closeMenu}
           >
             <MenuItem onClick={this.closeMenu}>Editar</MenuItem>

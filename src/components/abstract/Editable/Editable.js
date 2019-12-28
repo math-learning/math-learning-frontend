@@ -1,30 +1,33 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 
 export default class Editable extends Component {
   constructor(props, initialValue) {
     super(props);
     this.toggleEditing = this.toggleEditing.bind(this);
     this.valueChanged = this.valueChanged.bind(this);
-    this._handleTextFieldChange = this._handleTextFieldChange.bind(this);
+    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
     this.state = { editing: false, value: initialValue, valueBeingEdited: initialValue };
   }
 
   toggleEditing() {
-    this.setState({ ...this.state, editing: !this.state.editing });
+    const { editing } = this.state;
+    this.setState({ editing: !editing });
   }
 
   valueChanged(onChangeValue) {
     return () => {
-      let newValue = this.state.valueBeingEdited;
+      const { valueBeingEdited, value, editing } = this.state;
+      const { dontUpdate } = this.props;
+      let newValue = valueBeingEdited;
       onChangeValue(newValue);
-      if (this.props.dontUpdate) {
-        newValue = this.state.value;
+      if (dontUpdate) {
+        newValue = value;
       }
-      this.setState({ ...this.state, value: newValue, editing: !this.state.editing });
+      this.setState({ value: newValue, editing: !editing });
     };
   }
 
-  _handleTextFieldChange(e) {
+  handleTextFieldChange(e) {
     this.setState({
       valueBeingEdited: e.target.value
     });
