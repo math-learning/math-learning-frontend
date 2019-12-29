@@ -27,10 +27,10 @@ export default function LinkListItem(props) {
     listItem = <EditableText text={text} />;
   } else {
     listItem = (
-      <>
+      <React.Fragment>
         {iconComponent}
         <ListItemText primary={text.content} />
-      </>
+      </React.Fragment>
     );
   }
 

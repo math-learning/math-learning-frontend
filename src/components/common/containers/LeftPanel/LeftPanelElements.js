@@ -6,7 +6,7 @@ export default function LeftPanelElements(props) {
   let { elements } = props;
   elements = elements || [];
   return (
-    <>
+    <React.Fragment>
       {elements.map((element) => (
         <LinkListItem
           className={styles.textCenter}
@@ -16,6 +16,6 @@ export default function LeftPanelElements(props) {
           editable={element.editable}
         />
       ))}
-    </>
+    </React.Fragment>
   );
 }

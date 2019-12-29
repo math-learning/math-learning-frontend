@@ -52,7 +52,7 @@ export default class LeftPanelEditableElements extends Component {
 
     if (addElementText) {
       addElementComponent = (
-        <>
+        <React.Fragment>
           { creatingNewElement
             ? (
               <ListItem>
@@ -79,13 +79,13 @@ export default class LeftPanelEditableElements extends Component {
               {addElementText}
             </ListItemText>
           </ListItem>
-        </>
+        </React.Fragment>
 
       );
     }
 
     return (
-      <>
+      <React.Fragment>
         {elementsToUse.map((element) => (
           <EditableTextListItem
             key={element.id}
@@ -95,7 +95,7 @@ export default class LeftPanelEditableElements extends Component {
           />
         ))}
         {addElementComponent}
-      </>
+      </React.Fragment>
     );
   }
 }
