@@ -10,7 +10,6 @@ const initialState = {
       courses: [],
       isLoadingCourses: true
     },
-    // TODO: ver como hacer que no ocupe mucho espacio
     detail: {},
     isLoadingCourseDetail: true,
   },
@@ -33,7 +32,6 @@ export default function reducers(state = initialState, action) {
 
     case types.GET_COURSE_DETAIL_SUCCESS: {
       const detail = { ...state.data.detail };
-      console.log(action);
       detail[action.course.courseId] = action.course;
       return {
         ...state,
@@ -51,7 +49,6 @@ export default function reducers(state = initialState, action) {
         ...detail[action.course.courseId],
         ...action.course,
       };
-      console.log(action);
       return {
         ...state,
         data: {

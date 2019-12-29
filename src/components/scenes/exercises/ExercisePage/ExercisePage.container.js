@@ -6,7 +6,6 @@ import ExercisePage from './ExercisePage';
 
 const currentState = (state, { match }) => {
   const { courseId, guideId, exerciseId } = match.params;
-
   const exercise = selectors.getExercise(state, { courseId, guideId, exerciseId });
   const isLoadingExercise = selectors.isLoadingExercise(state, { courseId, guideId, exerciseId });
 

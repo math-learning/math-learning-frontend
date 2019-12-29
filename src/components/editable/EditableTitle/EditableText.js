@@ -3,7 +3,6 @@ import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
 import { Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
-import classnames from 'classnames';
 import IconButton from '@material-ui/core/IconButton';
 import Editable from '../../abstract/Editable/Editable';
 
@@ -33,36 +32,36 @@ export default class EditableText extends Editable {
         <TextField
           multiline={fieldSettings.multiline || false}
           fullWidth={fieldSettings.fullWidth || false}
-          className={classnames(textFieldClassNames)}
+          className={textFieldClassNames}
           defaultValue={text}
           onChange={this.handleTextFieldChange}
         />
       );
 
       iconComponent = (
-        <IconButton className={classnames(typographyClassNames)}>
-          <DoneIcon onClick={this.valueChanged(onSave)} />
+        <IconButton className={typographyClassNames} onClick={this.valueChanged(onSave)}>
+          <DoneIcon />
         </IconButton>
       );
     } else {
       textComponent = (
         <Typography
           variant={variant || 'body1'}
-          className={classnames(typographyClassNames)}
+          className={typographyClassNames}
         >
           {text}
         </Typography>
       );
 
       iconComponent = (
-        <IconButton className={classnames(typographyClassNames)}>
-          <EditIcon onClick={this.toggleEditing} />
+        <IconButton className={typographyClassNames} onClick={this.toggleEditing}>
+          <EditIcon />
         </IconButton>
       );
     }
 
     return (
-      <div className={classnames(classNames)}>
+      <div className={classNames}>
         {textComponent}
         {iconComponent}
       </div>

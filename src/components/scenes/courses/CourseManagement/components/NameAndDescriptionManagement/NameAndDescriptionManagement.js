@@ -9,27 +9,25 @@ export default function NameAndDescriptionManagement(props) {
   // TODO validaciones de los campos
 
   return (
-    <>
-      <Container className={styles.courseInfo}>
-        <EditableText
-          text={course.name}
-          onSave={(value) => onNameChange({ courseId: course.courseId, newValue: value })}
-          textFieldClassNames={styles.courseNameTextField}
-          typographyClassNames={styles.courseNameTypography}
-          classNames={styles.courseName}
-          variant="h4"
-          dontUpdate
-        />
-        <EditableText
-          text={course.description}
-          onSave={(value) => onDescriptionChange({ courseId: course.courseId, newValue: value })}
-          textFieldSettings={{ fullWidth: true, multiline: true }}
-          textFieldClassNames={styles.courseDescriptionTextField}
-          typographyClassNames={styles.courseDescriptionTypography}
-          classNames={styles.courseDescription}
-          dontUpdate
-        />
-      </Container>
-    </>
+    <Container className={styles.courseInfo}>
+      <EditableText
+        text={course.name}
+        onSave={(value) => onNameChange({ courseId: course.courseId, newValue: value })}
+        textFieldClassNames={styles.courseNameTextField}
+        typographyClassNames={styles.courseNameTypography}
+        classNames={styles.courseName}
+        variant="h4"
+        dontUpdate
+      />
+      <EditableText
+        text={course.description}
+        onSave={(value) => onDescriptionChange({ courseId: course.courseId, newValue: value })}
+        textFieldSettings={{ fullWidth: true, multiline: true }}
+        textFieldClassNames={styles.courseDescriptionTextField}
+        typographyClassNames={styles.courseDescriptionTypography}
+        classNames={styles.courseDescription}
+        dontUpdate
+      />
+    </Container>
   );
 }

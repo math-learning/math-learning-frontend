@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
-import { Container, Typography } from '@material-ui/core';
+import { CircularProgress, Container, Typography } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import Grid from '@material-ui/core/Grid';
 import ExerciseManagement from '../ExerciseManagement/ExerciseManagement';
 import styles from '../ExerciseManagement/ExerciseManagement.module.sass';
 
@@ -20,19 +19,26 @@ export default class GuideManagement extends Component {
 
   updateExercises() {
     const { getExercises, courseId, guide } = this.props;
-    console.log(guide);
     if (guide) getExercises({ courseId, guideId: guide.guideId });
   }
 
   render() {
     const {
-      courseId, guide, exercises, showAddExerciseModal
+      courseId, guide, exercises, showAddExerciseModal, isLoadingExercises
     } = this.props;
     if (!guide) {
       // TODO
       return 'Por favor selecciona una guia';
     }
     const { guideId } = guide;
+
+    if (isLoadingExercises) {
+      return (
+        <div className={styles.loading}>
+          <CircularProgress disableShrink />
+        </div>
+      );
+    }
 
     return (
       <Container className={styles.exerciseManagement}>
@@ -41,27 +47,15 @@ export default class GuideManagement extends Component {
           {guide.name}
         </Typography>
 
-        {/* TODO: filter
-                <div> */}
-        {/*    Filtro de ejercicios por si tiene muchos */}
-        {/* </div> */}
-
         <div className={styles.exerciseList}>
-          {exercises.map((exercise) => <ExerciseManagement exercise={exercise} />)}
+          {exercises.map((exercise) => <ExerciseManagement exercise={exercise} key={exercise.exerciseId} />)}
         </div>
 
-        <Grid container>
-          {/* // TODO: pagination */}
-          <Grid item xs={8} className={styles.pages}>
-            {/*    1 2 3 4 ... 123 */}
-          </Grid>
-          <Grid item xs={4} className={styles.fabContainer}>
-            <Fab color="primary" aria-label="add" className={styles.fab}>
-              {/* TODO: on click open add exercise */}
-              <AddIcon onClick={() => showAddExerciseModal({ courseId, guideId })} />
-            </Fab>
-          </Grid>
-        </Grid>
+        <div className={styles.fabContainer}>
+          <Fab color="primary" aria-label="add" className={styles.fab}>
+            <AddIcon onClick={() => showAddExerciseModal({ courseId, guideId })} />
+          </Fab>
+        </div>
 
       </Container>
     );

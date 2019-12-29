@@ -23,7 +23,9 @@ export default class CourseManagement extends Component {
 
     if (isLoadingCourseDetail || isLoadingGuides) {
       return (
-        <CircularProgress disableShrink />
+        <div className={styles.loadingRoot}>
+          <CircularProgress disableShrink />
+        </div>
       );
     }
     if (!guide) {

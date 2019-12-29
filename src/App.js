@@ -55,13 +55,6 @@ const renderCoursePage = ({ match }) => {
   );
 };
 
-const renderCourseManagement = ({ match }) => {
-  const { courseId, guideId } = match.params;
-  return (
-    <CourseManagement courseId={courseId} guideId={guideId} />
-  );
-};
-
 const App = () => {
   const classes = useStyles();
 
@@ -80,8 +73,8 @@ const App = () => {
         <Route exact path={configs.paths.coursesSearch} component={SearchCoursesPage} />
         <Route exact path="/courses/:courseId/:guideId/exercises/:exerciseId" component={ExercisePage} />
         <Route exact path={configs.paths.statistics} render={renderStatisticsPage} />
-        <Route exact path={configs.paths.courseGuide} render={renderCourseManagement} />
-        <Route exact path={configs.paths.course} render={renderCourseManagement} />
+        <Route exact path={configs.paths.courseGuide} component={CourseManagement} />
+        <Route exact path={configs.paths.course} component={CourseManagement} />
 
         <Footer className={classes.footer} />
 

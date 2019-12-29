@@ -62,13 +62,11 @@ export function update({ courseId, updatedValues }) {
     dispatch(common.actions.showSpinner());
     const state = getState();
     const context = commonSelectors.context(state);
-    let newCourse = { ...state.courses.data.detail[courseId] };
-    newCourse = {
-      ...newCourse,
+    const newCourse = {
+      ...state.courses.data.detail[courseId],
       ...updatedValues,
     };
     const course = await coursesClient.updateCourse({ context, course: newCourse });
-    console.log(course);
     dispatch(updateCourseSuccess({ course }));
     dispatch(common.actions.hideSpinner());
   };

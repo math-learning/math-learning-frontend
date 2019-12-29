@@ -34,18 +34,16 @@ export default function EditableGuidesLeftPanel(props) {
   }
 
   return (
-    <>
-      <LeftPanel>
-        <LeftPanelTitle text="Guias" className={styles.guidesTitle} />
-        <LeftPanelEditableElements
-          elements={processedGuides}
-          onClickActionsById={onClickActionsById}
-          onElementUpdate={onElementUpdate}
-          addElementText="Agregar Guia"
-          onCreateElement={createGuideWithoutDescription}
-          className={styles.editableItems}
-        />
-      </LeftPanel>
-    </>
+    <LeftPanel>
+      <LeftPanelTitle text="Guias" className={styles.guidesTitle} />
+      <LeftPanelEditableElements
+        elements={processedGuides}
+        onClickActionsById={onClickActionsById}
+        onElementUpdate={onElementUpdate}
+        addElementText="Agregar Guia"
+        onCreateElement={createGuideWithoutDescription}
+        className={styles.editableItems}
+      />
+    </LeftPanel>
   );
 }

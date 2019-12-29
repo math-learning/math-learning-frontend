@@ -55,7 +55,7 @@ export default class LeftPanelEditableElements extends Component {
         <>
           { creatingNewElement
             ? (
-              <ListItem button={false}>
+              <ListItem>
                 <ListItemText>
                   <TextField
                     className={styles.tcGray1}
@@ -88,6 +88,7 @@ export default class LeftPanelEditableElements extends Component {
       <>
         {elementsToUse.map((element) => (
           <EditableTextListItem
+            key={element.id}
             text={element.name}
             onListItemClick={onClickActionsById[element.id]}
             onChangeValue={onElementUpdate(element)}

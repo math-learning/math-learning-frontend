@@ -9,7 +9,6 @@ const updateCourse = async ({
   course,
   context,
 }) => {
-  const data = course;
   const updateUrl = `${url}/courses/${course.courseId}`;
   const response = await fetch(updateUrl, {
     method: 'PUT',
@@ -17,7 +16,7 @@ const updateCourse = async ({
       authorization: context.accessToken,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(data),
+    body: JSON.stringify(course),
   });
   return requestUtils.processResponse(response);
 };

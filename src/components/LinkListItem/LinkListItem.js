@@ -35,11 +35,8 @@ export default function LinkListItem(props) {
   }
 
   return (
-    <>
-      <Link className={styles.linkWithoutStyles} to={{ pathname: path }}>
-        { listItem }
-      </Link>
-    </>
-
+    <Link className={styles.linkWithoutStyles} to={{ pathname: path }}>
+      { listItem }
+    </Link>
   );
 }

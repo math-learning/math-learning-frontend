@@ -21,11 +21,11 @@ export default class EditableTextListItem extends EditableText {
     let iconComponent;
 
     if (editing) {
-      textComponent = (<TextField className={styles.tcGray1} defaultValue={text} onChange={this.handleTextFieldChange} />);
-      iconComponent = (<DoneIcon className={styles.tcGray1} onClick={this.valueChanged(onChangeValue)} />);
+      textComponent = (<TextField className={styles.secondaryText} defaultValue={text} onChange={this.handleTextFieldChange} />);
+      iconComponent = (<DoneIcon className={styles.secondaryIcon} onClick={this.valueChanged(onChangeValue)} />);
     } else {
-      textComponent = (<Typography className={styles.tcGray1}>{value}</Typography>);
-      iconComponent = (<EditIcon className={styles.tcGray1} onClick={this.toggleEditing} />);
+      textComponent = (<Typography className={styles.secondaryText}>{value}</Typography>);
+      iconComponent = (<EditIcon className={styles.secondaryIcon} onClick={this.toggleEditing} />);
     }
 
     const itemClicked = !this.state.editing ? onListItemClick : () => {};
