@@ -1,17 +1,27 @@
 @import '../../../../App.module.sass'
 
-.container 
-  display: flex
-  align-items: center
-  margin-top: 30px
-
-.rightStep
-  align-items: center
-  margin: 16px 0
-
-.step
+.container
   display: flex
   flex-grow: 1
+  margin: 30px 0
+
+.rightStep
+  display: flex
+  align-items: center
+  margin: 16px 0
+  justify-content: space-between
+
+.stepActions
+  display: inline-block
+
+.stepWithoutDelete
+  margin-right: 55px
+
+.step
+  margin: 16px 0
+
+.stepContent
+  display: flex
   align-items: center
   justify-content: center
 
@@ -37,10 +47,16 @@
   margin: 0 20px !important
 
 .item 
-  margin: 0 10px !important
+  margin: 0 15px !important
   vertical-align: middle
+
+.help
+  margin: 0 10px
 
 .solvedExerciseText
   width: 100%
-  margin-top: 40px !important
   text-align: center
+
+.deleteStep
+  font-weight: bold
+  cursor: pointer

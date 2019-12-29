@@ -16,7 +16,7 @@ class CreateExerciseModal extends Component {
     this.state = {
       name: null,
       type: 'derivative',
-      exercise: null,
+      problemInput: null,
       difficulty: 'easy',
       description: null,
       createExerciseDisabled: true
@@ -30,7 +30,7 @@ class CreateExerciseModal extends Component {
     const {
       name,
       type,
-      exercise,
+      problemInput,
       difficulty,
       description
     } = this.state;
@@ -41,7 +41,7 @@ class CreateExerciseModal extends Component {
       exercise: {
         name,
         type,
-        exercise,
+        problemInput,
         difficulty,
         description
       }
@@ -52,10 +52,10 @@ class CreateExerciseModal extends Component {
     const {
       name,
       type,
-      exercise,
+      problemInput,
       difficulty
     } = this.state;
-    const createExerciseDisabled = !name || !type || !exercise || !difficulty;
+    const createExerciseDisabled = !name || !type || !problemInput || !difficulty;
 
     // TODO: FIX BUG, THE STATE IS NOT UPDATED
     this.setState({ createExerciseDisabled });
@@ -83,11 +83,11 @@ class CreateExerciseModal extends Component {
   };
 
   onChangeExercise = (event) => {
-    const { exercise } = this.state;
+    const { problemInput } = this.state;
     const newExercise = event.target.value;
 
-    if (exercise !== newExercise) {
-      this.setState({ exercise: newExercise });
+    if (problemInput !== newExercise) {
+      this.setState({ problemInput: newExercise });
       this.checkIfCanCreate();
     }
   };
@@ -98,7 +98,7 @@ class CreateExerciseModal extends Component {
       createExerciseDisabled,
       type,
       difficulty,
-      exercise
+      problemInput
     } = this.state;
 
     return (
@@ -134,7 +134,7 @@ class CreateExerciseModal extends Component {
           </Typography>
           <MathTextBox
             id="exercise-math-textbox"
-            content={exercise}
+            content={problemInput}
             className={styles.exercise}
             onEnter={() => {}}
             onContentChange={(context) => this.onChangeExercise({ target: { value: context } })}

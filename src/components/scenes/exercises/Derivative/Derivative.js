@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Button, CircularProgress, Typography } from '@material-ui/core';
+import DeleteIcon from '@material-ui/icons/Delete';
+import classNames from 'classnames';
 import PropTypes from 'prop-types';
+import HelpToolTip from '../HelpTooltip';
 import WrongIcon from '../../../Icons/WrongIcon';
 import MathText from '../../../MathText';
 import MathTextBox from '../../../MathTextBox';
@@ -8,18 +11,15 @@ import CheckIcon from '../../../Icons/CheckIcon';
 
 import styles from './Derivative.module.sass';
 
+const HELP_TEST = 'Intenta con esto: derivada de la suma'; // TODO: Implement it
+
 class Derivative extends Component {
   handleValidateStep = () => {
-    const { currentExpression } = this.props;
-    const { stepList, problemInput, onValidateStep } = this.props;
+    const { exercise, currentExpression, onValidateStep } = this.props;
 
-    const lastExpression = stepList.length === 0
-      ? problemInput
-      : stepList[stepList.length - 1];
-
-    onValidateStep({
-      stepList, problemInput, lastExpression, currentExpression
-    });
+    if (currentExpression) {
+      onValidateStep({ exercise, currentExpression });
+    }
   }
 
   handleContentChange = (value) => {
@@ -28,21 +28,41 @@ class Derivative extends Component {
     onContentChange(value);
   }
 
-  getStepList = () => {
-    const { stepList } = this.props;
+  handleDeleteStep = () => {
+    const { exercise, onDeleteStep } = this.props;
 
+    onDeleteStep(exercise);
+  }
+
+  getStepList = () => {
+    const { exercise: { stepList } } = this.props;
+
+    // TODO: try using a table
     return (
-      (stepList).map((step, index) => (
-        <div key={`right-step-${index}`} className={styles.rightStep}>
-          <span className={styles.item}> = </span>
-          <MathText
-            id={`step-${index}`}
-            content={step}
-            className={styles.mathText}
-          />
-          <CheckIcon size="20px" className={styles.item} />
-        </div>
-      ))
+      (stepList).map((step, index) => {
+        const isLastStep = index === stepList.length - 1;
+
+        return (
+          <div key={`right-step-${index}`} className={styles.rightStep}>
+            <span className={styles.item}> = </span>
+            <MathText
+              id={`step-${index}`}
+              content={step}
+              className={styles.mathText}
+            />
+            <div className={classNames(styles.stepActions, !isLastStep && styles.stepWithoutDelete)}>
+              <CheckIcon size="20px" className={styles.item} />
+              {isLastStep ? (
+                <DeleteIcon
+                  id="delete-step"
+                  className={classNames(styles.item, styles.deleteStep)}
+                  onClick={this.handleDeleteStep}
+                />
+              ) : null}
+            </div>
+          </div>
+        );
+      })
     );
   }
 
@@ -64,25 +84,29 @@ class Derivative extends Component {
 
     return (
       <div className={styles.step}>
-        <span className={styles.item}> = </span>
-        <MathTextBox
-          id="current-step"
-          content={currentExpression}
-          className={styles.mathBox}
-          onContentChange={this.handleContentChange}
-          onEnter={this.handleValidateStep}
-        />
-        {this.getCurrentStepState()}
-        <Button
-          id="validate-step"
-          className={styles.item}
-          onClick={this.handleValidateStep}
-          disabled={!currentExpression}
-          variant="contained"
-          color="primary"
-        >
-          Validar
-        </Button>
+        <HelpToolTip className={styles.help} help={HELP_TEST} />
+
+        <div className={styles.stepContent}>
+          <span className={styles.item}> = </span>
+          <MathTextBox
+            id="current-step"
+            content={currentExpression}
+            className={styles.mathBox}
+            onContentChange={this.handleContentChange}
+            onEnter={this.handleValidateStep}
+          />
+          {this.getCurrentStepState()}
+          <Button
+            id="validate-step"
+            className={styles.item}
+            onClick={this.handleValidateStep}
+            disabled={!currentExpression}
+            variant="contained"
+            color="primary"
+          >
+            Validar
+          </Button>
+        </div>
       </div>
     );
   }
@@ -91,12 +115,12 @@ class Derivative extends Component {
     const { exercise, isResolved } = this.props;
 
     return (
-      <div>
+      <React.Fragment>
         <div className={styles.container}>
           <MathText
             id="problem-input"
             className={styles.problemInput}
-            content={exercise.exercise}
+            content={exercise.problemInput}
           />
           <div className={styles.content}>
             {this.getStepList()}
@@ -109,24 +133,29 @@ class Derivative extends Component {
 
         {isResolved
           ? (
-            <Typography
-              id="exercise-resolved"
-              className={styles.solvedExerciseText}
-              variant="h4"
-            >
-              Ejercicio resuelto!
-            </Typography>
+            <React.Fragment>
+              <Typography
+                id="exercise-resolved"
+                className={styles.solvedExerciseText}
+                variant="h4"
+              >
+                Ejercicio resuelto!
+              </Typography>
+
+              <MathText
+                id="problem-resolved"
+                content={exercise.stepList[exercise.stepList.length - 1]}
+              />
+            </React.Fragment>
           )
           : null}
-      </div>
+      </React.Fragment>
     );
   }
 }
 
 Derivative.propTypes = {
-  stepList: PropTypes.array,
   isResolved: PropTypes.bool,
-  problemInput: PropTypes.string,
   currentExpression: PropTypes.string,
   onValidateStep: PropTypes.func,
   onContentChange: PropTypes.func,

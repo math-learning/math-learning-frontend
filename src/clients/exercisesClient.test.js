@@ -82,18 +82,12 @@ describe('exercises client', () => {
     let courseId;
     let guideId;
     let exerciseId;
-    let stepList;
-    let problemInput;
-    let lastExpression;
     let currentExpression;
 
     beforeEach(async () => {
       courseId = 'course-id';
       guideId = 'guide-id';
       exerciseId = 'exercise-id';
-      stepList = [];
-      problemInput = '2x';
-      lastExpression = '2x + 1';
       currentExpression = '2';
       exerciseStatus = {
         status: 'resolved'
@@ -101,9 +95,6 @@ describe('exercises client', () => {
 
       nock(url)
         .post(`/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}/resolve`, {
-          stepList,
-          problemInput,
-          lastExpression,
           currentExpression
         })
         .matchHeader('Authorization', context.accessToken)
@@ -114,9 +105,6 @@ describe('exercises client', () => {
         courseId,
         guideId,
         exerciseId,
-        stepList,
-        problemInput,
-        lastExpression,
         currentExpression
       });
     });

@@ -11,10 +11,11 @@ const initialState = {
 };
 
 function updateExerciseState({
-  state, courseId, guideId, exerciseId, exerciseProps
+  state, courseId, guideId, exerciseId, exerciseProps = {}
 }) {
   const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const exercises = state.data.detail[courseGuideId] || {};
+
   const newExercisesState = {
     ...exercises,
     [exerciseId]: {
@@ -49,13 +50,7 @@ export default function reducers(state = initialState, action) {
 
     case types.GET_EXERCISES_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
-      const detail = { ...state.data.detail };
-      action.exercises.forEach((exercise) => {
-        detail[courseGuideId][exercise.exerciseId] = {
-          ...detail[courseGuideId][exercise.exerciseId],
-          exercise
-        };
-      });
+
       return {
         ...state,
         data: {
@@ -64,7 +59,6 @@ export default function reducers(state = initialState, action) {
             ...state.data.list,
             [courseGuideId]: action.exercises,
           },
-          detail,
           isLoadingExercises: false,
         }
       };
@@ -73,7 +67,9 @@ export default function reducers(state = initialState, action) {
     case types.CREATE_EXERCISE_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const { exerciseId } = action.exercise;
-      const currentExercises = state.data.list[courseGuideId] || [];
+      const currentListExercises = state.data.list[courseGuideId] || [];
+      const currentDetailExercises = state.data.detail[courseGuideId] || {};
+
       return {
         ...state,
         data: {
@@ -81,7 +77,7 @@ export default function reducers(state = initialState, action) {
           detail: {
             ...state.data.detail,
             [courseGuideId]: {
-              ...state.data.detail[courseGuideId],
+              ...currentDetailExercises,
               [exerciseId]: {
                 exercise: action.exercise,
               }
@@ -90,7 +86,7 @@ export default function reducers(state = initialState, action) {
           list: {
             ...state.data.list,
             [courseGuideId]: [
-              ...currentExercises,
+              ...currentListExercises,
               action.exercise
             ]
           },
@@ -107,8 +103,7 @@ export default function reducers(state = initialState, action) {
           exercise: action.exercise,
           isLoading: false,
           exerciseStatus: 'editing',
-          currentExpression: '',
-          stepList: []
+          currentExpression: ''
         }
       };
 
@@ -136,6 +131,7 @@ export default function reducers(state = initialState, action) {
 
     case types.EXERCISE_RESOLVED: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
 
       return updateExerciseState({
         state,
@@ -143,18 +139,23 @@ export default function reducers(state = initialState, action) {
         guideId: action.guideId,
         exerciseId: action.exerciseId,
         exerciseProps: {
-          stepList: [
-            ...state.data.detail[courseGuideId][action.exerciseId].stepList,
-            action.currentExpression
-          ],
-          exerciseStatus: 'resolved',
-          currentExpression: ''
+          exerciseStatus: 'editing',
+          currentExpression: '',
+          exercise: {
+            ...currentExercise,
+            stepList: [
+              ...currentExercise.stepList,
+              action.currentExpression
+            ],
+            state: 'resolved'
+          },
         }
       });
     }
 
     case types.EXERCISE_STEP_IS_VALID: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
 
       return updateExerciseState({
         state,
@@ -162,12 +163,15 @@ export default function reducers(state = initialState, action) {
         guideId: action.guideId,
         exerciseId: action.exerciseId,
         exerciseProps: {
-          stepList: [
-            ...state.data.detail[courseGuideId][action.exerciseId].stepList,
-            action.currentExpression
-          ],
           exerciseStatus: 'editing',
-          currentExpression: ''
+          currentExpression: '',
+          exercise: {
+            ...currentExercise,
+            stepList: [
+              ...currentExercise.stepList,
+              action.currentExpression
+            ]
+          },
         }
       });
     }
@@ -191,6 +195,38 @@ export default function reducers(state = initialState, action) {
         exerciseProps: {
           exerciseStatus: 'editing',
           currentExpression: action.currentExpression
+        }
+      });
+    }
+
+    case types.UPDATE_EXERCISE: {
+      return updateExerciseState({
+        state,
+        courseId: action.courseId,
+        guideId: action.guideId,
+        exerciseId: action.exerciseId,
+        exerciseProps: {
+          exercise: action.exercise,
+        }
+      });
+    }
+
+    case types.REMOVE_EXERCISE_STEP: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
+
+      return updateExerciseState({
+        state,
+        courseId: action.courseId,
+        guideId: action.guideId,
+        exerciseId: action.exerciseId,
+        exerciseProps: {
+          exerciseStatus: 'editing',
+          exercise: {
+            ...currentExercise,
+            state: 'incompleted',
+            stepList: currentExercise.stepList.slice(0, -1)
+          }
         }
       });
     }

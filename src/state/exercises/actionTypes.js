@@ -7,3 +7,5 @@ export const EXPRESSION_CHANGE_SUCCESSFULLY = 'Expression change sucessfully';
 export const RESOLVE_EXERCISE_REQUEST = 'Resolve exercise request';
 export const CREATE_EXERCISE_SUCCESS = 'Create exercise success';
 export const GET_EXERCISE_SUCCESS = 'Get exercise success';
+export const UPDATE_EXERCISE = 'Update exercise';
+export const REMOVE_EXERCISE_STEP = 'Remove exercise step';

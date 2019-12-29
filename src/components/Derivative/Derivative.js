@@ -27,7 +27,7 @@ class Derivative extends Component {
       : stepList[stepList.length - 1];
 
     onValidateStep({
-      stepList, problemInput, lastExpression, currentExpression, result, problemIndex,
+      stepList, lastExpression, currentExpression, result, problemIndex,
     });
   }
 

@@ -9,8 +9,9 @@
     "lint": "eslint src",
     "lint:fix": "eslint --fix src",
     "eject": "react-scripts eject",
-    "test": "npm run lint && nyc --reporter=html --reporter=text mocha --require @babel/register --require ./test/dom.js --require ignore-styles ./test/configs.js \"./src/**/*.test.js\"",
-    "test:watch": "npm run test -- --watch",
+    "test:app": "mocha --require @babel/register --require ./test/dom.js --require ignore-styles ./test/configs.js \"./src/**/*.test.js\"",
+    "test": "npm run lint && nyc --reporter=html --reporter=text npm run test:app",
+    "test:watch": "npm run test:app -- --watch",
     "dev:hot": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./"
   },
   "dependencies": {

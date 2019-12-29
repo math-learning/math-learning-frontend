@@ -63,7 +63,7 @@ describe('CreateExerciseModal', () => {
       exercise = {
         description: 'description',
         difficulty: 'easy',
-        exercise: 'dx',
+        problemInput: 'dx',
         name: 'nombre',
         type: 'derivative'
       };

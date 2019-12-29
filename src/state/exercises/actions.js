@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import * as modalActions from '../modals/actions';
 import * as commonSelectors from '../common/selectors';
+import * as exerciseSelectors from './selectors';
 
 import exercisesClient from '../../clients/exercisesClient';
 
@@ -22,6 +23,29 @@ export function getExercisesRequest() {
 export function resolveExerciseRequest({ courseId, guideId, exerciseId }) {
   return {
     type: types.RESOLVE_EXERCISE_REQUEST,
+    courseId,
+    guideId,
+    exerciseId
+  };
+}
+
+export function updateExercise({
+  courseId, guideId, exerciseId, exercise
+}) {
+  return {
+    type: types.UPDATE_EXERCISE,
+    courseId,
+    guideId,
+    exerciseId,
+    exercise
+  };
+}
+
+export function removeExerciseStep({
+  courseId, guideId, exerciseId
+}) {
+  return {
+    type: types.REMOVE_EXERCISE_STEP,
     courseId,
     guideId,
     exerciseId
@@ -123,6 +147,30 @@ export function createExercise({ guideId, courseId, exercise }) {
   };
 }
 
+export function deleteExerciseStep({
+  guideId, courseId, exerciseId
+}) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+    const currentExercise = exerciseSelectors.getExercise(state, { courseId, guideId, exerciseId });
+
+    dispatch(removeExerciseStep({ courseId, guideId, exerciseId }));
+    dispatch(modalActions.hideModal());
+
+    try {
+      await exercisesClient.removeExerciseStep({
+        context, guideId, courseId, exerciseId
+      });
+    } catch (err) {
+      // back to the previous state
+      dispatch(updateExercise({
+        courseId, guideId, exerciseId, exercise: currentExercise
+      }));
+    }
+  };
+}
+
 export function getExercises({ courseId, guideId }) {
   return async (dispatch, getState) => {
     dispatch(getExercisesRequest());
@@ -160,9 +208,6 @@ export function resolveExercise({
   courseId,
   guideId,
   exerciseId,
-  stepList,
-  problemInput,
-  lastExpression,
   currentExpression
 }) {
   return async (dispatch, getState) => {
@@ -171,27 +216,19 @@ export function resolveExercise({
 
     dispatch(resolveExerciseRequest({ courseId, guideId, exerciseId }));
 
-    // setTimeout(() => { Used to test it
-    //   // dispatch(exerciseStepIsValid({ courseId, guideId, exerciseId }));
-    //   dispatch(exerciseStepValid({ courseId, guideId, exerciseId, currentExpression }));
-    // }, 300);
-
     const result = await exercisesClient.resolveExercise({
       context,
       courseId,
       guideId,
       exerciseId,
-      stepList,
-      problemInput,
-      lastExpression,
       currentExpression
     });
 
-    if (result.status === 'valid') {
+    if (result.exerciseStatus === 'valid') {
       dispatch(exerciseStepValid({
         courseId, guideId, exerciseId, currentExpression
       }));
-    } else if (result.status === 'resolved') {
+    } else if (result.exerciseStatus === 'resolved') {
       dispatch(exerciseResolved({
         courseId, guideId, exerciseId, currentExpression
       }));

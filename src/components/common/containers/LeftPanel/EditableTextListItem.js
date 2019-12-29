@@ -1,10 +1,10 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ListItem, Typography } from '@material-ui/core';
 import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import TextField from '@material-ui/core/TextField';
 import ListItemText from '@material-ui/core/ListItemText';
-import IconButton from '@material-ui/core/IconButton';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import EditableText from '../../../abstract/Editable/Editable';
 import styles from '../../../../App.module.sass';
@@ -22,10 +22,10 @@ export default class EditableTextListItem extends EditableText {
 
     if (editing) {
       textComponent = (<TextField className={styles.secondaryText} defaultValue={text} onChange={this.handleTextFieldChange} />);
-      iconComponent = (<DoneIcon className={styles.secondaryIcon} onClick={this.valueChanged(onChangeValue)} />);
+      iconComponent = (<DoneIcon className={classNames(styles.secondaryIcon, styles.clickeableIcon)} onClick={this.valueChanged(onChangeValue)} />);
     } else {
       textComponent = (<Typography className={styles.secondaryText}>{value}</Typography>);
-      iconComponent = (<EditIcon className={styles.secondaryIcon} onClick={this.toggleEditing} />);
+      iconComponent = (<EditIcon className={classNames(styles.secondaryIcon, styles.clickeableIcon)} onClick={this.toggleEditing} />);
     }
 
     const itemClicked = !this.state.editing ? onListItemClick : () => {};
@@ -36,9 +36,7 @@ export default class EditableTextListItem extends EditableText {
           {textComponent}
         </ListItemText>
         <ListItemSecondaryAction>
-          <IconButton edge="end">
-            {iconComponent}
-          </IconButton>
+          {iconComponent}
         </ListItemSecondaryAction>
       </ListItem>
     );

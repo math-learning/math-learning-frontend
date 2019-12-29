@@ -91,7 +91,7 @@ describe('exercises reducer', () => {
 
   describe('should handle GET_EXERCISE_SUCCESS', () => {
     beforeEach(() => {
-      exercise = { exerciseId: 'exercise-id' };
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
       initialState = {
         data: {
           detail: {
@@ -119,8 +119,7 @@ describe('exercises reducer', () => {
                   exercise,
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: '',
-                  stepList: []
+                  currentExpression: ''
                 }
               }
             }
@@ -132,7 +131,7 @@ describe('exercises reducer', () => {
 
   describe('should handle RESOLVE_EXERCISE_REQUEST', () => {
     beforeEach(() => {
-      exercise = { exerciseId: 'exercise-id' };
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
       initialState = {
         data: {
           detail: {
@@ -141,8 +140,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: '',
-                stepList: []
+                currentExpression: ''
               }
             }
           }
@@ -167,8 +165,7 @@ describe('exercises reducer', () => {
                   exercise,
                   isLoading: false,
                   exerciseStatus: 'processing',
-                  currentExpression: '',
-                  stepList: []
+                  currentExpression: ''
                 }
               }
             }
@@ -180,7 +177,7 @@ describe('exercises reducer', () => {
 
   describe('should handle EXERCISE_RESOLVED', () => {
     beforeEach(() => {
-      exercise = { exerciseId: 'exercise-id' };
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
       initialState = {
         data: {
           detail: {
@@ -189,8 +186,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: '2x',
-                stepList: []
+                currentExpression: '2x'
               }
             }
           }
@@ -213,11 +209,14 @@ describe('exercises reducer', () => {
             detail: {
               'c-id/g-id': {
                 [exercise.exerciseId]: {
-                  exercise,
+                  exercise: {
+                    ...exercise,
+                    state: 'resolved',
+                    stepList: ['2']
+                  },
                   isLoading: false,
-                  exerciseStatus: 'resolved',
-                  currentExpression: '',
-                  stepList: ['2']
+                  exerciseStatus: 'editing',
+                  currentExpression: ''
                 }
               }
             }
@@ -229,7 +228,7 @@ describe('exercises reducer', () => {
 
   describe('should handle EXERCISE_STEP_IS_VALID', () => {
     beforeEach(() => {
-      exercise = { exerciseId: 'exercise-id' };
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
       initialState = {
         data: {
           detail: {
@@ -238,8 +237,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: '',
-                stepList: []
+                currentExpression: ''
               }
             }
           }
@@ -262,11 +260,13 @@ describe('exercises reducer', () => {
             detail: {
               'c-id/g-id': {
                 [exercise.exerciseId]: {
-                  exercise,
+                  exercise: {
+                    ...exercise,
+                    stepList: ['2']
+                  },
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: '',
-                  stepList: ['2']
+                  currentExpression: ''
                 }
               }
             }
@@ -278,7 +278,7 @@ describe('exercises reducer', () => {
 
   describe('should handle EXERCISE_STEP_IS_INVALID', () => {
     beforeEach(() => {
-      exercise = { exerciseId: 'exercise-id' };
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
       initialState = {
         data: {
           detail: {
@@ -287,8 +287,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: '2x',
-                stepList: []
+                currentExpression: '2x'
               }
             }
           }
@@ -313,8 +312,7 @@ describe('exercises reducer', () => {
                   exercise,
                   isLoading: false,
                   exerciseStatus: 'invalid',
-                  currentExpression: '2x',
-                  stepList: []
+                  currentExpression: '2x'
                 }
               }
             }
@@ -326,7 +324,7 @@ describe('exercises reducer', () => {
 
   describe('should handle EXPRESSION_CHANGE_SUCCESSFULLY', () => {
     beforeEach(() => {
-      exercise = { exerciseId: 'exercise-id' };
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
       initialState = {
         data: {
           detail: {
@@ -335,8 +333,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: '2x',
-                stepList: []
+                currentExpression: '2x'
               }
             }
           }
@@ -362,8 +359,107 @@ describe('exercises reducer', () => {
                   exercise,
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: '2',
-                  stepList: []
+                  currentExpression: '2'
+                }
+              }
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle UPDATE_EXERCISE', () => {
+    let newExercise;
+
+    beforeEach(() => {
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
+      newExercise = { exerciseId: 'exercise-id', stepList: ['2'], status: 'resolved' };
+      initialState = {
+        data: {
+          detail: {
+            'c-id/g-id': {
+              [exercise.exerciseId]: {
+                exercise,
+                isLoading: false,
+                exerciseStatus: 'editing',
+                currentExpression: '2x'
+              }
+            }
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.UPDATE_EXERCISE,
+        courseId: 'c-id',
+        guideId: 'g-id',
+        exerciseId: 'exercise-id',
+        exercise: newExercise
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            detail: {
+              'c-id/g-id': {
+                [exercise.exerciseId]: {
+                  exercise: newExercise,
+                  isLoading: false,
+                  exerciseStatus: 'editing',
+                  currentExpression: '2x'
+                }
+              }
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle REMOVE_EXERCISE_STEP', () => {
+    beforeEach(() => {
+      exercise = { exerciseId: 'exercise-id', stepList: ['2'] };
+      initialState = {
+        data: {
+          detail: {
+            'c-id/g-id': {
+              [exercise.exerciseId]: {
+                exercise,
+                isLoading: false,
+                exerciseStatus: 'editing',
+                currentExpression: '2x'
+              }
+            }
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.REMOVE_EXERCISE_STEP,
+        courseId: 'c-id',
+        guideId: 'g-id',
+        exerciseId: 'exercise-id'
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            detail: {
+              'c-id/g-id': {
+                [exercise.exerciseId]: {
+                  exercise: {
+                    ...exercise,
+                    state: 'incompleted',
+                    stepList: []
+                  },
+                  isLoading: false,
+                  exerciseStatus: 'editing',
+                  currentExpression: '2x'
                 }
               }
             }
