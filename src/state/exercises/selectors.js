@@ -1,10 +1,16 @@
 import _ from 'lodash';
-import * as courseUtils from '../../utils/courseUtils';
+import * as idUtils from '../../utils/idUtils';
+
+export function isLoadingExercises(state) {
+  return state.exercises.data.isLoadingExercises;
+}
+
+export const getExercises = (state, courseId, guideId) => state.exercises.data.list[idUtils.courseGuideId({ courseId, guideId })];
 
 export const getExercise = (state, {
   courseId, guideId, exerciseId
 }) => {
-  const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const courseExercises = state.exercises.data.detail[courseGuideId];
 
   return courseExercises
@@ -15,7 +21,7 @@ export const getExercise = (state, {
 export const currentExpression = (state, {
   courseId, guideId, exerciseId
 }) => {
-  const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const courseExercises = state.exercises.data.detail[courseGuideId];
 
   return courseExercises
@@ -26,7 +32,7 @@ export const currentExpression = (state, {
 export const exerciseStatus = (state, {
   courseId, guideId, exerciseId
 }) => {
-  const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const courseExercises = state.exercises.data.detail[courseGuideId];
 
   return courseExercises
@@ -37,7 +43,7 @@ export const exerciseStatus = (state, {
 export const isExerciseResolved = (state, {
   courseId, guideId, exerciseId
 }) => {
-  const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const courseExercises = state.exercises.data.detail[courseGuideId];
 
   return courseExercises
@@ -48,7 +54,7 @@ export const isExerciseResolved = (state, {
 export const stepList = (state, {
   courseId, guideId, exerciseId
 }) => {
-  const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const courseExercises = state.exercises.data.detail[courseGuideId];
 
   const exerciseStepList = courseExercises
@@ -61,7 +67,7 @@ export const stepList = (state, {
 export const isLoadingExercise = (state, {
   courseId, guideId, exerciseId
 }) => {
-  const courseGuideId = courseUtils.courseGuideId({ courseId, guideId });
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const courseExercises = state.exercises.data.detail[courseGuideId];
   const isLoading = courseExercises
     && courseExercises[exerciseId]

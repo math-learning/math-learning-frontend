@@ -1,3 +1,5 @@
+export const GET_EXERCISES_SUCCESS = 'Get exercises success';
+export const GET_EXERCISES_REQUEST = 'Get exercises request';
 export const EXERCISE_STEP_IS_VALID = 'Exercise step is valid';
 export const EXERCISE_STEP_IS_INVALID = 'Exercise Step is invalid';
 export const EXERCISE_RESOLVED = 'Exercise is resolved';

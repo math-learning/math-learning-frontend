@@ -59,7 +59,7 @@ class CreateExerciseModal extends Component {
 
     // TODO: FIX BUG, THE STATE IS NOT UPDATED
     this.setState({ createExerciseDisabled });
-  }
+  };
 
   onChangeName = (event) => {
     const newName = event.target.value;

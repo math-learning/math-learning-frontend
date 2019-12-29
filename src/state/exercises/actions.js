@@ -4,6 +4,21 @@ import * as commonSelectors from '../common/selectors';
 
 import exercisesClient from '../../clients/exercisesClient';
 
+export function getExercisesSuccess({ courseId, guideId, exercises }) {
+  return {
+    type: types.GET_EXERCISES_SUCCESS,
+    courseId,
+    guideId,
+    exercises
+  };
+}
+
+export function getExercisesRequest() {
+  return {
+    type: types.GET_EXERCISES_REQUEST,
+  };
+}
+
 export function resolveExerciseRequest({ courseId, guideId, exerciseId }) {
   return {
     type: types.RESOLVE_EXERCISE_REQUEST,
@@ -95,11 +110,26 @@ export function createExercise({ guideId, courseId, exercise }) {
         exercise
       });
 
-      dispatch(createExerciseSuccess({ courseId, guideId, exercise: createdExercise }));
+      dispatch(createExerciseSuccess({
+        courseId,
+        guideId,
+        exerciseId: createdExercise.exerciseId,
+        exercise: createdExercise,
+      }));
       dispatch(modalActions.hideModal());
     } catch (err) {
       dispatch(modalActions.showError(err.message));
     }
+  };
+}
+
+export function getExercises({ courseId, guideId }) {
+  return async (dispatch, getState) => {
+    dispatch(getExercisesRequest());
+    const state = getState();
+    const context = commonSelectors.context(state);
+    const exercises = await exercisesClient.getExercises({ context, courseId, guideId });
+    dispatch(getExercisesSuccess({ courseId, guideId, exercises }));
   };
 }
 

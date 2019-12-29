@@ -67,7 +67,7 @@ export default class CoursesPage extends Component {
     }
 
     return (
-      <>
+      <React.Fragment>
 
         {/* TODO: Eliminar */}
         <Button onClick={() => this.setState({ courses: onlyOneCourse })}>Un Curso</Button>
@@ -78,7 +78,7 @@ export default class CoursesPage extends Component {
           pageToDisplay
         }
 
-      </>
+      </React.Fragment>
     );
   }
 }

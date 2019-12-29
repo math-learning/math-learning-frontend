@@ -10,14 +10,15 @@ describe('exercises reducer', () => {
   describe('should handle CREATE_EXERCISE_SUCCESS', () => {
     describe('when there was nothing in the state', () => {
       beforeEach(() => {
-        exercise = { id: 'exercise' };
-        initialState = { data: { list: {} } };
+        exercise = { exerciseId: 'exercise' };
+        initialState = { data: { list: {}, detail: {} } };
 
         finalState = reducer(initialState, {
           type: types.CREATE_EXERCISE_SUCCESS,
           courseId: 'c-id',
           guideId: 'g-id',
-          exercise: { id: 'exercise' }
+          exerciseId: 'exercise-id',
+          exercise: { exerciseId: 'exercise' }
         });
       });
 
@@ -27,8 +28,11 @@ describe('exercises reducer', () => {
             data: {
               list: {
                 'c-id/g-id': [exercise]
-              }
-            }
+              },
+              detail: {
+                'c-id/g-id': { exercise: { exercise } },
+              },
+            },
           }
         );
       });
@@ -38,12 +42,17 @@ describe('exercises reducer', () => {
       let previousExercise;
 
       beforeEach(() => {
-        exercise = { id: 'exercise' };
-        previousExercise = { id: 'exercise-2' };
+        exercise = { exerciseId: 'exercise' };
+        previousExercise = { exerciseId: 'exercise-2' };
         initialState = {
           data: {
             list: {
               'c-id/g-id': [previousExercise]
+            },
+            detail: {
+              'c-id/g-id': {
+                [previousExercise.exerciseId]: { exercise: { ...previousExercise } },
+              },
             }
           }
         };
@@ -52,7 +61,8 @@ describe('exercises reducer', () => {
           type: types.CREATE_EXERCISE_SUCCESS,
           courseId: 'c-id',
           guideId: 'g-id',
-          exercise: { id: 'exercise' }
+          exerciseId: 'exercise',
+          exercise: { exerciseId: 'exercise' }
         });
       });
 
@@ -65,8 +75,14 @@ describe('exercises reducer', () => {
                   previousExercise,
                   exercise
                 ]
+              },
+              detail: {
+                'c-id/g-id': {
+                  [previousExercise.exerciseId]: { exercise: { ...previousExercise } },
+                  [exercise.exerciseId]: { exercise: { ...exercise } },
+                }
               }
-            }
+            },
           }
         );
       });
