@@ -106,8 +106,25 @@ const updateExercise = async ({
   return requestUtils.processResponse(response);
 };
 
+const getExercises = async ({
+  context,
+  courseId,
+  guideId,
+}) => {
+  const exercisesUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises`;
+  const response = await fetch(exercisesUrl, {
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 export default {
   createExercise,
+  getExercises,
   getExercise,
   updateExercise,
   removeExerciseStep,

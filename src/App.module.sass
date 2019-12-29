@@ -1,18 +1,32 @@
 /* General Styles */
 
 // colors
-$palette-blue: #84b8d3;
-$palette-green: #80CBC4;
-$palette-violet: #b079ac;
-$palette-yellow: #dcdc10;
+$palette-blue: #84b8d3
+$palette-green: #80CBC4
+$palette-violet: #b079ac
+$palette-yellow: #dcdc10
 $palette-red: #f44336
 $palette-black: #000000
 
 $palette-primary: $palette-green
 $palette-error: $palette-red
 $palette-background-dark: #212121
+$palette-background-middle: rgba(#1C1C1C, 0.3)
 $palette-background-paper: #424242
 
+$palette-tc-white: white
+$palette-tc-gray1: rgba(#FFFFFF, 0.7)
+$palette-tc-gray2: rgba(#FFFFFF, 0.3)
+
+
+.tcWhite
+  color: $palette-tc-white
+
+.tcGray1
+  color: $palette-tc-gray1
+
+.tcGray2
+  color: $palette-tc-gray2
 
 .tcViolet
     color: $palette-violet
@@ -25,7 +39,7 @@ $palette-background-paper: #424242
 
 .tcYellow
     color: $palette-yellow
-    
+
 .tcRed
     color: $palette-red
 
@@ -60,7 +74,31 @@ $spacing-xxlg: 6 * $spacing-unit
   display: flex
   flex-direction: column
 
+.root
+  display: flex
+  flex-grow: 1
+
 .centerVertically
 
 .textCenter
   text-align: center
+
+.verticalPanel
+  background-color: $palette-background-paper
+  flex-grow: 1
+  height: 100%
+
+.fullHeight
+  display: flex
+  flex-grow: 1
+
+.secondaryText
+  color: $palette-tc-gray1
+.secondaryIcon
+  color: $palette-tc-gray1
+
+.loadingRoot
+  display: flex
+  flex-grow: 1
+  justify-content: center
+  align-items: center

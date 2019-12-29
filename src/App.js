@@ -20,6 +20,7 @@ import SnackbarWrapper from './components/SnackbarWrapper';
 import StatisticsPage from './components/StatisticsPage/StatisticsPage';
 import history from './store/history';
 import configs from './configs/variables';
+import CourseManagement from './components/scenes/courses/CourseManagement';
 
 const useStyles = makeStyles(() => ({
   mainContent: {
@@ -72,6 +73,8 @@ const App = () => {
         <Route exact path={configs.paths.coursesSearch} component={SearchCoursesPage} />
         <Route exact path="/courses/:courseId/:guideId/exercises/:exerciseId" component={ExercisePage} />
         <Route exact path={configs.paths.statistics} render={renderStatisticsPage} />
+        <Route exact path={configs.paths.courseGuide} component={CourseManagement} />
+        <Route exact path={configs.paths.course} component={CourseManagement} />
 
         <Footer className={classes.footer} />
 

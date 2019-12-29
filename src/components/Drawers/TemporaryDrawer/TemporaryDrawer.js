@@ -24,7 +24,7 @@ export default class TemporaryDrawer extends Component {
     const { children } = this.props;
 
     return (
-      <>
+      <React.Fragment>
         <IconButton onClick={this.toggleDrawer(true).bind(this)} edge="start" className={styles.menuButton} color="inherit" aria-label="menu">
           <MenuIcon />
         </IconButton>
@@ -38,7 +38,7 @@ export default class TemporaryDrawer extends Component {
             {children}
           </div>
         </Drawer>
-      </>
+      </React.Fragment>
     );
   }
 }

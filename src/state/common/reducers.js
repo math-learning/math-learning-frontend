@@ -16,7 +16,7 @@ const initialState = {
     },
     modalType: null,
     context: contextFromStorage,
-    profile: profileFromStorage
+    profile: profileFromStorage,
     // profile: {
     //   userId: "diego-id",
     //   name: "Diego",

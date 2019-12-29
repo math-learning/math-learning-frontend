@@ -30,7 +30,7 @@ const currentState = (state) => {
 const currentActions = (dispatch) => ({
   onLoadCourses: () => dispatch(coursesActions.getCourses({})),
   onClickCourse: async (course) => {
-    await dispatch(push(configs.paths.course(course.courseId)));
+    await dispatch(push(configs.pathGenerators.course(course.courseId)));
   },
   onClickCreateCourse: () => dispatch(modalActions.loadModal(modalTypes.CREATE_COURSE_MODAL))
 });
