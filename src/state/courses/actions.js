@@ -113,7 +113,7 @@ export function addUserToCourse({
       dispatch(joinCourseSuccess({ course }));
       dispatch(modalActions.hideModal());
 
-      await dispatch(push(configs.paths.course(course.courseId)));
+      await dispatch(push(configs.pathGenerators.course(course.courseId)));
     } catch (err) {
       if (err.status === 409) {
         dispatch(modalActions.showError(messages.error.wrongPassword));
@@ -146,7 +146,7 @@ export function createCourse({ course }) {
       dispatch(createCourseSuccess({ course: createdCourse }));
       dispatch(modalActions.hideModal());
 
-      await dispatch(push(configs.paths.course(createdCourse.courseId)));
+      await dispatch(push(configs.pathGenerators.course(createdCourse.courseId)));
     } catch (err) {
       if (err.status === 409) {
         dispatch(modalActions.showError(messages.error.courseAlreadyExist));
