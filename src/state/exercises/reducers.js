@@ -161,7 +161,6 @@ export default function reducers(state = initialState, action) {
 
     case types.EXERCISE_STEP_IS_VALID: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
-      const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
 
       return updateExerciseState({
@@ -219,7 +218,7 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.REMOVE_EXERCISE_STEP: {
-      const courseGuideId = courseUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
 
       return updateExerciseState({
