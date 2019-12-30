@@ -231,6 +231,30 @@ export default function reducers(state = initialState, action) {
       });
     }
 
+    case types.DELETE_EXERCISE_REQUEST: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const detail = { ...state.data.detail[courseGuideId] };
+      delete detail[action.exerciseId];
+      let list = [...state.data.list[courseGuideId]];
+      list = list.filter((exercise) => exercise.exerciseId !== action.exerciseId);
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail: {
+            [courseGuideId]: {
+              ...detail
+            }
+          },
+          list: {
+            [courseGuideId]: [...list]
+          }
+        }
+      };
+    }
+
+    case types.DELETE_EXERCISE_SUCCESS:
     default:
       return state;
   }

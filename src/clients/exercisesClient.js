@@ -122,11 +122,27 @@ const getExercises = async ({
   return requestUtils.processResponse(response);
 };
 
+const deleteExercise = async ({
+  context, courseId, guideId, exerciseId
+}) => {
+  const exerciseUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}`;
+  const response = await fetch(exerciseUrl, {
+    method: 'delete',
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 export default {
   createExercise,
   getExercises,
   getExercise,
   updateExercise,
   removeExerciseStep,
-  resolveExercise
+  resolveExercise,
+  deleteExercise,
 };
