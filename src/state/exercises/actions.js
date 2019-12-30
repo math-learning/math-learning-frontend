@@ -238,3 +238,45 @@ export function resolveExercise({
   };
 }
 
+function deleteExerciseRequest({ courseId, guideId, exerciseId }) {
+  return {
+    type: types.DELETE_EXERCISE_REQUEST,
+    courseId,
+    guideId,
+    exerciseId,
+  };
+}
+
+function deleteExerciseSuccess({ courseId, guideId, exerciseId }) {
+  return {
+    type: types.DELETE_EXERCISE_SUCCESS,
+    courseId,
+    guideId,
+    exerciseId,
+  };
+}
+
+export function deleteExercise({
+  courseId,
+  guideId,
+  exerciseId,
+}) {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState();
+      const context = commonSelectors.context(state);
+      dispatch(deleteExerciseRequest({ courseId, guideId, exerciseId }));
+      const result = await exercisesClient.deleteExercise({
+        context, courseId, guideId, exerciseId
+      });
+      if (result) {
+        // TODO: handle
+        dispatch(deleteExerciseSuccess({ courseId, guideId, exerciseId }));
+      }
+      dispatch(modalActions.hideModal());
+    } catch (err) {
+      // TODO: handle
+      dispatch(modalActions.showError(err.message));
+    }
+  };
+}

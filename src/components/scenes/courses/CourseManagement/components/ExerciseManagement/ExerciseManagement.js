@@ -13,21 +13,29 @@ export default class ExerciseManagement extends Component {
     super(props);
     this.showMenu = this.showMenu.bind(this);
     this.closeMenu = this.closeMenu.bind(this);
+    this.onDeleteOptionClick = this.onDeleteOptionClick.bind(this);
     this.state = {
       anchorEl: null
     };
   }
 
-  showMenu(event) {
-    this.setState({ anchorEl: event.currentTarget });
+  onDeleteOptionClick(onClickHandler) {
+    return () => {
+      onClickHandler();
+      this.closeMenu();
+    };
   }
 
   closeMenu() {
     this.setState({ anchorEl: null });
   }
 
+  showMenu(event) {
+    this.setState({ anchorEl: event.currentTarget });
+  }
+
   render() {
-    const { exercise } = this.props;
+    const { exercise, onDeleteExercise } = this.props;
     const { anchorEl } = this.state;
     return (
       <Card className={styles.card}>
@@ -78,7 +86,7 @@ export default class ExerciseManagement extends Component {
             onClose={this.closeMenu}
           >
             <MenuItem onClick={this.closeMenu}>Editar</MenuItem>
-            <MenuItem onClick={this.closeMenu}>Eliminar</MenuItem>
+            <MenuItem onClick={this.onDeleteOptionClick(onDeleteExercise)}>Eliminar</MenuItem>
           </Menu>
 
         </div>

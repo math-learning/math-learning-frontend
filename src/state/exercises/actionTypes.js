@@ -9,3 +9,6 @@ export const CREATE_EXERCISE_SUCCESS = 'Create exercise success';
 export const GET_EXERCISE_SUCCESS = 'Get exercise success';
 export const UPDATE_EXERCISE = 'Update exercise';
 export const REMOVE_EXERCISE_STEP = 'Remove exercise step';
+export const DELETE_EXERCISE_SUCCESS = 'Delete exercise success';
+export const DELETE_EXERCISE_REQUEST = 'Delete exercise request';
+

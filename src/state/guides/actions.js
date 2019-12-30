@@ -46,6 +46,7 @@ export function createGuide({ courseId, guideName, guideDescription }) {
     });
     dispatch(createGuideSuccess({ courseId, guide }));
     dispatch(common.actions.hideSpinner());
+    dispatch(push(configs.pathGenerators.courseGuide(courseId, guide.guideId)));
   };
 }
 
