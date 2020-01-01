@@ -5,8 +5,8 @@ import styles from './CourseManagement.module.sass';
 import Content from '../../../common/containers/Content/Content';
 import ContentHeader from '../../../common/containers/Content/ContentHeader';
 import EditableGuidesLeftPanel from './components/EditableGuidesLeftPanel';
-import NameAndDescriptionManagement from './components/NameAndDescriptionManagement';
 import GuideManagement from './components/GuideManagement';
+import CourseInfoManagement from './components/CourseInfoManagement';
 
 export default class CourseManagement extends Component {
   componentDidMount() {
@@ -44,7 +44,7 @@ export default class CourseManagement extends Component {
 
           <Content hasLeftPanel>
             <ContentHeader>
-              <NameAndDescriptionManagement
+              <CourseInfoManagement
                 id={course.courseId}
                 name={course.name}
                 description={course.description}

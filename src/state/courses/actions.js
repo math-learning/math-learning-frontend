@@ -57,6 +57,13 @@ export function createCourseSuccess({ course }) {
   };
 }
 
+export function deleteCourseRequest({ courseId }) {
+  return {
+    type: types.DELETE_COURSE_REQUEST,
+    courseId,
+  };
+}
+
 export function update({ courseId, updatedValues }) {
   return async (dispatch, getState) => {
     dispatch(common.actions.showSpinner());
@@ -155,3 +162,19 @@ export function createCourse({ course }) {
   };
 }
 
+export function deleteCourse({ courseId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+    try {
+      dispatch(deleteCourseRequest({ courseId }));
+      dispatch(push(configs.paths.courses));
+      const response = await coursesClient.deleteCourse({ context, courseId });
+    } catch (e) {
+      // TODO: handle
+      console.log(e)
+    } finally {
+      dispatch(modalActions.hideModal());
+    }
+  };
+}
