@@ -5,7 +5,7 @@ import * as common from '../common';
 
 import guidesClient from '../../clients/guidesClient';
 import configs from '../../configs/variables';
-import * as modalActions from "../modals/actions";
+import * as modalActions from '../modals/actions';
 
 export function createGuideSuccess({ courseId, guide }) {
   return {
