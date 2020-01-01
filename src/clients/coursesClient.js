@@ -107,6 +107,21 @@ const createCourse = async ({
   return requestUtils.processResponse(response);
 };
 
+const deleteCourse = async ({
+  context,
+  courseId
+}) => {
+  const deleteCourseUrl = `${url}/courses/${courseId}`;
+  const response = await fetch(deleteCourseUrl, {
+    method: 'delete',
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+  return requestUtils.processResponse(response);
+};
+
 export default {
   createCourse,
   getCourses,
@@ -114,4 +129,5 @@ export default {
   addUserToCourse,
   searchCourses,
   updateCourse,
+  deleteCourse,
 };
