@@ -88,7 +88,7 @@ export default class LeftPanelEditableElements extends Component {
       <React.Fragment>
         {elementsToUse.map((element) => (
           <EditableTextListItem
-            editable={true}
+            editable
             key={element.id}
             text={element.name}
             onListItemClick={onClickActionsById[element.id]}
