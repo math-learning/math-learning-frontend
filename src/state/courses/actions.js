@@ -170,9 +170,11 @@ export function deleteCourse({ courseId }) {
       dispatch(deleteCourseRequest({ courseId }));
       dispatch(push(configs.paths.courses));
       const response = await coursesClient.deleteCourse({ context, courseId });
+      // TODO: handle success
+      console.log(response);
     } catch (e) {
       // TODO: handle
-      console.log(e)
+      console.log(e);
     } finally {
       dispatch(modalActions.hideModal());
     }

@@ -1,8 +1,8 @@
 import { connect } from 'react-redux';
 import CourseInfoManagement from './CourseInfoManagement';
 import { actions, selectors } from '../../../../../../state/courses';
-import * as modalActions from "../../../../../../state/modals/actions";
-import * as modalTypes from "../../../../../../state/modals/modalTypes";
+import * as modalActions from '../../../../../../state/modals/actions';
+import * as modalTypes from '../../../../../../state/modals/modalTypes';
 
 const currentState = (state, { id }) => ({
   course: selectors.getCourseDetail(state, id),

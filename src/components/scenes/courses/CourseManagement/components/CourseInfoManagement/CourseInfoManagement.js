@@ -6,7 +6,9 @@ import EditableText from '../../../../../editable/EditableTitle/EditableText';
 import MoreVertOptions from '../Options';
 
 export default function CourseInfoManagement(props) {
-  const { course, onNameChange, onDescriptionChange, onDeleteCourse } = props;
+  const {
+    course, onNameChange, onDescriptionChange, onDeleteCourse
+  } = props;
 
   // TODO validaciones de los campos
 
