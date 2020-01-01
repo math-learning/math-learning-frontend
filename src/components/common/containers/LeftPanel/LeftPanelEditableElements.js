@@ -43,7 +43,8 @@ export default class LeftPanelEditableElements extends Component {
 
   render() {
     const {
-      elements, addElementText, onCreateElement, onElementUpdate, onClickActionsById
+      elements, addElementText, onCreateElement, onElementUpdate, onClickActionsById,
+      onDeleteElement
     } = this.props;
     const { creatingNewElement, value } = this.state;
     const elementsToUse = elements || [];
@@ -64,8 +65,8 @@ export default class LeftPanelEditableElements extends Component {
                   />
                 </ListItemText>
                 <ListItemSecondaryAction>
-                  <IconButton edge="end">
-                    <DoneIcon className={styles.tcGray1} onClick={this.create(onCreateElement)} />
+                  <IconButton edge="end" onClick={this.create(onCreateElement)}>
+                    <DoneIcon className={styles.tcGray1} />
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
@@ -83,15 +84,16 @@ export default class LeftPanelEditableElements extends Component {
 
       );
     }
-
     return (
       <React.Fragment>
         {elementsToUse.map((element) => (
           <EditableTextListItem
+            editable
             key={element.id}
             text={element.name}
             onListItemClick={onClickActionsById[element.id]}
             onChangeValue={onElementUpdate(element)}
+            onDeleteElement={onDeleteElement(element)}
           />
         ))}
         {addElementComponent}

@@ -100,6 +100,24 @@ export default function reducers(state = initialState, action) {
       };
     }
 
+    case types.DELETE_GUIDE_REQUEST: {
+      const detail = { ...state.data.detail };
+      const key = courseGuideId({ courseId: action.courseId, guideId: action.guideId });
+      delete detail[key];
+
+      let list = [...state.data.list[action.courseId]];
+      console.log(list);
+      list = list.filter((guide) => guide.courseId !== action.guideId && guide.guideId !== action.guideId);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail,
+          list,
+        }
+      };
+    }
+
     default:
       return state;
   }

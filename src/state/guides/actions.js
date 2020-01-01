@@ -5,6 +5,7 @@ import * as common from '../common';
 
 import guidesClient from '../../clients/guidesClient';
 import configs from '../../configs/variables';
+import * as modalActions from '../modals/actions';
 
 export function createGuideSuccess({ courseId, guide }) {
   return {
@@ -33,6 +34,14 @@ export function getGuidesSuccess({ courseId, guides }) {
 export function getGuidesRequest() {
   return {
     type: types.GET_GUIDES_REQUEST,
+  };
+}
+
+export function deleteGuideRequest(courseId, guideId) {
+  return {
+    type: types.DELETE_GUIDE_REQUEST,
+    courseId,
+    guideId
   };
 }
 
@@ -79,5 +88,18 @@ export function getGuides({ courseId }) {
 export function selectGuide({ courseId, guideId }) {
   return async (dispatch) => {
     dispatch(push(configs.pathGenerators.courseGuide(courseId, guideId)));
+  };
+}
+
+export function deleteGuide({ courseId, guideId }) {
+  return async (dispatch, getState) => {
+    dispatch(deleteGuideRequest(courseId, guideId));
+    const state = getState();
+    const context = commonSelectors.context(state);
+    const response = await guidesClient.deleteGuide({ context, courseId, guideId });
+    if (response) {
+      // TODO: handle
+    }
+    dispatch(modalActions.hideModal());
   };
 }
