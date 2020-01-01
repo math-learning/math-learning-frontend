@@ -1,13 +1,13 @@
 import React from 'react';
 import classNames from 'classnames';
 import { ListItem, Typography } from '@material-ui/core';
-import EditIcon from '@material-ui/icons/Edit';
 import DoneIcon from '@material-ui/icons/Done';
 import TextField from '@material-ui/core/TextField';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import EditableText from '../../../abstract/Editable/Editable';
 import styles from '../../../../App.module.sass';
+import MoreVertOptions from '../../../scenes/courses/CourseManagement/components/Options';
 
 export default class EditableTextListItem extends EditableText {
   constructor(props) {
@@ -15,7 +15,9 @@ export default class EditableTextListItem extends EditableText {
   }
 
   render() {
-    const { onChangeValue, onListItemClick, text } = this.props;
+    const {
+      onChangeValue, onDeleteElement, onListItemClick, text, editable
+    } = this.props;
     const { editing, value } = this.state;
     let textComponent;
     let iconComponent;
@@ -25,7 +27,20 @@ export default class EditableTextListItem extends EditableText {
       iconComponent = (<DoneIcon className={classNames(styles.secondaryIcon, styles.clickeableIcon)} onClick={this.valueChanged(onChangeValue)} />);
     } else {
       textComponent = (<Typography className={styles.secondaryText}>{value}</Typography>);
-      iconComponent = (<EditIcon className={classNames(styles.secondaryIcon, styles.clickeableIcon)} onClick={this.toggleEditing} />);
+      iconComponent = (
+        <MoreVertOptions
+          options={[
+            {
+              text: 'Editar',
+              onClick: this.toggleEditing,
+            },
+            {
+              text: 'Eliminar',
+              onClick: onDeleteElement,
+            },
+          ]}
+        />
+      );
     }
 
     const itemClicked = !this.state.editing ? onListItemClick : () => {};
@@ -35,9 +50,12 @@ export default class EditableTextListItem extends EditableText {
         <ListItemText>
           {textComponent}
         </ListItemText>
-        <ListItemSecondaryAction>
-          {iconComponent}
-        </ListItemSecondaryAction>
+        { editable
+          && (
+          <ListItemSecondaryAction>
+            {iconComponent}
+          </ListItemSecondaryAction>
+          )}
       </ListItem>
     );
   }

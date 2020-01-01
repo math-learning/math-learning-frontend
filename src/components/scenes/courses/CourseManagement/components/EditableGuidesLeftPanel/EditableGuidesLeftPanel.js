@@ -6,7 +6,7 @@ import styles from './EditableGuidesLeftPanel.module.sass';
 
 export default function EditableGuidesLeftPanel(props) {
   const {
-    courseId, guides, updateGuide, createGuide, selectGuide
+    courseId, guides, updateGuide, createGuide, selectGuide, deleteGuide
   } = props;
 
   const onElementUpdate = (element) => (value) => updateGuide({
@@ -15,6 +15,8 @@ export default function EditableGuidesLeftPanel(props) {
     guideName: value,
     guideDescription: element.description
   });
+
+  const onDeleteElement = (element) => () => deleteGuide(element);
 
   const createGuideWithoutDescription = (name) => createGuide({
     courseId,
@@ -40,6 +42,7 @@ export default function EditableGuidesLeftPanel(props) {
         elements={processedGuides}
         onClickActionsById={onClickActionsById}
         onElementUpdate={onElementUpdate}
+        onDeleteElement={onDeleteElement}
         addElementText="Agregar Guia"
         onCreateElement={createGuideWithoutDescription}
         className={styles.editableItems}
