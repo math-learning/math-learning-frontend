@@ -34,13 +34,14 @@ export default class EditableText extends Editable {
           fullWidth={fieldSettings.fullWidth || false}
           className={textFieldClassNames}
           defaultValue={text}
+          rowsMax="3"
           onChange={this.handleTextFieldChange}
-        />
+        /> // TODO: we should have the marginRight here and not in the received properties
       );
 
       iconComponent = (
-        <IconButton className={typographyClassNames} onClick={this.valueChanged(onSave)}>
-          <DoneIcon />
+        <IconButton onClick={this.valueChanged(onSave)}>
+          <DoneIcon fontSize="small" />
         </IconButton>
       );
     } else {
@@ -54,8 +55,8 @@ export default class EditableText extends Editable {
       );
 
       iconComponent = (
-        <IconButton className={typographyClassNames} onClick={this.toggleEditing}>
-          <EditIcon />
+        <IconButton onClick={this.toggleEditing}>
+          <EditIcon fontSize="small" />
         </IconButton>
       );
     }

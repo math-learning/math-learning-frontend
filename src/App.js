@@ -2,7 +2,7 @@ import 'typeface-roboto';
 import { makeStyles } from '@material-ui/core/styles';
 import React from 'react';
 import { hot } from 'react-hot-loader';
-import { Route, Router } from 'react-router-dom';
+import { Route, Router, Switch } from 'react-router-dom';
 
 import AddExercisePage from './components/AddExercisePage';
 import CoursePage from './components/CoursePage';
@@ -10,7 +10,6 @@ import OwnCoursesPage from './components/scenes/courses/OwnCoursesPage';
 import SearchCoursesPage from './components/scenes/courses/SearchCoursesPage';
 import ExercisePage from './components/scenes/exercises/ExercisePage';
 import ExercisesPage from './components/ExercisesPage';
-import Footer from './components/Footer';
 import Main from './components/Main';
 import ModalContainer from './components/Modals/ModalContainer';
 import NavBar from './components/NavBar';
@@ -19,7 +18,6 @@ import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
 import StatisticsPage from './components/StatisticsPage/StatisticsPage';
 import history from './store/history';
-import configs from './configs/variables';
 import CourseManagement from './components/scenes/courses/CourseManagement';
 
 const useStyles = makeStyles(() => ({
@@ -63,20 +61,21 @@ const App = () => {
       <Router history={history}>
         <NavBar />
 
-        <Route exact path="/exercises" render={renderExercisesPage} />
-        <Route exact path="/add-exercise" render={renderAddExercisePage} />
-        <Route exact path="/profile" render={renderProfilePage} />
-        <Route path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage} />
+        <Switch>
+          <Route exact path="/exercises" render={renderExercisesPage} />
+          <Route exact path="/add-exercise" render={renderAddExercisePage} />
+          <Route exact path="/profile" render={renderProfilePage} />
+          <Route exact path="/my-courses/:courseId/modules/:moduleId" render={renderCoursePage} />
 
-        <Route exact path={configs.paths.main} component={Main} />
-        <Route exact path={configs.paths.courses} component={OwnCoursesPage} />
-        <Route exact path={configs.paths.coursesSearch} component={SearchCoursesPage} />
-        <Route exact path="/courses/:courseId/:guideId/exercises/:exerciseId" component={ExercisePage} />
-        <Route exact path={configs.paths.statistics} render={renderStatisticsPage} />
-        <Route exact path={configs.paths.courseGuide} component={CourseManagement} />
-        <Route exact path={configs.paths.course} component={CourseManagement} />
-
-        <Footer className={classes.footer} />
+          <Route exact path="/courses/search" component={SearchCoursesPage} />
+          <Route exact path="/courses/:courseId" component={CourseManagement} />
+          <Route exact path="/courses/:courseId/guides/:guideId" component={CourseManagement} />
+          <Route exact path="/courses/:courseId/users" component={CourseManagement} />
+          <Route exact path="/courses/:courseId/:guideId/exercises/:exerciseId" component={ExercisePage} />
+          <Route exact path="/courses" component={OwnCoursesPage} />
+          <Route exact path="/statistics" render={renderStatisticsPage} />
+          <Route exact path="/" component={Main} />
+        </Switch>
 
         {/* UTILS */}
         <SnackbarWrapper />

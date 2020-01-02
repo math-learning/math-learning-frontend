@@ -1,6 +1,6 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
-import styles from '../GuideManagement/GuideManagement.module.sass';
+import styles from './NameAndDescriptionManagement.module.sass';
 import EditableText from '../../../../../editable/EditableTitle/EditableText';
 
 export default function NameAndDescriptionManagement(props) {
@@ -9,10 +9,11 @@ export default function NameAndDescriptionManagement(props) {
   // TODO validaciones de los campos
 
   return (
-    <Container className={styles.courseInfo}>
+    <Container>
       <EditableText
         text={course.name}
         onSave={(value) => onNameChange({ courseId: course.courseId, newValue: value })}
+        textFieldSettings={{ fullWidth: true }}
         textFieldClassNames={styles.courseNameTextField}
         typographyClassNames={styles.courseNameTypography}
         classNames={styles.courseName}

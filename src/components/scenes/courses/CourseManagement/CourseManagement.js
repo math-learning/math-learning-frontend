@@ -7,17 +7,47 @@ import ContentHeader from '../../../common/containers/Content/ContentHeader';
 import EditableGuidesLeftPanel from './components/EditableGuidesLeftPanel';
 import NameAndDescriptionManagement from './components/NameAndDescriptionManagement';
 import GuideManagement from './components/GuideManagement';
+import CourseUsersPage from './components/CourseUsersPage';
 
 export default class CourseManagement extends Component {
-  componentDidMount() {
+  componentDidMount() { // TODO: improve it, the page is renderer more than one time
     const { courseId, getCourse, getGuides } = this.props;
     getCourse(courseId);
     getGuides(courseId);
   }
 
+  getHeader() { // TODO: maybe we can have the header per page
+    const { course, isUserPath } = this.props;
+
+    if (isUserPath) { // TODO: diego, test if you prefer it or not :)
+      return null;
+    }
+
+    return (
+      <ContentHeader>
+        <NameAndDescriptionManagement // TODO: this could be just CourseHeader with an isEditable property
+          id={course.courseId}
+          name={course.name}
+          description={course.description}
+        />
+      </ContentHeader>
+    );
+  }
+
+  getContent() {
+    const { course, guideId, isUserPath } = this.props;
+
+    if (isUserPath) {
+      return <CourseUsersPage course={course} />;
+    }
+
+    // TODO: maybe we can just send the course (or the guides)
+    return <GuideManagement courseId={course.courseId} guideId={guideId} />;
+  }
+
   render() {
     const {
-      course, guides, guideId, isLoadingCourseDetail, isLoadingGuides
+      course, guides, isLoadingCourseDetail, isLoadingGuides
     } = this.props;
     let guide;
 
@@ -35,7 +65,6 @@ export default class CourseManagement extends Component {
     return (
       <div className={styles.root}>
         <Grid container>
-
           <EditableGuidesLeftPanel
             courseId={course.courseId}
             courseName={course.name}
@@ -43,20 +72,9 @@ export default class CourseManagement extends Component {
           />
 
           <Content hasLeftPanel>
-            <ContentHeader>
-              <NameAndDescriptionManagement
-                id={course.courseId}
-                name={course.name}
-                description={course.description}
-              />
-            </ContentHeader>
-            <GuideManagement
-              courseId={course.courseId}
-              guideId={guideId}
-            />
-
+            {this.getHeader()}
+            {this.getContent()}
           </Content>
-
         </Grid>
       </div>
     );

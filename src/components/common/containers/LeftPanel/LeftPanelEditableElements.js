@@ -64,8 +64,8 @@ export default class LeftPanelEditableElements extends Component {
                   />
                 </ListItemText>
                 <ListItemSecondaryAction>
-                  <IconButton edge="end">
-                    <DoneIcon className={styles.tcGray1} onClick={this.create(onCreateElement)} />
+                  <IconButton edge="end" onClick={this.create(onCreateElement)}>
+                    <DoneIcon className={styles.tcGray1} />
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>

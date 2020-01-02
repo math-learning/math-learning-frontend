@@ -26,6 +26,7 @@ const configs = {
   pathGenerators: {
     course: (courseId) => `/courses/${courseId}`,
     courseGuide: (courseId, guideId) => `/courses/${courseId}/guides/${guideId}`,
+    courseUsers: (courseId) => `/courses/${courseId}/users`,
   },
   // serverUrl: "http://0.0.0.0:5000"
   serverUrl: 'https://math-solver.herokuapp.com'
