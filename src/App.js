@@ -60,7 +60,6 @@ const App = () => {
     <main className={classes.root}>
       <Router history={history}>
         <NavBar />
-
         <Switch>
           <Route exact path="/exercises" render={renderExercisesPage} />
           <Route exact path="/add-exercise" render={renderAddExercisePage} />

@@ -5,9 +5,9 @@ import styles from './CourseManagement.module.sass';
 import Content from '../../../common/containers/Content/Content';
 import ContentHeader from '../../../common/containers/Content/ContentHeader';
 import EditableGuidesLeftPanel from './components/EditableGuidesLeftPanel';
-import NameAndDescriptionManagement from './components/NameAndDescriptionManagement';
 import GuideManagement from './components/GuideManagement';
 import CourseUsersPage from './components/CourseUsersPage';
+import CourseInfoManagement from './components/CourseInfoManagement';
 
 export default class CourseManagement extends Component {
   componentDidMount() { // TODO: improve it, the page is renderer more than one time
@@ -25,7 +25,7 @@ export default class CourseManagement extends Component {
 
     return (
       <ContentHeader>
-        <NameAndDescriptionManagement // TODO: this could be just CourseHeader with an isEditable property
+        <CourseInfoManagement // TODO: this could be just CourseHeader with an isEditable property
           id={course.courseId}
           name={course.name}
           description={course.description}

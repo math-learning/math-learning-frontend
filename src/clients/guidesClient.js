@@ -56,8 +56,25 @@ const getGuides = async ({
   return requestUtils.processResponse(response);
 };
 
+const deleteGuide = async ({
+  context,
+  courseId,
+  guideId,
+}) => {
+  const deleteGuideUrl = `${url}/courses/${courseId}/guides/${guideId}`;
+  const response = await fetch(deleteGuideUrl, {
+    method: 'delete',
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json',
+    }
+  });
+  return requestUtils.processResponse(response);
+};
+
 export default {
   createGuide,
   updateGuide,
   getGuides,
+  deleteGuide,
 };

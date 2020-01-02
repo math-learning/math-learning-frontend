@@ -136,6 +136,31 @@ export default function reducers(state = initialState, action) {
       };
     }
 
+    case types.DELETE_COURSE_REQUEST: {
+      const detail = { ...state.data.detail };
+      let ownCourses = [...state.data.own.courses];
+      let listCourses = [...state.data.list.courses];
+      ownCourses = ownCourses.filter((course) => course.courseId !== action.courseId);
+      listCourses = listCourses.filter((course) => course.courseId !== action.courseId);
+      delete detail[action.courseId];
+      console.log(action);
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail,
+          own: {
+            ...state.data.own,
+            courses: ownCourses,
+          },
+          list: {
+            ...state.data.list,
+            courses: listCourses,
+          }
+        }
+      };
+    }
+
     default:
       return state;
   }

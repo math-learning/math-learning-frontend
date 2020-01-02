@@ -5,9 +5,9 @@ import LeftPanel from '../../../../../common/containers/LeftPanel/LeftPanel';
 import LeftPanelLink from '../../../../../common/containers/LeftPanel/LeftPanelLink';
 import styles from './EditableGuidesLeftPanel.module.sass';
 
-export default function EditableGuidesLeftPanel(props) {
+export default function EditableGuidesLeftPanel(props) { // TODO: can we rename this class to CourseLeftPanel?
   const {
-    courseId, guides, updateGuide, createGuide, selectGuide, loadUsersPage
+    courseId, guides, updateGuide, createGuide, selectGuide, deleteGuide, loadUsersPage
   } = props;
 
   const onElementUpdate = (element) => (value) => updateGuide({
@@ -16,6 +16,8 @@ export default function EditableGuidesLeftPanel(props) {
     guideName: value,
     guideDescription: element.description
   });
+
+  const onDeleteElement = (element) => () => deleteGuide(element);
 
   const createGuideWithoutDescription = (name) => createGuide({
     courseId,
@@ -43,6 +45,7 @@ export default function EditableGuidesLeftPanel(props) {
         elements={processedGuides}
         onClickActionsById={onClickActionsById}
         onElementUpdate={onElementUpdate}
+        onDeleteElement={onDeleteElement}
         addElementText="Agregar Guia"
         onCreateElement={createGuideWithoutDescription}
         className={styles.editableItems}

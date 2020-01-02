@@ -5,6 +5,7 @@ import * as common from '../common';
 
 import guidesClient from '../../clients/guidesClient';
 import configs from '../../configs/variables';
+import * as modalActions from '../modals/actions';
 
 export function createGuideSuccess({ courseId, guide }) {
   return {
@@ -36,6 +37,14 @@ export function getGuidesRequest() {
   };
 }
 
+export function deleteGuideRequest(courseId, guideId) {
+  return {
+    type: types.DELETE_GUIDE_REQUEST,
+    courseId,
+    guideId
+  };
+}
+
 export function createGuide({ courseId, guideName, guideDescription }) {
   return async (dispatch, getState) => {
     dispatch(common.actions.showSpinner());
@@ -46,6 +55,7 @@ export function createGuide({ courseId, guideName, guideDescription }) {
     });
     dispatch(createGuideSuccess({ courseId, guide }));
     dispatch(common.actions.hideSpinner());
+    dispatch(push(configs.pathGenerators.courseGuide(courseId, guide.guideId)));
   };
 }
 
@@ -78,5 +88,18 @@ export function getGuides({ courseId }) {
 export function selectGuide({ courseId, guideId }) {
   return async (dispatch) => {
     dispatch(push(configs.pathGenerators.courseGuide(courseId, guideId)));
+  };
+}
+
+export function deleteGuide({ courseId, guideId }) {
+  return async (dispatch, getState) => {
+    dispatch(deleteGuideRequest(courseId, guideId));
+    const state = getState();
+    const context = commonSelectors.context(state);
+    const response = await guidesClient.deleteGuide({ context, courseId, guideId });
+    if (response) {
+      // TODO: handle
+    }
+    dispatch(modalActions.hideModal());
   };
 }

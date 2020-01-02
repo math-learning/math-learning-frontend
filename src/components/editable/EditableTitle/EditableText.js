@@ -37,6 +37,7 @@ export default class EditableText extends Editable {
           rowsMax="3"
           onChange={this.handleTextFieldChange}
         /> // TODO: we should have the marginRight here and not in the received properties
+        // TODO: we have to manage the onEnter and onBlur actions
       );
 
       iconComponent = (

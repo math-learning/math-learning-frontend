@@ -1,3 +1,4 @@
+export const DELETE_COURSE_REQUEST = 'Delete course request';
 export const GET_COURSES_SUCCESS = 'Get courses success';
 export const GET_COURSE_DETAIL_SUCCESS = 'Get course success';
 export const COURSE_DETAIL_REQUEST = 'Course Detail Request';
