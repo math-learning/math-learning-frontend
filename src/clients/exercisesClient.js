@@ -93,10 +93,29 @@ const updateExercise = async ({
   calification
 }) => {
   const profileUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`;
-
   const response = await fetch(profileUrl, {
     method: 'put',
     body: JSON.stringify(_.omitBy({ calification }, _.isNil)),
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
+const updateExerciseAsProfessor = async ({
+  context,
+  courseId,
+  guideId,
+  exerciseId,
+  exercise
+}) => {
+  const requestUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}`;
+  const response = await fetch(requestUrl, {
+    method: 'put',
+    body: JSON.stringify(_.omitBy({ ...exercise }, _.isNil)),
     headers: {
       authorization: context.accessToken,
       'Content-Type': 'application/json'
@@ -145,4 +164,5 @@ export default {
   removeExerciseStep,
   resolveExercise,
   deleteExercise,
+  updateExerciseAsProfessor,
 };

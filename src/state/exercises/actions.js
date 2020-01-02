@@ -280,3 +280,29 @@ export function deleteExercise({
     }
   };
 }
+
+export function updateExerciseAsProfessor({
+  courseId,
+  guideId,
+  exerciseId,
+  exercise
+}) {
+  return async (dispatch, getState) => {
+    try {
+      const state = getState();
+      const context = commonSelectors.context(state);
+      // TODO
+      const result = await exercisesClient.updateExerciseAsProfessor({
+        context, courseId, guideId, exerciseId, exercise
+      });
+      if (result) {
+        // TODO: handle
+        dispatch(updateExercise({ courseId, guideId, exerciseId, exercise }));
+      }
+      dispatch(modalActions.hideModal());
+    } catch (err) {
+      // TODO: handle
+      dispatch(modalActions.showError(err.message));
+    }
+  }
+}

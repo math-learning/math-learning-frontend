@@ -48,7 +48,12 @@ export default class GuideManagement extends Component {
         </Typography>
 
         <div className={styles.exerciseList}>
-          {exercises.map((exercise) => <ExerciseManagement exercise={exercise} key={exercise.exerciseId} />)}
+          {exercises.map((exercise) => (
+            <ExerciseManagement
+              key={exercise.exerciseId}
+              exercise={exercise}
+            />
+          ))}
         </div>
 
         <div className={styles.fabContainer}>

@@ -6,7 +6,9 @@ import styles from './ExerciseManagement.module.sass';
 import MoreVertOptions from '../Options';
 
 export default function ExerciseManagement(props) {
-  const { exercise, onDeleteExercise } = props;
+  const {
+    exercise, onDeleteExercise, onEditExercise,
+  } = props;
   return (
     <Card className={styles.card}>
       <div className={styles.displayLine}>
@@ -41,7 +43,11 @@ export default function ExerciseManagement(props) {
           options={[
             {
               text: 'Editar',
-              onClick: console.log
+              onClick: () => onEditExercise({
+                courseId: exercise.courseId,
+                guideId: exercise.guideId,
+                exerciseId: exercise.exerciseId,
+              })
             }, {
               text: 'Eliminar',
               onClick: onDeleteExercise
