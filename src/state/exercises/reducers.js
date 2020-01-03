@@ -23,14 +23,30 @@ function updateExerciseState({
     }
   };
   const courseGuideList = state.data.list[courseGuideId];
-  let indexOfExercise;
-  courseGuideList.forEach((value, index) => { if (value.exerciseId === exerciseId) indexOfExercise = index; });
-  courseGuideList[indexOfExercise] = {
-    ...courseGuideList[indexOfExercise],
-    ...exerciseProps.exercise,
-  };
-  console.log(indexOfExercise);
-  console.log(courseGuideList[indexOfExercise]);
+  if (exerciseProps.exercise) {
+    let indexOfExercise;
+    courseGuideList.forEach((value, index) => { if (value.exerciseId === exerciseId) indexOfExercise = index; });
+
+    const {
+      name,
+      type,
+      problemInput,
+      difficulty,
+      description
+    } = exerciseProps.exercise;
+
+    courseGuideList[indexOfExercise] = {
+      ...courseGuideList[indexOfExercise],
+      name,
+      type,
+      difficulty,
+      problemInput,
+      description
+    };
+
+    courseGuideList[indexOfExercise] = _.pickBy(courseGuideList[indexOfExercise]);
+  }
+
   return {
     ...state,
     data: {

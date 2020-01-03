@@ -143,6 +143,11 @@ describe('exercises reducer', () => {
                 currentExpression: ''
               }
             }
+          },
+          list: {
+            'c-id/g-id': [
+              { ...exercise }
+            ]
           }
         }
       };
@@ -154,7 +159,7 @@ describe('exercises reducer', () => {
         exerciseId: 'exercise-id'
       });
     });
-
+    console.log(finalState);
     it('should make the expected state', () => {
       expect(finalState).deep.equal(
         {
@@ -168,6 +173,11 @@ describe('exercises reducer', () => {
                   currentExpression: ''
                 }
               }
+            },
+            list: {
+              'c-id/g-id': [
+                { ...exercise }
+              ]
             }
           }
         }
@@ -189,6 +199,11 @@ describe('exercises reducer', () => {
                 currentExpression: '2x'
               }
             }
+          },
+          list: {
+            'c-id/g-id': [
+              { ...exercise }
+            ]
           }
         }
       };
@@ -200,6 +215,7 @@ describe('exercises reducer', () => {
         exerciseId: 'exercise-id',
         currentExpression: '2'
       });
+      console.log(finalState);
     });
 
     it('should make the expected state', () => {
@@ -219,6 +235,11 @@ describe('exercises reducer', () => {
                   currentExpression: ''
                 }
               }
+            },
+            list: {
+              'c-id/g-id': [
+                { ...exercise }
+              ]
             }
           }
         }
@@ -240,6 +261,11 @@ describe('exercises reducer', () => {
                 currentExpression: ''
               }
             }
+          },
+          list: {
+            'c-id/g-id': [
+              { ...exercise }
+            ]
           }
         }
       };
@@ -269,6 +295,11 @@ describe('exercises reducer', () => {
                   currentExpression: ''
                 }
               }
+            },
+            list: {
+              'c-id/g-id': [
+                { ...exercise }
+              ]
             }
           }
         }
@@ -290,6 +321,11 @@ describe('exercises reducer', () => {
                 currentExpression: '2x'
               }
             }
+          },
+          list: {
+            'c-id/g-id': [
+              { ...exercise }
+            ]
           }
         }
       };
@@ -315,6 +351,11 @@ describe('exercises reducer', () => {
                   currentExpression: '2x'
                 }
               }
+            },
+            list: {
+              'c-id/g-id': [
+                { ...exercise }
+              ]
             }
           }
         }
@@ -336,6 +377,11 @@ describe('exercises reducer', () => {
                 currentExpression: '2x'
               }
             }
+          },
+          list: {
+            'c-id/g-id': [
+              { ...exercise }
+            ]
           }
         }
       };
@@ -362,6 +408,11 @@ describe('exercises reducer', () => {
                   currentExpression: '2'
                 }
               }
+            },
+            list: {
+              'c-id/g-id': [
+                { ...exercise }
+              ]
             }
           }
         }
@@ -386,6 +437,11 @@ describe('exercises reducer', () => {
                 currentExpression: '2x'
               }
             }
+          },
+          list: {
+            'c-id/g-id': [
+              { ...exercise }
+            ]
           }
         }
       };
@@ -398,7 +454,7 @@ describe('exercises reducer', () => {
         exercise: newExercise
       });
     });
-
+    console.log(finalState);
     it('should make the expected state', () => {
       expect(finalState).deep.equal(
         {
@@ -412,6 +468,11 @@ describe('exercises reducer', () => {
                   currentExpression: '2x'
                 }
               }
+            },
+            list: {
+              'c-id/g-id': [
+                { ...exercise }
+              ]
             }
           }
         }
@@ -433,6 +494,11 @@ describe('exercises reducer', () => {
                 currentExpression: '2x'
               }
             }
+          },
+          list: {
+            'c-id/g-id': [
+              { ...exercise }
+            ]
           }
         }
       };
@@ -462,6 +528,11 @@ describe('exercises reducer', () => {
                   currentExpression: '2x'
                 }
               }
+            },
+            list: {
+              'c-id/g-id': [
+                { ...exercise }
+              ]
             }
           }
         }

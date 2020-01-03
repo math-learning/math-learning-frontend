@@ -297,12 +297,14 @@ export function updateExerciseAsProfessor({
       });
       if (result) {
         // TODO: handle
-        dispatch(updateExercise({ courseId, guideId, exerciseId, exercise }));
+        dispatch(updateExercise({
+          courseId, guideId, exerciseId, exercise
+        }));
       }
       dispatch(modalActions.hideModal());
     } catch (err) {
       // TODO: handle
       dispatch(modalActions.showError(err.message));
     }
-  }
+  };
 }
