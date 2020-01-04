@@ -44,7 +44,7 @@ export default class Guide extends Component {
       <Container className={styles.exerciseManagement}>
 
         <Typography align="center" variant="h6" className={styles.guideTitle}>
-          {guide.name}
+          Ejercicios ({guide.name})
         </Typography>
 
         <div className={styles.exerciseList}>

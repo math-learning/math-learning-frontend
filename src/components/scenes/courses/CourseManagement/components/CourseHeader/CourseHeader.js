@@ -38,6 +38,16 @@ export default function CourseHeader(props) {
             variant="h4"
             dontUpdate
           />
+          <EditableText
+            editable={isProfessor}
+            text={course.description}
+            onSave={(value) => onDescriptionChange({ courseId: course.courseId, newValue: value })}
+            textFieldSettings={{ fullWidth: true, multiline: true }}
+            textFieldClassNames={styles.courseDescriptionTextField}
+            typographyClassNames={styles.courseDescriptionTypography}
+            classNames={styles.courseDescription}
+            dontUpdate
+          />
         </Grid>
         { isProfessor
           && (
@@ -49,16 +59,6 @@ export default function CourseHeader(props) {
           )}
 
       </Grid>
-      <EditableText
-        editable={isProfessor}
-        text={course.description}
-        onSave={(value) => onDescriptionChange({ courseId: course.courseId, newValue: value })}
-        textFieldSettings={{ fullWidth: true, multiline: true }}
-        textFieldClassNames={styles.courseDescriptionTextField}
-        typographyClassNames={styles.courseDescriptionTypography}
-        classNames={styles.courseDescription}
-        dontUpdate
-      />
     </Container>
   );
 }

@@ -9,34 +9,55 @@ export default function Exercise(props) {
   const {
     exercise, onDeleteExercise, onEditExercise, isProfessor
   } = props;
+
+  let difficultyComponent = '';
+
+  if (exercise.difficulty === 'easy') {
+    difficultyComponent = (
+      <Typography className={styles.tcGreen}>
+        Facil
+      </Typography>
+    );
+  } else if (exercise.difficulty === 'medium') {
+    difficultyComponent = (
+      <Typography className={styles.tcYellow}>
+        Intermedio
+      </Typography>
+    );
+  } else if (exercise.difficulty === 'hard') {
+    difficultyComponent = (
+      <Typography className={styles.tcRed}>
+        Dificil
+      </Typography>
+    );
+  }
+
   return (
     <Card className={styles.card}>
       <div className={styles.displayLine}>
         <div className={styles.fullWidth}>
           <Grid container>
-            <Grid item xs={12} md={3}>
-              <Typography className={styles.tcGray1}>
-                  Nombre:
+            <Grid item xs={10}>
+              <Typography variant={'h5'} className={styles.tcGray1}>
                 {exercise.name}
               </Typography>
-              <Typography className={styles.tcGray1}>
-                  Dificultad:
-                {exercise.difficulty}
-              </Typography>
-              <Typography className={styles.tcGray1}>
-                  Tipo:
-                {exercise.type}
-              </Typography>
             </Grid>
-            <Grid item xs={12} md={9}>
-              <Typography className={styles.tcGray1}>Enunciado: Resuelva paso a paso</Typography>
-              <span>
-                <MathText content={exercise.exercise} className={styles.exercise} />
-              </span>
-
+            <Grid item xs={2}>
+              {difficultyComponent}
             </Grid>
-
           </Grid>
+
+
+          <Typography className={styles.tcGray1}>
+                  Tipo:
+            {exercise.type}
+          </Typography>
+
+          <Typography className={styles.tcGray1}>Enunciado: Resuelva paso a paso</Typography>
+          <span>
+            <MathText content={exercise.exercise} className={styles.exercise} />
+          </span>
+
         </div>
 
         { isProfessor
