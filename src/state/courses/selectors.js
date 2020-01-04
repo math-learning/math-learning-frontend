@@ -1,6 +1,17 @@
+import _ from 'lodash';
+
 export const getOwnCourses = (state) => state.courses.data.own.courses;
 export const isLoadingCourses = (state) => state.courses.data.own.isLoadingCourses;
-export const getCourseDetail = (state, id) => state.courses.data.detail[id];
-export const isLoadingCourseDetail = (state) => state.courses.data.isLoadingCourseDetail;
+export const getCourseDetail = (state, courseId) => state.courses.data.detail[courseId];
 export const getCoursesList = (state) => state.courses.data.list.courses;
 export const isLoadingCoursesList = (state) => state.courses.data.list.isLoadingCourses;
+
+export const isLoadingCourse = (state, courseId) => {
+  const course = state.courses.data.detail[courseId];
+  const isLoading = course && course.isLoading;
+
+  if (_.isNil(isLoading)) {
+    return true;
+  }
+  return isLoading;
+};
