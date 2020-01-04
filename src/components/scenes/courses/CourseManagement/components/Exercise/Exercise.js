@@ -2,12 +2,12 @@ import React from 'react';
 import { Card, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import MathText from '../../../../../MathText/MathText.container';
-import styles from './ExerciseManagement.module.sass';
+import styles from './Exercise.module.sass';
 import MoreVertOptions from '../Options';
 
-export default function ExerciseManagement(props) {
+export default function Exercise(props) {
   const {
-    exercise, onDeleteExercise, onEditExercise,
+    exercise, onDeleteExercise, onEditExercise, isProfessor
   } = props;
   return (
     <Card className={styles.card}>
@@ -39,21 +39,24 @@ export default function ExerciseManagement(props) {
           </Grid>
         </div>
 
-        <MoreVertOptions
-          options={[
-            {
-              text: 'Editar',
-              onClick: () => onEditExercise({
-                courseId: exercise.courseId,
-                guideId: exercise.guideId,
-                exerciseId: exercise.exerciseId,
-              })
-            }, {
-              text: 'Eliminar',
-              onClick: onDeleteExercise
-            }
-          ]}
-        />
+        { isProfessor
+          && (
+          <MoreVertOptions
+            options={[
+              {
+                text: 'Editar',
+                onClick: () => onEditExercise({
+                  courseId: exercise.courseId,
+                  guideId: exercise.guideId,
+                  exerciseId: exercise.exerciseId,
+                })
+              }, {
+                text: 'Eliminar',
+                onClick: onDeleteExercise
+              }
+            ]}
+          />
+          )}
 
       </div>
     </Card>

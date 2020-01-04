@@ -1,22 +1,22 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { CircularProgress } from '@material-ui/core';
-import styles from './CourseManagement.module.sass';
+import styles from './CoursePage.module.sass';
 import Content from '../../../common/containers/Content/Content';
 import ContentHeader from '../../../common/containers/Content/ContentHeader';
-import EditableGuidesLeftPanel from './components/EditableGuidesLeftPanel';
-import GuideManagement from './components/GuideManagement';
+import CourseLeftPanel from './components/CourseLeftPanel';
+import Guide from './components/Guide';
 import CourseUsersPage from './components/CourseUsersPage';
-import CourseInfoManagement from './components/CourseInfoManagement';
+import CourseHeader from './components/CourseHeader';
 
-export default class CourseManagement extends Component {
+export default class CoursePage extends Component {
   componentDidMount() { // TODO: improve it, the page is renderer more than one time
     const { courseId, getCourse, getGuides } = this.props;
     getCourse(courseId);
     getGuides(courseId);
   }
 
-  getHeader() { // TODO: maybe we can have the header per page
+  getHeader(isProfessor) { // TODO: maybe we can have the header per page
     const { course, isUserPath } = this.props;
 
     if (isUserPath) { // TODO: diego, test if you prefer it or not :)
@@ -25,16 +25,17 @@ export default class CourseManagement extends Component {
 
     return (
       <ContentHeader>
-        <CourseInfoManagement // TODO: this could be just CourseHeader with an isEditable property
+        <CourseHeader // TODO: this could be just CourseHeader with an isEditable property
           id={course.courseId}
           name={course.name}
           description={course.description}
+          isProfessor={isProfessor}
         />
       </ContentHeader>
     );
   }
 
-  getContent() {
+  getContent(isProfessor) {
     const { course, guideId, isUserPath } = this.props;
 
     if (isUserPath) {
@@ -42,12 +43,19 @@ export default class CourseManagement extends Component {
     }
 
     // TODO: maybe we can just send the course (or the guides)
-    return <GuideManagement courseId={course.courseId} guideId={guideId} />;
+    return (
+      <Guide
+        courseId={course.courseId}
+        guideId={guideId}
+        isProfessor={isProfessor}
+      />
+    );
   }
 
   render() {
     const {
-      course, guides, isLoadingCourseDetail, isLoadingGuides
+      course, guides, isLoadingCourseDetail, isLoadingGuides,
+      profile
     } = this.props;
     let guide;
 
@@ -58,6 +66,14 @@ export default class CourseManagement extends Component {
         </div>
       );
     }
+
+    if (!course) {
+      return '';
+    }
+
+    const isProfessor = course
+      && course.professors
+      && course.professors.some((professor) => professor.userId === profile.userId);
     if (!guide) {
       // TODO: 1 guia
     }
@@ -65,15 +81,16 @@ export default class CourseManagement extends Component {
     return (
       <div className={styles.root}>
         <Grid container>
-          <EditableGuidesLeftPanel
+          <CourseLeftPanel
+            isProfessor={isProfessor}
             courseId={course.courseId}
             courseName={course.name}
             guides={guides}
           />
 
           <Content hasLeftPanel>
-            {this.getHeader()}
-            {this.getContent()}
+            {this.getHeader(isProfessor)}
+            {this.getContent(isProfessor)}
           </Content>
         </Grid>
       </div>

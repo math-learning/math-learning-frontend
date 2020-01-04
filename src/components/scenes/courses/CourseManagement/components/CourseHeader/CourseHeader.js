@@ -1,13 +1,13 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import styles from './CourseInfoManagement.module.sass';
+import styles from './CourseHeader.module.sass';
 import EditableText from '../../../../../editable/EditableTitle/EditableText';
 import MoreVertOptions from '../Options';
 
-export default function CourseInfoManagement(props) {
+export default function CourseHeader(props) {
   const {
-    course, onNameChange, onDescriptionChange, onDeleteCourse
+    course, onNameChange, onDescriptionChange, onDeleteCourse, isProfessor
   } = props;
 
   // TODO validaciones de los campos
@@ -26,8 +26,9 @@ export default function CourseInfoManagement(props) {
   return (
     <Container className={styles.courseInfo}>
       <Grid container>
-        <Grid item xs={11}>
+        <Grid item xs={isProfessor ? 11 : 12}>
           <EditableText
+            editable={isProfessor}
             text={course.name}
             onSave={(value) => onNameChange({ courseId: course.courseId, newValue: value })}
             textFieldSettings={{ fullWidth: true }}
@@ -38,14 +39,18 @@ export default function CourseInfoManagement(props) {
             dontUpdate
           />
         </Grid>
-        <Grid item xs={1} className={styles.moreVertOptions}>
-          <MoreVertOptions
-            options={options}
-          />
-        </Grid>
+        { isProfessor
+          && (
+          <Grid item xs={1} className={styles.moreVertOptions}>
+            <MoreVertOptions
+              options={options}
+            />
+          </Grid>
+          )}
 
       </Grid>
       <EditableText
+        editable={isProfessor}
         text={course.description}
         onSave={(value) => onDescriptionChange({ courseId: course.courseId, newValue: value })}
         textFieldSettings={{ fullWidth: true, multiline: true }}

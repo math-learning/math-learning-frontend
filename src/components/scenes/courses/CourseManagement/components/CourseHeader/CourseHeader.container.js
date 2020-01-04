@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import CourseInfoManagement from './CourseInfoManagement';
+import CourseHeader from './CourseHeader';
 import { actions, selectors } from '../../../../../../state/courses';
 import * as modalActions from '../../../../../../state/modals/actions';
 import * as modalTypes from '../../../../../../state/modals/modalTypes';
@@ -37,4 +37,4 @@ const currentActions = (dispatch, { id }) => ({
 export default connect(
   currentState,
   currentActions,
-)(CourseInfoManagement);
+)(CourseHeader);

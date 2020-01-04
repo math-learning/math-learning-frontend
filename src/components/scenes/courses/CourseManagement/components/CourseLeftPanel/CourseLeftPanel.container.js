@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import { push } from 'connected-react-router';
 import configs from '../../../../../../configs/variables';
 import * as actions from '../../../../../../state/guides/actions';
-import EditableGuidesLeftPanel from './EditableGuidesLeftPanel';
+import CourseLeftPanel from './CourseLeftPanel';
 import { selectors } from '../../../../../../state/guides';
 import * as modalActions from '../../../../../../state/modals/actions';
 import * as modalTypes from '../../../../../../state/modals/modalTypes';
@@ -35,4 +35,4 @@ const currentActions = (dispatch, { courseId }) => ({
 export default connect(
   currentState,
   currentActions
-)(EditableGuidesLeftPanel);
+)(CourseLeftPanel);
