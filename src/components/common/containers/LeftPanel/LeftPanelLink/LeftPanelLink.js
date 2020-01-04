@@ -7,8 +7,8 @@ export default function LeftPanelLink(props) {
 
   return (
     <ListItem button onClick={onClick}>
-      <ListItemText className={styles.tcGray1}>
-        <Typography className={styles.secondaryText}>{text}</Typography>
+      <ListItemText>
+        <Typography>{text}</Typography>
       </ListItemText>
     </ListItem>
   );

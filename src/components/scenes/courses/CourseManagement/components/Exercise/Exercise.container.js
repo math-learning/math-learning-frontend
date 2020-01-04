@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ExerciseManagement from './ExerciseManagement';
+import Exercise from './Exercise';
 import * as actions from '../../../../../../state/exercises/actions';
 import * as modalTypes from '../../../../../../state/modals/modalTypes';
 import * as modalActions from '../../../../../../state/modals/actions';
@@ -26,4 +26,4 @@ const currentActions = (dispatch, { exercise }) => ({
 export default connect(
   null,
   currentActions,
-)(ExerciseManagement);
+)(Exercise);

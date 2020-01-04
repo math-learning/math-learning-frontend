@@ -9,14 +9,14 @@ import EditableText from '../../../abstract/Editable/Editable';
 import styles from '../../../../App.module.sass';
 import MoreVertOptions from '../../../scenes/courses/CourseManagement/components/Options';
 
-export default class EditableTextListItem extends EditableText {
+export default class TextListItem extends EditableText {
   constructor(props) {
     super(props, props.text);
   }
 
   render() {
     const {
-      onChangeValue, onDeleteElement, onListItemClick, text, editable
+      onChangeValue, onDeleteElement, onListItemClick, text, editable, classNames
     } = this.props;
     const { editing, value } = this.state;
     let textComponent;
@@ -46,7 +46,7 @@ export default class EditableTextListItem extends EditableText {
     const itemClicked = !this.state.editing ? onListItemClick : () => {};
 
     return (
-      <ListItem button={!this.state.editing} onClick={itemClicked}>
+      <ListItem button={!this.state.editing} onClick={itemClicked} className={classNames}>
         <ListItemText>
           {textComponent}
         </ListItemText>

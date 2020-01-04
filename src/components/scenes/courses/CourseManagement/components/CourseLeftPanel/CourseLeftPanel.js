@@ -1,13 +1,13 @@
 import React from 'react';
-import LeftPanelTitle from '../../../../../common/containers/LeftPanel/LeftPanelTitle';
-import LeftPanelEditableElements from '../../../../../common/containers/LeftPanel/LeftPanelEditableElements';
+import LeftPanelGuides from '../../../../../common/containers/LeftPanel/LeftPanelGuides';
 import LeftPanel from '../../../../../common/containers/LeftPanel/LeftPanel';
 import LeftPanelLink from '../../../../../common/containers/LeftPanel/LeftPanelLink';
-import styles from './EditableGuidesLeftPanel.module.sass';
+import styles from './CourseLeftPanel.module.sass';
 
-export default function EditableGuidesLeftPanel(props) { // TODO: can we rename this class to CourseLeftPanel?
+export default function CourseLeftPanel(props) {
   const {
-    courseId, guides, updateGuide, createGuide, selectGuide, deleteGuide, loadUsersPage
+    courseId, guides, updateGuide, createGuide, selectGuide, deleteGuide, loadUsersPage,
+    isProfessor
   } = props;
 
   const onElementUpdate = (element) => (value) => updateGuide({
@@ -38,10 +38,16 @@ export default function EditableGuidesLeftPanel(props) { // TODO: can we rename 
 
   return (
     <LeftPanel>
-      <LeftPanelLink text="Usuarios" onClick={loadUsersPage} />
-      <LeftPanelLink text="Estadisticas" onClick={() => {}} />
-      <LeftPanelTitle text="Guías" />
-      <LeftPanelEditableElements
+      { isProfessor
+        && (
+          <React.Fragment>
+            <LeftPanelLink text="Usuarios" onClick={loadUsersPage} />
+            <LeftPanelLink text="Estadisticas" onClick={() => {}} />
+          </React.Fragment>
+        )}
+      <LeftPanelLink text="Guias:" onClick={() => {}} />
+      <LeftPanelGuides
+        isProfessor={isProfessor}
         elements={processedGuides}
         onClickActionsById={onClickActionsById}
         onElementUpdate={onElementUpdate}

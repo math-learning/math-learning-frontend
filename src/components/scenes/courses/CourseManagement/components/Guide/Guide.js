@@ -2,10 +2,10 @@ import React, { Component } from 'react';
 import { CircularProgress, Container, Typography } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import ExerciseManagement from '../ExerciseManagement';
-import styles from '../ExerciseManagement/ExerciseManagement.module.sass'; // TODO: Usually one sass for one component
+import ExerciseManagement from '../Exercise';
+import styles from '../Exercise/Exercise.module.sass'; // TODO: Usually one sass for one component
 
-export default class GuideManagement extends Component {
+export default class Guide extends Component {
   componentDidMount() {
     this.updateExercises();
   }
@@ -24,7 +24,7 @@ export default class GuideManagement extends Component {
 
   render() {
     const {
-      courseId, guide, exercises, showAddExerciseModal, isLoadingExercises
+      courseId, guide, exercises, showAddExerciseModal, isLoadingExercises, isProfessor
     } = this.props;
     if (!guide) {
       // TODO
@@ -52,15 +52,17 @@ export default class GuideManagement extends Component {
             <ExerciseManagement
               key={exercise.exerciseId}
               exercise={exercise}
+              isProfessor={isProfessor}
             />
           ))}
         </div>
 
-        <div className={styles.fabContainer}>
+        { isProfessor &&
+          <div className={styles.fabContainer}>
           <Fab color="primary" aria-label="add" className={styles.fab}>
             <AddIcon onClick={() => showAddExerciseModal({ courseId, guideId })} />
           </Fab>
-        </div>
+        </div>}
 
       </Container>
     );

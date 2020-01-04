@@ -20,6 +20,7 @@ export default class EditableText extends Editable {
       classNames,
       variant,
       text,
+      editable,
     } = this.props;
     const { editing } = this.state;
     let textComponent;
@@ -65,7 +66,7 @@ export default class EditableText extends Editable {
     return (
       <div className={classNames}>
         {textComponent}
-        {iconComponent}
+        {editable && iconComponent}
       </div>
     );
   }

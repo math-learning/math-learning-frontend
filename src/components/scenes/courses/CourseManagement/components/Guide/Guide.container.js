@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
-import GuideManagement from './GuideManagement';
+import Guide from './Guide';
 import * as exercises from '../../../../../../state/exercises';
 import * as guides from '../../../../../../state/guides';
 import * as modalTypes from '../../../../../../state/modals/modalTypes';
@@ -21,4 +21,4 @@ const currentActions = (dispatch) => ({
 export default withRouter(connect(
   currentState,
   currentActions,
-)(GuideManagement));
+)(Guide));

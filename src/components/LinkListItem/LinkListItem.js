@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { ListItemIcon, ListItemText } from '@material-ui/core';
 import styles from '../../App.module.sass';
-import EditableText from '../common/containers/LeftPanel/EditableTextListItem';
+import EditableText from '../common/containers/LeftPanel/TextListItem';
 
 export default function LinkListItem(props) {
   const {

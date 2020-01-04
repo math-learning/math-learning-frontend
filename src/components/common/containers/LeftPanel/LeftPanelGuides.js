@@ -6,10 +6,10 @@ import { AddCircleOutline } from '@material-ui/icons';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import TextField from '@material-ui/core/TextField';
 import DoneIcon from '@material-ui/icons/Done';
-import EditableTextListItem from './EditableTextListItem';
-import styles from '../../../../App.module.sass';
+import TextListItem from './TextListItem';
+import styles from './LeftPanelGuides.module.sass';
 
-export default class LeftPanelEditableElements extends Component {
+export default class LeftPanelGuides extends Component {
   constructor(props) {
     super(props);
     this.creating = this.creating.bind(this);
@@ -44,7 +44,7 @@ export default class LeftPanelEditableElements extends Component {
   render() {
     const {
       elements, addElementText, onCreateElement, onElementUpdate, onClickActionsById,
-      onDeleteElement
+      onDeleteElement, isProfessor
     } = this.props;
     const { creatingNewElement, value } = this.state;
     const elementsToUse = elements || [];
@@ -55,7 +55,7 @@ export default class LeftPanelEditableElements extends Component {
       addElementComponent = (
         <React.Fragment>
           { creatingNewElement
-            ? (
+            && (
               <ListItem>
                 <ListItemText>
                   <TextField
@@ -71,7 +71,7 @@ export default class LeftPanelEditableElements extends Component {
                 </ListItemSecondaryAction>
               </ListItem>
             )
-            : ''}
+          }
           <ListItem button onClick={this.creating}>
             <IconButton>
               {/* TODO: we should remove the padding of the iconButton */}
@@ -88,16 +88,21 @@ export default class LeftPanelEditableElements extends Component {
     return (
       <React.Fragment>
         {elementsToUse.map((element) => (
-          <EditableTextListItem
-            editable
+          <TextListItem
+            classNames={styles.guide}
+            editable={isProfessor}
             key={element.id}
             text={element.name}
             onListItemClick={onClickActionsById[element.id]}
             onChangeValue={onElementUpdate(element)}
             onDeleteElement={onDeleteElement(element)}
+
           />
         ))}
-        {addElementComponent}
+        {
+          isProfessor &&
+          addElementComponent
+        }
         {/* TODO: we should hide the add component while the guide is being modified */}
       </React.Fragment>
     );
