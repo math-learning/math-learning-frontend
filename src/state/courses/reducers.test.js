@@ -119,6 +119,12 @@ describe('courses reducer', () => {
                   ...existingCourses
                 ],
                 isLoadingCourses: false
+              },
+              detail: {
+                [course.courseId]: {
+                  ...course,
+                  isLoading: false
+                }
               }
             }
           }

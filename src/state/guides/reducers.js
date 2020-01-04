@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import * as courseTypes from '../courses/actionTypes';
 import { courseGuideId } from '../../utils/idUtils';
 
 const initialState = {
@@ -8,6 +9,28 @@ const initialState = {
     isLoadingGuideDetail: false,
   },
 };
+
+function loadGuidesIntoState({ state, courseId, guides }) {
+  const detail = { ...state.data.detail };
+
+  guides.forEach((guide) => {
+    const key = courseGuideId({ courseId, guideId: guide.guideId });
+    detail[key] = guide;
+  });
+
+  return {
+    ...state,
+    data: {
+      ...state.data,
+      detail,
+      list: {
+        ...state.data.list,
+        [courseId]: guides
+      },
+      isLoadingGuides: false
+    }
+  };
+}
 
 export default function reducers(state = initialState, action) {
   switch (action.type) {
@@ -79,25 +102,11 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.GET_GUIDES_SUCCESS: {
-      const detail = { ...state.data.detail };
-
-      action.guides.forEach((guide) => {
-        const key = courseGuideId({ courseId: guide.courseId, guideId: guide.guideId });
-        detail[key] = guide;
+      return loadGuidesIntoState({
+        state,
+        courseId: action.courseId,
+        guides: action.guides
       });
-
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          detail,
-          list: {
-            ...state.data.list,
-            [action.courseId]: action.guides,
-          },
-          isLoadingGuides: false,
-        }
-      };
     }
 
     case types.DELETE_GUIDE_REQUEST: {
@@ -116,6 +125,26 @@ export default function reducers(state = initialState, action) {
           list,
         }
       };
+    }
+
+    case courseTypes.CREATE_COURSE_SUCCESS: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          list: {
+            ...state.data.list,
+            [action.course.courseId]: [],
+          },
+          isLoadingGuides: false,
+        }
+      };
+    }
+
+    case courseTypes.GET_COURSE_DETAIL_SUCCESS: {
+      const { guides, courseId } = action.course;
+
+      return loadGuidesIntoState({ state, courseId, guides });
     }
 
     default:
