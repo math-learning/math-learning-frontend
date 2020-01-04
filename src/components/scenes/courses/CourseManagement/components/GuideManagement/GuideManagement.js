@@ -3,7 +3,7 @@ import { CircularProgress, Container, Typography } from '@material-ui/core';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import ExerciseManagement from '../ExerciseManagement';
-import styles from '../ExerciseManagement/ExerciseManagement.module.sass';
+import styles from '../ExerciseManagement/ExerciseManagement.module.sass'; // TODO: Usually one sass for one component
 
 export default class GuideManagement extends Component {
   componentDidMount() {

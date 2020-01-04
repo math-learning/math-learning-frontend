@@ -1,7 +1,7 @@
 import React from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
-import styles from '../GuideManagement/GuideManagement.module.sass';
+import styles from './CourseInfoManagement.module.sass';
 import EditableText from '../../../../../editable/EditableTitle/EditableText';
 import MoreVertOptions from '../Options';
 
@@ -12,7 +12,7 @@ export default function CourseInfoManagement(props) {
 
   // TODO validaciones de los campos
 
-  const options = [
+  const options = [ // TODO: maybe I would use buttons instead of these actions. they are too hide
     {
       text: 'Publicar', // TODO: if published
       onClick: console.log
@@ -30,6 +30,7 @@ export default function CourseInfoManagement(props) {
           <EditableText
             text={course.name}
             onSave={(value) => onNameChange({ courseId: course.courseId, newValue: value })}
+            textFieldSettings={{ fullWidth: true }}
             textFieldClassNames={styles.courseNameTextField}
             typographyClassNames={styles.courseNameTypography}
             classNames={styles.courseName}

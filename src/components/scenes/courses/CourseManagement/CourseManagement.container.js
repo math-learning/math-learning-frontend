@@ -5,6 +5,8 @@ import * as guides from '../../../../state/guides';
 
 const currentState = (state, { match }) => {
   const { courseId, guideId } = match.params;
+  const isUserPath = /\/courses\/.+\/users/.test(match.path); // TODO: we should not take this approach
+
   return {
     course: courses.selectors.getCourseDetail(state, courseId),
     isLoadingCourseDetail: courses.selectors.isLoadingCourseDetail(state),
@@ -12,6 +14,7 @@ const currentState = (state, { match }) => {
     isLoadingGuides: guides.selectors.isLoadingGuides(state),
     courseId,
     guideId,
+    isUserPath
   };
 };
 

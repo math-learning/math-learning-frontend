@@ -74,7 +74,8 @@ export default class LeftPanelEditableElements extends Component {
             : ''}
           <ListItem button onClick={this.creating}>
             <IconButton>
-              <AddCircleOutline className={styles.tcGray1} />
+              {/* TODO: we should remove the padding of the iconButton */}
+              <AddCircleOutline fontSize="small" className={styles.tcGray1} />
             </IconButton>
             <ListItemText className={styles.tcGray1}>
               {addElementText}
@@ -97,6 +98,7 @@ export default class LeftPanelEditableElements extends Component {
           />
         ))}
         {addElementComponent}
+        {/* TODO: we should hide the add component while the guide is being modified */}
       </React.Fragment>
     );
   }
