@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
 import ExerciseModal from '../ExerciseModal/ExerciseModal';
 
-class CreateExerciseModal extends Component {
+class EditExerciseModal extends Component {
   constructor(props) {
     super(props);
-    this.onCreateExercise = this.onCreateExercise.bind(this);
+    this.onEditExercise = this.onEditExercise.bind(this);
   }
 
-  onCreateExercise = ({
+  onEditExercise = ({
     name,
     type,
     problemInput,
     difficulty,
     description
   }) => {
-    const { onCreateExercise, guideId, courseId } = this.props;
+    const {
+      onEditExercise, guideId, courseId, exerciseId
+    } = this.props;
 
-    onCreateExercise({
+    onEditExercise({
       guideId,
       courseId,
+      exerciseId,
       exercise: {
         name,
         type,
@@ -33,13 +36,13 @@ class CreateExerciseModal extends Component {
     const { onClose } = this.props;
     return (
       <ExerciseModal
+        title="Edició de ejercicio"
+        actionText="Editar ejercicio"
+        onActionClick={this.onEditExercise}
         onClose={onClose}
-        title="Creación de ejercicio"
-        actionText="Crear ejercicio"
-        onActionClick={this.onCreateExercise}
       />
     );
   }
 }
 
-export default CreateExerciseModal;
+export default EditExerciseModal;

@@ -17,7 +17,10 @@ const currentActions = (dispatch, { exercise }) => ({
       },
       actionFunction: actions.deleteExercise
     }));
-  }
+  },
+  onEditExercise: (payload) => {
+    dispatch(modalActions.loadModal(modalTypes.EDIT_EXERCISE_MODAL, payload));
+  },
 });
 
 export default connect(
