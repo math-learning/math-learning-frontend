@@ -16,7 +16,7 @@ export default class TextListItem extends EditableText {
 
   render() {
     const {
-      onChangeValue, onDeleteElement, onListItemClick, text, editable, classNames
+      onChangeValue, onDeleteElement, onListItemClick, text, editable
     } = this.props;
     const { editing, value } = this.state;
     let textComponent;

@@ -70,8 +70,7 @@ export default class LeftPanelGuides extends Component {
                   </IconButton>
                 </ListItemSecondaryAction>
               </ListItem>
-            )
-          }
+            )}
           <ListItem button onClick={this.creating}>
             <IconButton>
               {/* TODO: we should remove the padding of the iconButton */}
@@ -100,8 +99,8 @@ export default class LeftPanelGuides extends Component {
           />
         ))}
         {
-          isProfessor &&
-          addElementComponent
+          isProfessor
+          && addElementComponent
         }
         {/* TODO: we should hide the add component while the guide is being modified */}
       </React.Fragment>

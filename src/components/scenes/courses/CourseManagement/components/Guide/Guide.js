@@ -57,12 +57,14 @@ export default class Guide extends Component {
           ))}
         </div>
 
-        { isProfessor &&
+        { isProfessor
+          && (
           <div className={styles.fabContainer}>
-          <Fab color="primary" aria-label="add" className={styles.fab}>
-            <AddIcon onClick={() => showAddExerciseModal({ courseId, guideId })} />
-          </Fab>
-        </div>}
+            <Fab color="primary" aria-label="add" className={styles.fab}>
+              <AddIcon onClick={() => showAddExerciseModal({ courseId, guideId })} />
+            </Fab>
+          </div>
+          )}
 
       </Container>
     );
