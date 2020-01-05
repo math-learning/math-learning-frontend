@@ -184,11 +184,16 @@ export function deleteExerciseStep({
 
 export function getExercises({ courseId, guideId }) {
   return async (dispatch, getState) => {
-    dispatch(getExercisesRequest());
-    const state = getState();
-    const context = commonSelectors.context(state);
-    const exercises = await exercisesClient.getExercises({ context, courseId, guideId });
-    dispatch(getExercisesSuccess({ courseId, guideId, exercises }));
+    try {
+      dispatch(getExercisesRequest());
+      const state = getState();
+      const context = commonSelectors.context(state);
+      const exercises = await exercisesClient.getExercises({ context, courseId, guideId });
+      dispatch(getExercisesSuccess({ courseId, guideId, exercises }));
+    } catch (err) {
+      // TODO: handle
+      alert('ha ocurrido un error inesperado, por favor vuelve a intentar luego');
+    }
   };
 }
 

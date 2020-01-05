@@ -76,12 +76,18 @@ export function updateGuide({
 
 export function getGuides({ courseId }) {
   return async (dispatch, getState) => {
-    dispatch(getGuidesRequest());
-    const state = getState();
-    const context = commonSelectors.context(state);
+    try {
+      dispatch(getGuidesRequest());
+      const state = getState();
+      const context = commonSelectors.context(state);
 
-    const guides = await guidesClient.getGuides({ context, courseId });
-    dispatch(getGuidesSuccess({ courseId, guides }));
+      const guides = await guidesClient.getGuides({ context, courseId });
+      dispatch(getGuidesSuccess({ courseId, guides }));
+    } catch (err) {
+      // TODO: handle
+      console.log(err);
+      alert('Ha ocurrido un error inesperado');
+    }
   };
 }
 
@@ -93,13 +99,19 @@ export function selectGuide({ courseId, guideId }) {
 
 export function deleteGuide({ courseId, guideId }) {
   return async (dispatch, getState) => {
-    dispatch(deleteGuideRequest(courseId, guideId));
-    const state = getState();
-    const context = commonSelectors.context(state);
-    const response = await guidesClient.deleteGuide({ context, courseId, guideId });
-    if (response) {
+    try {
+      dispatch(deleteGuideRequest(courseId, guideId));
+      const state = getState();
+      const context = commonSelectors.context(state);
+      const response = await guidesClient.deleteGuide({ context, courseId, guideId });
+      if (response) {
+        // TODO: handle
+      }
+      dispatch(modalActions.hideModal());
+    } catch (err) {
       // TODO: handle
+      console.log(err);
+      alert('Ha ocurrido un error inesperado');
     }
-    dispatch(modalActions.hideModal());
   };
 }

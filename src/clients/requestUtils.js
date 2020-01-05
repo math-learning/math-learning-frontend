@@ -7,9 +7,11 @@ const processResponse = async (response) => {
 
     throw processedError;
   }
+
   if (response.status !== 204) {
     return response.json();
   }
+
   return Promise.resolve();
 };
 

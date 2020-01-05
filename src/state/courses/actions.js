@@ -82,20 +82,32 @@ export function update({ courseId, updatedValues }) {
 
 export function getCourses() {
   return async (dispatch, getState) => {
-    const state = getState();
-    const context = commonSelectors.context(state);
-    const courses = await coursesClient.getCourses({ context });
-    dispatch(getCoursesSuccess({ courses }));
+    try {
+      const state = getState();
+      const context = commonSelectors.context(state);
+      const courses = await coursesClient.getCourses({ context });
+      dispatch(getCoursesSuccess({ courses }));
+    } catch (err) {
+      // TODO: handle
+      console.log(err);
+      alert('Ha ocurrido un error inesperado');
+    }
   };
 }
 
 export function getCourse({ courseId }) {
   return async (dispatch, getState) => {
-    const state = getState();
-    const context = commonSelectors.context(state);
-    const course = await coursesClient.getCourse({ context, courseId });
+    try {
+      const state = getState();
+      const context = commonSelectors.context(state);
+      const course = await coursesClient.getCourse({ context, courseId });
 
-    dispatch(getCourseSuccess({ course }));
+      dispatch(getCourseSuccess({ course }));
+    } catch (err) {
+      // TODO: handle
+      console.log(err);
+      alert('Ha ocurrido un error inesperado');
+    }
   };
 }
 
@@ -141,12 +153,17 @@ export function searchCourses({ search }) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
+    try {
+      dispatch(listCoursesRequest());
 
-    dispatch(listCoursesRequest());
+      const courses = await coursesClient.searchCourses({ context, search });
 
-    const courses = await coursesClient.searchCourses({ context, search });
-
-    dispatch(listCoursesSuccess({ courses }));
+      dispatch(listCoursesSuccess({ courses }));
+    } catch (err) {
+      // TODO: handle
+      console.log(err);
+      alert('Ha ocurrido un error inesperado');
+    }
   };
 }
 
