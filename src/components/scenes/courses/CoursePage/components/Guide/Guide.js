@@ -56,7 +56,7 @@ export default class Guide extends Component {
                 variant="outlined"
                 color="primary"
               >
-                Crear nueva guia
+                Crear nuevo ejercicio
               </Button>
             </div>
           )}

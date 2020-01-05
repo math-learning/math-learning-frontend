@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import * as commonTypes from '../common/actionTypes';
 
 const initialState = {
   data: {
@@ -158,6 +159,11 @@ export default function reducers(state = initialState, action) {
           }
         }
       };
+    }
+
+    case commonTypes.LOGOUT_SUCCESS: {
+      // cleaning the state
+      return initialState;
     }
 
     default:

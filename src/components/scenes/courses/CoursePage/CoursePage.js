@@ -67,6 +67,7 @@ export default class CoursePage extends Component {
 
     if (isLoadingCourse) {
       return (
+        // TODO: align to the center
         <div className={styles.loadingRoot}>
           <CircularProgress disableShrink />
         </div>

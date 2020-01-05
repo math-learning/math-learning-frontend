@@ -1,5 +1,6 @@
-import * as _ from 'lodash';
+import _ from 'lodash';
 import * as types from './actionTypes';
+import * as commonTypes from '../common/actionTypes';
 import * as idUtils from '../../utils/idUtils';
 
 const initialState = {
@@ -262,23 +263,45 @@ export default function reducers(state = initialState, action) {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const detail = { ...state.data.detail[courseGuideId] };
       delete detail[action.exerciseId];
-      let list = [...state.data.list[courseGuideId]];
-      list = list.filter((exercise) => exercise.exerciseId !== action.exerciseId);
+
+      const list = state.data.list[courseGuideId].filter((exercise) => exercise.exerciseId !== action.exerciseId);
 
       return {
         ...state,
         data: {
           ...state.data,
           detail: {
-            [courseGuideId]: {
-              ...detail
-            }
+            ...state.data.detail,
+            [courseGuideId]: detail
           },
           list: {
-            [courseGuideId]: [...list]
+            ...state.data.list,
+            [courseGuideId]: list
           }
         }
       };
+    }
+
+    case types.REMOVE_EXERCISE_DETAIL: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const detail = { ...state.data.detail[courseGuideId] };
+      delete detail[action.exerciseId];
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail: {
+            ...state.data.detail,
+            [courseGuideId]: detail
+          }
+        }
+      };
+    }
+
+    case commonTypes.LOGOUT_SUCCESS: {
+      // cleaning the state
+      return initialState;
     }
 
     case types.DELETE_EXERCISE_SUCCESS:

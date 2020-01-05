@@ -85,6 +85,25 @@ const removeExerciseStep = async ({
   return requestUtils.processResponse(response);
 };
 
+const addUserToCourse = async ({
+  context,
+  courseId,
+  userId
+}) => {
+  const profileUrl = `${url}/courses/${courseId}/users`;
+
+  const response = await fetch(profileUrl, {
+    method: 'post',
+    body: JSON.stringify({ userId }),
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 const updateExercise = async ({
   context,
   courseId,
@@ -157,6 +176,7 @@ const deleteExercise = async ({
 };
 
 export default {
+  addUserToCourse,
   createExercise,
   getExercises,
   getExercise,

@@ -7,7 +7,7 @@ import MoreVertOptions from '../Options';
 
 export default function Exercise(props) {
   const {
-    exercise, onDeleteExercise, onEditExercise, isProfessor
+    exercise, onDeleteExercise, onEditExercise, onClickExercise, isProfessor
   } = props;
 
   let difficultyComponent = '';
@@ -33,7 +33,7 @@ export default function Exercise(props) {
   }
 
   return (
-    <Card className={styles.card}>
+    <Card onClick={onClickExercise} className={styles.card}>
       <div className={styles.displayLine}>
         <div className={styles.fullWidth}>
           <Grid container className={styles.nameAndDifficulty}>
@@ -61,21 +61,23 @@ export default function Exercise(props) {
 
         { isProfessor
           && (
-          <MoreVertOptions
-            options={[
-              {
-                text: 'Editar',
-                onClick: () => onEditExercise({
-                  courseId: exercise.courseId,
-                  guideId: exercise.guideId,
-                  exerciseId: exercise.exerciseId,
-                })
-              }, {
-                text: 'Eliminar',
-                onClick: onDeleteExercise
-              }
-            ]}
-          />
+            <div onClick={(event) => event.stopPropagation()}>
+              <MoreVertOptions
+                options={[
+                  {
+                    text: 'Editar',
+                    onClick: () => onEditExercise({
+                      courseId: exercise.courseId,
+                      guideId: exercise.guideId,
+                      exerciseId: exercise.exerciseId,
+                    })
+                  }, {
+                    text: 'Eliminar',
+                    onClick: onDeleteExercise
+                  }
+                ]}
+              />
+            </div>
           )}
 
       </div>
