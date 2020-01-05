@@ -2,8 +2,6 @@ import React from 'react';
 import { Card, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import MathText from '../../../../../MathText/MathText.container';
-// eslint-disable-next-line no-unused-vars
-import overrideImport from './overrideMathTextStyles.css';
 import styles from './Exercise.module.sass';
 import MoreVertOptions from '../Options';
 
@@ -39,9 +37,15 @@ export default function Exercise(props) {
       <div className={styles.displayLine}>
         <div className={styles.fullWidth}>
           <Grid container className={styles.nameAndDifficulty}>
-            <Grid item xs={9}>
+            {/* TODO: responsive */}
+            <Grid item xs={5}>
               <Typography variant="h5" className={styles.tcGray1}>
                 {exercise.name}
+              </Typography>
+            </Grid>
+            <Grid item xs={4}>
+              <Typography className={styles.type}>
+                Tipo: {exercise.type}
               </Typography>
             </Grid>
             <Grid item xs={3}>
@@ -49,11 +53,7 @@ export default function Exercise(props) {
             </Grid>
           </Grid>
 
-          <Typography className={styles.type}>
-                  Tipo: {exercise.type}
-          </Typography>
-
-          <Typography className={styles.tcGray1}>Enunciado: Resuelva paso a paso</Typography>
+          <Typography className={styles.problemInputTitle}>Enunciado: Resuelva paso a paso</Typography>
 
           <MathText content={exercise.problemInput} className={styles.exercise} />
 
