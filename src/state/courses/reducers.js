@@ -11,8 +11,7 @@ const initialState = {
       courses: [],
       isLoadingCourses: true
     },
-    detail: {},
-    isLoadingCourseDetail: true,
+    detail: {}
   },
 };
 
@@ -32,14 +31,17 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.GET_COURSE_DETAIL_SUCCESS: {
-      const detail = { ...state.data.detail };
-      detail[action.course.courseId] = action.course;
       return {
         ...state,
         data: {
           ...state.data,
-          detail,
-          isLoadingCourseDetail: false,
+          detail: {
+            ...state.data.detail,
+            [action.course.courseId]: {
+              ...action.course,
+              isLoading: false
+            }
+          }
         }
       };
     }
@@ -55,16 +57,6 @@ export default function reducers(state = initialState, action) {
         data: {
           ...state.data,
           detail,
-        }
-      };
-    }
-
-    case types.COURSE_DETAIL_REQUEST: {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          isLoadingCourseDetail: true,
         }
       };
     }
@@ -132,6 +124,13 @@ export default function reducers(state = initialState, action) {
               action.course,
               ...state.data.own.courses
             ]
+          },
+          detail: {
+            ...state.data.detail,
+            [action.course.courseId]: {
+              ...action.course,
+              isLoading: false
+            }
           }
         }
       };
@@ -144,7 +143,7 @@ export default function reducers(state = initialState, action) {
       ownCourses = ownCourses.filter((course) => course.courseId !== action.courseId);
       listCourses = listCourses.filter((course) => course.courseId !== action.courseId);
       delete detail[action.courseId];
-      console.log(action);
+
       return {
         ...state,
         data: {

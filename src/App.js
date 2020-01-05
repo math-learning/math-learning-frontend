@@ -18,7 +18,7 @@ import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
 import StatisticsPage from './components/StatisticsPage/StatisticsPage';
 import history from './store/history';
-import CourseManagement from './components/scenes/courses/CourseManagement';
+import CourseManagement from './components/scenes/courses/CoursePage';
 
 const useStyles = makeStyles(() => ({
   mainContent: {

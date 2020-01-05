@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { CircularProgress, Container, Typography } from '@material-ui/core';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
+import Button from '@material-ui/core/Button'; // TODO: Usually one sass for one component
 import ExerciseManagement from '../Exercise';
-import styles from '../Exercise/Exercise.module.sass'; // TODO: Usually one sass for one component
+import styles from './Guide.module.sass';
 
 export default class Guide extends Component {
   componentDidMount() {
@@ -41,11 +40,27 @@ export default class Guide extends Component {
     }
 
     return (
-      <Container className={styles.exerciseManagement}>
 
-        <Typography align="center" variant="h6" className={styles.guideTitle}>
-          {guide.name}
-        </Typography>
+      <Container className={styles.exerciseInfo}>
+
+        <div className={styles.exercisesHeader}>
+          <Typography align="center" variant="h6" className={styles.guideTitle}>
+            Ejercicios ({guide.name})
+          </Typography>
+          { isProfessor
+          && (
+            <div className={styles.addButton}>
+              <Button
+                onClick={() => showAddExerciseModal({ courseId, guideId })}
+                id="create-new-course"
+                variant="outlined"
+                color="primary"
+              >
+                Crear nuevo ejercicio
+              </Button>
+            </div>
+          )}
+        </div>
 
         <div className={styles.exerciseList}>
           {exercises.map((exercise) => (
@@ -57,16 +72,8 @@ export default class Guide extends Component {
           ))}
         </div>
 
-        { isProfessor
-          && (
-          <div className={styles.fabContainer}>
-            <Fab color="primary" aria-label="add" className={styles.fab}>
-              <AddIcon onClick={() => showAddExerciseModal({ courseId, guideId })} />
-            </Fab>
-          </div>
-          )}
-
       </Container>
+
     );
   }
 }

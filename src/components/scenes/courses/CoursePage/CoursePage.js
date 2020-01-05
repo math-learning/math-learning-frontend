@@ -10,10 +10,16 @@ import CourseUsersPage from './components/CourseUsersPage';
 import CourseHeader from './components/CourseHeader';
 
 export default class CoursePage extends Component {
-  componentDidMount() { // TODO: improve it, the page is renderer more than one time
-    const { courseId, getCourse, getGuides } = this.props;
-    getCourse(courseId);
-    getGuides(courseId);
+  componentDidMount() {
+    const {
+      courseId,
+      isLoadingCourse,
+      getCourse
+    } = this.props;
+
+    if (isLoadingCourse) {
+      getCourse(courseId);
+    }
   }
 
   getHeader(isProfessor) { // TODO: maybe we can have the header per page
@@ -54,12 +60,12 @@ export default class CoursePage extends Component {
 
   render() {
     const {
-      course, guides, isLoadingCourseDetail, isLoadingGuides,
+      course, guides, isLoadingCourse,
       profile
     } = this.props;
     let guide;
 
-    if (isLoadingCourseDetail || isLoadingGuides) {
+    if (isLoadingCourse) {
       return (
         <div className={styles.loadingRoot}>
           <CircularProgress disableShrink />
@@ -74,6 +80,7 @@ export default class CoursePage extends Component {
     const isProfessor = course
       && course.professors
       && course.professors.some((professor) => professor.userId === profile.userId);
+
     if (!guide) {
       // TODO: 1 guia
     }
