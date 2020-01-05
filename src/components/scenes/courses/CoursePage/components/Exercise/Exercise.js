@@ -33,7 +33,6 @@ export default function Exercise(props) {
       </Typography>
     );
   }
-  console.log(exercise)
 
   return (
     <Card className={styles.card}>
@@ -41,7 +40,7 @@ export default function Exercise(props) {
         <div className={styles.fullWidth}>
           <Grid container className={styles.nameAndDifficulty}>
             <Grid item xs={9}>
-              <Typography variant={'h5'} className={styles.tcGray1}>
+              <Typography variant="h5" className={styles.tcGray1}>
                 {exercise.name}
               </Typography>
             </Grid>
@@ -50,7 +49,6 @@ export default function Exercise(props) {
             </Grid>
           </Grid>
 
-
           <Typography className={styles.type}>
                   Tipo: {exercise.type}
           </Typography>
@@ -58,7 +56,6 @@ export default function Exercise(props) {
           <Typography className={styles.tcGray1}>Enunciado: Resuelva paso a paso</Typography>
 
           <MathText content={exercise.problemInput} className={styles.exercise} />
-
 
         </div>
 
