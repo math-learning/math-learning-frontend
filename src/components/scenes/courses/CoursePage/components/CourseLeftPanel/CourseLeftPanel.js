@@ -1,4 +1,5 @@
 import React from 'react';
+import ListItem from '@material-ui/core/ListItem';
 import LeftPanelGuides from '../../../../../common/containers/LeftPanel/LeftPanelGuides';
 import LeftPanel from '../../../../../common/containers/LeftPanel/LeftPanel';
 import LeftPanelLink from '../../../../../common/containers/LeftPanel/LeftPanelLink';
@@ -45,7 +46,7 @@ export default function CourseLeftPanel(props) {
             <LeftPanelLink text="Estadisticas" onClick={() => {}} />
           </React.Fragment>
         )}
-      <LeftPanelLink text="Guias:" onClick={() => {}} />
+      <ListItem> {'Guias:'} </ListItem>
       <LeftPanelGuides
         isProfessor={isProfessor}
         elements={processedGuides}

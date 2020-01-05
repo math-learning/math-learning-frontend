@@ -7,7 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
 import EditableText from '../../../abstract/Editable/Editable';
 import styles from '../../../../App.module.sass';
-import MoreVertOptions from '../../../scenes/courses/CourseManagement/components/Options';
+import MoreVertOptions from '../../../scenes/courses/CoursePage/components/Options';
 
 export default class TextListItem extends EditableText {
   constructor(props) {
