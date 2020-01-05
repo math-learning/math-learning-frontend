@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
+import { push } from 'connected-react-router';
 import Exercise from './Exercise';
+import configs from '../../../../../../configs/variables';
 import * as actions from '../../../../../../state/exercises/actions';
 import * as modalTypes from '../../../../../../state/modals/modalTypes';
 import * as modalActions from '../../../../../../state/modals/actions';
@@ -20,6 +22,10 @@ const currentActions = (dispatch, { exercise }) => ({
   },
   onEditExercise: (payload) => {
     dispatch(modalActions.loadModal(modalTypes.EDIT_EXERCISE_MODAL, payload));
+  },
+  onClickExercise: async () => {
+    // TODO: quizás sea mejor una accion que hacer esto ?
+    await dispatch(push(configs.pathGenerators.exercise(exercise)));
   },
 });
 

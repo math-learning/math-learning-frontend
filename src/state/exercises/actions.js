@@ -52,6 +52,17 @@ export function removeExerciseStep({
   };
 }
 
+export function removeExerciseDetail({
+  courseId, guideId, exerciseId
+}) {
+  return {
+    type: types.REMOVE_EXERCISE_DETAIL,
+    courseId,
+    guideId,
+    exerciseId
+  };
+}
+
 export function exerciseStepValid({
   courseId, guideId, exerciseId, currentExpression
 }) {
@@ -292,14 +303,16 @@ export function updateExerciseAsProfessor({
       const state = getState();
       const context = commonSelectors.context(state);
       // TODO
-      const result = await exercisesClient.updateExerciseAsProfessor({
+      const updatedExercise = await exercisesClient.updateExerciseAsProfessor({
         context, courseId, guideId, exerciseId, exercise
       });
-      if (result) {
+      if (updatedExercise) {
         // TODO: handle
         dispatch(updateExercise({
           courseId, guideId, exerciseId, exercise
         }));
+        // TODO: check if it is the best approach
+        dispatch(removeExerciseDetail({ courseId, guideId, exerciseId }));
       }
       dispatch(modalActions.hideModal());
     } catch (err) {

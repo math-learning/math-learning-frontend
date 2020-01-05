@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import * as commonTypes from '../common/actionTypes';
 import { courseGuideId } from '../../utils/idUtils';
 
 const initialState = {
@@ -116,6 +117,11 @@ export default function reducers(state = initialState, action) {
           list,
         }
       };
+    }
+
+    case commonTypes.LOGOUT_SUCCESS: {
+      // cleaning the state
+      return initialState;
     }
 
     default:

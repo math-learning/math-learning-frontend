@@ -25,6 +25,7 @@ const configs = {
   },
   pathGenerators: {
     course: (courseId) => `/courses/${courseId}`,
+    exercise: ({ courseId, guideId, exerciseId }) => `/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}`,
     courseGuide: (courseId, guideId) => `/courses/${courseId}/guides/${guideId}`,
     courseUsers: (courseId) => `/courses/${courseId}/users`,
   },

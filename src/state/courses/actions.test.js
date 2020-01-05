@@ -6,6 +6,7 @@ import * as types from './actionTypes';
 import * as actions from './actions';
 import * as modalTypes from '../modals/actionTypes';
 import coursesClient from '../../clients/coursesClient';
+import exercisesClient from '../../clients/exercisesClient';
 
 const mockStore = configureMockStore([thunk]);
 
@@ -144,6 +145,9 @@ describe('courses actions', () => {
         ];
         sandbox
           .stub(coursesClient, 'addUserToCourse')
+          .callsFake(() => {});
+        sandbox
+          .stub(exercisesClient, 'addUserToCourse')
           .callsFake(() => {});
 
         return store.dispatch(actions.addUserToCourse({

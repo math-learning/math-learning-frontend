@@ -8,6 +8,7 @@ import configs from '../../configs/variables';
 import * as common from '../common';
 
 import coursesClient from '../../clients/coursesClient';
+import exercisesClient from '../../clients/exercisesClient';
 
 export function getCoursesSuccess({ courses }) {
   return {
@@ -116,16 +117,23 @@ export function addUserToCourse({
         userId,
         role
       });
-
-      dispatch(joinCourseSuccess({ course }));
-      dispatch(modalActions.hideModal());
-
-      await dispatch(push(configs.pathGenerators.course(course.courseId)));
     } catch (err) {
       if (err.status === 409) {
         dispatch(modalActions.showError(messages.error.wrongPassword));
       }
     }
+
+    // TODO: we should do it in a XAPI
+    await exercisesClient.addUserToCourse({ // TODO: we should execute this action later (if it fails)
+      context,
+      courseId: course.courseId,
+      userId
+    });
+
+    dispatch(joinCourseSuccess({ course }));
+    dispatch(modalActions.hideModal());
+
+    await dispatch(push(configs.pathGenerators.course(course.courseId)));
   };
 }
 
