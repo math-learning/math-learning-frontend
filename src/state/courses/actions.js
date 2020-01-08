@@ -170,6 +170,29 @@ export function createCourse({ course }) {
   };
 }
 
+export function publishCourse({ courseId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    try {
+      // TODO: do this action more friendly
+      await coursesClient.publishCourse({ context, courseId });
+
+      const newCourse = {
+        ...state.courses.data.detail[courseId],
+        courseStatus: 'published',
+      };
+      dispatch(updateCourseSuccess({ course: newCourse }));
+    } catch (e) {
+      // TODO: handle
+      console.log(e);
+    } finally {
+      dispatch(modalActions.hideModal());
+    }
+  };
+}
+
 export function deleteCourse({ courseId }) {
   return async (dispatch, getState) => {
     const state = getState();

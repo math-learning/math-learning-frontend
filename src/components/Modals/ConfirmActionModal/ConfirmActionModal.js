@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Typography, Button } from '@material-ui/core';
 
 import Modal from '../Modal';
@@ -7,6 +8,7 @@ import styles from './ConfirmActionModal.module.sass';
 export default function ConfirmActionModal(props) {
   const {
     title,
+    actionType,
     explanation,
     acceptButton,
     onClose,
@@ -15,7 +17,7 @@ export default function ConfirmActionModal(props) {
 
   return (
     <Modal className={styles.modal} onClose={onClose}>
-      <div className={styles.title}>
+      <div className={classNames(styles.title, styles[actionType || 'warning'])}>
         <Typography id="modal-title" variant="h4">
           {title}
         </Typography>
@@ -44,7 +46,7 @@ export default function ConfirmActionModal(props) {
             Cancelar
           </Button>
           <Button
-            color="secondary"
+            color={actionType === 'ask' ? 'primary' : 'secondary'}
             variant="outlined"
             id="accept-action"
             onClick={onAcceptAction}

@@ -49,10 +49,14 @@ export default class CoursePage extends Component {
     }
 
     // TODO: maybe we can just send the course (or the guides)
+    // TODO: change the guide
+    const firstGuide = course.guides[0];
+    const guideIdToRender = guideId || (firstGuide && firstGuide.guideId);
+
     return (
       <Guide
         courseId={course.courseId}
-        guideId={guideId}
+        guideId={guideIdToRender}
         isProfessor={isProfessor}
       />
     );
@@ -74,7 +78,7 @@ export default class CoursePage extends Component {
       );
     }
 
-    if (!course) {
+    if (!course) { // TODO: we should not have this state
       return '';
     }
 
