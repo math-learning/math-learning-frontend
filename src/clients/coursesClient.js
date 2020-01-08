@@ -107,6 +107,21 @@ const createCourse = async ({
   return requestUtils.processResponse(response);
 };
 
+const publishCourse = async ({
+  context,
+  courseId
+}) => {
+  const updateUrl = `${url}/courses/${courseId}/publish`;
+  const response = await fetch(updateUrl, {
+    method: 'PUT',
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+  return requestUtils.processResponse(response);
+};
+
 const deleteCourse = async ({
   context,
   courseId
@@ -127,6 +142,7 @@ export default {
   getCourses,
   getCourse,
   addUserToCourse,
+  publishCourse,
   searchCourses,
   updateCourse,
   deleteCourse,

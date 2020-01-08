@@ -31,7 +31,19 @@ const currentActions = (dispatch, { id }) => ({
       },
       actionFunction: actions.deleteCourse
     }));
-  }
+  },
+  onPublishCourse: () => {
+    dispatch(modalActions.loadModal(modalTypes.CONFIRM_ACTION_MODAL, {
+      title: '¿ Desear publicar el curso ?',
+      explanation: 'Al hacerlo quedará publicado para que los alumnos se puedan unir',
+      acceptButton: 'Publicar curso',
+      actionProps: {
+        courseId: id,
+      },
+      actionType: 'ask',
+      actionFunction: actions.publishCourse
+    }));
+  },
 });
 
 export default connect(

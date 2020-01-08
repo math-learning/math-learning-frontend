@@ -7,7 +7,7 @@ import MoreVertOptions from '../Options';
 
 export default function CourseHeader(props) {
   const {
-    course, onNameChange, onDescriptionChange, onDeleteCourse, isProfessor
+    course, onNameChange, onDescriptionChange, onDeleteCourse, onPublishCourse, isProfessor
   } = props;
 
   // TODO validaciones de los campos
@@ -15,7 +15,7 @@ export default function CourseHeader(props) {
   const options = [ // TODO: maybe I would use buttons instead of these actions. they are too hide
     {
       text: 'Publicar', // TODO: if published
-      onClick: console.log
+      onClick: onPublishCourse
     },
     {
       text: 'Eliminar',
