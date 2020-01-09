@@ -115,15 +115,18 @@ export default function reducers(state = initialState, action) {
       const key = courseGuideId({ courseId: action.courseId, guideId: action.guideId });
       delete detail[key];
 
-      let list = [...state.data.list[action.courseId]];
-      console.log(list);
-      list = list.filter((guide) => guide.courseId !== action.guideId && guide.guideId !== action.guideId);
+      const newList = state.data.list[action.courseId]
+        .filter((guide) => guide.courseId !== action.guideId && guide.guideId !== action.guideId);
+
       return {
         ...state,
         data: {
           ...state.data,
           detail,
-          list,
+          list: {
+            ...state.data.list,
+            [action.courseId]: newList
+          }
         }
       };
     }

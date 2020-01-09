@@ -39,13 +39,10 @@ export default function CourseLeftPanel(props) {
 
   return (
     <LeftPanel>
-      { isProfessor
-        && (
-          <React.Fragment>
-            <LeftPanelLink text="Usuarios" onClick={loadUsersPage} />
-            <LeftPanelLink text="Estadisticas" onClick={() => {}} />
-          </React.Fragment>
-        )}
+      <LeftPanelLink text="Usuarios" onClick={loadUsersPage} />
+      { isProfessor && (
+        <LeftPanelLink text="Estadisticas" onClick={() => {}} />
+      )}
       <ListItem> {'Guias:'} </ListItem>
       <LeftPanelGuides
         isProfessor={isProfessor}

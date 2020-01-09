@@ -120,6 +120,8 @@ export function addUserToCourse({
     } catch (err) {
       if (err.status === 409) {
         dispatch(modalActions.showError(messages.error.wrongPassword));
+
+        return;
       }
     }
 
