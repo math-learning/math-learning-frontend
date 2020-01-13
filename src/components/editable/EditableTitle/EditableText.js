@@ -11,24 +11,40 @@ export default class EditableText extends Editable {
     super(props, props.text);
   }
 
+  handleUpdateValue = () => {
+    const { valueBeingEdited } = this.state;
+    const { onSave } = this.props;
+
+    if (valueBeingEdited) {
+      this.valueChanged();
+      onSave(valueBeingEdited);
+    }
+  }
+
+  handlePressKeyDone = (event) => {
+    if (event.which === 13) {
+      this.handleUpdateValue();
+    }
+  }
+
   render() {
     const {
-      onSave,
       textFieldClassNames,
       typographyClassNames,
       textFieldSettings,
       classNames,
       variant,
       text,
-      editable,
+      isEditable,
     } = this.props;
-    const { editing } = this.state;
+    const { isEditing } = this.state;
+
     let textComponent;
     let iconComponent;
 
     const fieldSettings = textFieldSettings || {};
 
-    if (editing) {
+    if (isEditing) {
       textComponent = (
         <TextField
           multiline={fieldSettings.multiline || false}
@@ -36,13 +52,12 @@ export default class EditableText extends Editable {
           className={textFieldClassNames}
           defaultValue={text}
           rowsMax="3"
+          onKeyPress={this.handlePressKeyDone}
           onChange={this.handleTextFieldChange}
-        /> // TODO: we should have the marginRight here and not in the received properties
-        // TODO: we have to manage the onEnter and onBlur actions
+        />
       );
-
       iconComponent = (
-        <IconButton onClick={this.valueChanged(onSave)}>
+        <IconButton onClick={this.handleUpdateValue}>
           <DoneIcon fontSize="small" />
         </IconButton>
       );
@@ -55,7 +70,6 @@ export default class EditableText extends Editable {
           {text}
         </Typography>
       );
-
       iconComponent = (
         <IconButton onClick={this.toggleEditing}>
           <EditIcon fontSize="small" />
@@ -66,7 +80,7 @@ export default class EditableText extends Editable {
     return (
       <div className={classNames}>
         {textComponent}
-        {editable && iconComponent}
+        {isEditable && iconComponent}
       </div>
     );
   }

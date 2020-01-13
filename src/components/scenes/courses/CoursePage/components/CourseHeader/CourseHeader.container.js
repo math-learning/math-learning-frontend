@@ -4,9 +4,14 @@ import { actions, selectors } from '../../../../../../state/courses';
 import * as modalActions from '../../../../../../state/modals/actions';
 import * as modalTypes from '../../../../../../state/modals/modalTypes';
 
-const currentState = (state, { id }) => ({
-  course: selectors.getCourseDetail(state, id),
-});
+const currentState = (state, { id }) => {
+  const course = selectors.getCourseDetail(state, id);
+
+  return {
+    course,
+    isCoursePublished: course.courseStatus === 'published'
+  };
+};
 
 const currentActions = (dispatch, { id }) => ({
   onNameChange: ({ courseId, newValue }) => dispatch(actions.update({

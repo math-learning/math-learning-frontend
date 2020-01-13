@@ -16,13 +16,13 @@ import OwnCoursesPage from './OwnCoursesPage';
 const currentState = (state) => {
   const courses = coursesSelector.getOwnCourses(state);
   const profile = commonSelector.profile(state);
-  const canAddCourse = userUtils.canAddCourse(profile);
+  const isProfessor = userUtils.isProfessor(profile);
   const isLoadingCourses = coursesSelector.isLoadingCourses(state);
 
   return {
     profile,
     courses,
-    canAddCourse,
+    isProfessor,
     isLoadingCourses
   };
 };

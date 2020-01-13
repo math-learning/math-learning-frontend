@@ -44,8 +44,8 @@ describe('OwnCoursesPage', () => {
       sinon.assert.called(onLoadCourses);
     });
 
-    it('when canAddCourse', () => {
-      const wrapper = shallow(<OwnCoursesPage canAddCourse courses={courses} />);
+    it('when isProfessor', () => {
+      const wrapper = shallow(<OwnCoursesPage isProfessor courses={courses} />);
       const createCourse = wrapper.find('[id="create-new-course"]');
 
       expect(createCourse.exists()).to.be.equal(true);

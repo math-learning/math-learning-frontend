@@ -8,13 +8,13 @@ const { url } = confs.services.courses;
 const createGuide = async ({
   context,
   courseId,
-  guideName,
-  guideDescription,
+  name,
+  description
 }) => {
   const createGuideUrl = `${url}/courses/${courseId}/guides/`;
   const response = await fetch(createGuideUrl, {
     method: 'post',
-    body: JSON.stringify({ name: guideName, description: guideDescription }),
+    body: JSON.stringify({ name, description }),
     headers: {
       authorization: context.accessToken,
       'Content-Type': 'application/json'
@@ -27,13 +27,13 @@ const updateGuide = async ({
   context,
   courseId,
   guideId,
-  guideName,
-  guideDescription,
+  name,
+  description
 }) => {
   const createGuideUrl = `${url}/courses/${courseId}/guides/${guideId}`;
   const response = await fetch(createGuideUrl, {
     method: 'put',
-    body: JSON.stringify({ name: guideName, description: guideDescription }),
+    body: JSON.stringify({ name, description }),
     headers: {
       authorization: context.accessToken,
       'Content-Type': 'application/json'

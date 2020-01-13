@@ -6,8 +6,7 @@ import * as idUtils from '../../utils/idUtils';
 const initialState = {
   data: {
     list: {},
-    detail: {},
-    isLoadingExercises: false,
+    detail: {}
   },
 };
 
@@ -71,7 +70,7 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          isLoadingExercises: true,
+          isLoadingExercises: true
         }
       };
     }
@@ -86,8 +85,7 @@ export default function reducers(state = initialState, action) {
           list: {
             ...state.data.list,
             [courseGuideId]: action.exercises,
-          },
-          isLoadingExercises: false,
+          }
         }
       };
     }

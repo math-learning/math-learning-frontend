@@ -2,7 +2,7 @@ import React from 'react';
 import styles from '../../../CoursePage/CoursePage.module.sass';
 import LinkListItem from '../../../LinkListItem';
 
-export default function LeftPanelElements(props) {
+export default function LeftPanelElements(props) { // TODO: delete ?
   let { elements } = props;
   elements = elements || [];
   return (

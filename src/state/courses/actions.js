@@ -1,6 +1,7 @@
 import { push } from 'connected-react-router';
 
 import * as types from './actionTypes';
+import * as selectors from './selectors';
 import * as commonSelectors from '../common/selectors';
 import * as modalActions from '../modals/actions';
 import messages from '../../configs/messages';
@@ -176,19 +177,19 @@ export function publishCourse({ courseId }) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
+    const currentCourse = selectors.getCourseDetail(state, courseId);
+
+    const newCourse = {
+      ...state.courses.data.detail[courseId],
+      courseStatus: 'published'
+    };
+    dispatch(updateCourseSuccess({ course: newCourse }));
 
     try {
-      // TODO: do this action more friendly
       await coursesClient.publishCourse({ context, courseId });
-
-      const newCourse = {
-        ...state.courses.data.detail[courseId],
-        courseStatus: 'published',
-      };
-      dispatch(updateCourseSuccess({ course: newCourse }));
     } catch (e) {
-      // TODO: handle
-      console.log(e);
+      dispatch(updateCourseSuccess({ course: currentCourse }));
+      console.log('Error while trying to publish the course', e);
     } finally {
       dispatch(modalActions.hideModal());
     }
@@ -199,15 +200,14 @@ export function deleteCourse({ courseId }) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
+
     try {
       dispatch(deleteCourseRequest({ courseId }));
       dispatch(push(configs.paths.courses));
-      const response = await coursesClient.deleteCourse({ context, courseId });
-      // TODO: handle success
-      console.log(response);
+
+      await coursesClient.deleteCourse({ context, courseId });
     } catch (e) {
-      // TODO: handle
-      console.log(e);
+      console.log('Error while trying to delete the course', e);
     } finally {
       dispatch(modalActions.hideModal());
     }

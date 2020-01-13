@@ -1,4 +1,5 @@
 import * as types from './actionTypes';
+import * as userUtils from '../../utils/userUtils';
 import * as commonTypes from '../common/actionTypes';
 
 const initialState = {
@@ -31,6 +32,8 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.GET_COURSE_DETAIL_SUCCESS: {
+      const sortedUsers = userUtils.sortUsersArray(action.course.users);
+
       return {
         ...state,
         data: {
@@ -39,6 +42,7 @@ export default function reducers(state = initialState, action) {
             ...state.data.detail,
             [action.course.courseId]: {
               ...action.course,
+              users: sortedUsers,
               isLoading: false
             }
           }

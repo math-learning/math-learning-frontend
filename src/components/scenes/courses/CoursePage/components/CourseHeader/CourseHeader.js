@@ -1,64 +1,84 @@
-import React from 'react';
+import React, { Component } from 'react';
 import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
+import Button from '@material-ui/core/Button';
 import styles from './CourseHeader.module.sass';
 import EditableText from '../../../../../editable/EditableTitle/EditableText';
-import MoreVertOptions from '../Options';
 
-export default function CourseHeader(props) {
-  const {
-    course, onNameChange, onDescriptionChange, onDeleteCourse, onPublishCourse, isProfessor
-  } = props;
+// const options = [
+//   {
+//     text: 'Publicar',
+//     onClick: onPublishCourse
+//   },
+//   {
+//     text: 'Eliminar',
+//     onClick: onDeleteCourse
+//   }
+// ];
+// { isProfessor && (
+//   <Grid item xs={1} className={styles.moreVertOptions}>
+//     <MoreVertOptions options={options} />
+//   </Grid>
+// )}
 
-  // TODO validaciones de los campos
+class CourseHeader extends Component {
+  handleNameChange = (value) => {
+    const { onNameChange, course } = this.props;
 
-  const options = [ // TODO: maybe I would use buttons instead of these actions. they are too hide
-    {
-      text: 'Publicar', // TODO: if published
-      onClick: onPublishCourse
-    },
-    {
-      text: 'Eliminar',
-      onClick: onDeleteCourse
-    }
-  ];
+    onNameChange({ courseId: course.courseId, newValue: value });
+  };
 
-  return (
-    <Container className={styles.courseInfo}>
-      <Grid container>
-        <Grid item xs={isProfessor ? 11 : 12}>
-          <EditableText
-            editable={isProfessor}
-            text={course.name}
-            onSave={(value) => onNameChange({ courseId: course.courseId, newValue: value })}
-            textFieldSettings={{ fullWidth: true }}
-            textFieldClassNames={styles.courseNameTextField}
-            typographyClassNames={styles.courseNameTypography}
-            classNames={styles.courseName}
-            variant="h4"
-            dontUpdate
-          />
-          <EditableText
-            editable={isProfessor}
-            text={course.description}
-            onSave={(value) => onDescriptionChange({ courseId: course.courseId, newValue: value })}
-            textFieldSettings={{ fullWidth: true, multiline: true }}
-            textFieldClassNames={styles.courseDescriptionTextField}
-            typographyClassNames={styles.courseDescriptionTypography}
-            classNames={styles.courseDescription}
-            dontUpdate
-          />
-        </Grid>
-        { isProfessor
-          && (
-          <Grid item xs={1} className={styles.moreVertOptions}>
-            <MoreVertOptions
-              options={options}
+  handleDescriptionChange = (value) => {
+    const { onDescriptionChange, course } = this.props;
+
+    onDescriptionChange({ courseId: course.courseId, newValue: value });
+  };
+
+  render() {
+    const {
+      course, onDeleteCourse, onPublishCourse, isProfessor, isCoursePublished
+    } = this.props;
+
+    return (
+      <Container className={styles.courseInfo}>
+        <Grid container>
+          <Grid item xs={12}>
+            <EditableText
+              text={course.name}
+              onSave={this.handleNameChange}
+              textFieldSettings={{ fullWidth: true }}
+              textFieldClassNames={styles.courseNameTextField}
+              typographyClassNames={styles.courseNameTypography}
+              classNames={styles.courseName}
+              variant="h4"
+              isEditable={isProfessor}
+            />
+            <EditableText
+              text={course.description}
+              onSave={this.handleDescriptionChange}
+              textFieldSettings={{ fullWidth: true, multiline: true }}
+              textFieldClassNames={styles.courseDescriptionTextField}
+              typographyClassNames={styles.courseDescriptionTypography}
+              classNames={styles.courseDescription}
+              isEditable={isProfessor}
             />
           </Grid>
-          )}
-
-      </Grid>
-    </Container>
-  );
+          <div className={styles.buttonsContainer}>
+            { isProfessor && (
+              <Button id="delete-course" onClick={onDeleteCourse} className={styles.deleteButton} variant="outlined">
+                Borrar curso
+              </Button>
+            )}
+            { isProfessor && !isCoursePublished && (
+              <Button id="publish-course" onClick={onPublishCourse} className={styles.publishButton} variant="outlined" color="primary">
+                Publicar curso
+              </Button>
+            )}
+          </div>
+        </Grid>
+      </Container>
+    );
+  }
 }
+
+export default CourseHeader;

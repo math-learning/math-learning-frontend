@@ -1,35 +1,33 @@
 import { Component } from 'react';
 
+/* eslint-disable react/no-unused-state */
 export default class Editable extends Component {
   constructor(props, initialValue) {
     super(props);
-    this.toggleEditing = this.toggleEditing.bind(this);
-    this.valueChanged = this.valueChanged.bind(this);
-    this.handleTextFieldChange = this.handleTextFieldChange.bind(this);
-    this.state = { editing: false, value: initialValue, valueBeingEdited: initialValue };
-  }
 
-  toggleEditing() {
-    const { editing } = this.state;
-    this.setState({ editing: !editing });
-  }
-
-  valueChanged(onChangeValue) {
-    return () => {
-      const { valueBeingEdited, value, editing } = this.state;
-      const { dontUpdate } = this.props;
-      let newValue = valueBeingEdited;
-      onChangeValue(newValue);
-      if (dontUpdate) {
-        newValue = value;
-      }
-      this.setState({ value: newValue, editing: !editing });
+    this.state = {
+      isEditing: false,
+      value: initialValue,
+      valueBeingEdited: initialValue
     };
   }
 
-  handleTextFieldChange(e) {
-    this.setState({
-      valueBeingEdited: e.target.value
-    });
+  toggleEditing = () => {
+    const { isEditing } = this.state;
+    this.setState({ isEditing: !isEditing });
+  }
+
+  valueChanged = (onChangeValue = () => {}) => {
+    const { valueBeingEdited, isEditing } = this.state;
+    const { isEditable } = this.props;
+
+    if (isEditable) {
+      onChangeValue(valueBeingEdited); // TODO
+      this.setState({ value: valueBeingEdited, isEditing: !isEditing });
+    }
+  }
+
+  handleTextFieldChange = (e) => {
+    this.setState({ valueBeingEdited: e.target.value });
   }
 }

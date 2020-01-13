@@ -8,6 +8,7 @@ const initialState = {
     detail: {},
     list: {},
     isLoadingGuideDetail: false,
+    isLoadingCreatingGuide: false
   },
 };
 
@@ -35,6 +36,26 @@ function loadGuidesIntoState({ state, courseId, guides }) {
 
 export default function reducers(state = initialState, action) {
   switch (action.type) {
+    case types.CREATE_GUIDE_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isLoadingCreatingGuide: true
+        }
+      };
+    }
+
+    case types.CREATE_GUIDE_FAILS: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isLoadingCreatingGuide: false
+        }
+      };
+    }
+
     case types.CREATE_GUIDE_SUCCESS: {
       const courseIdGuideId = courseGuideId({
         courseId: action.courseId,
@@ -56,8 +77,8 @@ export default function reducers(state = initialState, action) {
               ...state.data.list[action.courseId],
               action.guide
             ]
-
           },
+          isLoadingCreatingGuide: false
         }
       };
     }

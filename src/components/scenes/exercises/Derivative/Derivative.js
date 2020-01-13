@@ -67,12 +67,12 @@ class Derivative extends Component {
   }
 
   getCurrentStepState = () => {
-    const { exerciseStatus } = this.props;
+    const { isProcessing, isInvalid } = this.props;
 
-    if (exerciseStatus === 'processing') {
+    if (isProcessing) {
       return <CircularProgress size="25px" className={styles.item} disableShrink />;
     }
-    if (exerciseStatus === 'invalid') {
+    if (isInvalid) {
       return <WrongIcon size="25px" className={styles.item} />;
     }
 
@@ -80,7 +80,7 @@ class Derivative extends Component {
   }
 
   getCurrentStep = () => {
-    const { currentExpression } = this.props;
+    const { currentExpression, isProcessing } = this.props;
 
     return (
       <div className={styles.step}>
@@ -100,7 +100,7 @@ class Derivative extends Component {
             id="validate-step"
             className={styles.item}
             onClick={this.handleValidateStep}
-            disabled={!currentExpression}
+            disabled={!currentExpression || isProcessing}
             variant="contained"
             color="primary"
           >

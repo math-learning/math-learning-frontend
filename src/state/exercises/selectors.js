@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import * as idUtils from '../../utils/idUtils';
 
-export function isLoadingExercises(state) {
-  return state.exercises.data.isLoadingExercises;
+export function isLoadingExercises(state, courseId, guideId) {
+  const exercises = state.exercises.data.list[idUtils.courseGuideId({ courseId, guideId })];
+
+  return _.isNil(exercises);
 }
 
 export const getExercises = (state, courseId, guideId) => state.exercises.data.list[idUtils.courseGuideId({ courseId, guideId })];

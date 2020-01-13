@@ -4,7 +4,7 @@ import { ListItemIcon, ListItemText } from '@material-ui/core';
 import styles from '../../App.module.sass';
 import EditableText from '../common/containers/LeftPanel/TextListItem';
 
-export default function LinkListItem(props) {
+export default function LinkListItem(props) { // TODO: delete?
   const {
     path, text, icon
   } = props;

@@ -1,35 +1,36 @@
 import React, { Component } from 'react';
-import { CircularProgress, Container, Typography } from '@material-ui/core';
-import Button from '@material-ui/core/Button'; // TODO: Usually one sass for one component
+import {
+  CircularProgress, Container, Typography, Button
+} from '@material-ui/core';
 import ExerciseManagement from '../Exercise';
 import styles from './Guide.module.sass';
 
 export default class Guide extends Component {
   componentDidMount() {
-    this.updateExercises();
-  }
+    const {
+      isLoadingExercises, getExercises, courseId, guideId
+    } = this.props;
 
-  componentDidUpdate(prevProps) {
-    const { location } = this.props;
-    if (location !== prevProps.location) {
-      this.updateExercises();
+    if (isLoadingExercises) {
+      getExercises({ courseId, guideId });
     }
   }
 
-  updateExercises() {
-    const { getExercises, courseId, guide } = this.props;
-    if (guide) getExercises({ courseId, guideId: guide.guideId });
+  componentDidUpdate(lastProps) {
+    const {
+      isLoadingExercises, getExercises, courseId, guideId
+    } = this.props;
+    const isDifferentGuide = guideId !== lastProps.guideId;
+
+    if (isDifferentGuide && isLoadingExercises) {
+      getExercises({ courseId, guideId });
+    }
   }
 
   render() {
     const {
-      courseId, guide, exercises, showAddExerciseModal, isLoadingExercises, isProfessor
+      courseId, guideId, guide, exercises, showAddExerciseModal, isLoadingExercises, isProfessor
     } = this.props;
-    if (!guide) {
-      // TODO
-      return 'Por favor selecciona una guia';
-    }
-    const { guideId } = guide;
 
     if (isLoadingExercises) {
       return (
@@ -40,15 +41,12 @@ export default class Guide extends Component {
     }
 
     return (
-
       <Container className={styles.exerciseInfo}>
-
         <div className={styles.exercisesHeader}>
           <Typography align="center" variant="h6" className={styles.guideTitle}>
             Ejercicios ({guide.name})
           </Typography>
-          { isProfessor
-          && (
+          { isProfessor && (
             <div className={styles.addButton}>
               <Button
                 onClick={() => showAddExerciseModal({ courseId, guideId })}
@@ -71,9 +69,7 @@ export default class Guide extends Component {
             />
           ))}
         </div>
-
       </Container>
-
     );
   }
 }

@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import CoursePage from './CoursePage';
+import * as userUtils from '../../../../utils/userUtils';
 import * as courses from '../../../../state/courses';
 import * as guides from '../../../../state/guides';
 import * as common from '../../../../state/common';
@@ -7,15 +8,19 @@ import * as common from '../../../../state/common';
 const currentState = (state, { match }) => {
   const { courseId, guideId } = match.params;
   const isUserPath = /\/courses\/.+\/users/.test(match.path); // TODO: we should not take this approach
+  const course = courses.selectors.getCourseDetail(state, courseId);
+  const profile = common.selectors.profile(state);
+  const isProfessor = userUtils.isProfessorOfCourse({ profile, course });
 
   return {
-    course: courses.selectors.getCourseDetail(state, courseId),
     isLoadingCourse: courses.selectors.isLoadingCourse(state, courseId),
     guides: guides.selectors.getGuides(state, courseId),
-    profile: common.selectors.profile(state),
+    profile,
+    course,
     courseId,
     guideId,
-    isUserPath
+    isUserPath,
+    isProfessor
   };
 };
 

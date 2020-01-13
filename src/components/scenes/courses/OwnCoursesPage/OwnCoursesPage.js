@@ -46,7 +46,7 @@ export default class OwnCourses extends Component {
   }
 
   render() {
-    const { canAddCourse, onClickCreateCourse } = this.props;
+    const { isProfessor, onClickCreateCourse } = this.props;
 
     return (
       <Container className={styles.defaultContainer}>
@@ -54,7 +54,7 @@ export default class OwnCourses extends Component {
           <Typography id="my-courses" variant="h4">
             Mis cursos
           </Typography>
-          {canAddCourse
+          {isProfessor
             ? (
               <Button onClick={onClickCreateCourse} id="create-new-course" variant="outlined" color="primary">
                   Crear nuevo curso

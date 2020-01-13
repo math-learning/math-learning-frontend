@@ -23,9 +23,19 @@ export default class CourseUsersPage extends Component {
       <TableRow key={user.name}>
         <TableCell>{user.name}</TableCell>
         <TableCell>{user.email}</TableCell>
-        <TableCell>{user.role}</TableCell>
+        <TableCell>{this.userRole(user.role)}</TableCell>
       </TableRow>
     ));
+  }
+
+  userRole(role) {
+    if (role === 'creator') {
+      return 'Creador';
+    }
+    if (role === 'professor') {
+      return 'Profesor';
+    }
+    return 'Estudiante';
   }
 
   render() {

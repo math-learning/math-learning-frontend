@@ -23,6 +23,10 @@ const defaultTheme = createMuiTheme({
       main: '#CCCC0B',
       contrastText: '#fff',
     },
+    tertiary: {
+      main: '#d1344e',
+      contrastText: '#fff',
+    },
     blue: {
       // Blue
       main: 'rgb(132, 184, 211, 0.7)',

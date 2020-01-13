@@ -18,7 +18,6 @@ export default class MoreVertOptions extends Component {
 
   wrapOnClick(onClickHandler) {
     return () => {
-      console.log(onClickHandler);
       onClickHandler();
       this.closeMenu();
     };
@@ -55,11 +54,7 @@ export default class MoreVertOptions extends Component {
           onClose={this.closeMenu}
         >
           {options && options.length && options.map((option) => (
-
-            <MenuItem
-              key={option.text}
-              onClick={this.wrapOnClick(option.onClick)}
-            >
+            <MenuItem key={option.text} onClick={this.wrapOnClick(option.onClick)}>
               {option.text}
             </MenuItem>
           ))}
