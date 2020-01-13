@@ -17,24 +17,26 @@
 
 .card
   margin-bottom: 20px
-  padding: $spacing-lg
+  padding: $spacing-md
   flex-grow: 1
   cursor: pointer
 
 .exercise
   color: $palette-tc-gray1
+  margin-top: 20px
+
+  span:last-child
+    text-align: left
 
 .loading
   @extend .loadingRoot
   padding-top: $spacing-xxlg !important
 
-.nameAndDifficulty
-  margin-bottom: $spacing-lg
-
 .type
   color: $palette-tc-gray1
-  margin-bottom: $spacing-xsm
+  margin-bottom: $spacing-xsm !important
 
 .problemInputTitle
+  margin-top: 10px
   color: $palette-tc-gray1
-  text-align: center
+  text-align: left

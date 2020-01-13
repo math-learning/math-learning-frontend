@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {
   CircularProgress, Container, Typography, Button
 } from '@material-ui/core';
-import ExerciseManagement from '../Exercise';
+import Exercise from '../Exercise';
 import styles from './Guide.module.sass';
 
 export default class Guide extends Component {
@@ -62,7 +62,7 @@ export default class Guide extends Component {
 
         <div className={styles.exerciseList}>
           {exercises.map((exercise) => (
-            <ExerciseManagement
+            <Exercise
               key={exercise.exerciseId}
               exercise={exercise}
               isProfessor={isProfessor}

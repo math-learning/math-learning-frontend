@@ -132,7 +132,7 @@ export default class LeftPanelGuides extends Component {
         )}
         {isProfessor && !shouldRenderCreatingGuide && (
           <ListItem button onClick={this.setStateToCreating}>
-            <IconButton className={styles.addGuide}>
+            <IconButton>
               <AddCircleOutline fontSize="small" className={styles.tcGray1} />
             </IconButton>
             <ListItemText className={styles.tcGray1}>
