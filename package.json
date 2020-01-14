@@ -9,7 +9,7 @@
     "lint": "eslint src test",
     "lint:fix": "eslint --fix src test",
     "eject": "react-scripts eject",
-    "test:app": "mocha --require @babel/register --require ./test/dom.js --require ignore-styles ./test/configs.js \"./src/**/*.test.js\"",
+    "test:app": "NODE_ENV=test mocha --require @babel/register --require ./test/dom.js --require ignore-styles ./test/configs.js \"./src/**/*.test.js\"",
     "test": "npm run lint && nyc --reporter=html --reporter=text npm run test:app",
     "test:watch": "npm run test:app -- --watch",
     "dev:hot": "webpack-dev-server --hot --inline --progress --colors --watch --display-error-details --display-cached --content-base ./"
@@ -36,6 +36,7 @@
     "eslint": "^6.3.0",
     "fs": "0.0.1-security",
     "history": "^4.10.1",
+    "http-errors": "^1.7.3",
     "latex-parser": "^0.6.2",
     "lodash": "^4.17.15",
     "mathquill": "0.10.1-a",

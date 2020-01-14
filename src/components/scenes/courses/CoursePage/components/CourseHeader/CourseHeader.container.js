@@ -14,13 +14,13 @@ const currentState = (state, { id }) => {
 };
 
 const currentActions = (dispatch, { id }) => ({
-  onNameChange: ({ courseId, newValue }) => dispatch(actions.update({
+  onNameChange: ({ courseId, newValue }) => dispatch(actions.updateCourse({
     courseId,
     updatedValues: {
       name: newValue
     }
   })),
-  onDescriptionChange: ({ courseId, newValue }) => dispatch(actions.update({
+  onDescriptionChange: ({ courseId, newValue }) => dispatch(actions.updateCourse({
     courseId,
     updatedValues: {
       description: newValue

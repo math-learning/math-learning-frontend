@@ -140,4 +140,27 @@ describe('common actions', () => {
       });
     });
   });
+
+  describe('logout() function', () => {
+    beforeEach(() => {
+      expectedActions = [
+        {
+          payload: {
+            args: [
+              '/'
+            ],
+            method: 'push'
+          },
+          type: '@@router/CALL_HISTORY_METHOD'
+        },
+        { type: types.LOGOUT_SUCCESS }
+      ];
+
+      return store.dispatch(actions.logout());
+    });
+
+    it('executes the expected actions', () => {
+      expect(store.getActions()).to.be.deep.equal(expectedActions);
+    });
+  });
 });

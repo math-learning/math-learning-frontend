@@ -1,5 +1,4 @@
 import { push } from 'connected-react-router';
-
 import * as types from './actionTypes';
 import * as selectors from './selectors';
 import * as commonSelectors from '../common/selectors';
@@ -7,7 +6,7 @@ import * as modalActions from '../modals/actions';
 import messages from '../../configs/messages';
 import configs from '../../configs/variables';
 import * as common from '../common';
-
+import * as logger from '../../utils/logger';
 import coursesClient from '../../clients/coursesClient';
 import exercisesClient from '../../clients/exercisesClient';
 
@@ -66,18 +65,16 @@ export function deleteCourseRequest({ courseId }) {
   };
 }
 
-export function update({ courseId, updatedValues }) {
+export function updateCourse({ courseId, updatedValues }) {
   return async (dispatch, getState) => {
-    dispatch(common.actions.showSpinner());
     const state = getState();
     const context = commonSelectors.context(state);
-    const newCourse = {
-      ...state.courses.data.detail[courseId],
-      ...updatedValues,
-    };
-    const course = await coursesClient.updateCourse({ context, course: newCourse });
-    dispatch(updateCourseSuccess({ course }));
-    dispatch(common.actions.hideSpinner());
+    const currentCourse = selectors.getCourseDetail(state, courseId);
+    dispatch(updateCourseSuccess({
+      course: { ...currentCourse, ...updatedValues }
+    }));
+
+    await coursesClient.updateCourse({ context, courseId, ...updatedValues });
   };
 }
 
@@ -101,10 +98,7 @@ export function getCourse({ courseId }) {
 }
 
 export function addUserToCourse({
-  course,
-  password,
-  userId,
-  role
+  course, password, userId, role
 }) {
   return async (dispatch, getState) => {
     const state = getState();
@@ -112,31 +106,21 @@ export function addUserToCourse({
 
     try {
       await coursesClient.addUserToCourse({
-        context,
-        courseId: course.courseId,
-        password,
-        userId,
-        role
+        context, courseId: course.courseId, password, userId, role
       });
+      await exercisesClient.addUserToCourse({
+        context, courseId: course.courseId, userId
+      });
+
+      dispatch(joinCourseSuccess({ course }));
+      dispatch(modalActions.hideModal());
+
+      await dispatch(push(configs.pathGenerators.course(course.courseId)));
     } catch (err) {
       if (err.status === 409) {
         dispatch(modalActions.showError(messages.error.wrongPassword));
-
-        return;
       }
     }
-
-    // TODO: we should do it in a XAPI
-    await exercisesClient.addUserToCourse({ // TODO: we should execute this action later (if it fails)
-      context,
-      courseId: course.courseId,
-      userId
-    });
-
-    dispatch(joinCourseSuccess({ course }));
-    dispatch(modalActions.hideModal());
-
-    await dispatch(push(configs.pathGenerators.course(course.courseId)));
   };
 }
 
@@ -189,7 +173,7 @@ export function publishCourse({ courseId }) {
       await coursesClient.publishCourse({ context, courseId });
     } catch (e) {
       dispatch(updateCourseSuccess({ course: currentCourse }));
-      console.log('Error while trying to publish the course', e);
+      logger.onError('Error while trying to publish the course', e);
     } finally {
       dispatch(modalActions.hideModal());
     }
@@ -207,7 +191,7 @@ export function deleteCourse({ courseId }) {
 
       await coursesClient.deleteCourse({ context, courseId });
     } catch (e) {
-      console.log('Error while trying to delete the course', e);
+      logger.onError('Error while trying to delete the course', e);
     } finally {
       dispatch(modalActions.hideModal());
     }
