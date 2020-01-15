@@ -305,4 +305,98 @@ describe('exercises actions', () => {
       });
     });
   });
+
+  describe('deleteExercise() function', () => {
+    describe('when the exercise is deleted successfully', () => {
+      beforeEach(() => {
+        exerciseId = 'exercise-id';
+        expectedActions = [
+          {
+            type: types.DELETE_EXERCISE_REQUEST,
+            guideId,
+            courseId,
+            exerciseId
+          },
+          { type: modalTypes.HIDE_MODAL }
+        ];
+        sandbox
+          .stub(exercisesClient, 'deleteExercise')
+          .callsFake(() => {});
+
+        return store.dispatch(actions.deleteExercise({ guideId, courseId, exerciseId }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
+
+  describe('getExercises() function', () => {
+    let exercises;
+
+    describe('when the exercise is getted successfully', () => {
+      beforeEach(() => {
+        exercises = [{ name: 'ex name' }];
+        expectedActions = [
+          {
+            type: types.GET_EXERCISES_REQUEST,
+            guideId,
+            courseId
+          },
+          {
+            type: types.GET_EXERCISES_SUCCESS,
+            guideId,
+            courseId,
+            exercises
+          }
+        ];
+        sandbox
+          .stub(exercisesClient, 'getExercises')
+          .callsFake(() => exercises);
+
+        return store.dispatch(actions.getExercises({ guideId, courseId }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
+
+  describe('updateExerciseAsProfessor() function', () => {
+    describe('when the exercise is updated successfully', () => {
+      beforeEach(() => {
+        exerciseId = 'exercise-id';
+        exercise = { name: 'ex name' };
+        expectedActions = [
+          {
+            type: types.UPDATE_EXERCISE,
+            guideId,
+            courseId,
+            exerciseId,
+            exercise
+          },
+          {
+            type: types.REMOVE_EXERCISE_DETAIL,
+            guideId,
+            courseId,
+            exerciseId
+          },
+          { type: modalTypes.HIDE_MODAL }
+        ];
+        sandbox
+          .stub(exercisesClient, 'updateExerciseAsProfessor')
+          .callsFake(() => exercise);
+
+        return store.dispatch(actions.updateExerciseAsProfessor({
+          guideId, courseId, exerciseId, exercise
+        }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
 });

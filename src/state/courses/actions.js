@@ -5,7 +5,6 @@ import * as commonSelectors from '../common/selectors';
 import * as modalActions from '../modals/actions';
 import messages from '../../configs/messages';
 import configs from '../../configs/variables';
-import * as common from '../common';
 import * as logger from '../../utils/logger';
 import coursesClient from '../../clients/coursesClient';
 import exercisesClient from '../../clients/exercisesClient';

@@ -132,4 +132,125 @@ describe('courses reducer', () => {
       });
     });
   });
+
+  describe('should handle UPDATE_COURSE_SUCCESS', () => {
+    let course;
+    let courseId;
+    let updatedCourse;
+    let finalState;
+
+    beforeEach(() => {
+      courseId = 'course-id';
+      course = { courseId, name: 'name' };
+      updatedCourse = { courseId, name: 'new name' };
+
+      initialState = {
+        data: {
+          detail: {
+            [course.courseId]: course
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.UPDATE_COURSE_SUCCESS,
+        course: updatedCourse
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            detail: {
+              [course.courseId]: {
+                ...updatedCourse,
+                isLoading: false
+              }
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle JOIN_COURSE_SUCCESS', () => {
+    let newCourse;
+    let finalState;
+
+    beforeEach(() => {
+      newCourse = { courseId: 'course-id' };
+
+      initialState = {
+        data: {
+          own: {
+            courses: []
+          },
+          list: {
+            courses: [newCourse]
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.JOIN_COURSE_SUCCESS,
+        course: newCourse
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            own: {
+              courses: [newCourse]
+            },
+            list: {
+              courses: []
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle DELETE_COURSE_REQUEST', () => {
+    let courseId;
+    let existingCourse;
+    let finalState;
+
+    beforeEach(() => {
+      courseId = 'course-id';
+      existingCourse = { courseId };
+
+      initialState = {
+        data: {
+          own: {
+            courses: [existingCourse]
+          },
+          detail: {
+            [courseId]: existingCourse
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.DELETE_COURSE_REQUEST,
+        courseId
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            own: {
+              courses: []
+            },
+            detail: {}
+          }
+        }
+      );
+    });
+  });
 });

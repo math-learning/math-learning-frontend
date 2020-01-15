@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import * as modalActions from '../modals/actions';
 import * as commonSelectors from '../common/selectors';
 import * as exerciseSelectors from './selectors';
-
+import * as logger from '../../utils/logger';
 import exercisesClient from '../../clients/exercisesClient';
 
 export function getExercisesSuccess({ courseId, guideId, exercises }) {
@@ -134,6 +134,15 @@ export function createExerciseSuccess({ courseId, guideId, exercise }) {
   };
 }
 
+export function deleteExerciseRequest({ courseId, guideId, exerciseId }) {
+  return {
+    type: types.DELETE_EXERCISE_REQUEST,
+    courseId,
+    guideId,
+    exerciseId,
+  };
+}
+
 export function createExercise({ guideId, courseId, exercise }) {
   return async (dispatch, getState) => {
     const state = getState();
@@ -183,9 +192,11 @@ export function deleteExerciseStep({
 
 export function getExercises({ courseId, guideId }) {
   return async (dispatch, getState) => {
-    dispatch(getExercisesRequest({ courseId, guideId }));
     const state = getState();
     const context = commonSelectors.context(state);
+
+    dispatch(getExercisesRequest({ courseId, guideId }));
+
     const exercises = await exercisesClient.getExercises({ context, courseId, guideId });
     dispatch(getExercisesSuccess({ courseId, guideId, exercises }));
   };
@@ -248,75 +259,43 @@ export function resolveExercise({
   };
 }
 
-function deleteExerciseRequest({ courseId, guideId, exerciseId }) {
-  return {
-    type: types.DELETE_EXERCISE_REQUEST,
-    courseId,
-    guideId,
-    exerciseId,
-  };
-}
-
-function deleteExerciseSuccess({ courseId, guideId, exerciseId }) {
-  return {
-    type: types.DELETE_EXERCISE_SUCCESS,
-    courseId,
-    guideId,
-    exerciseId,
-  };
-}
-
-export function deleteExercise({
-  courseId,
-  guideId,
-  exerciseId,
-}) {
+export function deleteExercise({ courseId, guideId, exerciseId }) {
   return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    dispatch(deleteExerciseRequest({ courseId, guideId, exerciseId }));
+    dispatch(modalActions.hideModal());
+
     try {
-      const state = getState();
-      const context = commonSelectors.context(state);
-      dispatch(deleteExerciseRequest({ courseId, guideId, exerciseId }));
-      const result = await exercisesClient.deleteExercise({
+      await exercisesClient.deleteExercise({
         context, courseId, guideId, exerciseId
       });
-      if (result) {
-        // TODO: handle
-        dispatch(deleteExerciseSuccess({ courseId, guideId, exerciseId }));
-      }
-      dispatch(modalActions.hideModal());
     } catch (err) {
-      // TODO: handle
-      dispatch(modalActions.showError(err.message));
+      logger.onError('Error while trying to delete exercise');
     }
   };
 }
 
 export function updateExerciseAsProfessor({
-  courseId,
-  guideId,
-  exerciseId,
-  exercise
+  courseId, guideId, exerciseId, exercise
 }) {
   return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    dispatch(updateExercise({
+      courseId, guideId, exerciseId, exercise
+    }));
+    dispatch(removeExerciseDetail({ courseId, guideId, exerciseId }));
+    dispatch(modalActions.hideModal());
+
     try {
-      const state = getState();
-      const context = commonSelectors.context(state);
-      // TODO
-      const updatedExercise = await exercisesClient.updateExerciseAsProfessor({
+      await exercisesClient.updateExerciseAsProfessor({
         context, courseId, guideId, exerciseId, exercise
       });
-      if (updatedExercise) {
-        // TODO: handle
-        dispatch(updateExercise({
-          courseId, guideId, exerciseId, exercise
-        }));
-        // TODO: check if it is the best approach
-        dispatch(removeExerciseDetail({ courseId, guideId, exerciseId }));
-      }
-      dispatch(modalActions.hideModal());
     } catch (err) {
-      // TODO: handle
-      dispatch(modalActions.showError(err.message));
+      logger.onError('Error while trying to delete exercise');
     }
   };
 }

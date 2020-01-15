@@ -302,7 +302,6 @@ export default function reducers(state = initialState, action) {
       return initialState;
     }
 
-    case types.DELETE_EXERCISE_SUCCESS:
     default:
       return state;
   }

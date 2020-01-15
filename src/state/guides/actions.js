@@ -2,10 +2,10 @@ import { push } from 'connected-react-router';
 import * as types from './actionTypes';
 import * as selectors from './selectors';
 import * as commonSelectors from '../common/selectors';
-
+import * as logger from '../../utils/logger';
+import * as modalActions from '../modals/actions';
 import guidesClient from '../../clients/guidesClient';
 import configs from '../../configs/variables';
-import * as modalActions from '../modals/actions';
 
 export function createGuideRequest({ courseId }) {
   return {
@@ -51,7 +51,7 @@ export function getGuidesRequest() {
   };
 }
 
-export function deleteGuideRequest(courseId, guideId) {
+export function deleteGuideRequest({ courseId, guideId }) {
   return {
     type: types.DELETE_GUIDE_REQUEST,
     courseId,
@@ -94,7 +94,7 @@ export function updateGuide({
         context, guideId, courseId, name, description
       });
     } catch (e) {
-      console.log('Error while trying to update guide', e);
+      logger.onError('Error while trying to update the guide', e);
       dispatch(updateGuideSuccess({ courseId, guide: currentGuide }));
     }
   };
@@ -119,13 +119,16 @@ export function selectGuide({ courseId, guideId }) {
 
 export function deleteGuide({ courseId, guideId }) {
   return async (dispatch, getState) => {
-    dispatch(deleteGuideRequest(courseId, guideId));
     const state = getState();
     const context = commonSelectors.context(state);
-    const response = await guidesClient.deleteGuide({ context, courseId, guideId });
-    if (response) {
-      // TODO: handle
-    }
+
+    dispatch(deleteGuideRequest({ courseId, guideId }));
     dispatch(modalActions.hideModal());
+
+    try {
+      await guidesClient.deleteGuide({ context, courseId, guideId });
+    } catch (e) {
+      logger.onError('Error trying to delete guide', e);
+    }
   };
 }
