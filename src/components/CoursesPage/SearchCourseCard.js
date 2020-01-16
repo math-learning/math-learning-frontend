@@ -4,7 +4,6 @@ import {
 } from '@material-ui/core';
 import styles from './CourseCard.module.sass';
 
-// TODO: Remove eslint-disable
 export default class SearchCourseCard extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { course } = this.props;

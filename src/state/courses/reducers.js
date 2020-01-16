@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import * as types from './actionTypes';
+import * as userUtils from '../../utils/userUtils';
 import * as commonTypes from '../common/actionTypes';
 
 const initialState = {
@@ -31,6 +33,8 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.GET_COURSE_DETAIL_SUCCESS: {
+      const sortedUsers = userUtils.sortUsersArray(action.course.users);
+
       return {
         ...state,
         data: {
@@ -39,6 +43,7 @@ export default function reducers(state = initialState, action) {
             ...state.data.detail,
             [action.course.courseId]: {
               ...action.course,
+              users: sortedUsers,
               isLoading: false
             }
           }
@@ -47,16 +52,22 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.UPDATE_COURSE_SUCCESS: {
-      const detail = { ...state.data.detail };
-      detail[action.course.courseId] = {
-        ...detail[action.course.courseId],
-        ...action.course,
+      const newCourse = {
+        ...state.data.detail[action.course.courseId],
+        ...action.course
       };
+
       return {
         ...state,
         data: {
           ...state.data,
-          detail,
+          detail: {
+            ...state.data.detail,
+            [action.course.courseId]: {
+              ...newCourse,
+              isLoading: false
+            }
+          }
         }
       };
     }
@@ -137,25 +148,18 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.DELETE_COURSE_REQUEST: {
-      const detail = { ...state.data.detail };
-      let ownCourses = [...state.data.own.courses];
-      let listCourses = [...state.data.list.courses];
-      ownCourses = ownCourses.filter((course) => course.courseId !== action.courseId);
-      listCourses = listCourses.filter((course) => course.courseId !== action.courseId);
-      delete detail[action.courseId];
+      const newDetail = _.omit(state.data.detail, action.courseId);
+      const ownCourses = state.data.own.courses
+        .filter((course) => course.courseId !== action.courseId);
 
       return {
         ...state,
         data: {
           ...state.data,
-          detail,
+          detail: newDetail,
           own: {
             ...state.data.own,
             courses: ownCourses,
-          },
-          list: {
-            ...state.data.list,
-            courses: listCourses,
           }
         }
       };

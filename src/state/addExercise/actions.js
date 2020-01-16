@@ -45,7 +45,6 @@ export function handleGetResult({ expression }) {
         throw Error();
       }
     } catch (e) {
-      // TODO
       console.log(e);
     } finally {
       dispatch(common.actions.hideSpinner());

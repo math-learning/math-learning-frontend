@@ -79,7 +79,6 @@ export default function reducers(state = initialState, action) {
     case types.LOGIN_SUCCESS: {
       // to keep it through the navigation of the pages
       localStorage.setItem('profile', JSON.stringify(action.userProfile));
-      // TODO: HANDLE 403 AND REDIRECT TO LOGIN
 
       return {
         ...state,

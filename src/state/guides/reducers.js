@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import * as types from './actionTypes';
 import * as commonTypes from '../common/actionTypes';
 import * as courseTypes from '../courses/actionTypes';
@@ -8,6 +9,7 @@ const initialState = {
     detail: {},
     list: {},
     isLoadingGuideDetail: false,
+    isLoadingCreatingGuide: false
   },
 };
 
@@ -35,11 +37,32 @@ function loadGuidesIntoState({ state, courseId, guides }) {
 
 export default function reducers(state = initialState, action) {
   switch (action.type) {
+    case types.CREATE_GUIDE_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isLoadingCreatingGuide: true
+        }
+      };
+    }
+
+    case types.CREATE_GUIDE_FAILS: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isLoadingCreatingGuide: false
+        }
+      };
+    }
+
     case types.CREATE_GUIDE_SUCCESS: {
       const courseIdGuideId = courseGuideId({
         courseId: action.courseId,
         guideId: action.guide.guideId,
       });
+
       return {
         ...state,
         data: {
@@ -56,8 +79,8 @@ export default function reducers(state = initialState, action) {
               ...state.data.list[action.courseId],
               action.guide
             ]
-
           },
+          isLoadingCreatingGuide: false
         }
       };
     }
@@ -67,12 +90,15 @@ export default function reducers(state = initialState, action) {
         courseId: action.courseId,
         guideId: action.guide.guideId,
       });
-      const list = [...state.data.list[action.courseId]];
+      const list = state.data.list[action.courseId];
       let indexOfGuide;
       list.forEach((value, index) => {
-        if (value.guideId === action.guide.guideId) indexOfGuide = index;
+        if (value.guideId === action.guide.guideId) {
+          indexOfGuide = index;
+        }
       });
       list[indexOfGuide] = action.guide;
+
       return {
         ...state,
         data: {
@@ -111,10 +137,8 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.DELETE_GUIDE_REQUEST: {
-      const detail = { ...state.data.detail };
-      const key = courseGuideId({ courseId: action.courseId, guideId: action.guideId });
-      delete detail[key];
-
+      const courseIdGuideId = courseGuideId({ courseId: action.courseId, guideId: action.guideId });
+      const newDetail = _.omit(state.data.detail, courseIdGuideId);
       const newList = state.data.list[action.courseId]
         .filter((guide) => guide.courseId !== action.guideId && guide.guideId !== action.guideId);
 
@@ -122,7 +146,7 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          detail,
+          detail: newDetail,
           list: {
             ...state.data.list,
             [action.courseId]: newList

@@ -1,4 +1,4 @@
-import axios from 'axios'; // TODO: CAMBIAR DE LIBRARY POR node-fetch como usersClient.js
+import axios from 'axios';
 import { latexParser } from 'latex-parser';
 import { cleanLatex } from '../utils/latexUtils';
 
@@ -10,7 +10,7 @@ const confs = require('../configs/variables');
 
 const { serverUrl } = confs;
 
-const theorems = require('./theorems.json');// TODO: Esto no deberia estar aca
+const theorems = require('./theorems.json');
 
 const validateNotInHistory = async (newExpression, history) => {
   const requestData = { history, new_expression: newExpression };
@@ -27,7 +27,7 @@ const validateNotInHistory = async (newExpression, history) => {
 const validateStep = async (step) => {
   const stepToSend = step;
 
-  stepToSend.theorems = theorems.theorems;// TODO: Esto no deberia estar aca
+  stepToSend.theorems = theorems.theorems;
   try {
     const response = await axios.post(`${serverUrl}/validations/new-step`, stepToSend);
     return response.data;

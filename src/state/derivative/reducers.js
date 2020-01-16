@@ -19,7 +19,6 @@ const exercises = [
   {
     name: 'deriv of a constant',
     input: '\\frac{d(\\frac{ \\frac{d(sen(x))}{dx}}{\\cos(x)})} {dx}',
-    // TODO:
     result: '0',
   },
   {
@@ -40,7 +39,6 @@ const exercises = [
   {
     name: 'multiplication of 3 elem',
     input: '\\frac{d\\left(x^2 \\cdot \\sin(x) \\cdot \\cos \\left(x\\right)\\right)}{dx}',
-    // TODO
     result: '\\frac{d\\left(e^3  \\cdot x \\right)}{dx}',
   },
   {

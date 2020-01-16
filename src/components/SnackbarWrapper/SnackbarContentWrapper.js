@@ -17,7 +17,6 @@ const variantIcon = {
   info: InfoIcon,
 };
 
-// TODO: Remove eslint-disable
 export default function SnackbarContentWrapper(props) {
   const {
     className, message, onClose, variant, ...other

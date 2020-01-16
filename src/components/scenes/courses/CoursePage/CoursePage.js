@@ -25,7 +25,7 @@ export default class CoursePage extends Component {
   getHeader(isProfessor) { // TODO: maybe we can have the header per page
     const { course, isUserPath } = this.props;
 
-    if (isUserPath) { // TODO: diego, test if you prefer it or not :)
+    if (isUserPath) {
       return null;
     }
 
@@ -48,8 +48,6 @@ export default class CoursePage extends Component {
       return <CourseUsersPage course={course} />;
     }
 
-    // TODO: maybe we can just send the course (or the guides)
-    // TODO: change the guide
     const firstGuide = course.guides[0];
     const guideIdToRender = guideId || (firstGuide && firstGuide.guideId);
 
@@ -64,30 +62,15 @@ export default class CoursePage extends Component {
 
   render() {
     const {
-      course, guides, isLoadingCourse,
-      profile
+      course, guides, isLoadingCourse, isProfessor
     } = this.props;
-    let guide;
 
     if (isLoadingCourse) {
       return (
-        // TODO: align to the center
         <div className={styles.loadingRoot}>
           <CircularProgress disableShrink />
         </div>
       );
-    }
-
-    if (!course) { // TODO: we should not have this state
-      return '';
-    }
-
-    const isProfessor = course
-      && course.professors
-      && course.professors.some((professor) => professor.userId === profile.userId);
-
-    if (!guide) {
-      // TODO: 1 guia
     }
 
     return (

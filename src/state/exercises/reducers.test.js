@@ -129,6 +129,112 @@ describe('exercises reducer', () => {
     });
   });
 
+  describe('should handle GET_EXERCISES_SUCCESS', () => {
+    let exercises;
+
+    beforeEach(() => {
+      exercises = [{ exerciseId: 'exercise-id', stepList: [] }];
+      initialState = {
+        data: {
+          list: {}
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.GET_EXERCISES_SUCCESS,
+        courseId: 'c-id',
+        guideId: 'g-id',
+        exercises
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            list: {
+              'c-id/g-id': exercises
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle DELETE_EXERCISE_REQUEST', () => {
+    beforeEach(() => {
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
+      initialState = {
+        data: {
+          detail: {
+            'c-id/g-id': {
+              'exercise-id': exercise
+            }
+          },
+          list: {
+            'c-id/g-id': [exercise]
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.DELETE_EXERCISE_REQUEST,
+        courseId: 'c-id',
+        guideId: 'g-id',
+        exerciseId: 'exercise-id'
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            detail: {
+              'c-id/g-id': {}
+            },
+            list: {
+              'c-id/g-id': []
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle REMOVE_EXERCISE_DETAIL', () => {
+    beforeEach(() => {
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
+      initialState = {
+        data: {
+          detail: {
+            'c-id/g-id': {
+              'exercise-id': exercise
+            }
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.REMOVE_EXERCISE_DETAIL,
+        courseId: 'c-id',
+        guideId: 'g-id',
+        exerciseId: 'exercise-id'
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            detail: {
+              'c-id/g-id': {}
+            }
+          }
+        }
+      );
+    });
+  });
+
   describe('should handle RESOLVE_EXERCISE_REQUEST', () => {
     beforeEach(() => {
       exercise = { exerciseId: 'exercise-id', stepList: [] };

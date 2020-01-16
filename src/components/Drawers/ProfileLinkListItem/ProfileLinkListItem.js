@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ProfileLinkListItem.module.sass';
 
-// TODO: Remove eslint-disable
 export default class ProfileLinkListItem extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { profile } = this.props;

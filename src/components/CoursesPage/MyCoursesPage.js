@@ -4,7 +4,6 @@ import InteractiveLinkCard from '../InteractiveLinkCard/InteractiveLinkCard';
 
 import styles from './MyCoursesPage.module.sass';
 
-// TODO: Remove eslint-disable
 export default class MyCoursesPage extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { courses } = this.props;

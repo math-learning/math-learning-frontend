@@ -10,11 +10,14 @@ import Derivative from './Derivative';
 const currentState = (state, { exercise }) => {
   const currentExpression = selectors.currentExpression(state, { ...exercise });
   const exerciseStatus = selectors.exerciseStatus(state, { ...exercise });
+  const isProcessing = exerciseStatus === 'processing';
+  const isInvalid = exerciseStatus === 'invalid';
   const isResolved = exercise.state === 'resolved';
 
   return {
     currentExpression,
-    exerciseStatus,
+    isInvalid,
+    isProcessing,
     isResolved
   };
 };

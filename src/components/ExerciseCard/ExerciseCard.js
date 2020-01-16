@@ -34,7 +34,6 @@ export default function ExerciseCard(props) {
   };
 
   const classes = useStyles();
-  // TODO: analyze how to do this better
   const { finished, title, statement } = props;
   return (
     <Card

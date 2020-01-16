@@ -34,7 +34,6 @@ export default function ExercisesPage(props) {
   const classes = useStyles();
   const { exercises, finishedExercises } = props;
 
-  // TODO : Refactor
   const exerciseCards = exercises.map((element, index) => {
     const exerciseNumber = index + 1;
     const finished = finishedExercises.some((elem) => elem === index);
@@ -78,6 +77,5 @@ export default function ExercisesPage(props) {
 }
 
 ExercisesPage.propTypes = {
-  // TODO: array of exercise. Chequear esta regla: react/forbid-prop-types
   exercises: PropTypes.array,
 };

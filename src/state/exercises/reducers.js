@@ -6,8 +6,7 @@ import * as idUtils from '../../utils/idUtils';
 const initialState = {
   data: {
     list: {},
-    detail: {},
-    isLoadingExercises: false,
+    detail: {}
   },
 };
 
@@ -71,7 +70,7 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          isLoadingExercises: true,
+          isLoadingExercises: true
         }
       };
     }
@@ -85,9 +84,8 @@ export default function reducers(state = initialState, action) {
           ...state.data,
           list: {
             ...state.data.list,
-            [courseGuideId]: action.exercises,
-          },
-          isLoadingExercises: false,
+            [courseGuideId]: action.exercises
+          }
         }
       };
     }
@@ -261,10 +259,8 @@ export default function reducers(state = initialState, action) {
 
     case types.DELETE_EXERCISE_REQUEST: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
-      const detail = { ...state.data.detail[courseGuideId] };
-      delete detail[action.exerciseId];
-
-      const list = state.data.list[courseGuideId].filter((exercise) => exercise.exerciseId !== action.exerciseId);
+      const newDetail = _.omit(state.data.detail[courseGuideId], action.exerciseId);
+      const newList = state.data.list[courseGuideId].filter((exercise) => exercise.exerciseId !== action.exerciseId);
 
       return {
         ...state,
@@ -272,11 +268,11 @@ export default function reducers(state = initialState, action) {
           ...state.data,
           detail: {
             ...state.data.detail,
-            [courseGuideId]: detail
+            [courseGuideId]: newDetail
           },
           list: {
             ...state.data.list,
-            [courseGuideId]: list
+            [courseGuideId]: newList
           }
         }
       };
@@ -284,8 +280,7 @@ export default function reducers(state = initialState, action) {
 
     case types.REMOVE_EXERCISE_DETAIL: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
-      const detail = { ...state.data.detail[courseGuideId] };
-      delete detail[action.exerciseId];
+      const newDetail = _.omit(state.data.detail[courseGuideId], action.exerciseId);
 
       return {
         ...state,
@@ -293,7 +288,7 @@ export default function reducers(state = initialState, action) {
           ...state.data,
           detail: {
             ...state.data.detail,
-            [courseGuideId]: detail
+            [courseGuideId]: newDetail
           }
         }
       };
@@ -304,7 +299,6 @@ export default function reducers(state = initialState, action) {
       return initialState;
     }
 
-    case types.DELETE_EXERCISE_SUCCESS:
     default:
       return state;
   }

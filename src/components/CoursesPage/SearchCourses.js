@@ -46,7 +46,6 @@ function handleChange() {
 
 }
 
-// TODO: Remove eslint-disable
 export default class SearchCourses extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const registerButton = {

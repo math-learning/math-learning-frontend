@@ -34,53 +34,42 @@ export default function Exercise(props) {
 
   return (
     <Card onClick={onClickExercise} className={styles.card}>
-      <div className={styles.displayLine}>
-        <div className={styles.fullWidth}>
-          <Grid container className={styles.nameAndDifficulty}>
-            {/* TODO: responsive */}
-            <Grid item xs={5}>
-              <Typography variant="h5" className={styles.tcGray1}>
-                {exercise.name}
-              </Typography>
-            </Grid>
-            <Grid item xs={4}>
-              <Typography className={styles.type}>
-                Tipo: {exercise.type}
-              </Typography>
-            </Grid>
-            <Grid item xs={3}>
-              {difficultyComponent}
-            </Grid>
-          </Grid>
-
+      <Grid container>
+        <Grid item xs={isProfessor ? 9 : 10}>
+          <Typography className={styles.tcGray1} variant="h6">
+            {exercise.name}
+          </Typography>
           <Typography className={styles.problemInputTitle}>Enunciado: Resuelva paso a paso</Typography>
-
           <MathText content={exercise.problemInput} className={styles.exercise} />
+        </Grid>
 
-        </div>
+        <Grid item xs={2}>
+          <Typography className={styles.type}>
+            Tipo: {exercise.type}
+          </Typography>
+          {difficultyComponent}
+        </Grid>
 
-        { isProfessor
-          && (
+        <Grid item xs={1}>
+          { isProfessor && (
             <div onClick={(event) => event.stopPropagation()}>
               <MoreVertOptions
-                options={[
-                  {
-                    text: 'Editar',
-                    onClick: () => onEditExercise({
-                      courseId: exercise.courseId,
-                      guideId: exercise.guideId,
-                      exerciseId: exercise.exerciseId,
-                    })
-                  }, {
-                    text: 'Eliminar',
-                    onClick: onDeleteExercise
-                  }
-                ]}
+                options={[{
+                  text: 'Editar',
+                  onClick: () => onEditExercise({
+                    courseId: exercise.courseId,
+                    guideId: exercise.guideId,
+                    exerciseId: exercise.exerciseId,
+                  })
+                }, {
+                  text: 'Eliminar',
+                  onClick: onDeleteExercise
+                }]}
               />
             </div>
           )}
-
-      </div>
+        </Grid>
+      </Grid>
     </Card>
   );
 }

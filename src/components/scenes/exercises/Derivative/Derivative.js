@@ -11,7 +11,7 @@ import CheckIcon from '../../../Icons/CheckIcon';
 
 import styles from './Derivative.module.sass';
 
-const HELP_TEST = 'Intenta con esto: derivada de la suma'; // TODO: Implement it
+const HELP_TEST = 'Intenta con esto: derivada de la suma';
 
 class Derivative extends Component {
   handleValidateStep = () => {
@@ -37,7 +37,6 @@ class Derivative extends Component {
   getStepList = () => {
     const { exercise: { stepList } } = this.props;
 
-    // TODO: try using a table
     return (
       (stepList).map((step, index) => {
         const isLastStep = index === stepList.length - 1;
@@ -67,12 +66,12 @@ class Derivative extends Component {
   }
 
   getCurrentStepState = () => {
-    const { exerciseStatus } = this.props;
+    const { isProcessing, isInvalid } = this.props;
 
-    if (exerciseStatus === 'processing') {
+    if (isProcessing) {
       return <CircularProgress size="25px" className={styles.item} disableShrink />;
     }
-    if (exerciseStatus === 'invalid') {
+    if (isInvalid) {
       return <WrongIcon size="25px" className={styles.item} />;
     }
 
@@ -80,7 +79,7 @@ class Derivative extends Component {
   }
 
   getCurrentStep = () => {
-    const { currentExpression } = this.props;
+    const { currentExpression, isProcessing } = this.props;
 
     return (
       <div className={styles.step}>
@@ -100,7 +99,7 @@ class Derivative extends Component {
             id="validate-step"
             className={styles.item}
             onClick={this.handleValidateStep}
-            disabled={!currentExpression}
+            disabled={!currentExpression || isProcessing}
             variant="contained"
             color="primary"
           >

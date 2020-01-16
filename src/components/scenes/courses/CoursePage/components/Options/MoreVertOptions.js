@@ -18,7 +18,6 @@ export default class MoreVertOptions extends Component {
 
   wrapOnClick(onClickHandler) {
     return () => {
-      console.log(onClickHandler);
       onClickHandler();
       this.closeMenu();
     };
@@ -37,7 +36,6 @@ export default class MoreVertOptions extends Component {
     const { anchorEl } = this.state;
     return (
       <React.Fragment>
-        {/* TODO: on click */}
         <IconButton
           aria-controls="simple-menu"
           aria-haspopup="true"
@@ -55,11 +53,7 @@ export default class MoreVertOptions extends Component {
           onClose={this.closeMenu}
         >
           {options && options.length && options.map((option) => (
-
-            <MenuItem
-              key={option.text}
-              onClick={this.wrapOnClick(option.onClick)}
-            >
+            <MenuItem key={option.text} onClick={this.wrapOnClick(option.onClick)}>
               {option.text}
             </MenuItem>
           ))}

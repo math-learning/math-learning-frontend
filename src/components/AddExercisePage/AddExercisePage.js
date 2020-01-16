@@ -7,7 +7,6 @@ import MathText from '../MathText';
 import MathTextBox from '../MathTextBox';
 import './AddExercisePage.module.sass';
 
-// TODO: redo this page. Remove eslint-disable. Fix it as CreateExerciseModal.js
 /* eslint-disable react/jsx-no-bind */
 class AddExercisePage extends Component {
   shouldComponentUpdate(nextProps) {
@@ -37,7 +36,6 @@ class AddExercisePage extends Component {
 
   handleAddExercise() {
     const { result, expression, handleAddExercise } = this.props;
-    // TODO: check
     handleAddExercise({ result, expression });
   }
 
@@ -104,7 +102,6 @@ class AddExercisePage extends Component {
           </Button>
 
           <Button className="mt-md" onClick={this.handleAddExercise.bind(this)} color="primary">
-            {/* TODO: chequear que este todo bien */}
                         Agregar Ejercicio
           </Button>
         </div>

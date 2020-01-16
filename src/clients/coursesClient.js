@@ -6,17 +6,19 @@ import confs from '../configs/variables';
 const { url } = confs.services.courses;
 
 const updateCourse = async ({
-  course,
-  context,
+  courseId,
+  name,
+  description,
+  context
 }) => {
-  const updateUrl = `${url}/courses/${course.courseId}`;
+  const updateUrl = `${url}/courses/${courseId}`;
   const response = await fetch(updateUrl, {
     method: 'PUT',
     headers: {
       authorization: context.accessToken,
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify(course),
+    body: JSON.stringify({ name, description }),
   });
   return requestUtils.processResponse(response);
 };
