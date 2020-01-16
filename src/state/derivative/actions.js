@@ -52,7 +52,6 @@ export function validateStep({
     try {
       dispatch(common.actions.showSpinner());
 
-      // TODO: VALIDATE EXPRESSION HISTORY NO DEBERIA ESTAR ACA
       const expressionHistory = [cleanLatex(problemInput)];
       stepList.forEach((element) => {
         expressionHistory.push(cleanLatex(element));
@@ -60,15 +59,14 @@ export function validateStep({
 
       const data = await mathClient.validateNotInHistory(cleanLatex(currentExpression), expressionHistory);
 
-      if (data) { // TODO: REMOVER ESTA COMPARACION
+      if (data) {
         const validationStep = {
           old_expression: cleanLatex(lastExpression),
           new_expression: cleanLatex(currentExpression),
         };
         const validationResponse = await mathClient.validateStep(validationStep);
 
-        if (validationResponse) { // TODO: ESTO DEBERIA TIRAR TRUE O FALSE
-          // TODO: handle
+        if (validationResponse) {
           const finished = await mathClient.compareExpressions(currentExpression, result);
           if (finished) {
             dispatch(exerciseFinished({ currentExpression, index: problemIndex }));
@@ -81,8 +79,6 @@ export function validateStep({
       } else {
         dispatch(stepIsInvalid({ currentExpression, index: problemIndex }));
       }
-    } catch (e) {
-      // TODO: Mostrar un mensaje de ocurrio un error por favor vuelva a intentar mas tarde.
     } finally {
       dispatch(common.actions.hideSpinner());
     }

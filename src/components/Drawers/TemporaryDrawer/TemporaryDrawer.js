@@ -4,7 +4,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import React, { Component } from 'react';
 import styles from './TemporaryDrawer.module.sass';
 
-// TODO: Remove eslint-disable
 /* eslint-disable react/jsx-no-bind */
 export default class TemporaryDrawer extends Component {
   constructor(props) {

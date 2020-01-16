@@ -8,13 +8,12 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import CheckIcon from '../Icons/CheckIcon'; // TODO: IMPORTS RELATIVOS
+import CheckIcon from '../Icons/CheckIcon';
 import WrongIcon from '../Icons/WrongIcon';
 import MathText from '../MathText';
 import MathTextBox from '../MathTextBox';
 import styles from './Derivative.module.sass';
 
-// TODO: Remove eslint-disable
 /* eslint-disable react/jsx-no-bind */
 class Derivative extends Component {
   handleValidateStep = () => {
@@ -99,7 +98,6 @@ class Derivative extends Component {
           </div>
         </div>
 
-        {/* TODO: REFACTOR */}
         <Dialog
           onClose={this.handleSolvedDialogClose.bind(this)}
           aria-labelledby="customized-dialog-title"

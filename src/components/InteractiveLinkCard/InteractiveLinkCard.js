@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 
 import styles from '../../App.module.sass';
 
-// TODO: Remove eslint-disable
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/no-access-state-in-setstate */
 export default class InteractiveLinkCard extends Component {

@@ -69,7 +69,6 @@ export default class CoursesPage extends Component {
     return (
       <React.Fragment>
 
-        {/* TODO: Eliminar */}
         <Button onClick={() => this.setState({ courses: onlyOneCourse })}>Un Curso</Button>
         <Button onClick={() => this.setState({ courses: mockedCourses })}>Varios Cursos</Button>
         <Button onClick={() => this.setState({ courses: [] })}>Ningun Curso</Button>

@@ -11,7 +11,7 @@ import CheckIcon from '../../../Icons/CheckIcon';
 
 import styles from './Derivative.module.sass';
 
-const HELP_TEST = 'Intenta con esto: derivada de la suma'; // TODO: Implement it
+const HELP_TEST = 'Intenta con esto: derivada de la suma';
 
 class Derivative extends Component {
   handleValidateStep = () => {
@@ -37,7 +37,6 @@ class Derivative extends Component {
   getStepList = () => {
     const { exercise: { stepList } } = this.props;
 
-    // TODO: try using a table
     return (
       (stepList).map((step, index) => {
         const isLastStep = index === stepList.length - 1;

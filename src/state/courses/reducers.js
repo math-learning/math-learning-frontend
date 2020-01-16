@@ -148,7 +148,7 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.DELETE_COURSE_REQUEST: {
-      const newDetail = _.omit(state.data.detail, action.courseId)
+      const newDetail = _.omit(state.data.detail, action.courseId);
       const ownCourses = state.data.own.courses
         .filter((course) => course.courseId !== action.courseId);
 

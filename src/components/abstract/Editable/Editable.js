@@ -22,7 +22,7 @@ export default class Editable extends Component {
     const { isEditable } = this.props;
 
     if (isEditable) {
-      onChangeValue(valueBeingEdited); // TODO
+      onChangeValue(valueBeingEdited);
       this.setState({ value: valueBeingEdited, isEditing: !isEditing });
     }
   }

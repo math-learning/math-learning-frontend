@@ -9,7 +9,6 @@ import LinkListItemWithIcon from '../LinkListItemWithIcon';
 import MathText from '../MathText';
 import styles from './CoursePage.module.sass';
 
-// TODO: Remove eslint-disable and fix them
 const modules = new Map();
 
 modules.set('derivadas',
@@ -52,7 +51,6 @@ modules.set('derivadas',
         status: 'TODO',
         name: 'deriv of a constant',
         input: '\\frac{d(\\frac{ \\frac{d(sen(x))}{dx}}{\\cos(x)})} {dx}',
-        // TODO:
         result: '0',
 
       },
@@ -91,7 +89,6 @@ modules.set('derivadas',
         status: 'TODO',
         name: 'multiplication of 3 elem',
         input: '\\frac{d\\left(x^2 \\cdot \\sin(x) \\cdot \\cos \\left(x\\right)\\right)}{dx}',
-        // TODO
         result: '\\frac{d\\left(e^3  \\cdot x \\right)}{dx}',
 
       },
@@ -181,7 +178,6 @@ export default class CoursePage extends Component {
           <List>
             <ListItem>
               <Typography className={styles.leftPanelTitle}>
-                {/* TODO: title */}
                 {currentCourse.name}
               </Typography>
             </ListItem>
@@ -201,7 +197,6 @@ export default class CoursePage extends Component {
           <Container className={styles.defaultContainer} maxWidth="md">
 
             <Typography variant="h4" color="primary" className={styles.title}>
-              {/* TODO: PERCENTAGE */}
               {currentModule.name}
               {' '}
 [
@@ -216,7 +211,6 @@ export default class CoursePage extends Component {
                   <InteractiveLinkCard className={styles.exercise} path="/">
                     <Grid container>
                       <Grid item xs={12} sm={7} md={9}>
-                        {/* TODO: ver como mechar expresiones y texto */}
                         <Typography>Resuelva paso a paso la siguiente derivada:</Typography>
                         <MathText content={exercise.input} />
                       </Grid>

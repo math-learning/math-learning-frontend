@@ -6,7 +6,6 @@ import React, { Component } from 'react';
 import LinkListItemWithIcon from '../../LinkListItemWithIcon/LinkListItemWithIcon';
 import styles from './DrawerItems.module.sass';
 
-// TODO: Remove eslint-disable
 export default class DrawerItems extends Component { // eslint-disable-line react/prefer-stateless-function
   render() {
     const { children } = this.props;

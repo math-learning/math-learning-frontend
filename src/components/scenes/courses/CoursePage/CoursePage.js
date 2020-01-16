@@ -25,7 +25,7 @@ export default class CoursePage extends Component {
   getHeader(isProfessor) { // TODO: maybe we can have the header per page
     const { course, isUserPath } = this.props;
 
-    if (isUserPath) { // TODO: diego, test if you prefer it or not :)
+    if (isUserPath) {
       return null;
     }
 

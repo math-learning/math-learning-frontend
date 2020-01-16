@@ -199,7 +199,6 @@ describe('guides actions', () => {
   });
 
   describe('selectGuide() function', () => {
-
     describe('when the guide is selected successfully', () => {
       beforeEach(() => {
         expectedActions = [

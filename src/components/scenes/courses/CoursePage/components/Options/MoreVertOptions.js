@@ -36,7 +36,6 @@ export default class MoreVertOptions extends Component {
     const { anchorEl } = this.state;
     return (
       <React.Fragment>
-        {/* TODO: on click */}
         <IconButton
           aria-controls="simple-menu"
           aria-haspopup="true"
