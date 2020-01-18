@@ -17,6 +17,14 @@ export default class OwnCourses extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const { isLoadingCourses, onLoadCourses } = this.props;
+
+    if (isLoadingCourses) {
+      onLoadCourses();
+    }
+  }
+
   getContent = () => {
     const { isLoadingCourses, courses, onClickCourse } = this.props;
 

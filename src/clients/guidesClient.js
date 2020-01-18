@@ -20,6 +20,7 @@ const createGuide = async ({
       'Content-Type': 'application/json'
     }
   });
+
   return requestUtils.processResponse(response);
 };
 
@@ -39,6 +40,7 @@ const updateGuide = async ({
       'Content-Type': 'application/json'
     }
   });
+
   return requestUtils.processResponse(response);
 };
 
@@ -53,6 +55,7 @@ const getGuides = async ({
       'Content-Type': 'application/json'
     }
   });
+
   return requestUtils.processResponse(response);
 };
 

@@ -69,9 +69,7 @@ export function updateCourse({ courseId, updatedValues }) {
     const state = getState();
     const context = commonSelectors.context(state);
     const currentCourse = selectors.getCourseDetail(state, courseId);
-    dispatch(updateCourseSuccess({
-      course: { ...currentCourse, ...updatedValues }
-    }));
+    dispatch(updateCourseSuccess({ course: { ...currentCourse, ...updatedValues } }));
 
     await coursesClient.updateCourse({ context, courseId, ...updatedValues });
   };
@@ -81,6 +79,7 @@ export function getCourses() {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
+
     const courses = await coursesClient.getCourses({ context });
     dispatch(getCoursesSuccess({ courses }));
   };
@@ -131,7 +130,6 @@ export function searchCourses({ search }) {
     dispatch(listCoursesRequest());
 
     const courses = await coursesClient.searchCourses({ context, search });
-
     dispatch(listCoursesSuccess({ courses }));
   };
 }

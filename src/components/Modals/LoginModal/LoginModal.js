@@ -64,6 +64,8 @@ class LoginModal extends Component {
           clientId={googleClientId}
           buttonText="Log in con Google"
           onSuccess={(result) => this.onClickLogin(result)}
+          onFailure={(error) => console.log('google login error', error)}
+          cookiePolicy="single_host_origin"
         />
         <p className={styles.divider}>ó</p>
         <TextField
@@ -100,6 +102,8 @@ class LoginModal extends Component {
         <GoogleLogin
           clientId={googleClientId}
           onSuccess={this.onClickSignUp}
+          cookiePolicy="single_host_origin"
+          onFailure={(error) => console.log('google login error', error)}
           render={(renderProps) => (
             <Button
               id="create-account-button"

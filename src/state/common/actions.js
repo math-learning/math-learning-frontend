@@ -3,7 +3,6 @@ import { push } from 'connected-react-router';
 import usersClient from '../../clients/usersClient';
 import messages from '../../configs/messages';
 import configs from '../../configs/variables';
-
 import * as modalActions from '../modals/actions';
 import * as types from './actionTypes';
 import * as selectors from './selectors';
@@ -79,17 +78,18 @@ export function signUp({ name, role }) {
   };
 }
 
-export function login() {
+export function login(props) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = selectors.context(state);
+    const pathToRedirect = (props && props.nextPath) || configs.paths.courses;
 
     try {
       const userProfile = await usersClient.login({ context });
       dispatch(loginSuccess({ userProfile }));
       dispatch(modalActions.hideModal());
 
-      await dispatch(push(configs.paths.courses));
+      await dispatch(push(pathToRedirect));
     } catch (err) {
       if (err.status === 404) {
         dispatch(modalActions.showError(messages.error.userDoesNotExist));

@@ -20,6 +20,7 @@ const updateCourse = async ({
     },
     body: JSON.stringify({ name, description }),
   });
+
   return requestUtils.processResponse(response);
 };
 

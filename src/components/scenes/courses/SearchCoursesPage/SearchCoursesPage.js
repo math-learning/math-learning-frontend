@@ -18,9 +18,19 @@ export default class SearchCoursesPage extends Component {
 
   componentDidMount() {
     const { isLoadingCourses, onSearchCourses } = this.props;
+    const { search } = this.state;
 
     if (isLoadingCourses) {
-      onSearchCourses({ search: '' });
+      onSearchCourses({ search });
+    }
+  }
+
+  componentDidUpdate() {
+    const { isLoadingCourses, onSearchCourses } = this.props;
+    const { search } = this.state;
+
+    if (isLoadingCourses) {
+      onSearchCourses({ search });
     }
   }
 

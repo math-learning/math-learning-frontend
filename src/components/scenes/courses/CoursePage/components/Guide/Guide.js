@@ -16,13 +16,12 @@ export default class Guide extends Component {
     }
   }
 
-  componentDidUpdate(lastProps) {
+  componentDidUpdate() {
     const {
       isLoadingExercises, getExercises, courseId, guideId
     } = this.props;
-    const isDifferentGuide = guideId !== lastProps.guideId;
 
-    if (isDifferentGuide && isLoadingExercises) {
+    if (isLoadingExercises) {
       getExercises({ courseId, guideId });
     }
   }
