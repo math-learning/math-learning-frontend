@@ -1,6 +1,5 @@
 import { push } from 'connected-react-router';
 import * as types from './actionTypes';
-import * as modalTypes from '../modals/modalTypes';
 import * as selectors from './selectors';
 import * as commonSelectors from '../common/selectors';
 import * as modalActions from '../modals/actions';
