@@ -81,14 +81,8 @@ export function getCourses() {
     const state = getState();
     const context = commonSelectors.context(state);
 
-    try {
-      const courses = await coursesClient.getCourses({ context });
-      dispatch(getCoursesSuccess({ courses }));
-    } catch (e) {
-      if (e.status === 401) {
-        dispatch(modalActions.loadModal(modalTypes.LOGIN_MODAL));
-      }
-    }
+    const courses = await coursesClient.getCourses({ context });
+    dispatch(getCoursesSuccess({ courses }));
   };
 }
 
