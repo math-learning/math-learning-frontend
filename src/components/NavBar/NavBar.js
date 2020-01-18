@@ -98,6 +98,8 @@ class NavBar extends Component {
         <GoogleLogin
           clientId={googleClientId}
           onSuccess={onGoogleLogin}
+          onFailure={(error) => console.log('google login error', error)}
+          cookiePolicy="single_host_origin"
           render={(renderProps) => (
             <Button onClick={renderProps.onClick} color="inherit">
               Login

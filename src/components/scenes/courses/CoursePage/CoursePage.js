@@ -11,11 +11,15 @@ import CourseHeader from './components/CourseHeader';
 
 export default class CoursePage extends Component {
   componentDidMount() {
-    const {
-      courseId,
-      isLoadingCourse,
-      getCourse
-    } = this.props;
+    const { courseId, isLoadingCourse, getCourse } = this.props;
+
+    if (isLoadingCourse) {
+      getCourse(courseId);
+    }
+  }
+
+  componentDidUpdate() {
+    const { courseId, isLoadingCourse, getCourse } = this.props;
 
     if (isLoadingCourse) {
       getCourse(courseId);

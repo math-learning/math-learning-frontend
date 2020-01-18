@@ -13,6 +13,14 @@ export default class ExercisePage extends Component {
     }
   }
 
+  componentDidUpdate() {
+    const { isLoadingExercise, onLoadExercise } = this.props;
+
+    if (isLoadingExercise) {
+      onLoadExercise();
+    }
+  }
+
   getContent = () => {
     const { isLoadingExercise, exercise } = this.props;
 

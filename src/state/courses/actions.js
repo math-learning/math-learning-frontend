@@ -1,5 +1,6 @@
 import { push } from 'connected-react-router';
 import * as types from './actionTypes';
+import * as modalTypes from '../modals/modalTypes';
 import * as selectors from './selectors';
 import * as commonSelectors from '../common/selectors';
 import * as modalActions from '../modals/actions';
@@ -69,9 +70,7 @@ export function updateCourse({ courseId, updatedValues }) {
     const state = getState();
     const context = commonSelectors.context(state);
     const currentCourse = selectors.getCourseDetail(state, courseId);
-    dispatch(updateCourseSuccess({
-      course: { ...currentCourse, ...updatedValues }
-    }));
+    dispatch(updateCourseSuccess({ course: { ...currentCourse, ...updatedValues } }));
 
     await coursesClient.updateCourse({ context, courseId, ...updatedValues });
   };
@@ -81,8 +80,15 @@ export function getCourses() {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
-    const courses = await coursesClient.getCourses({ context });
-    dispatch(getCoursesSuccess({ courses }));
+
+    try {
+      const courses = await coursesClient.getCourses({ context });
+      dispatch(getCoursesSuccess({ courses }));
+    } catch (e) {
+      if (e.status === 401) {
+        dispatch(modalActions.loadModal(modalTypes.LOGIN_MODAL));
+      }
+    }
   };
 }
 
@@ -131,7 +137,6 @@ export function searchCourses({ search }) {
     dispatch(listCoursesRequest());
 
     const courses = await coursesClient.searchCourses({ context, search });
-
     dispatch(listCoursesSuccess({ courses }));
   };
 }

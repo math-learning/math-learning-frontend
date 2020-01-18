@@ -1,9 +1,9 @@
 import thunk from 'redux-thunk';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { routerMiddleware } from 'connected-react-router';
-
 import createRootReducer from '../state';
 import history from './history';
+import errorHandlerMiddleware from './errorHandlerMiddleware';
 
 export default function configureStore(initialState) {
   const store = createStore(
@@ -11,8 +11,9 @@ export default function configureStore(initialState) {
     initialState,
     compose(
       applyMiddleware(
-        routerMiddleware(history), // for dispatching history actions
-        thunk,
+        errorHandlerMiddleware,
+        routerMiddleware(history),
+        thunk
       )
     )
   );

@@ -7,7 +7,7 @@ import * as modalTypes from '../../../../../../state/modals/modalTypes';
 import * as modal from '../../../../../../state/modals';
 
 const currentState = (state, { courseId, guideId }) => ({
-  exercises: exercises.selectors.getExercises(state, courseId, guideId) || [],
+  exercises: exercises.selectors.getExercises(state, courseId, guideId),
   guide: guides.selectors.getGuide(state, courseId, guideId),
   isLoadingExercises: exercises.selectors.isLoadingExercises(state, courseId, guideId)
 });
