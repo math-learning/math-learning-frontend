@@ -22,7 +22,7 @@ function updateExerciseState({
       ...exerciseProps
     }
   };
-  const courseGuideList = state.data.list[courseGuideId];
+  const courseGuideList = state.data.list[courseGuideId] || [];
   if (exerciseProps.exercise) {
     let indexOfExercise;
     courseGuideList.forEach((value, index) => { if (value.exerciseId === exerciseId) indexOfExercise = index; });
