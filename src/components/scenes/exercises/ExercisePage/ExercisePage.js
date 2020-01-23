@@ -46,13 +46,6 @@ export default class ExercisePage extends Component {
 
   render = () => (
     <Container className={styles.defaultContainer}>
-      <Typography
-        id="exercise-title"
-        variant="h4"
-        className={styles.title}
-      >
-          Resuelva el siguiente ejercicio
-      </Typography>
       {this.getContent()}
     </Container>
   );
