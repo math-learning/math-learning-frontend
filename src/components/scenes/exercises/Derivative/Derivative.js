@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, CircularProgress, Typography, Grid } from '@material-ui/core';
+import { Button, CircularProgress, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
@@ -8,51 +8,10 @@ import WrongIcon from '../../../Icons/WrongIcon';
 import MathText from '../../../MathText';
 import MathTextBox from '../../../MathTextBox';
 import CheckIcon from '../../../Icons/CheckIcon';
-
 import styles from './Derivative.module.sass';
+import MathTable from '../MathTable';
 
 const HELP_TEST = 'Intenta con esto: derivada de la suma';
-
-const mathTable = [
-  { label: '1' },
-  { label: '2' },
-  { label: '3' },
-  { label: '4' },
-  { label: '5' },
-  { label: '6' },
-  { label: '7' },
-  { label: '8' },
-  { label: '9' },
-
-  { label: '+' },
-  { label: '-' },
-  { label: '*' },
-  { label: '/' },
-
-  { label: '(' },
-  { label: ')' },
-  { label: '()' },
-
-  { label: 'x' },
-  { label: 'x^{a}' },
-  { label: '\\sqrt{x}' },
-
-  { label: 'sen' },
-  { label: 'cos' },
-  { label: 'tg' },
-  { label: 'e^x' },
-  { label: '\\log_2 x' },
-  { label: '\\ln{x}' },
-
-  { label: 'dx' },
-  { label: '\\frac{d()}{dx}' },
-
-  { label: '\\log_b a' },
-
-  { label: 'a^b' },
-  { label: '\\sqrt[a]{b}' },
-  { label: '\\pi' }
-];
 
 class Derivative extends Component {
   handleValidateStep = () => {
@@ -156,7 +115,9 @@ class Derivative extends Component {
 
     return (
       <div className={styles.exercise}>
-        <div className={styles.exerciselala}>
+        <MathTable />
+
+        <div className={styles.exercisePerimeter}>
           <div className={styles.container}>
             <MathText
               id="problem-input"
@@ -191,21 +152,6 @@ class Derivative extends Component {
             )
             : null}
         </div>
-        <Grid container spacing={2} className={styles.mathTable}>
-          {mathTable.map((i) => {
-            return (
-              <Grid item>
-                <Button size="small" variant="contained" className={styles.mathExpression}>
-                  <MathText
-                    id="problem-resolved"
-                    content={i.label}
-                    className={styles.pepito}
-                  />
-                </Button>
-              </Grid>
-            );
-          })}
-        </Grid>
       </div>
     );
   }
