@@ -47,13 +47,10 @@ class MathTextBox extends Component {
     const { content, className } = this.props;
 
     return (
-      <div // eslint-disable-line jsx-a11y/no-static-element-interactions
-        onKeyPress={this.onKeyPress}
+      <div
         onClick={this.onClick}
-        className={classNames(
-          styles.container,
-          className
-        )}
+        onKeyPress={this.onKeyPress}
+        className={classNames(styles.container, className)}
       >
         <Typography color="textPrimary" variant="h6">
           <MathQuill

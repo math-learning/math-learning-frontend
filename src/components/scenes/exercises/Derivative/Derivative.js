@@ -14,6 +14,12 @@ import MathTable from '../MathTable';
 const HELP_TEST = 'Intenta con esto: derivada de la suma';
 
 class Derivative extends Component {
+  constructor(props) {
+    super(props);
+
+    this.MathBoxRef = React.createRef();
+  }
+
   handleValidateStep = () => {
     const { exercise, currentExpression, onValidateStep } = this.props;
 
@@ -32,6 +38,10 @@ class Derivative extends Component {
     const { exercise, onDeleteStep } = this.props;
 
     onDeleteStep(exercise);
+  }
+
+  handleClickSymbol = (s) => {
+    this.MathBoxRef.current.mathQuillEl.write(s);
   }
 
   getStepList = () => {
@@ -88,7 +98,7 @@ class Derivative extends Component {
         <div className={styles.stepContent}>
           <span className={styles.item}> = </span>
           <MathTextBox
-            id="current-step"
+            ref={this.MathBoxRef}
             content={currentExpression}
             className={styles.mathBox}
             onContentChange={this.handleContentChange}
@@ -115,7 +125,7 @@ class Derivative extends Component {
 
     return (
       <div className={styles.exercise}>
-        <MathTable />
+        <MathTable onClickSymbol={this.handleClickSymbol} />
 
         <div className={styles.exercisePerimeter}>
           <div className={styles.container}>

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import ColapseIcon from '@material-ui/icons/ChevronLeft';
 import ExpandIcon from '@material-ui/icons/ChevronRight';
-import { Button, Grid } from '@material-ui/core';
-import MathText from '../../../MathText';
+import { Grid } from '@material-ui/core';
 
+import SymbolButton from '../SymbolButton';
 import styles from './MathTable.module.sass';
 
 const mathTable = [
@@ -65,6 +65,7 @@ export default class MathTable extends Component {
   }
 
   render = () => {
+    const { onClickSymbol } = this.props;
     const { isColapsed } = this.state;
 
     return (
@@ -73,13 +74,11 @@ export default class MathTable extends Component {
           {isColapsed
             ? (
               <ExpandIcon
-                fontSize="medium"
                 className={styles.colapseIcon}
                 onClick={this.handleExpand}
               />
             ) : (
               <ColapseIcon
-                fontSize="medium"
                 className={styles.colapseIcon}
                 onClick={this.handleColapse}
               />
@@ -90,13 +89,7 @@ export default class MathTable extends Component {
           <Grid container spacing={1} className={styles.mathTableActions}>
             {mathTable.map((i) => (
               <Grid item key={i.label}>
-                <Button size="small" variant="contained" className={styles.mathExpression}>
-                  <MathText
-                    id="problem-resolved"
-                    content={i.label}
-                    className={styles.singleMathText}
-                  />
-                </Button>
+                <SymbolButton content={i.label} onClick={onClickSymbol} />
               </Grid>
             ))}
           </Grid>
