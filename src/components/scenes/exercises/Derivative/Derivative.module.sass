@@ -1,5 +1,16 @@
 @import '../../../../App.module.sass'
 
+.exercise
+  flex-grow: 1
+  flex-direction: row
+  display: flex
+
+.exercisePerimeter
+  flex-grow: 1
+  padding: 20px
+  overflow: auto
+  height: calc(100vh - 64px);
+
 .container
   display: flex
   flex-grow: 1
@@ -43,6 +54,7 @@
 
 .mathBox
   flex-grow: 1
+  overflow: auto
   margin: 0 20px !important
 
 .item 
@@ -59,12 +71,3 @@
 .deleteStep
   font-weight: bold
   cursor: pointer
-
-.exercise
-  flex-grow: 1
-  flex-direction: row
-  display: flex
-
-.exercisePerimeter
-  flex-grow: 1
-  padding: 20px

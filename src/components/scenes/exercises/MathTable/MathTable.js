@@ -6,45 +6,42 @@ import { Grid } from '@material-ui/core';
 import SymbolButton from '../SymbolButton';
 import styles from './MathTable.module.sass';
 
-const mathTable = [
-  { label: '1' },
-  { label: '2' },
-  { label: '3' },
-  { label: '4' },
-  { label: '5' },
-  { label: '6' },
-  { label: '7' },
-  { label: '8' },
-  { label: '9' },
+const symbols = [
+  { label: '1', value: '1' },
+  { label: '2', value: '2' },
+  { label: '3', value: '3' },
+  { label: '4', value: '4' },
+  { label: '5', value: '5' },
+  { label: '6', value: '6' },
+  { label: '7', value: '7' },
+  { label: '8', value: '8' },
+  { label: '9', value: '9' },
 
-  { label: '+' },
-  { label: '-' },
-  { label: '*' },
-  { label: '/' },
+  { label: '+', value: '+' },
+  { label: '-', value: '-' },
+  { label: '\\cdot', value: '\\cdot' },
+  { label: '/', value: '\\frac{}{}' },
+  { label: '(', value: '(' },
+  { label: ')', value: ')' },
+  { label: '()', value: '( )' },
 
-  { label: '(' },
-  { label: ')' },
-  { label: '()' },
+  { label: 'x', value: 'x' },
+  { label: 'x^{a}', value: 'x^{}' },
+  { label: '\\sqrt{x}', value: '\\sqrt{x}' },
 
-  { label: 'x' },
-  { label: 'x^{a}' },
-  { label: '\\sqrt{x}' },
+  { label: 'sen', value: 'sin' },
+  { label: 'cos', value: 'cos' },
+  { label: 'tg', value: 'tan' },
+  { label: 'e^x', value: 'e^x' },
+  { label: '\\log_2 x', value: '\\log_2 x' },
+  { label: '\\ln{x}', value: '\\ln{x}' },
 
-  { label: 'sen' },
-  { label: 'cos' },
-  { label: 'tg' },
-  { label: 'e^x' },
-  { label: '\\log_2 x' },
-  { label: '\\ln{x}' },
+  { label: 'dx', value: 'dx' },
+  { label: '\\frac{d()}{dx}', value: '\\frac{d()}{dx}' },
 
-  { label: 'dx' },
-  { label: '\\frac{d()}{dx}' },
-
-  { label: '\\log_b a' },
-
-  { label: 'a^b' },
-  { label: '\\sqrt[a]{b}' },
-  { label: '\\pi' }
+  { label: '\\log_b a', value: '\\log_{} {}' },
+  { label: 'a^b', value: '{}^{}' },
+  { label: '\\sqrt[a]{b}', value: '\\sqrt[]{}' }
 ];
 
 export default class MathTable extends Component {
@@ -87,9 +84,9 @@ export default class MathTable extends Component {
 
         {!isColapsed ? (
           <Grid container spacing={1} className={styles.mathTableActions}>
-            {mathTable.map((i) => (
-              <Grid item key={i.label}>
-                <SymbolButton content={i.label} onClick={onClickSymbol} />
+            {symbols.map((symbol) => (
+              <Grid item key={symbol.label}>
+                <SymbolButton symbol={symbol} onClick={onClickSymbol} />
               </Grid>
             ))}
           </Grid>

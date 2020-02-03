@@ -42,6 +42,7 @@ class Derivative extends Component {
 
   handleClickSymbol = (s) => {
     this.MathBoxRef.current.mathQuillEl.write(s);
+    this.MathBoxRef.current.mathQuillEl.focus();
   }
 
   getStepList = () => {

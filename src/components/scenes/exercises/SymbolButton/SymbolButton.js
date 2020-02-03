@@ -6,18 +6,18 @@ import styles from './SymbolButton.module.sass';
 
 export default class SymbolButton extends Component {
   onClickMathFormula = () => {
-    const { content, onClick } = this.props;
+    const { symbol, onClick } = this.props;
 
-    onClick(content);
+    onClick(symbol.value);
   }
 
   render = () => {
-    const { content } = this.props;
+    const { symbol } = this.props;
 
     return (
       <Button onClick={this.onClickMathFormula} size="small" variant="contained" className={styles.mathExpression}>
         <MathText
-          content={content}
+          content={symbol.label}
           className={styles.singleMathText}
         />
       </Button>
