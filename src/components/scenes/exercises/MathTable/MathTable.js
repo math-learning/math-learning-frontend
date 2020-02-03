@@ -52,7 +52,7 @@ export default class MathTable extends Component {
     super(props);
 
     this.state = {
-      isColapsed: false
+      isColapsed: true
     };
   }
 
