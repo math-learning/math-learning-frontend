@@ -8,7 +8,7 @@ export default class SymbolButton extends Component {
   onClickMathFormula = () => {
     const { symbol, onClick } = this.props;
 
-    onClick(symbol.value);
+    onClick(symbol);
   }
 
   render = () => {

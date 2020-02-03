@@ -40,8 +40,12 @@ class Derivative extends Component {
     onDeleteStep(exercise);
   }
 
-  handleClickSymbol = (s) => {
-    this.MathBoxRef.current.mathQuillEl.write(s);
+  handleClickSymbol = (symbol) => {
+    if (symbol.isLatex) {
+      this.MathBoxRef.current.mathQuillEl.write(symbol.value);
+    } else {
+      this.MathBoxRef.current.mathQuillEl.typedText(symbol.value);
+    }
     this.MathBoxRef.current.mathQuillEl.focus();
   }
 
