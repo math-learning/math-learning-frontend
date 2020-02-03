@@ -8,7 +8,7 @@ const logoutThunk = async (dispatch, getState) => {
   const state = getState();
   const nextPath = commonSelectors.currentPath(state);
 
-  dispatch(modalActions.loadModal(modalTypes.LOGIN_MODAL, { nextPath }));
+  dispatch(modalActions.loadModal(modalTypes.SESSION_EXPIRED_MODAL, { nextPath }));
 };
 
 const errorHandler = (err) => {
