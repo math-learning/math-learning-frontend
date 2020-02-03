@@ -8,12 +8,18 @@ import WrongIcon from '../../../Icons/WrongIcon';
 import MathText from '../../../MathText';
 import MathTextBox from '../../../MathTextBox';
 import CheckIcon from '../../../Icons/CheckIcon';
-
 import styles from './Derivative.module.sass';
+import MathTable from '../MathTable';
 
 const HELP_TEST = 'Intenta con esto: derivada de la suma';
 
 class Derivative extends Component {
+  constructor(props) {
+    super(props);
+
+    this.MathBoxRef = React.createRef();
+  }
+
   handleValidateStep = () => {
     const { exercise, currentExpression, onValidateStep } = this.props;
 
@@ -32,6 +38,15 @@ class Derivative extends Component {
     const { exercise, onDeleteStep } = this.props;
 
     onDeleteStep(exercise);
+  }
+
+  handleClickSymbol = (symbol) => {
+    if (symbol.isLatex) {
+      this.MathBoxRef.current.mathQuillEl.write(symbol.value);
+    } else {
+      this.MathBoxRef.current.mathQuillEl.typedText(symbol.value);
+    }
+    this.MathBoxRef.current.mathQuillEl.focus();
   }
 
   getStepList = () => {
@@ -88,7 +103,7 @@ class Derivative extends Component {
         <div className={styles.stepContent}>
           <span className={styles.item}> = </span>
           <MathTextBox
-            id="current-step"
+            ref={this.MathBoxRef}
             content={currentExpression}
             className={styles.mathBox}
             onContentChange={this.handleContentChange}
@@ -114,41 +129,45 @@ class Derivative extends Component {
     const { exercise, isResolved } = this.props;
 
     return (
-      <React.Fragment>
-        <div className={styles.container}>
-          <MathText
-            id="problem-input"
-            className={styles.problemInput}
-            content={exercise.problemInput}
-          />
-          <div className={styles.content}>
-            {this.getStepList()}
+      <div className={styles.exercise}>
+        <MathTable onClickSymbol={this.handleClickSymbol} />
 
-            {!isResolved
-              ? this.getCurrentStep()
-              : null}
+        <div className={styles.exercisePerimeter}>
+          <div className={styles.container}>
+            <MathText
+              id="problem-input"
+              className={styles.problemInput}
+              content={exercise.problemInput}
+            />
+            <div className={styles.content}>
+              {this.getStepList()}
+
+              {!isResolved
+                ? this.getCurrentStep()
+                : null}
+            </div>
           </div>
+
+          {isResolved
+            ? (
+              <React.Fragment>
+                <Typography
+                  id="exercise-resolved"
+                  className={styles.solvedExerciseText}
+                  variant="h4"
+                >
+                  Ejercicio resuelto: ....  Entregar
+                </Typography>
+
+                <MathText
+                  id="problem-resolved"
+                  content={exercise.stepList[exercise.stepList.length - 1]}
+                />
+              </React.Fragment>
+            )
+            : null}
         </div>
-
-        {isResolved
-          ? (
-            <React.Fragment>
-              <Typography
-                id="exercise-resolved"
-                className={styles.solvedExerciseText}
-                variant="h4"
-              >
-                Ejercicio resuelto!
-              </Typography>
-
-              <MathText
-                id="problem-resolved"
-                content={exercise.stepList[exercise.stepList.length - 1]}
-              />
-            </React.Fragment>
-          )
-          : null}
-      </React.Fragment>
+      </div>
     );
   }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container, Typography, CircularProgress } from '@material-ui/core';
+import { CircularProgress } from '@material-ui/core';
 
 import Derivative from '../Derivative';
 import styles from './ExercisePage.module.sass';
@@ -21,7 +21,7 @@ export default class ExercisePage extends Component {
     }
   }
 
-  getContent = () => {
+  render = () => {
     const { isLoadingExercise, exercise } = this.props;
 
     if (isLoadingExercise) {
@@ -43,17 +43,4 @@ export default class ExercisePage extends Component {
       </span>
     );
   }
-
-  render = () => (
-    <Container className={styles.defaultContainer}>
-      <Typography
-        id="exercise-title"
-        variant="h4"
-        className={styles.title}
-      >
-          Resuelva el siguiente ejercicio
-      </Typography>
-      {this.getContent()}
-    </Container>
-  );
 }
