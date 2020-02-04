@@ -207,21 +207,16 @@ export function getExercise({ guideId, courseId, exerciseId }) {
     const state = getState();
     const context = commonSelectors.context(state);
 
-    try {
-      const exercise = await exercisesClient.getExercise({
-        context,
-        guideId,
-        courseId,
-        exerciseId
-      });
+    const exercise = await exercisesClient.getExercise({
+      context,
+      guideId,
+      courseId,
+      exerciseId
+    });
 
-      dispatch(getExerciseSuccess({
-        courseId, guideId, exerciseId, exercise
-      }));
-      dispatch(modalActions.hideModal());
-    } catch (err) {
-      dispatch(modalActions.showError(err.message));
-    }
+    dispatch(getExerciseSuccess({
+      courseId, guideId, exerciseId, exercise
+    }));
   };
 }
 

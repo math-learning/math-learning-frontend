@@ -77,8 +77,7 @@ describe('exercises actions', () => {
             courseId,
             exerciseId,
             exercise
-          },
-          { type: modalTypes.HIDE_MODAL }
+          }
         ];
         sandbox
           .stub(exercisesClient, 'getExercise')
