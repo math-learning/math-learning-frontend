@@ -13,12 +13,14 @@ const currentState = (state, { exercise }) => {
   const isProcessing = exerciseStatus === 'processing';
   const isInvalid = exerciseStatus === 'invalid';
   const isResolved = exercise.state === 'resolved';
+  const isDelivered = exercise.state === 'delivered';
 
   return {
     currentExpression,
+    isDelivered,
     isInvalid,
     isProcessing,
-    isResolved
+    isResolved,
   };
 };
 
@@ -48,6 +50,16 @@ const currentActions = (dispatch, { exercise }) => ({
       actionFunction: actions.deleteExerciseStep
     }));
   },
+  onDeliverExercise: () => {
+    dispatch(modalActions.loadModal(modalTypes.CONFIRM_ACTION_MODAL, {
+      title: '¿ Desea entregar el ejercicio ?',
+      explanation: 'Al entregarlo no podrás volver a editarlo',
+      acceptButton: 'Entregar ejercicio',
+      actionType: 'ask',
+      actionProps: exercise,
+      actionFunction: actions.deliverExercise
+    }));
+  }
 });
 
 export default withRouter(connect(

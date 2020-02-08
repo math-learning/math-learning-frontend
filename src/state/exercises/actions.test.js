@@ -331,6 +331,32 @@ describe('exercises actions', () => {
     });
   });
 
+  describe('deliverExercise() function', () => {
+    describe('when the exercise is deleted successfully', () => {
+      beforeEach(() => {
+        exerciseId = 'exercise-id';
+        expectedActions = [
+          {
+            type: types.DELIVER_EXERCISE_REQUEST,
+            guideId,
+            courseId,
+            exerciseId
+          },
+          { type: modalTypes.HIDE_MODAL }
+        ];
+        sandbox
+          .stub(exercisesClient, 'deliverExercise')
+          .callsFake(() => {});
+
+        return store.dispatch(actions.deliverExercise({ guideId, courseId, exerciseId }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
+
   describe('getExercises() function', () => {
     let exercises;
 
