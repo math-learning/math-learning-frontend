@@ -12,4 +12,4 @@ export const REMOVE_EXERCISE_STEP = 'Remove exercise step';
 export const REMOVE_EXERCISE_DETAIL = 'Remove exercise detail';
 export const DELETE_EXERCISE_SUCCESS = 'Delete exercise success';
 export const DELETE_EXERCISE_REQUEST = 'Delete exercise request';
-
+export const DELIVER_EXERCISE_REQUEST = 'Deliver exercise request';

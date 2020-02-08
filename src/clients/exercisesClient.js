@@ -43,6 +43,25 @@ const getExercise = async ({
   return requestUtils.processResponse(response);
 };
 
+const deliverExercise = async ({
+  context,
+  courseId,
+  guideId,
+  exerciseId
+}) => {
+  const profileUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}/deliver`;
+
+  const response = await fetch(profileUrl, {
+    method: 'put',
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 const resolveExercise = async ({
   context,
   courseId,
@@ -178,6 +197,7 @@ const deleteExercise = async ({
 export default {
   addUserToCourse,
   createExercise,
+  deliverExercise,
   getExercises,
   getExercise,
   updateExercise,

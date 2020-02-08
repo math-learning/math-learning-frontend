@@ -41,6 +41,9 @@ class Derivative extends Component {
   }
 
   handleClickSymbol = (symbol) => {
+    if (!this.MathBoxRef.current) {
+      return;
+    }
     if (symbol.isLatex) {
       this.MathBoxRef.current.mathQuillEl.write(symbol.value);
     } else {
@@ -49,12 +52,18 @@ class Derivative extends Component {
     this.MathBoxRef.current.mathQuillEl.focus();
   }
 
+  handleDeliverExercise = () => {
+    const { onDeliverExercise } = this.props;
+
+    onDeliverExercise();
+  }
+
   getStepList = () => {
-    const { exercise: { stepList } } = this.props;
+    const { exercise: { stepList }, isDelivered } = this.props;
 
     return (
       (stepList).map((step, index) => {
-        const isLastStep = index === stepList.length - 1;
+        const isLastStep = index === stepList.length - 1 && !isDelivered;
 
         return (
           <div key={`right-step-${index}`} className={styles.rightStep}>
@@ -126,11 +135,14 @@ class Derivative extends Component {
   }
 
   render() {
-    const { exercise, isResolved } = this.props;
+    const { exercise, isResolved, isDelivered } = this.props;
 
+    // TODO: AGREGAR DISPLAY-IF
     return (
       <div className={styles.exercise}>
-        <MathTable onClickSymbol={this.handleClickSymbol} />
+        {!isDelivered ? (
+          <MathTable onClickSymbol={this.handleClickSymbol} />
+        ) : null}
 
         <div className={styles.exercisePerimeter}>
           <div className={styles.container}>
@@ -142,28 +154,35 @@ class Derivative extends Component {
             <div className={styles.content}>
               {this.getStepList()}
 
-              {!isResolved
+              {!(isResolved || isDelivered)
                 ? this.getCurrentStep()
                 : null}
             </div>
           </div>
 
-          {isResolved
+          {isResolved || isDelivered
             ? (
-              <React.Fragment>
-                <Typography
-                  id="exercise-resolved"
-                  className={styles.solvedExerciseText}
-                  variant="h4"
-                >
-                  Ejercicio resuelto: ....  Entregar
-                </Typography>
-
-                <MathText
-                  id="problem-resolved"
-                  content={exercise.stepList[exercise.stepList.length - 1]}
-                />
-              </React.Fragment>
+              <div className={styles.solvedExerciseTopContainer}>
+                <div className={styles.solvedExerciseContainer}>
+                  <Typography
+                    id="exercise-resolved"
+                    className={styles.solvedExerciseText}
+                    variant="h5"
+                  >
+                    {isDelivered ? 'Ejercicio entregado:' : 'Ejercicio resuelto:'}
+                  </Typography>
+                  <MathText
+                    id="problem-resolved"
+                    className={styles.solvedExerciseResult}
+                    content={exercise.stepList[exercise.stepList.length - 1]}
+                  />
+                </div>
+                {!isDelivered ? (
+                  <Button id="deliver-exercise" onClick={this.handleDeliverExercise} className={styles.deliverExerciseButton} variant="outlined">
+                    Entregar ejercicio
+                  </Button>
+                ) : null }
+              </div>
             )
             : null}
         </div>

@@ -143,6 +143,15 @@ export function deleteExerciseRequest({ courseId, guideId, exerciseId }) {
   };
 }
 
+export function deliverExerciseRequest({ courseId, guideId, exerciseId }) {
+  return {
+    type: types.DELIVER_EXERCISE_REQUEST,
+    courseId,
+    guideId,
+    exerciseId,
+  };
+}
+
 export function createExercise({ guideId, courseId, exercise }) {
   return async (dispatch, getState) => {
     const state = getState();
@@ -163,6 +172,20 @@ export function createExercise({ guideId, courseId, exercise }) {
     } catch (err) {
       dispatch(modalActions.showError(err.message));
     }
+  };
+}
+
+export function deliverExercise({ courseId, guideId, exerciseId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    dispatch(deliverExerciseRequest({ courseId, guideId, exerciseId }));
+    dispatch(modalActions.hideModal());
+
+    await exercisesClient.deliverExercise({
+      context, guideId, courseId, exerciseId
+    });
   };
 }
 
