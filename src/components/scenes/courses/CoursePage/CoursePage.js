@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import Grid from '@material-ui/core/Grid';
 import { CircularProgress } from '@material-ui/core';
-import styles from './CoursePage.module.sass';
 import Content from '../../../common/containers/Content/Content';
 import ContentHeader from '../../../common/containers/Content/ContentHeader';
 import CourseLeftPanel from './components/CourseLeftPanel';
 import Guide from './components/Guide';
+import StatisticsPage from './components/StatisticsPage';
 import CourseUsersPage from './components/CourseUsersPage';
 import CourseHeader from './components/CourseHeader';
+
+import styles from './CoursePage.module.sass';
 
 export default class CoursePage extends Component {
   componentDidMount() {
@@ -27,9 +29,9 @@ export default class CoursePage extends Component {
   }
 
   getHeader(isProfessor) { // TODO: maybe we can have the header per page
-    const { course, isUserPath } = this.props;
+    const { course, isUserPath, isStatisticsPath } = this.props;
 
-    if (isUserPath) {
+    if (isUserPath || isStatisticsPath) {
       return null;
     }
 
@@ -46,10 +48,13 @@ export default class CoursePage extends Component {
   }
 
   getContent(isProfessor) {
-    const { course, guideId, isUserPath } = this.props;
+    const { course, guideId, isUserPath, isStatisticsPath } = this.props;
 
     if (isUserPath) {
       return <CourseUsersPage course={course} />;
+    }
+    if (isStatisticsPath) {
+      return <StatisticsPage course={course} />;
     }
 
     const firstGuide = course.guides[0];
@@ -79,6 +84,18 @@ export default class CoursePage extends Component {
 
     return (
       <div className={styles.root}>
+        <CourseLeftPanel
+          isProfessor={isProfessor}
+          courseId={course.courseId}
+          courseName={course.name}
+          guides={guides}
+        />
+
+        <div className={styles.content}>
+          {this.getHeader(isProfessor)}
+          {this.getContent(isProfessor)}
+        </div>
+        {/*
         <Grid container>
           <CourseLeftPanel
             isProfessor={isProfessor}
@@ -91,7 +108,7 @@ export default class CoursePage extends Component {
             {this.getHeader(isProfessor)}
             {this.getContent(isProfessor)}
           </Content>
-        </Grid>
+        </Grid> */}
       </div>
     );
   }

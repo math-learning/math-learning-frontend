@@ -28,6 +28,7 @@ const configs = {
     exercise: ({ courseId, guideId, exerciseId }) => `/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}`,
     courseGuide: (courseId, guideId) => `/courses/${courseId}/guides/${guideId}`,
     courseUsers: (courseId) => `/courses/${courseId}/users`,
+    courseStatistics: (courseId) => `/courses/${courseId}/statistics`
   },
   // serverUrl: "http://0.0.0.0:5000"
   serverUrl: 'https://math-solver.herokuapp.com'
