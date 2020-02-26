@@ -294,6 +294,24 @@ export default function reducers(state = initialState, action) {
       };
     }
 
+    case types.DELIVER_EXERCISE_REQUEST: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
+
+      return updateExerciseState({
+        state,
+        courseId: action.courseId,
+        guideId: action.guideId,
+        exerciseId: action.exerciseId,
+        exerciseProps: {
+          exercise: {
+            ...currentExercise,
+            state: 'delivered'
+          },
+        }
+      });
+    }
+
     case commonTypes.LOGOUT_SUCCESS: {
       // cleaning the state
       return initialState;
