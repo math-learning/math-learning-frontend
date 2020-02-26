@@ -59,8 +59,7 @@
     "redux-thunk-error-handler": "^1.1.4",
     "redux-thunk-recursion-detect": "^1.1.4",
     "serve": "11.1.0",
-    "typeface-roboto": "0.0.75",
-    "victory": "^34.1.1"
+    "typeface-roboto": "0.0.75"
   },
   "eslintConfig": {
     "extends": "react-app"
