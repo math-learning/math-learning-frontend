@@ -5,14 +5,14 @@ import LeftPanelLink from '../../../../../common/containers/LeftPanel/LeftPanelL
 
 export default function CourseLeftPanel(props) {
   const {
-    courseId, guides, loadUsersPage, isProfessor
+    courseId, guides, loadUsersPage, loadStatisticsPage, isProfessor
   } = props;
 
   return (
     <LeftPanel>
       <LeftPanelLink text="Usuarios" onClick={loadUsersPage} />
       { isProfessor && (
-        <LeftPanelLink text="Estadisticas" onClick={() => {}} />
+        <LeftPanelLink text="Estadisticas" onClick={loadStatisticsPage} />
       )}
       <LeftPanelGuides
         isProfessor={isProfessor}

@@ -29,6 +29,10 @@ import {
   reducers as guidesReducers,
 } from './guides';
 
+import {
+  reducers as statisticsReducers,
+} from './statistics';
+
 const createRootReducer = (history) => combineReducers({
   addExercise: addExerciseReducers,
   common: commonReducers,
@@ -38,6 +42,7 @@ const createRootReducer = (history) => combineReducers({
   modals: modalReducers,
   router: connectRouter(history),
   guides: guidesReducers,
+  statistics: statisticsReducers
 });
 
 export default createRootReducer;

@@ -140,10 +140,25 @@ const deleteCourse = async ({
   return requestUtils.processResponse(response);
 };
 
+const getCourseUsersActivity = async ({
+  context,
+  courseId
+}) => {
+  const getCourseActivityUrl = `${url}/courses/${courseId}/users/statistics/activity`;
+  const response = await fetch(getCourseActivityUrl, {
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+  return requestUtils.processResponse(response);
+};
+
 export default {
   createCourse,
   getCourses,
   getCourse,
+  getCourseUsersActivity,
   addUserToCourse,
   publishCourse,
   searchCourses,
