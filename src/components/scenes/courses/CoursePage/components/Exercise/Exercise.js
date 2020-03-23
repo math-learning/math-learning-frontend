@@ -1,4 +1,5 @@
 import React from 'react';
+import classNames from 'classnames';
 import { Card, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import MathText from '../../../../../MathText/MathText.container';
@@ -35,11 +36,14 @@ export default function Exercise(props) {
   return (
     <Card onClick={onClickExercise} className={styles.card}>
       <Grid container>
-        <Grid item xs={isProfessor ? 9 : 10}>
-          <Typography className={styles.tcGray1} variant="h6">
+        <Grid item xs={isProfessor ? 3 : 4}>
+          <Typography className={classNames(styles.item, styles.tcGray1)} variant="h6">
             {exercise.name}
           </Typography>
-          <Typography className={styles.problemInputTitle}>Enunciado: Resuelva paso a paso</Typography>
+          <Typography className={classNames(styles.item, styles.problemInputTitle)}>Enunciado: Resuelva paso a paso</Typography>
+        </Grid>
+
+        <Grid item xs={6}>
           <MathText content={exercise.problemInput} className={styles.exercise} />
         </Grid>
 
