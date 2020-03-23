@@ -3,7 +3,7 @@ import { CircularProgress } from '@material-ui/core';
 import ContentHeader from '../../../common/containers/Content/ContentHeader';
 import CourseLeftPanel from './components/CourseLeftPanel';
 import Guide from './components/Guide';
-import StatisticsPage from './components/StatisticsPage/UsersActivityPage';
+import StatisticsPage from './components/StatisticsPage';
 import CourseUsersPage from './components/CourseUsersPage';
 import CourseHeader from './components/CourseHeader';
 

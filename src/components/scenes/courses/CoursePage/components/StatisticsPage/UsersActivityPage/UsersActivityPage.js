@@ -3,9 +3,11 @@ import '../../../../../../../../node_modules/react-vis/dist/style.css';
 import {
   FlexibleWidthXYPlot, XAxis, YAxis, AreaSeries
 } from 'react-vis';
-import { CircularProgress, Select, MenuItem } from '@material-ui/core';
+import {
+  CircularProgress, Select, MenuItem, Typography
+} from '@material-ui/core';
 import BootstrapDropdownInput from '../../../../../../../bootstrap/dropdownInput';
-import styles from './UsersActivityPage.module.sass';
+import styles from '../StatisticsCommon.module.sass';
 
 export default class UsersActivityPage extends Component {
   constructor(props) {
@@ -69,42 +71,61 @@ export default class UsersActivityPage extends Component {
     const currentMonths = statistics.find((y) => y.year === currentYear).months;
     const currentMonth = month || currentMonths[0].month;
 
-    const data = [
-      { x: 0, y: 0 },
-      ...currentMonths.find((m) => m.month === currentMonth).days.map((day) => ({ x: day.day, y: day.count }))
-    ];
+    let data;
+    if (currentMonth === 'Todos') {
+      data = currentMonths.map((m) => {
+        const count = m.days.reduce((acum, d) => (acum + d.count), 0);
+        return ({ x: m.month, y: count });
+      });
+      console.log('DATA TON RENDER', data)
+
+    } else {
+      data = currentMonths.find((m) => m.month === currentMonth).days.map((day) => ({ x: day.day, y: day.count }))
+    }
+
+    const dataToRender = [{ x: 0, y: 0 }, ...data];
 
     return (
       <div className={styles.container}>
-        <FlexibleWidthXYPlot className={styles.graph} height={400} yType="ordinal" xType="ordinal">
+        <div className={styles.selectors}>
+          <div className={styles.selector}>
+            <Typography className={styles.labelSelector} variant="h6" color="textSecondary">Año:</Typography>
+
+            <Select
+              id="year-selector"
+              value={currentYear}
+              className={styles.leftSelector}
+              onChange={this.onChangeYear}
+              input={<BootstrapDropdownInput />}
+            >
+              {statistics.map((actYear) => (
+                <MenuItem value={actYear.year}>{actYear.year}</MenuItem>
+              ))}
+            </Select>
+          </div>
+
+          <div className={styles.selector}>
+            <Typography className={styles.labelSelector} variant="h6" color="textSecondary">Mes:</Typography>
+
+            <Select
+              id="month-selector"
+              value={currentMonth}
+              onChange={this.onChangeMonth}
+              input={<BootstrapDropdownInput />}
+            >
+              {[
+                <MenuItem value="Todos">Todos</MenuItem>,
+                ...currentMonths.map((m) => <MenuItem value={m.month}>{m.month}</MenuItem>)
+              ]}
+            </Select>
+          </div>
+        </div>
+
+        <FlexibleWidthXYPlot className={styles.graph} height={500} yType="ordinal" xType="ordinal">
           <XAxis title="Día" />
           <YAxis title="Cantidad de usuarios" />
-          <AreaSeries data={data} animation />
+          <AreaSeries data={dataToRender} animation />
         </FlexibleWidthXYPlot>
-
-        <div className={styles.selectors}>
-          <Select
-            id="year-selector"
-            value={currentYear}
-            className={styles.leftSelector}
-            onChange={this.onChangeYear}
-            input={<BootstrapDropdownInput />}
-          >
-            {statistics.map((actYear) => (
-              <MenuItem value={actYear.year}>{actYear.year}</MenuItem>
-            ))}
-          </Select>
-          <Select
-            id="month-selector"
-            value={currentMonth}
-            onChange={this.onChangeMonth}
-            input={<BootstrapDropdownInput />}
-          >
-            {currentMonths.map((actMonth) => (
-              <MenuItem value={actMonth.month}>{actMonth.month}</MenuItem>
-            ))}
-          </Select>
-        </div>
       </div>
     );
   }

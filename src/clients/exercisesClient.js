@@ -194,12 +194,25 @@ const deleteExercise = async ({
   return requestUtils.processResponse(response);
 };
 
+const getExerciseErrors = async ({ context, courseId }) => {
+  const exerciseUrl = `${url}/courses/${courseId}/errors/statistics`;
+  const response = await fetch(exerciseUrl, {
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 export default {
   addUserToCourse,
   createExercise,
   deliverExercise,
   getExercises,
   getExercise,
+  getExerciseErrors,
   updateExercise,
   removeExerciseStep,
   resolveExercise,
