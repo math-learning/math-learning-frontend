@@ -16,7 +16,6 @@ import NavBar from './components/NavBar';
 import ProfilePage from './components/ProfilePage/ProfilePage';
 import ProgressBar from './components/ProgressBar';
 import SnackbarWrapper from './components/SnackbarWrapper';
-import StatisticsPage from './components/StatisticsPage/StatisticsPage';
 import history from './store/history';
 import CourseManagement from './components/scenes/courses/CoursePage';
 
@@ -40,10 +39,6 @@ const renderAddExercisePage = () => (
 );
 const renderProfilePage = () => (
   <ProfilePage />
-);
-
-const renderStatisticsPage = () => (
-  <StatisticsPage />
 );
 
 const renderCoursePage = ({ match }) => {
@@ -73,7 +68,6 @@ const App = () => {
           <Route exact path="/courses/:courseId/statistics" component={CourseManagement} />
           <Route exact path="/courses/:courseId/guides/:guideId/exercises/:exerciseId" component={ExercisePage} />
           <Route exact path="/courses" component={OwnCoursesPage} />
-          <Route exact path="/statistics" render={renderStatisticsPage} />
           <Route exact path="/" component={Main} />
         </Switch>
 
