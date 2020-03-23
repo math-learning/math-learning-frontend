@@ -45,18 +45,26 @@ export default class ExerciseErrorsPage extends Component {
     }
 
     if (graphicType === 'Histograma') {
-      const data = objsToRender.map((obj) => ({ x: obj.name, y: parseInt(obj.count, 10) }));
+      const data = objsToRender.map((obj) => ({ x: obj.name, y: obj.count }));
 
       return (
-        <FlexibleWidthXYPlot className={styles.graph} height={500} xType="ordinal" margin={{ bottom: 100 }}>
+        <FlexibleWidthXYPlot
+          className={styles.graph}
+          height={500}
+          xType="ordinal"
+          margin={{ bottom: 100 }}
+        >
           <XAxis tickLabelAngle={-45} />
           <YAxis title="Cantidad de errores" />
-          <VerticalBarSeries data={data} animation barWidth="0.1" />
+          <VerticalBarSeries data={data} animation barWidth={0.1} />
         </FlexibleWidthXYPlot>
       );
     }
 
-    const data = objsToRender.map((obj) => ({ label: `${obj.name}: ${obj.count}`, angle: obj.count }));  
+    const data = objsToRender.map((obj) => ({
+      label: `${obj.name}: ${obj.count}`,
+      angle: obj.count
+    }));
 
     return (
       <RadialChart
@@ -119,8 +127,8 @@ export default class ExerciseErrorsPage extends Component {
               input={<BootstrapDropdownInput />}
             >
               {[
-                <MenuItem value="Todas">Todas</MenuItem>,
-                ...statistics.map((g) => (<MenuItem value={g.guideId}>{g.guideId}</MenuItem>))
+                ...statistics.map((g) => <MenuItem key={g.guideId} value={g.guideId}>{g.guideId}</MenuItem>),
+                <MenuItem key="Todas" value="Todas">Todas</MenuItem>
               ]}
             </Select>
           </div>
@@ -134,7 +142,7 @@ export default class ExerciseErrorsPage extends Component {
               onChange={this.onChangeGraphicType}
               input={<BootstrapDropdownInput />}
             >
-              {graphicTypes.map((gt) => (<MenuItem value={gt}>{gt}</MenuItem>))}
+              {graphicTypes.map((gt) => (<MenuItem key={gt} value={gt}>{gt}</MenuItem>))}
             </Select>
           </div>
         </div>

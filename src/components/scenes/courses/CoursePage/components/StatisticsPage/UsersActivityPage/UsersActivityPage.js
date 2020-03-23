@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import '../../../../../../../../node_modules/react-vis/dist/style.css';
 import {
   FlexibleWidthXYPlot, XAxis, YAxis, AreaSeries
@@ -25,6 +26,32 @@ export default class UsersActivityPage extends Component {
     if (!statistics) {
       getCourseUsersActivity(course.courseId);
     }
+  }
+
+  getCurrentData = () => {
+    const { statistics } = this.props;
+    const { month, year } = this.state;
+
+    const currentYear = year || statistics[0].year;
+    const currentMonths = statistics.find((y) => y.year === currentYear).months;
+    const currentMonth = month || currentMonths[0].month;
+
+    if (currentMonth === 'Todos') {
+      return currentMonths.reverse().map((m) => {
+        const count = m.days.reduce((acum, d) => (acum + d.count), 0);
+        return ({ x: m.month, y: count });
+      });
+    }
+
+    const currentDays = currentMonths.find((m) => m.month === currentMonth).days;
+    return currentDays.map((day) => ({ x: day.day, y: day.count }));
+  }
+
+  getDomain = (dataToRender, property) => {
+    const domain = dataToRender.map((data) => data[property]);
+    domain.sort((a, b) => (a - b));
+
+    return _.uniqBy(domain);
   }
 
   onChangeYear = (event) => {
@@ -71,19 +98,7 @@ export default class UsersActivityPage extends Component {
     const currentMonths = statistics.find((y) => y.year === currentYear).months;
     const currentMonth = month || currentMonths[0].month;
 
-    let data;
-    if (currentMonth === 'Todos') {
-      data = currentMonths.map((m) => {
-        const count = m.days.reduce((acum, d) => (acum + d.count), 0);
-        return ({ x: m.month, y: count });
-      });
-      console.log('DATA TON RENDER', data)
-
-    } else {
-      data = currentMonths.find((m) => m.month === currentMonth).days.map((day) => ({ x: day.day, y: day.count }))
-    }
-
-    const dataToRender = [{ x: 0, y: 0 }, ...data];
+    const dataToRender = this.getCurrentData();
 
     return (
       <div className={styles.container}>
@@ -99,7 +114,7 @@ export default class UsersActivityPage extends Component {
               input={<BootstrapDropdownInput />}
             >
               {statistics.map((actYear) => (
-                <MenuItem value={actYear.year}>{actYear.year}</MenuItem>
+                <MenuItem key={actYear.year} value={actYear.year}>{actYear.year}</MenuItem>
               ))}
             </Select>
           </div>
@@ -114,14 +129,22 @@ export default class UsersActivityPage extends Component {
               input={<BootstrapDropdownInput />}
             >
               {[
-                <MenuItem value="Todos">Todos</MenuItem>,
-                ...currentMonths.map((m) => <MenuItem value={m.month}>{m.month}</MenuItem>)
+                ...currentMonths.map((m) => <MenuItem key={m.month} value={m.month}>{m.month}</MenuItem>),
+                <MenuItem key="Todos" value="Todos">Todos</MenuItem>
               ]}
             </Select>
           </div>
         </div>
 
-        <FlexibleWidthXYPlot className={styles.graph} height={500} yType="ordinal" xType="ordinal">
+        <FlexibleWidthXYPlot
+          yDomain={this.getDomain(dataToRender, 'y')}
+          xDomain={this.getDomain(dataToRender, 'x')}
+          className={styles.graph}
+          height={500}
+          yType="ordinal"
+          xType="ordinal"
+          opacity={0.8}
+        >
           <XAxis title="Día" />
           <YAxis title="Cantidad de usuarios" />
           <AreaSeries data={dataToRender} animation />
