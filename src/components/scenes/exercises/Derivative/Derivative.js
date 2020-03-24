@@ -20,6 +20,9 @@ class Derivative extends Component {
     super(props);
 
     this.MathBoxRef = React.createRef();
+    this.state = {
+      latexModeOn: false
+    };
   }
 
   handleValidateStep = () => {
@@ -52,6 +55,12 @@ class Derivative extends Component {
       this.MathBoxRef.current.mathQuillEl.typedText(symbol.value);
     }
     this.MathBoxRef.current.mathQuillEl.focus();
+  }
+
+  handleOnChangeMode = (mode) => {
+    const { latexModeOn } = mode;
+
+    this.setState({ latexModeOn });
   }
 
   handleDeliverExercise = () => {
@@ -105,6 +114,7 @@ class Derivative extends Component {
   }
 
   getCurrentStep = () => {
+    const { latexModeOn } = this.state;
     const { currentExpression, isProcessing } = this.props;
 
     return (
@@ -115,6 +125,7 @@ class Derivative extends Component {
           <span className={styles.item}> = </span>
           <MathTextBox
             ref={this.MathBoxRef}
+            latexMode={latexModeOn}
             content={currentExpression}
             className={styles.mathBox}
             onContentChange={this.handleContentChange}
@@ -123,7 +134,7 @@ class Derivative extends Component {
           {this.getCurrentStepState()}
           <Button
             id="validate-step"
-            className={styles.item}
+            className={styles.validateButton}
             onClick={this.handleValidateStep}
             disabled={!currentExpression || isProcessing}
             variant="contained"
@@ -147,7 +158,12 @@ class Derivative extends Component {
         <LeftPanel>
           <LeftPanelLink text="Volver al curso" includeBack onClick={onReturnToCourse} />
 
-          {!isDelivered && <MathTable onClickSymbol={this.handleClickSymbol} />}
+          {!isDelivered && (
+            <MathTable
+              onClickSymbol={this.handleClickSymbol}
+              onChangeMode={this.handleOnChangeMode}
+            />
+          )}
         </LeftPanel>
 
         <div className={styles.exercisePerimeter}>

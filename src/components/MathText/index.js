@@ -1,3 +1,3 @@
-import MathText from './MathText.container';
+import MathText from './MathText';
 
 export default MathText;

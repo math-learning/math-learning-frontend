@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ColapseIcon from '@material-ui/icons/ChevronLeft';
 import ExpandIcon from '@material-ui/icons/ChevronRight';
-import { Grid } from '@material-ui/core';
-
+import { Grid, FormControlLabel, Switch } from '@material-ui/core';
 import SymbolButton from '../SymbolButton';
 import styles from './MathTable.module.sass';
 
@@ -52,8 +51,17 @@ export default class MathTable extends Component {
     super(props);
 
     this.state = {
-      isColapsed: false
+      isColapsed: false,
+      latexModeOn: false
     };
+  }
+
+  handleLatexMode = () => {
+    const { onChangeMode } = this.props;
+    const { latexModeOn } = this.state;
+
+    this.setState({ latexModeOn: !latexModeOn });
+    onChangeMode({ latexModeOn: !latexModeOn });
   }
 
   handleColapse = () => {
@@ -92,21 +100,26 @@ export default class MathTable extends Component {
 
   render = () => {
     const { onClickSymbol } = this.props;
-    const { isColapsed } = this.state;
+    const { latexModeOn } = this.state;
 
     return (
       <div className={styles.mathTable}>
         {this.renderColapseHeader()}
 
-        {!isColapsed ? (
-          <Grid container spacing={1} className={styles.mathTableActions}>
-            {symbols.map((symbol) => (
-              <Grid item key={symbol.label}>
-                <SymbolButton symbol={symbol} onClick={onClickSymbol} />
-              </Grid>
-            ))}
-          </Grid>
-        ) : null}
+        <FormControlLabel
+          className={styles.latexSwitch}
+          label="Modo Latex"
+          control={
+            <Switch size="small" checked={latexModeOn} onChange={this.handleLatexMode} color="primary" />
+          }
+        />
+        <Grid container spacing={1} className={styles.mathTableActions}>
+          {symbols.map((symbol) => (
+            <Grid item key={symbol.label}>
+              <SymbolButton symbol={symbol} onClick={onClickSymbol} />
+            </Grid>
+          ))}
+        </Grid>
       </div>
     );
   };
