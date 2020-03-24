@@ -1,7 +1,6 @@
 import { connect } from 'react-redux';
 import * as actions from '../../../../state/exercises/actions';
 import * as selectors from '../../../../state/exercises/selectors';
-
 import ExercisePage from './ExercisePage';
 
 const currentState = (state, { match }) => {

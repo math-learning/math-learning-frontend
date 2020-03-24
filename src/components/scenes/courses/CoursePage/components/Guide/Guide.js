@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  CircularProgress, Container, Typography, Button
-} from '@material-ui/core';
+import { CircularProgress, Typography, Button } from '@material-ui/core';
 import Exercise from '../Exercise';
 import styles from './Guide.module.sass';
 

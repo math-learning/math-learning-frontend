@@ -1,5 +1,7 @@
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { push } from 'connected-react-router';
+import configs from '../../../../configs/variables';
 import * as actions from '../../../../state/exercises/actions';
 import * as selectors from '../../../../state/exercises/selectors';
 import * as modalTypes from '../../../../state/modals/modalTypes';
@@ -59,6 +61,11 @@ const currentActions = (dispatch, { exercise }) => ({
       actionProps: exercise,
       actionFunction: actions.deliverExercise
     }));
+  },
+  onReturnToCourse: async () => {
+    await dispatch(
+      push(configs.pathGenerators.courseGuide(exercise.courseId, exercise.guideId))
+    );
   }
 });
 
