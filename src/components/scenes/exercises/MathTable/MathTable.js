@@ -52,7 +52,7 @@ export default class MathTable extends Component {
     super(props);
 
     this.state = {
-      isColapsed: true
+      isColapsed: false
     };
   }
 
@@ -64,26 +64,39 @@ export default class MathTable extends Component {
     this.setState({ isColapsed: false });
   }
 
+  renderColapseHeader = () => {
+    const { isColapsed } = this.state;
+    const { hideColapse = true } = this.props;
+
+    if (hideColapse) {
+      return null;
+    }
+
+    return (
+      <div className={styles.mathTableHeader}>
+        {isColapsed
+          ? (
+            <ExpandIcon
+              className={styles.colapseIcon}
+              onClick={this.handleExpand}
+            />
+          ) : (
+            <ColapseIcon
+              className={styles.colapseIcon}
+              onClick={this.handleColapse}
+            />
+          )}
+      </div>
+    );
+  }
+
   render = () => {
     const { onClickSymbol } = this.props;
     const { isColapsed } = this.state;
 
     return (
       <div className={styles.mathTable}>
-        <div className={styles.mathTableHeader}>
-          {isColapsed
-            ? (
-              <ExpandIcon
-                className={styles.colapseIcon}
-                onClick={this.handleExpand}
-              />
-            ) : (
-              <ColapseIcon
-                className={styles.colapseIcon}
-                onClick={this.handleColapse}
-              />
-            )}
-        </div>
+        {this.renderColapseHeader()}
 
         {!isColapsed ? (
           <Grid container spacing={1} className={styles.mathTableActions}>

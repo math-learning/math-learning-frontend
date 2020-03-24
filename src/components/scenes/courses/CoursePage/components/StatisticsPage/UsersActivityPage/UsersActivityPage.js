@@ -140,7 +140,7 @@ export default class UsersActivityPage extends Component {
           yDomain={this.getDomain(dataToRender, 'y')}
           xDomain={this.getDomain(dataToRender, 'x')}
           className={styles.graph}
-          height={500}
+          height={400}
           yType="ordinal"
           xType="ordinal"
           opacity={0.8}

@@ -50,7 +50,7 @@ export default class ExerciseErrorsPage extends Component {
       return (
         <FlexibleWidthXYPlot
           className={styles.graph}
-          height={500}
+          height={400}
           xType="ordinal"
           margin={{ bottom: 100 }}
         >

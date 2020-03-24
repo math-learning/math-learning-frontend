@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import {
-  CircularProgress, Container, Typography, Button
-} from '@material-ui/core';
+import { CircularProgress, Typography, Button } from '@material-ui/core';
 import Exercise from '../Exercise';
 import styles from './Guide.module.sass';
 
@@ -40,7 +38,7 @@ export default class Guide extends Component {
     }
 
     return (
-      <Container className={styles.exerciseInfo}>
+      <div className={styles.exerciseInfo}>
         <div className={styles.exercisesHeader}>
           <Typography align="center" variant="h6" className={styles.guideTitle}>
             Ejercicios ({guide.name})
@@ -68,7 +66,7 @@ export default class Guide extends Component {
             />
           ))}
         </div>
-      </Container>
+      </div>
     );
   }
 }

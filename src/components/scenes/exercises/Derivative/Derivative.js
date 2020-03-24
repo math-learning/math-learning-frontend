@@ -8,6 +8,8 @@ import WrongIcon from '../../../Icons/WrongIcon';
 import MathText from '../../../MathText';
 import MathTextBox from '../../../MathTextBox';
 import CheckIcon from '../../../Icons/CheckIcon';
+import LeftPanel from '../../../common/containers/LeftPanel/LeftPanel';
+import LeftPanelLink from '../../../common/containers/LeftPanel/LeftPanelLink';
 import styles from './Derivative.module.sass';
 import MathTable from '../MathTable';
 
@@ -135,14 +137,18 @@ class Derivative extends Component {
   }
 
   render() {
-    const { exercise, isResolved, isDelivered } = this.props;
+    const {
+      exercise, isResolved, isDelivered, onReturnToCourse
+    } = this.props;
 
     // TODO: AGREGAR DISPLAY-IF
     return (
       <div className={styles.exercise}>
-        {!isDelivered ? (
-          <MathTable onClickSymbol={this.handleClickSymbol} />
-        ) : null}
+        <LeftPanel>
+          <LeftPanelLink text="Volver al curso" includeBack onClick={onReturnToCourse} />
+
+          {!isDelivered && <MathTable onClickSymbol={this.handleClickSymbol} />}
+        </LeftPanel>
 
         <div className={styles.exercisePerimeter}>
           <div className={styles.container}>
