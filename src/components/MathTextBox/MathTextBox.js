@@ -42,7 +42,9 @@ class MathTextBox extends Component {
 
   handleLatexContentChange = (event) => {
     const newContent = event.target.value;
-
+    if (this.mathQuillEl) {
+      this.mathQuillEl.latex(newContent);
+    }
     this.handleContentChange(newContent);
   }
 
