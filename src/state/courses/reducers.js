@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import * as types from './actionTypes';
+import * as guideTypes from '../guides/actionTypes';
 import * as userUtils from '../../utils/userUtils';
 import * as commonTypes from '../common/actionTypes';
 
@@ -160,6 +161,22 @@ export default function reducers(state = initialState, action) {
           own: {
             ...state.data.own,
             courses: ownCourses,
+          }
+        }
+      };
+    }
+
+    case guideTypes.DELETE_GUIDE_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail: {
+            ...state.data.detail,
+            [action.courseId]: {
+              ...state.data.detail[action.courseId],
+              isLoading: true
+            }
           }
         }
       };

@@ -20,6 +20,10 @@ export default class TextListItem extends Editable {
     }
   }
 
+  handleOnBlur = () => {
+    this.setState({ isEditing: false });
+  }
+
   handleValueChange = () => {
     const { valueBeingEdited } = this.state;
     const { onUpdateElementValue, validateCanUpdate, element } = this.props;
@@ -51,8 +55,10 @@ export default class TextListItem extends Editable {
     if (isEditing) {
       textComponent = (
         <TextField
+          autoFocus
           className={styles.secondaryText}
           defaultValue={element.name}
+          onBlur={this.handleOnBlur}
           onChange={this.handleTextFieldChange}
           onKeyPress={this.handlePressKeyDone}
         />
