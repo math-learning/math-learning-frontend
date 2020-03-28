@@ -10,6 +10,9 @@ const currentActions = (dispatch, { courseId }) => ({
   loadStatisticsPage: async () => {
     await dispatch(push(configs.pathGenerators.courseStatistics(courseId)));
   },
+  returnToCourses: async () => {
+    await dispatch(push(configs.paths.courses));
+  }
 });
 
 export default connect(

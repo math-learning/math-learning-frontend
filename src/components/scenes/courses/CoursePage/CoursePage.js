@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { CircularProgress } from '@material-ui/core';
+import EmptyStatePage from '../../../common/containers/EmptyStatePage';
 import ContentHeader from '../../../common/containers/Content/ContentHeader';
 import CourseLeftPanel from './components/CourseLeftPanel';
 import Guide from './components/Guide';
@@ -70,7 +71,12 @@ export default class CoursePage extends Component {
       );
     }
 
-    return <div>Sin guias, curso vacio</div>;
+    return (
+      <EmptyStatePage
+        title="El curso aún no cuenta con guías"
+        subtitle="Crea alguna para comenzar a añadir ejercicios"
+      />
+    );
   }
 
   render() {
