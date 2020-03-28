@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import * as types from './actionTypes';
-import * as guideTypes from '../guides/actionTypes';
 import * as userUtils from '../../utils/userUtils';
 import * as commonTypes from '../common/actionTypes';
 
