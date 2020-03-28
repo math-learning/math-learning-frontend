@@ -231,7 +231,16 @@ describe('guides actions', () => {
             courseId,
             guideId
           },
-          { type: modalTypes.HIDE_MODAL }
+          { type: modalTypes.HIDE_MODAL },
+          {
+            payload: {
+              args: [
+                `/courses/${courseId}`
+              ],
+              method: 'push'
+            },
+            type: '@@router/CALL_HISTORY_METHOD'
+          }
         ];
         sandbox
           .stub(guidesClient, 'deleteGuide')
