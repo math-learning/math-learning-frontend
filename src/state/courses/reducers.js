@@ -166,22 +166,6 @@ export default function reducers(state = initialState, action) {
       };
     }
 
-    case guideTypes.DELETE_GUIDE_REQUEST: {
-      return {
-        ...state,
-        data: {
-          ...state.data,
-          detail: {
-            ...state.data.detail,
-            [action.courseId]: {
-              ...state.data.detail[action.courseId],
-              isLoading: true
-            }
-          }
-        }
-      };
-    }
-
     case commonTypes.LOGOUT_SUCCESS: {
       // cleaning the state
       return initialState;
