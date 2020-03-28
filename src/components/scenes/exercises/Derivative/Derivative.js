@@ -49,12 +49,34 @@ class Derivative extends Component {
     if (!this.MathBoxRef.current) {
       return;
     }
-    if (symbol.isLatex) {
-      this.MathBoxRef.current.mathQuillEl.write(symbol.value);
-    } else {
-      this.MathBoxRef.current.mathQuillEl.typedText(symbol.value);
+
+    if (this.MathBoxRef.current.mathQuillEl) {
+      if (!symbol.value) {
+        this.MathBoxRef.current.mathQuillEl.write(symbol.latexValue);
+      } else {
+        this.MathBoxRef.current.mathQuillEl.typedText(symbol.value);
+      }
+      this.MathBoxRef.current.mathQuillEl.focus();
     }
-    this.MathBoxRef.current.mathQuillEl.focus();
+
+    if (this.MathBoxRef.current.latexEl) {
+      const valueToInsert = symbol.latexValue || symbol.value;
+      const newContent = this.insertAtCursorPosition(valueToInsert, this.MathBoxRef.current.latexEl);
+
+      this.handleContentChange(newContent);
+    }
+  }
+
+  insertAtCursorPosition = (valueToInsert, ref) => {
+    const cursorPosition = ref.selectionStart;
+    const currentValue = ref.value;
+    const newContent = currentValue.slice(0, cursorPosition) + valueToInsert + currentValue.slice(cursorPosition);
+
+    ref.value = newContent; // eslint-disable-line
+    ref.focus();
+    ref.selectionStart = cursorPosition + valueToInsert.length; // eslint-disable-line
+
+    return newContent;
   }
 
   handleOnChangeMode = (mode) => {

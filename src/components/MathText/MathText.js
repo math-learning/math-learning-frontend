@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import MathJax from 'react-mathjax';
 import { MQ } from './mathquill-loader';
 
 class MathText extends React.Component {
@@ -14,30 +15,41 @@ class MathText extends React.Component {
   }
 
   componentDidMount() {
-    const { className } = this.props;
+    const { className, renderMethod = 'mathquill' } = this.props;
 
-    this.mathField = MQ.StaticMath(this.element);
-    if (className) {
-      this.element.classList.add(className);
+    if (renderMethod === 'mathquill') {
+      this.mathField = MQ.StaticMath(this.element);
+      if (className) {
+        this.element.classList.add(className);
+      }
     }
   }
 
   componentDidUpdate() {
-    this.mathField = MQ.StaticMath(this.element);
+    const { renderMethod = 'mathquill' } = this.props;
+
+    if (renderMethod === 'mathquill') {
+      this.mathField = MQ.StaticMath(this.element);
+    }
   }
 
   render() {
-    const { id, content } = this.props;
+    const {
+      id, content, className, renderMethod = 'mathquill'
+    } = this.props;
+
+    if (renderMethod === 'mathquill') {
+      return (
+        <p id={id} ref={(x) => { this.element = x; }}>
+          {content}
+        </p>
+      );
+    }
 
     return (
-      <p
-        id={id}
-        ref={(x) => {
-          this.element = x;
-        }}
-      >
-        {content}
-      </p>
+      <MathJax.Provider id={id} className={className}>
+        <MathJax.Node formula={content} />
+      </MathJax.Provider>
     );
   }
 }

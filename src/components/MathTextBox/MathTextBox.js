@@ -34,15 +34,19 @@ class MathTextBox extends Component {
   }
 
   handleMathQuillContentChange = (newContent) => {
-    if (this.latexEl) {
+    const { latexMode } = this.props;
+
+    if (this.latexEl && !latexMode) {
       this.latexEl.value = newContent;
     }
     this.handleContentChange(newContent);
   }
 
   handleLatexContentChange = (event) => {
+    const { latexMode } = this.props;
     const newContent = event.target.value;
-    if (this.mathQuillEl) {
+
+    if (this.mathQuillEl && latexMode) {
       this.mathQuillEl.latex(newContent);
     }
     this.handleContentChange(newContent);
@@ -87,7 +91,7 @@ class MathTextBox extends Component {
               variant="outlined"
             />
 
-            <MathText content={content} />
+            <MathText content={content} renderMethod="math-jax" />
           </React.Fragment>
         ) : (
           <Typography color="textPrimary" variant="h6">

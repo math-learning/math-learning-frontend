@@ -18,32 +18,32 @@ const symbols = [
 
   { label: '+', value: '+' },
   { label: '-', value: '-' },
-  { label: '*', value: '*' },
-  { label: '/', value: '/' },
-  { label: '(', value: '(', isLatex: true },
-  { label: ')', value: ')', isLatex: true },
-  { label: '()', value: '(', },
+  { label: '*', value: '*', latexValue: '\\cdot' },
+  { label: '/', value: '/', latexValue: '\\frac{ }{ }' },
+  { label: '(', latexValue: '(' },
+  { label: ')', latexValue: ')' },
+  { label: '()', value: '(', latexValue: '()' },
 
   { label: 'a^{()}', value: '^' },
-  { label: '\\sqrt{()}', value: '\\sqrt (' },
+  { label: '\\sqrt{()}', value: '\\sqrt(', latexValue: '\\sqrt {}' },
 
   { label: 'x', value: 'x' },
   { label: 'x^{a}', value: 'x^' },
-  { label: '\\sqrt{x}', value: '\\sqrt x' },
+  { label: '\\sqrt{x}', latexValue: '\\sqrt x' },
 
   { label: 'sen', value: 'sin' },
   { label: 'cos', value: 'cos' },
   { label: 'tg', value: 'tan' },
   { label: 'e^x', value: 'e^x' },
-  { label: '\\log_2 x', value: '\\log_2 x', isLatex: true },
-  { label: '\\ln{x}', value: '\\ln x' },
+  { label: '\\log_2 x', latexValue: '\\log_2 x' },
+  { label: '\\ln{x}', latexValue: '\\ln x' },
 
   { label: 'dx', value: 'dx' },
-  { label: '\\frac{d()}{dx}', value: 'd()/dx' },
+  { label: '\\frac{d()}{dx}', value: 'd()/dx', latexValue: '\\frac{d()}{dx}' },
 
-  { label: '\\log_b a', value: '\\log_{} {}', isLatex: true },
-  { label: 'a^b', value: '{}^{}', isLatex: true },
-  { label: '\\sqrt[a]{b}', value: '\\sqrt[]{}', isLatex: true }
+  { label: '\\log_b a', latexValue: '\\log_{} {}' },
+  { label: 'a^b', latexValue: '{}^{}' },
+  { label: '\\sqrt[a]{b}', latexValue: '\\sqrt[]{}' }
 ];
 
 export default class MathTable extends Component {
