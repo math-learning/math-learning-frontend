@@ -1,9 +1,3 @@
-.container {
-  display: inline;
-  flex-direction: row;
-  border-radius: 5px;
-}
-
 :local .textBoxContainer {
   display: flex;
   margin-bottom: 10px;

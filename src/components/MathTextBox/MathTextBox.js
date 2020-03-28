@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill';
-import { Typography } from '@material-ui/core';
+import { Typography, TextField } from '@material-ui/core';
+import MathText from '../MathText';
 
-// TODO: ver como pasarlo a sass (edita estilos de mathquill)
-import styles from './MathTextBox.css';
+import styles from './MathTextBox.css'; // eslint-disable-line no-unused-vars
+import sasStyles from './MathTextBox.module.sass';
 
 addMathquillStyles();
 
@@ -14,11 +15,12 @@ class MathTextBox extends Component {
     super(props);
 
     this.mathQuillEl = null;
+    this.latexEl = null;
   }
 
   // eslint-disable-next-line camelcase
-  UNSAFE_componentWillReceiveProps(props) {
-    const { content } = props;
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { content } = nextProps;
 
     if (!content) {
       this.onClear();
@@ -31,6 +33,25 @@ class MathTextBox extends Component {
     onContentChange(content);
   }
 
+  handleMathQuillContentChange = (newContent) => {
+    const { latexMode } = this.props;
+
+    if (this.latexEl && !latexMode) {
+      this.latexEl.value = newContent;
+    }
+    this.handleContentChange(newContent);
+  }
+
+  handleLatexContentChange = (event) => {
+    const { latexMode } = this.props;
+    const newContent = event.target.value;
+
+    if (this.mathQuillEl && latexMode) {
+      this.mathQuillEl.latex(newContent);
+    }
+    this.handleContentChange(newContent);
+  }
+
   onKeyPress = (event) => {
     const { onEnter, content } = this.props;
 
@@ -40,29 +61,51 @@ class MathTextBox extends Component {
   }
 
   onClear = () => {
-    this.mathQuillEl.latex('');
+    if (this.mathQuillEl) {
+      this.mathQuillEl.latex('');
+    }
   }
 
   render() {
-    const { content, className } = this.props;
+    const { content, latexMode, className } = this.props;
 
     return (
       <div
         onClick={this.onClick}
         onKeyPress={this.onKeyPress}
-        className={classNames(styles.container, className)}
+        className={classNames(sasStyles.container, className)}
       >
-        <Typography color="textPrimary" variant="h6">
-          <MathQuill
-            latex={content}
-            onChange={(mathField) => {
-              this.handleContentChange(mathField.latex());
-            }}
-            mathquillDidMount={(el) => {
-              this.mathQuillEl = el;
-            }}
-          />
-        </Typography>
+        {latexMode ? (
+          <React.Fragment>
+            <TextField
+              id="latex-text-field"
+              defaultValue={content}
+              onChange={this.handleLatexContentChange}
+              className={sasStyles.latex}
+              fullWidth
+              inputRef={(el) => {
+                this.latexEl = el;
+              }}
+              size="small"
+              margin="dense"
+              variant="outlined"
+            />
+
+            <MathText content={content} renderMethod="math-jax" />
+          </React.Fragment>
+        ) : (
+          <Typography color="textPrimary" variant="h6">
+            <MathQuill
+              latex={content}
+              onChange={(mathField) => {
+                this.handleMathQuillContentChange(mathField.latex());
+              }}
+              mathquillDidMount={(el) => {
+                this.mathQuillEl = el;
+              }}
+            />
+          </Typography>
+        )}
       </div>
     );
   }

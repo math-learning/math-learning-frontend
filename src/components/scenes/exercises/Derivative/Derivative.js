@@ -20,6 +20,9 @@ class Derivative extends Component {
     super(props);
 
     this.MathBoxRef = React.createRef();
+    this.state = {
+      latexModeOn: false
+    };
   }
 
   handleValidateStep = () => {
@@ -46,12 +49,40 @@ class Derivative extends Component {
     if (!this.MathBoxRef.current) {
       return;
     }
-    if (symbol.isLatex) {
-      this.MathBoxRef.current.mathQuillEl.write(symbol.value);
-    } else {
-      this.MathBoxRef.current.mathQuillEl.typedText(symbol.value);
+
+    if (this.MathBoxRef.current.mathQuillEl) {
+      if (!symbol.value) {
+        this.MathBoxRef.current.mathQuillEl.write(symbol.latexValue);
+      } else {
+        this.MathBoxRef.current.mathQuillEl.typedText(symbol.value);
+      }
+      this.MathBoxRef.current.mathQuillEl.focus();
     }
-    this.MathBoxRef.current.mathQuillEl.focus();
+
+    if (this.MathBoxRef.current.latexEl) {
+      const valueToInsert = symbol.latexValue || symbol.value;
+      const newContent = this.insertAtCursorPosition(valueToInsert, this.MathBoxRef.current.latexEl);
+
+      this.handleContentChange(newContent);
+    }
+  }
+
+  insertAtCursorPosition = (valueToInsert, ref) => {
+    const cursorPosition = ref.selectionStart;
+    const currentValue = ref.value;
+    const newContent = currentValue.slice(0, cursorPosition) + valueToInsert + currentValue.slice(cursorPosition);
+
+    ref.value = newContent; // eslint-disable-line
+    ref.focus();
+    ref.selectionStart = cursorPosition + valueToInsert.length; // eslint-disable-line
+
+    return newContent;
+  }
+
+  handleOnChangeMode = (mode) => {
+    const { latexModeOn } = mode;
+
+    this.setState({ latexModeOn });
   }
 
   handleDeliverExercise = () => {
@@ -105,6 +136,7 @@ class Derivative extends Component {
   }
 
   getCurrentStep = () => {
+    const { latexModeOn } = this.state;
     const { currentExpression, isProcessing } = this.props;
 
     return (
@@ -115,6 +147,7 @@ class Derivative extends Component {
           <span className={styles.item}> = </span>
           <MathTextBox
             ref={this.MathBoxRef}
+            latexMode={latexModeOn}
             content={currentExpression}
             className={styles.mathBox}
             onContentChange={this.handleContentChange}
@@ -123,7 +156,7 @@ class Derivative extends Component {
           {this.getCurrentStepState()}
           <Button
             id="validate-step"
-            className={styles.item}
+            className={styles.validateButton}
             onClick={this.handleValidateStep}
             disabled={!currentExpression || isProcessing}
             variant="contained"
@@ -147,7 +180,12 @@ class Derivative extends Component {
         <LeftPanel>
           <LeftPanelLink text="Volver al curso" includeBack onClick={onReturnToCourse} />
 
-          {!isDelivered && <MathTable onClickSymbol={this.handleClickSymbol} />}
+          {!isDelivered && (
+            <MathTable
+              onClickSymbol={this.handleClickSymbol}
+              onChangeMode={this.handleOnChangeMode}
+            />
+          )}
         </LeftPanel>
 
         <div className={styles.exercisePerimeter}>

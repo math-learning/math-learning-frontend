@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import ColapseIcon from '@material-ui/icons/ChevronLeft';
 import ExpandIcon from '@material-ui/icons/ChevronRight';
-import { Grid } from '@material-ui/core';
-
+import { Grid, FormControlLabel, Switch } from '@material-ui/core';
 import SymbolButton from '../SymbolButton';
 import styles from './MathTable.module.sass';
 
@@ -19,32 +18,32 @@ const symbols = [
 
   { label: '+', value: '+' },
   { label: '-', value: '-' },
-  { label: '*', value: '*' },
-  { label: '/', value: '/' },
-  { label: '(', value: '(', isLatex: true },
-  { label: ')', value: ')', isLatex: true },
-  { label: '()', value: '(', },
+  { label: '*', value: '*', latexValue: '\\cdot' },
+  { label: '/', value: '/', latexValue: '\\frac{ }{ }' },
+  { label: '(', latexValue: '(' },
+  { label: ')', latexValue: ')' },
+  { label: '()', value: '(', latexValue: '()' },
 
   { label: 'a^{()}', value: '^' },
-  { label: '\\sqrt{()}', value: '\\sqrt (' },
+  { label: '\\sqrt{()}', value: '\\sqrt(', latexValue: '\\sqrt {}' },
 
   { label: 'x', value: 'x' },
   { label: 'x^{a}', value: 'x^' },
-  { label: '\\sqrt{x}', value: '\\sqrt x' },
+  { label: '\\sqrt{x}', latexValue: '\\sqrt x' },
 
   { label: 'sen', value: 'sin' },
   { label: 'cos', value: 'cos' },
   { label: 'tg', value: 'tan' },
   { label: 'e^x', value: 'e^x' },
-  { label: '\\log_2 x', value: '\\log_2 x', isLatex: true },
-  { label: '\\ln{x}', value: '\\ln x' },
+  { label: '\\log_2 x', latexValue: '\\log_2 x' },
+  { label: '\\ln{x}', latexValue: '\\ln x' },
 
   { label: 'dx', value: 'dx' },
-  { label: '\\frac{d()}{dx}', value: 'd()/dx' },
+  { label: '\\frac{d()}{dx}', value: 'd()/dx', latexValue: '\\frac{d()}{dx}' },
 
-  { label: '\\log_b a', value: '\\log_{} {}', isLatex: true },
-  { label: 'a^b', value: '{}^{}', isLatex: true },
-  { label: '\\sqrt[a]{b}', value: '\\sqrt[]{}', isLatex: true }
+  { label: '\\log_b a', latexValue: '\\log_{} {}' },
+  { label: 'a^b', latexValue: '{}^{}' },
+  { label: '\\sqrt[a]{b}', latexValue: '\\sqrt[]{}' }
 ];
 
 export default class MathTable extends Component {
@@ -52,8 +51,17 @@ export default class MathTable extends Component {
     super(props);
 
     this.state = {
-      isColapsed: false
+      isColapsed: false,
+      latexModeOn: false
     };
+  }
+
+  handleLatexMode = () => {
+    const { onChangeMode } = this.props;
+    const { latexModeOn } = this.state;
+
+    this.setState({ latexModeOn: !latexModeOn });
+    onChangeMode({ latexModeOn: !latexModeOn });
   }
 
   handleColapse = () => {
@@ -92,21 +100,26 @@ export default class MathTable extends Component {
 
   render = () => {
     const { onClickSymbol } = this.props;
-    const { isColapsed } = this.state;
+    const { latexModeOn } = this.state;
 
     return (
       <div className={styles.mathTable}>
         {this.renderColapseHeader()}
 
-        {!isColapsed ? (
-          <Grid container spacing={1} className={styles.mathTableActions}>
-            {symbols.map((symbol) => (
-              <Grid item key={symbol.label}>
-                <SymbolButton symbol={symbol} onClick={onClickSymbol} />
-              </Grid>
-            ))}
-          </Grid>
-        ) : null}
+        <FormControlLabel
+          className={styles.latexSwitch}
+          label="Modo Latex"
+          control={
+            <Switch size="small" checked={latexModeOn} onChange={this.handleLatexMode} color="primary" />
+          }
+        />
+        <Grid container spacing={1} className={styles.mathTableActions}>
+          {symbols.map((symbol) => (
+            <Grid item key={symbol.label}>
+              <SymbolButton symbol={symbol} onClick={onClickSymbol} />
+            </Grid>
+          ))}
+        </Grid>
       </div>
     );
   };
