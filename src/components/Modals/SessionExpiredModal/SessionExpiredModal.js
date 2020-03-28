@@ -12,10 +12,7 @@ class SessionExpiredModal extends ConfirmActionModal {
   };
 
   renderAcceptButton = () => {
-    const {
-      actionType,
-      googleClientId
-    } = this.props;
+    const { googleClientId } = this.props;
 
     return (
       <GoogleLogin
@@ -25,10 +22,9 @@ class SessionExpiredModal extends ConfirmActionModal {
         onFailure={(error) => console.log('google relogin error', error)}
         render={(renderProps) => (
           <Button
-            color={actionType === 'ask' ? 'primary' : 'secondary'}
+            color="primary"
             variant="outlined"
             id="accept-action"
-
             onClick={renderProps.onClick}
             size="small"
             className={styles.button}

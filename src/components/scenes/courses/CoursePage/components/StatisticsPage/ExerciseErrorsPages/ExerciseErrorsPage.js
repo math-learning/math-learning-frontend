@@ -7,6 +7,7 @@ import {
   CircularProgress, Select, MenuItem, Typography
 } from '@material-ui/core';
 import BootstrapDropdownInput from '../../../../../../../bootstrap/dropdownInput';
+import EmptyStatePage from '../../../../../../common/containers/EmptyStatePage';
 import styles from '../StatisticsCommon.module.sass';
 
 const graphicTypes = ['Histograma', 'Torta'];
@@ -68,6 +69,7 @@ export default class ExerciseErrorsPage extends Component {
 
     return (
       <RadialChart
+        className={styles.radialGraph}
         height={400}
         width={400}
         data={data}
@@ -106,7 +108,10 @@ export default class ExerciseErrorsPage extends Component {
     }
     if (!statistics.length) {
       return (
-        <div>Sin estadisticas</div>
+        <EmptyStatePage
+          title="No existen estadísticas aún."
+          subtitle="Tus alumnos deberán utilizar más el curso para que aparezcan"
+        />
       );
     }
 

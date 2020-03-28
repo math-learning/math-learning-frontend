@@ -14,8 +14,7 @@ const currentState = (state, { courseId, guideId }) => ({
 
 const currentActions = (dispatch) => ({
   getExercises: (payload) => dispatch(exercises.actions.getExercises(payload)),
-  showAddExerciseModal: (payload) => dispatch(modal.actions.loadModal(modalTypes.CREATE_EXERCISE_MODAL,
-    payload))
+  loadExerciseModal: (payload) => dispatch(modal.actions.loadModal(modalTypes.CREATE_EXERCISE_MODAL, payload))
 });
 
 export default withRouter(connect(
