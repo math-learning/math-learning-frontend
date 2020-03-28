@@ -31,6 +31,10 @@ export default class LeftPanelGuides extends Component {
     this.setState({ guideNameToCreate: e.target.value });
   }
 
+  handleOnBlur = () => {
+    this.setState({ isCreatingGuide: false });
+  }
+
   handlePressKeyDone = (event) => {
     if (event.which === 13) {
       this.handleCreateGuide();
@@ -112,8 +116,10 @@ export default class LeftPanelGuides extends Component {
           <ListItem>
             <ListItemText>
               <TextField
+                autoFocus
                 className={styles.tcGray1}
                 defaultValue={value}
+                onBlur={this.handleOnBlur}
                 onChange={this.changeCreatingValue}
                 onKeyPress={this.handlePressKeyDone}
               />

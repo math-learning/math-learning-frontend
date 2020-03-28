@@ -48,7 +48,7 @@ export default class CoursePage extends Component {
 
   getContent(isProfessor) {
     const {
-      course, guideId, isUserPath, isStatisticsPath
+      course, guideId, guides, isUserPath, isStatisticsPath
     } = this.props;
 
     if (isUserPath) {
@@ -58,7 +58,7 @@ export default class CoursePage extends Component {
       return <StatisticsPage course={course} />;
     }
 
-    const firstGuide = course.guides[0];
+    const firstGuide = guides[0];
     if (firstGuide) {
       const guideIdToRender = guideId || (firstGuide && firstGuide.guideId);
 

@@ -124,6 +124,7 @@ export function deleteGuide({ courseId, guideId }) {
 
     dispatch(deleteGuideRequest({ courseId, guideId }));
     dispatch(modalActions.hideModal());
+    dispatch(push(configs.pathGenerators.course(courseId)));
 
     try {
       await guidesClient.deleteGuide({ context, courseId, guideId });

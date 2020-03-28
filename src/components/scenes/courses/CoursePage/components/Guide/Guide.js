@@ -66,7 +66,7 @@ export default class Guide extends Component {
           <Typography align="center" variant="h6" className={styles.guideTitle}>
             Ejercicios ({guide.name})
           </Typography>
-          { isProfessor && (
+          {isProfessor && (
             <div className={styles.addButton}>
               <Button
                 onClick={() => loadExerciseModal({ courseId, guideId })}
