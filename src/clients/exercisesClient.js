@@ -168,7 +168,7 @@ const getExercises = async ({
   courseId,
   guideId,
 }) => {
-  const exercisesUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises`;
+  const exercisesUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises`;
   const response = await fetch(exercisesUrl, {
     headers: {
       authorization: context.accessToken,

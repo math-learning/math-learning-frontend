@@ -6,32 +6,46 @@ import MathText from '../../../../../MathText';
 import styles from './Exercise.module.sass';
 import MoreVertOptions from '../Options';
 
+const typeMap = {
+  derivative: {
+    text: 'Derivada'
+  },
+  integral: {
+    text: 'Integral'
+  }
+};
+
+const difficultyMap = {
+  easy: {
+    text: 'Fácil',
+    className: styles.tcGreen
+  },
+  medium: {
+    text: 'Medio',
+    className: styles.tcYellow
+  },
+  hard: {
+    text: 'Difícil',
+    className: styles.tcRed
+  },
+};
+
+const stateMap = {
+  incompleted: {
+    text: 'En progreso'
+  },
+  resolved: {
+    text: 'Resuelto'
+  },
+  delivered: {
+    text: 'Entregado'
+  },
+};
+
 export default function Exercise(props) {
   const {
     exercise, onDeleteExercise, onEditExercise, onClickExercise, isProfessor
   } = props;
-
-  let difficultyComponent = '';
-
-  if (exercise.difficulty === 'easy') {
-    difficultyComponent = (
-      <Typography className={styles.tcGreen}>
-        Dificultad: Facil
-      </Typography>
-    );
-  } else if (exercise.difficulty === 'medium') {
-    difficultyComponent = (
-      <Typography className={styles.tcYellow}>
-        Dificultad: Intermedio
-      </Typography>
-    );
-  } else if (exercise.difficulty === 'hard') {
-    difficultyComponent = (
-      <Typography className={styles.tcRed}>
-        Dificultad: Dificil
-      </Typography>
-    );
-  }
 
   return (
     <Card onClick={onClickExercise} className={styles.card}>
@@ -49,9 +63,14 @@ export default function Exercise(props) {
 
         <Grid item xs={2}>
           <Typography className={styles.type}>
-            Tipo: {exercise.type}
+            Tipo: {typeMap[exercise.type].text}
           </Typography>
-          {difficultyComponent}
+          <Typography className={styles.type}>
+            Estado: {stateMap[exercise.state].text}
+          </Typography>
+          <Typography className={difficultyMap[exercise.difficulty].className}>
+            Dificultad: {difficultyMap[exercise.difficulty].text}
+          </Typography>
         </Grid>
 
         <Grid item xs={1}>
