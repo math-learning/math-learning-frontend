@@ -22,6 +22,27 @@ export function getExercisesRequest({ courseId, guideId }) {
   };
 }
 
+export function getUserExercisesRequest({ courseId, guideId, userId }) {
+  return {
+    type: types.GET_USER_EXERCISES_REQUEST,
+    userId,
+    courseId,
+    guideId
+  };
+}
+
+export function getUserExercisesSuccess({
+  courseId, guideId, userId, exercises
+}) {
+  return {
+    type: types.GET_USER_EXERCISES_SUCCESS,
+    userId,
+    courseId,
+    guideId,
+    exercises
+  };
+}
+
 export function resolveExerciseRequest({ courseId, guideId, exerciseId }) {
   return {
     type: types.RESOLVE_EXERCISE_REQUEST,
@@ -222,6 +243,22 @@ export function getExercises({ courseId, guideId }) {
 
     const exercises = await exercisesClient.getExercises({ context, courseId, guideId });
     dispatch(getExercisesSuccess({ courseId, guideId, exercises }));
+  };
+}
+
+export function getUserExercises({ courseId, guideId, userId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    dispatch(getUserExercisesRequest({ courseId, guideId, userId }));
+
+    const exercises = await exercisesClient.getExercises({ // send userId as query parameter
+      context, courseId, guideId, userId
+    });
+    dispatch(getUserExercisesSuccess({
+      courseId, guideId, userId, exercises
+    }));
   };
 }
 

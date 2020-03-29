@@ -15,3 +15,12 @@ export const isLoadingCourse = (state, courseId) => {
   }
   return isLoading;
 };
+
+export const getUsers = (state, courseId) => {
+  const course = state.courses.data.detail[courseId];
+
+  if (!course) {
+    return [];
+  }
+  return course.users;
+};

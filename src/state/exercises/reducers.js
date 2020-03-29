@@ -6,7 +6,8 @@ import * as idUtils from '../../utils/idUtils';
 const initialState = {
   data: {
     list: {},
-    detail: {}
+    detail: {},
+    students: {}
   },
 };
 
@@ -87,6 +88,33 @@ export default function reducers(state = initialState, action) {
           list: {
             ...state.data.list,
             [courseGuideId]: action.exercises
+          }
+        }
+      };
+    }
+
+    case types.GET_USER_EXERCISES_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data
+        }
+      };
+    }
+
+    case types.GET_USER_EXERCISES_SUCCESS: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          students: {
+            ...state.data.students,
+            [courseGuideId]: {
+              ...state.data.students[courseGuideId],
+              [action.userId]: action.exercises
+            }
           }
         }
       };
