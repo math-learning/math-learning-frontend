@@ -11,10 +11,10 @@ const initialState = {
 };
 
 function updateExerciseState({
-  state, courseId, guideId, exerciseId, exerciseProps = {}
+  state: currentState, courseId, guideId, exerciseId, exerciseProps = {}
 }) {
   const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
-  const exercises = state.data.detail[courseGuideId] || {};
+  const exercises = currentState.data.detail[courseGuideId] || {};
   const newExercisesState = {
     ...exercises,
     [exerciseId]: {
@@ -22,7 +22,7 @@ function updateExerciseState({
       ...exerciseProps
     }
   };
-  const courseGuideList = state.data.list[courseGuideId] || [];
+  const courseGuideList = currentState.data.list[courseGuideId] || [];
   if (exerciseProps.exercise) {
     let indexOfExercise;
     courseGuideList.forEach((value, index) => { if (value.exerciseId === exerciseId) indexOfExercise = index; });
@@ -30,6 +30,7 @@ function updateExerciseState({
     const {
       name,
       type,
+      state,
       problemInput,
       difficulty,
       description
@@ -39,6 +40,7 @@ function updateExerciseState({
       ...courseGuideList[indexOfExercise],
       name,
       type,
+      state,
       difficulty,
       problemInput,
       description
@@ -48,15 +50,15 @@ function updateExerciseState({
   }
 
   return {
-    ...state,
+    ...currentState,
     data: {
-      ...state.data,
+      ...currentState.data,
       detail: {
-        ...state.data.detail,
+        ...currentState.data.detail,
         [courseGuideId]: newExercisesState
       },
       list: {
-        ...state.data.list,
+        ...currentState.data.list,
         [courseGuideId]: [...courseGuideList],
       },
     }

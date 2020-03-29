@@ -190,6 +190,12 @@ class Derivative extends Component {
 
         <div className={styles.exercisePerimeter}>
           <div className={styles.container}>
+            <Typography variant="h5" className={styles.exerciseName}>
+              {exercise.name}
+            </Typography>
+            <Typography variant="body2" className={styles.exerciseDescription}>
+              {exercise.description}
+            </Typography>
             <MathText
               id="problem-input"
               className={styles.problemInput}

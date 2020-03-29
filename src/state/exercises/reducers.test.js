@@ -342,7 +342,7 @@ describe('exercises reducer', () => {
             },
             list: {
               'c-id/g-id': [
-                { ...exercise }
+                { ...exercise, state: 'resolved' }
               ]
             }
           }
@@ -585,7 +585,7 @@ describe('exercises reducer', () => {
 
   describe('should handle REMOVE_EXERCISE_STEP', () => {
     beforeEach(() => {
-      exercise = { exerciseId: 'exercise-id', stepList: ['2'] };
+      exercise = { exerciseId: 'exercise-id', stepList: ['2'], state: 'incompleted' };
       initialState = {
         data: {
           detail: {
