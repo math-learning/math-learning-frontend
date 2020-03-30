@@ -81,6 +81,24 @@ export default function reducers(state = initialState, action) {
     case types.GET_EXERCISES_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
 
+      console.log('USER ID en reducer', action.userId)
+
+      if (action.userId) {
+        return {
+          ...state,
+          data: {
+            ...state.data,
+            students: {
+              ...state.data.students,
+              [courseGuideId]: {
+                ...state.data.students[courseGuideId],
+                [action.userId]: action.exercises
+              }
+            }
+          }
+        };
+      }
+
       return {
         ...state,
         data: {

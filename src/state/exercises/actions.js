@@ -5,20 +5,22 @@ import * as exerciseSelectors from './selectors';
 import * as logger from '../../utils/logger';
 import exercisesClient from '../../clients/exercisesClient';
 
-export function getExercisesSuccess({ courseId, guideId, exercises }) {
+export function getExercisesSuccess({ courseId, guideId, userId, exercises }) {
   return {
     type: types.GET_EXERCISES_SUCCESS,
     courseId,
     guideId,
+    userId,
     exercises
   };
 }
 
-export function getExercisesRequest({ courseId, guideId }) {
+export function getExercisesRequest({ courseId, guideId, userId }) {
   return {
     type: types.GET_EXERCISES_REQUEST,
     courseId,
-    guideId
+    guideId,
+    userId
   };
 }
 
@@ -234,15 +236,15 @@ export function deleteExerciseStep({
   };
 }
 
-export function getExercises({ courseId, guideId }) {
+export function getExercises({ courseId, guideId, userId }) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
 
-    dispatch(getExercisesRequest({ courseId, guideId }));
+    dispatch(getExercisesRequest({ courseId, guideId, userId }));
 
-    const exercises = await exercisesClient.getExercises({ context, courseId, guideId });
-    dispatch(getExercisesSuccess({ courseId, guideId, exercises }));
+    const exercises = await exercisesClient.getExercises({ context, courseId, guideId, userId });
+    dispatch(getExercisesSuccess({ courseId, guideId, userId, exercises }));
   };
 }
 
@@ -253,7 +255,7 @@ export function getUserExercises({ courseId, guideId, userId }) {
 
     dispatch(getUserExercisesRequest({ courseId, guideId, userId }));
 
-    const exercises = await exercisesClient.getExercises({ // send userId as query parameter
+    const exercises = await exercisesClient.getExercises({ // send userId as query
       context, courseId, guideId, userId
     });
     dispatch(getUserExercisesSuccess({

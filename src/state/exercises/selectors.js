@@ -1,13 +1,27 @@
 import _ from 'lodash';
 import * as idUtils from '../../utils/idUtils';
 
-export function isLoadingExercises(state, courseId, guideId) {
-  const exercises = state.exercises.data.list[idUtils.courseGuideId({ courseId, guideId })];
+export function isLoadingExercises(state, courseId, guideId, userId) {
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
 
+  if (userId) {
+    const studentExercises = state.exercises.data.students[courseGuideId];
+    return _.isNil(studentExercises && studentExercises[userId]);
+  }
+
+  const exercises = state.exercises.data.list[idUtils.courseGuideId({ courseId, guideId })];
   return _.isNil(exercises);
 }
 
-export const getExercises = (state, courseId, guideId) => state.exercises.data.list[idUtils.courseGuideId({ courseId, guideId })];
+export const getExercises = (state, courseId, guideId, userId) => {
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
+
+  if (userId) {
+    const studentExercises = state.exercises.data.students[courseGuideId];
+    return studentExercises && studentExercises[userId];
+  }
+  return state.exercises.data.list[courseGuideId];
+};
 
 export const getExercise = (state, {
   courseId, guideId, exerciseId

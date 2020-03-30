@@ -167,8 +167,12 @@ const getExercises = async ({
   context,
   courseId,
   guideId,
+  userId
 }) => {
-  const exercisesUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises`;
+  const exercisesUrl = userId
+    ? `${url}/courses/${courseId}/guides/${guideId}/user/${userId}/exercises`
+    : `${url}/courses/${courseId}/guides/${guideId}/user/exercises`;
+
   const response = await fetch(exercisesUrl, {
     headers: {
       authorization: context.accessToken,

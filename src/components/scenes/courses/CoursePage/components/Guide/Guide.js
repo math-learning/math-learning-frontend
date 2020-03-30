@@ -12,27 +12,27 @@ export default class Guide extends Component {
     super(props);
 
     this.state = {
-      currentStudentId: '-'
+      currentStudentId: props.userId || ''
     };
   }
 
   componentDidMount() {
     const {
-      isLoadingExercises, getExercises, courseId, guideId
+      isLoadingExercises, getExercises, courseId, guideId, userId
     } = this.props;
 
     if (isLoadingExercises) {
-      getExercises({ courseId, guideId });
+      getExercises({ courseId, guideId, userId });
     }
   }
 
   componentDidUpdate() {
     const {
-      isLoadingExercises, getExercises, courseId, guideId
+      isLoadingExercises, getExercises, courseId, guideId, userId
     } = this.props;
 
     if (isLoadingExercises) {
-      getExercises({ courseId, guideId });
+      getExercises({ courseId, guideId, userId });
     }
   }
 
@@ -45,18 +45,29 @@ export default class Guide extends Component {
   }
 
   renderEmptyState = () => {
-    const { exercises, isProfessor } = this.props;
+    const { exercises, isProfessor, userId } = this.props;
 
     if (exercises.length) {
       return null;
     }
 
-    const title = isProfessor
-      ? 'Aún no tienes ejercicios para esta guía'
-      : 'Esta guía se ha publicado sin ejercicios';
-    const subtitle = isProfessor
-      ? 'Puedes empezar creando uno!'
-      : 'Pide a tu profesor que publique al menos uno!';
+    let title;
+    if (!isProfessor) {
+      title = 'Esta guía se ha publicado sin ejercicios';
+    } else if (userId) {
+      title = 'El alumno aún no ha entregado ningún ejercicio';
+    } else {
+      title = 'Aún no tienes ejercicios para esta guía';
+    }
+
+    let subtitle;
+    if (!isProfessor) {
+      subtitle = 'Pide a tu profesor que publique al menos uno!';
+    } else if (userId) {
+      subtitle = '';
+    } else {
+      subtitle = 'Puedes empezar creando uno!';
+    }
 
     return (
       <EmptyStatePage
@@ -69,8 +80,10 @@ export default class Guide extends Component {
   render() {
     const { currentStudentId } = this.state;
     const {
-      courseId, guideId, users, guide, exercises, loadExerciseModal, isLoadingExercises, isProfessor
+      courseId, guideId, users, userId, guide, exercises, loadExerciseModal, isLoadingExercises, isProfessor
     } = this.props;
+
+    const shouldRenderCreateExercise = isProfessor && !userId;
 
     const students = users.filter((user) => user.role === 'student');
 
@@ -94,7 +107,7 @@ export default class Guide extends Component {
             input={<BootstrapDropdownInput />}
           >
             {[
-              <MenuItem key="none" value="-">-</MenuItem>,
+              <MenuItem key="none" value="">-</MenuItem>,
               ...students.map((u) => (
                 <MenuItem key={u.name} value={u.userId}>{u.name}</MenuItem>
               ))
@@ -106,7 +119,7 @@ export default class Guide extends Component {
           <Typography align="center" variant="h6" className={styles.guideTitle}>
             Ejercicios ({guide.name})
           </Typography>
-          {isProfessor && (
+          {shouldRenderCreateExercise && (
             <div className={styles.addButton}>
               <Button
                 onClick={() => loadExerciseModal({ courseId, guideId })}
@@ -126,6 +139,7 @@ export default class Guide extends Component {
               key={exercise.exerciseId}
               exercise={exercise}
               isProfessor={isProfessor}
+              userId={userId}
             />
           ))}
           {this.renderEmptyState()}
