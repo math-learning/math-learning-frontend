@@ -29,11 +29,14 @@ const getExercise = async ({
   context,
   courseId,
   guideId,
+  userId,
   exerciseId
 }) => {
-  const profileUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`;
+  const exerciseUrl = userId
+    ? `${url}/courses/${courseId}/guides/${guideId}/user/${userId}/exercises/${exerciseId}`
+    : `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`;
 
-  const response = await fetch(profileUrl, {
+  const response = await fetch(exerciseUrl, {
     headers: {
       authorization: context.accessToken,
       'Content-Type': 'application/json'
@@ -167,8 +170,12 @@ const getExercises = async ({
   context,
   courseId,
   guideId,
+  userId
 }) => {
-  const exercisesUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises`;
+  const exercisesUrl = userId
+    ? `${url}/courses/${courseId}/guides/${guideId}/user/${userId}/exercises`
+    : `${url}/courses/${courseId}/guides/${guideId}/user/exercises`;
+
   const response = await fetch(exercisesUrl, {
     headers: {
       authorization: context.accessToken,
@@ -210,8 +217,8 @@ export default {
   addUserToCourse,
   createExercise,
   deliverExercise,
-  getExercises,
   getExercise,
+  getExercises,
   getExerciseErrors,
   updateExercise,
   removeExerciseStep,

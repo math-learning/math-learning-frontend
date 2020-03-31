@@ -129,6 +129,54 @@ describe('exercises reducer', () => {
     });
   });
 
+  describe('should handle GET_USER_EXERCISE_SUCCESS', () => {
+    let userId;
+
+    beforeEach(() => {
+      userId = 'user';
+      exercise = { exerciseId: 'exercise-id', stepList: [] };
+      initialState = {
+        data: {
+          students: {
+            list: {},
+            detail: {}
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.GET_USER_EXERCISE_SUCCESS,
+        courseId: 'c-id',
+        guideId: 'g-id',
+        exerciseId: 'exercise-id',
+        exercise,
+        userId
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            students: {
+              list: {},
+              detail: {
+                'c-id/g-id': {
+                  [userId]: {
+                    [exercise.exerciseId]: {
+                      exercise,
+                      isLoading: false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      );
+    });
+  });
+
   describe('should handle GET_EXERCISES_SUCCESS', () => {
     let exercises;
 
@@ -154,6 +202,49 @@ describe('exercises reducer', () => {
           data: {
             list: {
               'c-id/g-id': exercises
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle GET_USER_EXERCISES_SUCCESS', () => {
+    let userId;
+    let exercises;
+
+    beforeEach(() => {
+      userId = 'user';
+      exercises = [{ exerciseId: 'exercise-id', stepList: [] }];
+      initialState = {
+        data: {
+          students: {
+            list: {},
+            detail: {}
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.GET_USER_EXERCISES_SUCCESS,
+        courseId: 'c-id',
+        guideId: 'g-id',
+        exercises,
+        userId
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            students: {
+              detail: {},
+              list: {
+                'c-id/g-id': {
+                  [userId]: exercises
+                }
+              }
             }
           }
         }

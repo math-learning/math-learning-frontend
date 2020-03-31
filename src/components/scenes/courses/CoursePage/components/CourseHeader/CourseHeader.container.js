@@ -1,26 +1,17 @@
 import { connect } from 'react-redux';
 import CourseHeader from './CourseHeader';
-import { actions, selectors } from '../../../../../../state/courses';
+import { actions } from '../../../../../../state/courses';
 import * as modalActions from '../../../../../../state/modals/actions';
 import * as modalTypes from '../../../../../../state/modals/modalTypes';
 
-const currentState = (state, { id }) => {
-  const course = selectors.getCourseDetail(state, id);
-
-  return {
-    course,
-    isCoursePublished: course.courseStatus === 'published'
-  };
-};
-
-const currentActions = (dispatch, { id }) => ({
-  onNameChange: ({ courseId, newValue }) => dispatch(actions.updateCourse({
+const currentActions = (dispatch, { course: { courseId } }) => ({
+  onNameChange: ({ newValue }) => dispatch(actions.updateCourse({
     courseId,
     updatedValues: {
       name: newValue
     }
   })),
-  onDescriptionChange: ({ courseId, newValue }) => dispatch(actions.updateCourse({
+  onDescriptionChange: ({ newValue }) => dispatch(actions.updateCourse({
     courseId,
     updatedValues: {
       description: newValue
@@ -31,9 +22,7 @@ const currentActions = (dispatch, { id }) => ({
       title: '¿ Realmente desea eliminar el curso ?',
       explanation: 'Al hacerlo, no podrás recuperarlo',
       acceptButton: 'Eliminar curso',
-      actionProps: {
-        courseId: id,
-      },
+      actionProps: { courseId, },
       actionFunction: actions.deleteCourse
     }));
   },
@@ -42,9 +31,7 @@ const currentActions = (dispatch, { id }) => ({
       title: '¿ Desear publicar el curso ?',
       explanation: 'Al hacerlo quedará publicado para que los alumnos se puedan unir',
       acceptButton: 'Publicar curso',
-      actionProps: {
-        courseId: id,
-      },
+      actionProps: { courseId },
       actionType: 'ask',
       actionFunction: actions.publishCourse
     }));
@@ -52,6 +39,6 @@ const currentActions = (dispatch, { id }) => ({
 });
 
 export default connect(
-  currentState,
+  null,
   currentActions,
 )(CourseHeader);

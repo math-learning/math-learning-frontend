@@ -51,30 +51,111 @@ describe('exercises client', () => {
     let guideId;
     let exerciseId;
 
-    beforeEach(async () => {
-      courseId = 'course-id';
-      guideId = 'guide-id';
-      exerciseId = 'exercise-id';
-      exercise = {
-        name: 'Pride',
-        type: 'integral',
-        difficulty: 'medium'
-      };
+    describe('for the current user', () => {
+      beforeEach(async () => {
+        courseId = 'course-id';
+        guideId = 'guide-id';
+        exerciseId = 'exercise-id';
+        exercise = {
+          name: 'Pride',
+          type: 'integral',
+          difficulty: 'medium'
+        };
 
-      nock(url)
-        .get(`/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`)
-        .matchHeader('Authorization', context.accessToken)
-        .reply(200, exercise);
+        nock(url)
+          .get(`/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`)
+          .matchHeader('Authorization', context.accessToken)
+          .reply(200, exercise);
 
-      response = await exercisesClient.getExercise({
-        context,
-        guideId,
-        courseId,
-        exerciseId
+        response = await exercisesClient.getExercise({
+          context,
+          guideId,
+          courseId,
+          exerciseId
+        });
       });
+
+      it('exercise is getted', () => expect(response).to.be.deep.equal(exercise));
     });
 
-    it('exercise is getted', () => expect(response).to.be.deep.equal(exercise));
+    describe('for a particular user', () => {
+      beforeEach(async () => {
+        const userId = 'user';
+        courseId = 'course-id';
+        guideId = 'guide-id';
+        exerciseId = 'exercise-id';
+        exercise = {
+          name: 'Pride',
+          type: 'integral',
+          difficulty: 'medium'
+        };
+
+        nock(url)
+          .get(`/courses/${courseId}/guides/${guideId}/user/${userId}/exercises/${exerciseId}`)
+          .matchHeader('Authorization', context.accessToken)
+          .reply(200, exercise);
+
+        response = await exercisesClient.getExercise({
+          context,
+          guideId,
+          courseId,
+          exerciseId,
+          userId
+        });
+      });
+
+      it('exercise is getted', () => expect(response).to.be.deep.equal(exercise));
+    });
+  });
+
+  describe('getExercises() function', () => {
+    let courseId;
+    let guideId;
+    let exercises;
+
+    describe('for the current user', () => {
+      beforeEach(async () => {
+        courseId = 'course-id';
+        guideId = 'guide-id';
+        exercises = [];
+
+        nock(url)
+          .get(`/courses/${courseId}/guides/${guideId}/user/exercises`)
+          .matchHeader('Authorization', context.accessToken)
+          .reply(200, exercises);
+
+        response = await exercisesClient.getExercises({
+          context,
+          guideId,
+          courseId
+        });
+      });
+
+      it('exercise is getted', () => expect(response).to.be.deep.equal(exercises));
+    });
+
+    describe('for a particular user', () => {
+      beforeEach(async () => {
+        const userId = 'user';
+        courseId = 'course-id';
+        guideId = 'guide-id';
+        exercises = [];
+
+        nock(url)
+          .get(`/courses/${courseId}/guides/${guideId}/user/${userId}/exercises`)
+          .matchHeader('Authorization', context.accessToken)
+          .reply(200, exercises);
+
+        response = await exercisesClient.getExercises({
+          context,
+          guideId,
+          courseId,
+          userId
+        });
+      });
+
+      it('exercise is getted', () => expect(response).to.be.deep.equal(exercises));
+    });
   });
 
   describe('resolveExercise() function', () => {

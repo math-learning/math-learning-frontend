@@ -111,9 +111,9 @@ export function getGuides({ courseId }) {
   };
 }
 
-export function selectGuide({ courseId, guideId }) {
+export function selectGuide({ courseId, guideId, userId }) {
   return async (dispatch) => {
-    dispatch(push(configs.pathGenerators.courseGuide(courseId, guideId)));
+    dispatch(push(configs.pathGenerators.courseUserGuide(courseId, guideId, userId)));
   };
 }
 

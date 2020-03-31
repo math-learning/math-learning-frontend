@@ -76,7 +76,8 @@ describe('exercises actions', () => {
             guideId,
             courseId,
             exerciseId,
-            exercise
+            exercise,
+            userId: undefined
           }
         ];
         sandbox
@@ -84,6 +85,33 @@ describe('exercises actions', () => {
           .callsFake(() => exercise);
 
         return store.dispatch(actions.getExercise({ guideId, courseId, exerciseId }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+
+    describe('when the exercise is getted successfully for a userId', () => {
+      beforeEach(() => {
+        const userId = 'user';
+        exerciseId = 'exercise-id';
+        exercise = { name: 'ex name' };
+        expectedActions = [
+          {
+            type: types.GET_USER_EXERCISE_SUCCESS,
+            guideId,
+            courseId,
+            exerciseId,
+            exercise,
+            userId
+          }
+        ];
+        sandbox
+          .stub(exercisesClient, 'getExercise')
+          .callsFake(() => exercise);
+
+        return store.dispatch(actions.getExercise({ guideId, courseId, exerciseId, userId }));
       });
 
       it('executes the expected actions', () => {
@@ -367,13 +395,15 @@ describe('exercises actions', () => {
           {
             type: types.GET_EXERCISES_REQUEST,
             guideId,
-            courseId
+            courseId,
+            userId: undefined
           },
           {
             type: types.GET_EXERCISES_SUCCESS,
             guideId,
             courseId,
-            exercises
+            exercises,
+            userId: undefined
           }
         ];
         sandbox
@@ -381,6 +411,37 @@ describe('exercises actions', () => {
           .callsFake(() => exercises);
 
         return store.dispatch(actions.getExercises({ guideId, courseId }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+
+    describe('when the exercise is getted successfully for a userId', () => {
+      beforeEach(() => {
+        const userId = 'user';
+        exercises = [{ name: 'ex name' }];
+        expectedActions = [
+          {
+            type: types.GET_EXERCISES_REQUEST,
+            guideId,
+            courseId,
+            userId
+          },
+          {
+            type: types.GET_USER_EXERCISES_SUCCESS,
+            guideId,
+            courseId,
+            exercises,
+            userId
+          }
+        ];
+        sandbox
+          .stub(exercisesClient, 'getExercises')
+          .callsFake(() => exercises);
+
+        return store.dispatch(actions.getExercises({ guideId, courseId, userId }));
       });
 
       it('executes the expected actions', () => {

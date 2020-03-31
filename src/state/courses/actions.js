@@ -60,7 +60,7 @@ export function createCourseSuccess({ course }) {
 export function deleteCourseRequest({ courseId }) {
   return {
     type: types.DELETE_COURSE_REQUEST,
-    courseId,
+    courseId
   };
 }
 

@@ -5,22 +5,6 @@ import Button from '@material-ui/core/Button';
 import styles from './CourseHeader.module.sass';
 import EditableText from '../../../../../editable/EditableTitle/EditableText';
 
-// const options = [
-//   {
-//     text: 'Publicar',
-//     onClick: onPublishCourse
-//   },
-//   {
-//     text: 'Eliminar',
-//     onClick: onDeleteCourse
-//   }
-// ];
-// { isProfessor && (
-//   <Grid item xs={1} className={styles.moreVertOptions}>
-//     <MoreVertOptions options={options} />
-//   </Grid>
-// )}
-
 class CourseHeader extends Component {
   handleNameChange = (value) => {
     const { onNameChange, course } = this.props;
@@ -36,7 +20,7 @@ class CourseHeader extends Component {
 
   render() {
     const {
-      course, onDeleteCourse, onPublishCourse, isProfessor, isCoursePublished
+      course, onDeleteCourse, onPublishCourse, canDelete, canEdit
     } = this.props;
 
     return (
@@ -51,7 +35,7 @@ class CourseHeader extends Component {
               typographyClassNames={styles.courseNameTypography}
               classNames={styles.courseName}
               variant="h4"
-              isEditable={isProfessor}
+              isEditable={canEdit}
             />
             <EditableText
               text={course.description}
@@ -59,17 +43,18 @@ class CourseHeader extends Component {
               textFieldSettings={{ fullWidth: true, multiline: true }}
               textFieldClassNames={styles.courseDescriptionTextField}
               typographyClassNames={styles.courseDescriptionTypography}
+              editIconClassName={styles.editIcon}
               classNames={styles.courseDescription}
-              isEditable={isProfessor}
+              isEditable={canEdit}
             />
           </Grid>
           <div className={styles.buttonsContainer}>
-            { isProfessor && (
+            { canDelete && (
               <Button id="delete-course" onClick={onDeleteCourse} className={styles.deleteButton} variant="outlined">
                 Borrar curso
               </Button>
             )}
-            { isProfessor && !isCoursePublished && (
+            { canEdit && (
               <Button id="publish-course" onClick={onPublishCourse} className={styles.publishButton} variant="outlined" color="primary">
                 Publicar curso
               </Button>
