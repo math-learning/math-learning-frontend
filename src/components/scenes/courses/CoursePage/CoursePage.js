@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { CircularProgress } from '@material-ui/core';
 import EmptyStatePage from '../../../common/containers/EmptyStatePage';
-import ContentHeader from '../../../common/containers/Content/ContentHeader';
 import CourseLeftPanel from './components/CourseLeftPanel';
 import Guide from './components/Guide';
 import StatisticsPage from './components/StatisticsPage';
@@ -35,14 +34,15 @@ export default class CoursePage extends Component {
     }
 
     return (
-      <ContentHeader>
-        <CourseHeader // TODO: this could be just CourseHeader with an isEditable property
-          id={course.courseId}
-          name={course.name}
-          description={course.description}
-          isProfessor={isProfessor}
-        />
-      </ContentHeader>
+      <CourseHeader
+        id={course.courseId}
+        name={course.name}
+        course={course}
+        canEdit={isProfessor && course.courseStatus !== 'published'}
+        canDelete={isProfessor}
+        description={course.description}
+        isProfessor={isProfessor}
+      />
     );
   }
 

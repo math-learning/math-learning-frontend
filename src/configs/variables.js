@@ -28,12 +28,14 @@ const configs = {
     exercise: ({ courseId, guideId, exerciseId }) => `/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}`,
     userExercise: ({ courseId, guideId, exerciseId, userId }) => `/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}?userId=${userId}`,
     courseGuide: (courseId, guideId) => `/courses/${courseId}/guides/${guideId}`,
-    courseUserGuide: (courseId, guideId, userId) => `/courses/${courseId}/guides/${guideId}?userId=${userId}`,
+    courseUserGuide: (courseId, guideId, userId) => (
+      userId
+        ? `/courses/${courseId}/guides/${guideId}?userId=${userId}`
+        : `/courses/${courseId}/guides/${guideId}`
+    ),
     courseUsers: (courseId) => `/courses/${courseId}/users`,
     courseStatistics: (courseId) => `/courses/${courseId}/statistics`
-  },
-  // serverUrl: "http://0.0.0.0:5000"
-  serverUrl: 'https://math-solver.herokuapp.com'
+  }
 };
 
 module.exports = configs;

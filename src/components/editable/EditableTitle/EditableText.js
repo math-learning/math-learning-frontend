@@ -29,6 +29,7 @@ export default class EditableText extends Editable {
 
   render() {
     const {
+      editIconClassName,
       textFieldClassNames,
       typographyClassNames,
       textFieldSettings,
@@ -71,7 +72,7 @@ export default class EditableText extends Editable {
         </Typography>
       );
       iconComponent = (
-        <IconButton onClick={this.toggleEditing}>
+        <IconButton onClick={this.toggleEditing} className={editIconClassName}>
           <EditIcon fontSize="small" />
         </IconButton>
       );

@@ -220,6 +220,29 @@ describe('guides actions', () => {
         expect(store.getActions()).to.be.deep.equal(expectedActions);
       });
     });
+
+    describe('when the guide is selected successfully for a userId', () => {
+      beforeEach(() => {
+        const userId = 'user';
+        expectedActions = [
+          {
+            payload: {
+              args: [
+                `/courses/${courseId}/guides/${guideId}?userId=${userId}`
+              ],
+              method: 'push'
+            },
+            type: '@@router/CALL_HISTORY_METHOD'
+          }
+        ];
+
+        return store.dispatch(actions.selectGuide({ courseId, guideId, userId }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
   });
 
   describe('deleteGuide() function', () => {

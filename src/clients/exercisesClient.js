@@ -29,11 +29,14 @@ const getExercise = async ({
   context,
   courseId,
   guideId,
+  userId,
   exerciseId
 }) => {
-  const profileUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`;
+  const exerciseUrl = userId
+    ? `${url}/courses/${courseId}/guides/${guideId}/user/${userId}/exercises/${exerciseId}`
+    : `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`;
 
-  const response = await fetch(profileUrl, {
+  const response = await fetch(exerciseUrl, {
     headers: {
       authorization: context.accessToken,
       'Content-Type': 'application/json'

@@ -97,28 +97,11 @@ export default class Guide extends Component {
 
     return (
       <div className={styles.exerciseInfo}>
-        <div className={styles.studentSelector}>
-          <Typography className={styles.labelSelector} variant="h6" color="textSecondary">Filtro por alumno:</Typography>
-
-          <Select
-            id="student-selector"
-            value={currentStudentId}
-            onChange={this.onChangeStudent}
-            input={<BootstrapDropdownInput />}
-          >
-            {[
-              <MenuItem key="none" value="">-</MenuItem>,
-              ...students.map((u) => (
-                <MenuItem key={u.name} value={u.userId}>{u.name}</MenuItem>
-              ))
-            ]}
-          </Select>
-        </div>
-
         <div className={styles.exercisesHeader}>
           <Typography align="center" variant="h6" className={styles.guideTitle}>
             Ejercicios ({guide.name})
           </Typography>
+
           {shouldRenderCreateExercise && (
             <div className={styles.addButton}>
               <Button
@@ -132,6 +115,32 @@ export default class Guide extends Component {
             </div>
           )}
         </div>
+
+        {isProfessor && (
+          <div className={styles.studentSelector}>
+            <Typography
+              className={styles.labelSelector}
+              variant="body1"
+              color="textSecondary"
+            >
+              Filtro por estudiante:
+            </Typography>
+
+            <Select
+              id="student-selector"
+              value={currentStudentId}
+              onChange={this.onChangeStudent}
+              input={<BootstrapDropdownInput />}
+            >
+              {[
+                <MenuItem key="none" value="">-</MenuItem>,
+                ...students.map((u) => (
+                  <MenuItem key={u.name} value={u.userId}>{u.name}</MenuItem>
+                ))
+              ]}
+            </Select>
+          </div>
+        )}
 
         <div className={styles.exerciseList}>
           {exercises.map((exercise) => (

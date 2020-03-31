@@ -5,7 +5,7 @@ export function isLoadingExercises(state, courseId, guideId, userId) {
   const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
 
   if (userId) {
-    const studentExercises = state.exercises.data.students[courseGuideId];
+    const studentExercises = state.exercises.data.students.list[courseGuideId];
     return _.isNil(studentExercises && studentExercises[userId]);
   }
 
@@ -17,21 +17,47 @@ export const getExercises = (state, courseId, guideId, userId) => {
   const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
 
   if (userId) {
-    const studentExercises = state.exercises.data.students[courseGuideId];
+    const studentExercises = state.exercises.data.students.list[courseGuideId];
     return studentExercises && studentExercises[userId];
   }
   return state.exercises.data.list[courseGuideId];
 };
 
-export const getExercise = (state, {
-  courseId, guideId, exerciseId
+const getBaseExerciseDetail = (state, {
+  courseId, guideId, exerciseId, userId
 }) => {
   const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
-  const courseExercises = state.exercises.data.detail[courseGuideId];
 
-  return courseExercises
-    && courseExercises[exerciseId]
-    && courseExercises[exerciseId].exercise;
+  if (userId) {
+    const course = state.exercises.data.students.detail[courseGuideId];
+    return course && course[userId] && course[userId][exerciseId];
+  }
+
+  const course = state.exercises.data.detail[courseGuideId];
+  return course && course[exerciseId];
+};
+
+export const getExercise = (state, {
+  courseId, guideId, exerciseId, userId
+}) => {
+  const baseExercise = getBaseExerciseDetail(state, {
+    courseId, guideId, exerciseId, userId
+  });
+
+  return baseExercise && baseExercise.exercise;
+};
+
+export const isLoadingExercise = (state, {
+  courseId, guideId, exerciseId, userId
+}) => {
+  const baseExercise = getBaseExerciseDetail(state, {
+    courseId, guideId, exerciseId, userId
+  });
+
+  if (_.isNil(baseExercise && baseExercise.isLoading)) {
+    return true;
+  }
+  return baseExercise.isLoading;
 };
 
 export const currentExpression = (state, {
@@ -78,19 +104,4 @@ export const stepList = (state, {
     && courseExercises[exerciseId].stepList;
 
   return exerciseStepList || [];
-};
-
-export const isLoadingExercise = (state, {
-  courseId, guideId, exerciseId
-}) => {
-  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
-  const courseExercises = state.exercises.data.detail[courseGuideId];
-  const isLoading = courseExercises
-    && courseExercises[exerciseId]
-    && courseExercises[exerciseId].isLoading;
-
-  if (_.isNil(isLoading)) {
-    return true;
-  }
-  return isLoading;
 };

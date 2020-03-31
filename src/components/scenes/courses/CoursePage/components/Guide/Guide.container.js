@@ -27,7 +27,6 @@ const currentActions = (dispatch) => ({
   loadExerciseModal: (payload) => dispatch(modal.actions.loadModal(modalTypes.CREATE_EXERCISE_MODAL, payload)),
   onFilterUser: async ({ courseId, guideId, userId }) => {
     await dispatch(push(configs.pathGenerators.courseUserGuide(courseId, guideId, userId)));
-    // dispatch(exercises.actions.getUserExercises(payload)
   }
 });
 

@@ -5,9 +5,15 @@ import * as exerciseSelectors from './selectors';
 import * as logger from '../../utils/logger';
 import exercisesClient from '../../clients/exercisesClient';
 
-export function getExercisesSuccess({ courseId, guideId, userId, exercises }) {
+export function getExercisesSuccess({
+  courseId, guideId, userId, exercises
+}) {
+  const type = userId
+    ? types.GET_USER_EXERCISES_SUCCESS
+    : types.GET_EXERCISES_SUCCESS;
+
   return {
-    type: types.GET_EXERCISES_SUCCESS,
+    type,
     courseId,
     guideId,
     userId,
@@ -122,13 +128,18 @@ export function exerciseResolved({
 }
 
 export function getExerciseSuccess({
-  courseId, guideId, exerciseId, exercise
+  courseId, guideId, exerciseId, userId, exercise
 }) {
+  const type = userId
+    ? types.GET_USER_EXERCISE_SUCCESS
+    : types.GET_EXERCISE_SUCCESS;
+
   return {
-    type: types.GET_EXERCISE_SUCCESS,
+    type,
     courseId,
     guideId,
     exerciseId,
+    userId,
     exercise
   };
 }
@@ -243,8 +254,12 @@ export function getExercises({ courseId, guideId, userId }) {
 
     dispatch(getExercisesRequest({ courseId, guideId, userId }));
 
-    const exercises = await exercisesClient.getExercises({ context, courseId, guideId, userId });
-    dispatch(getExercisesSuccess({ courseId, guideId, userId, exercises }));
+    const exercises = await exercisesClient.getExercises({
+      context, courseId, guideId, userId
+    });
+    dispatch(getExercisesSuccess({
+      courseId, guideId, userId, exercises
+    }));
   };
 }
 
@@ -264,7 +279,9 @@ export function getUserExercises({ courseId, guideId, userId }) {
   };
 }
 
-export function getExercise({ guideId, courseId, exerciseId }) {
+export function getExercise({
+  guideId, courseId, userId, exerciseId
+}) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
@@ -273,11 +290,12 @@ export function getExercise({ guideId, courseId, exerciseId }) {
       context,
       guideId,
       courseId,
-      exerciseId
+      exerciseId,
+      userId
     });
 
     dispatch(getExerciseSuccess({
-      courseId, guideId, exerciseId, exercise
+      courseId, guideId, exerciseId, userId, exercise
     }));
   };
 }

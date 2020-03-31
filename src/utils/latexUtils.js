@@ -16,6 +16,4 @@ const cleanLatex = (latex) => {
   return clean;
 };
 
-export {
-  cleanLatex,
-};
+export { cleanLatex };

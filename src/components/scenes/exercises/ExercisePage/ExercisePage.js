@@ -22,7 +22,7 @@ export default class ExercisePage extends Component {
   }
 
   render = () => {
-    const { isLoadingExercise, exercise } = this.props;
+    const { isLoadingExercise, exercise, onReturnToCourse } = this.props;
 
     if (isLoadingExercise) {
       return (
@@ -34,7 +34,10 @@ export default class ExercisePage extends Component {
 
     if (exercise.type === 'derivative') {
       return (
-        <Derivative exercise={exercise} />
+        <Derivative
+          exercise={exercise}
+          onReturnToCourse={onReturnToCourse}
+        />
       );
     }
     return (

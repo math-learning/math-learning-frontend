@@ -7,7 +7,10 @@ const initialState = {
   data: {
     list: {},
     detail: {},
-    students: {}
+    students: {
+      list: {},
+      detail: {}
+    }
   },
 };
 
@@ -81,24 +84,6 @@ export default function reducers(state = initialState, action) {
     case types.GET_EXERCISES_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
 
-      console.log('USER ID en reducer', action.userId)
-
-      if (action.userId) {
-        return {
-          ...state,
-          data: {
-            ...state.data,
-            students: {
-              ...state.data.students,
-              [courseGuideId]: {
-                ...state.data.students[courseGuideId],
-                [action.userId]: action.exercises
-              }
-            }
-          }
-        };
-      }
-
       return {
         ...state,
         data: {
@@ -107,15 +92,6 @@ export default function reducers(state = initialState, action) {
             ...state.data.list,
             [courseGuideId]: action.exercises
           }
-        }
-      };
-    }
-
-    case types.GET_USER_EXERCISES_REQUEST: {
-      return {
-        ...state,
-        data: {
-          ...state.data
         }
       };
     }
@@ -129,9 +105,12 @@ export default function reducers(state = initialState, action) {
           ...state.data,
           students: {
             ...state.data.students,
-            [courseGuideId]: {
-              ...state.data.students[courseGuideId],
-              [action.userId]: action.exercises
+            list: {
+              ...state.data.students.list,
+              [courseGuideId]: {
+                ...state.data.students.list[courseGuideId],
+                [action.userId]: action.exercises
+              }
             }
           }
         }
@@ -170,6 +149,7 @@ export default function reducers(state = initialState, action) {
 
     case types.GET_EXERCISE_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+
       const exercises = state.data.detail[courseGuideId] || {};
       const newExercisesState = {
         ...exercises,
@@ -188,6 +168,40 @@ export default function reducers(state = initialState, action) {
           detail: {
             ...state.data.detail,
             [courseGuideId]: newExercisesState
+          }
+        }
+      };
+    }
+
+    case types.GET_USER_EXERCISE_SUCCESS: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+
+      const detailObj = state.data.students.detail[courseGuideId] || {};
+      const userExercises = detailObj[action.userId];
+      const userDetailObj = {
+        ...detailObj,
+        [action.userId]: {
+          ...userExercises,
+          [action.exerciseId]: {
+            exercise: action.exercise,
+            isLoading: false
+          }
+        }
+      };
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          students: {
+            ...state.data.students,
+            detail: {
+              ...state.data.students.detail,
+              [courseGuideId]: {
+                ...state.data.students.detail[courseGuideId],
+                ...userDetailObj
+              }
+            }
           }
         }
       };
