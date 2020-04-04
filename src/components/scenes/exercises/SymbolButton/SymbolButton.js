@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from '@material-ui/core';
 
-import MathText from '../../../MathText';
+import MathText from '../../../common/math/MathText';
 import styles from './SymbolButton.module.sass';
 
 export default class SymbolButton extends Component {

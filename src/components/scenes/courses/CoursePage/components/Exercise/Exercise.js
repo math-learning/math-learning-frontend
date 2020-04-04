@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames';
 import { Card, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
-import MathText from '../../../../../MathText';
+import MathText from '../../../../../common/math/MathText';
 import styles from './Exercise.module.sass';
 import MoreVertOptions from '../Options';
 

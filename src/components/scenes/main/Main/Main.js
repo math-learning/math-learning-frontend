@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import SignUpButton from '../Button/SignUpButton';
-import Footer from '../Footer';
+import SignUpButton from '../../../Button/SignUpButton';
+import Footer from '../../../Footer';
 
 import styles from './Main.module.sass';
 

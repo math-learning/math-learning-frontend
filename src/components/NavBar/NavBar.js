@@ -16,7 +16,7 @@ import variables from '../../configs/variables';
 import SignUpButton from '../Button/SignUpButton';
 import { TemporaryDrawer } from '../Drawers';
 import ProfileLinkListItem from '../Drawers/ProfileLinkListItem';
-import LinkListItemWithIcon from '../LinkListItemWithIcon';
+import LinkListItemWithIcon from '../common/components/LinkListItemWithIcon';
 import styles from './NavBar.module.sass';
 
 // Sets the color and elevation of the navbar

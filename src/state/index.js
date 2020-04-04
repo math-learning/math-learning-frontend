@@ -2,14 +2,6 @@ import { combineReducers } from 'redux';
 import { connectRouter } from 'connected-react-router';
 
 import {
-  reducers as derivativeReducers,
-} from './derivative';
-
-import {
-  reducers as addExerciseReducers,
-} from './addExercise';
-
-import {
   reducers as exercisesReducers,
 } from './exercises';
 
@@ -34,10 +26,8 @@ import {
 } from './statistics';
 
 const createRootReducer = (history) => combineReducers({
-  addExercise: addExerciseReducers,
   common: commonReducers,
   courses: coursesReducers,
-  derivative: derivativeReducers,
   exercises: exercisesReducers,
   modals: modalReducers,
   router: connectRouter(history),

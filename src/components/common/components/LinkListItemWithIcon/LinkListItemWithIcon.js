@@ -2,7 +2,7 @@ import { ListItem, ListItemIcon, ListItemText } from '@material-ui/core';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from '../../App.module.sass';
+import styles from '../../../../App.module.sass';
 
 export default function LinkListItemWithIcon(props) {
   const {

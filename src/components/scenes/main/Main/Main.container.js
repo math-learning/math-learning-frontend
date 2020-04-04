@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import * as actions from '../../state/modals/actions';
-import * as modalTypes from '../../state/modals/modalTypes';
+import * as actions from '../../../../state/modals/actions';
+import * as modalTypes from '../../../../state/modals/modalTypes';
 
 import Main from './Main';
 
