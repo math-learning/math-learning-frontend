@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import Container from '@material-ui/core/Container';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import styles from './CourseHeader.module.sass';
-import EditableText from '../../../../../editable/EditableTitle/EditableText';
+import EditableText from '../../../../../common/text/EditableTitle/EditableText';
 
 class CourseHeader extends Component {
   handleNameChange = (value) => {
@@ -24,7 +23,7 @@ class CourseHeader extends Component {
     } = this.props;
 
     return (
-      <Container className={styles.courseInfo}>
+      <div className={styles.courseInfo}>
         <Grid container>
           <Grid item xs={12}>
             <EditableText
@@ -61,7 +60,7 @@ class CourseHeader extends Component {
             )}
           </div>
         </Grid>
-      </Container>
+      </div>
     );
   }
 }

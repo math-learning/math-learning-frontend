@@ -3,7 +3,7 @@ import List from '@material-ui/core/List';
 import CollectionsBookmarkRoundedIcon from '@material-ui/icons/CollectionsBookmarkRounded';
 import React, { Component } from 'react';
 
-import LinkListItemWithIcon from '../../LinkListItemWithIcon/LinkListItemWithIcon';
+import LinkListItemWithIcon from '../../common/components/LinkListItemWithIcon/LinkListItemWithIcon';
 import styles from './DrawerItems.module.sass';
 
 export default class DrawerItems extends Component { // eslint-disable-line react/prefer-stateless-function

@@ -3,7 +3,7 @@ import InsertChartRoundedIcon from '@material-ui/icons/InsertChartRounded';
 import React from 'react';
 import DrawerItems from './DrawerItems';
 import styles from './ProfesorItems.module.sass';
-import LinkListItemWithIcon from '../LinkListItemWithIcon';
+import LinkListItemWithIcon from '../common/components/LinkListItemWithIcon';
 
 export default function ProfessorItems() {
   return (

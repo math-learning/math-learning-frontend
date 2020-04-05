@@ -5,7 +5,7 @@ import DoneIcon from '@material-ui/icons/Done';
 import TextField from '@material-ui/core/TextField';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import Editable from '../../../../../../abstract/Editable/Editable';
+import Editable from '../../../../../../common/abstract/Editable';
 import MoreVertOptions from '../../Options';
 import styles from './TextListItem.module.sass';
 

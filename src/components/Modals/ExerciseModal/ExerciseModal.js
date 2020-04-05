@@ -4,7 +4,7 @@ import {
 } from '@material-ui/core';
 
 import Modal from '../Modal';
-import MathTextBox from '../../MathTextBox';
+import MathTextBox from '../../common/math/MathTextBox';
 import BootstrapDropdownInput from '../../../bootstrap/dropdownInput';
 import styles from './ExerciseModal.module.sass';
 
