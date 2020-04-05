@@ -83,9 +83,9 @@ export default class Guide extends Component {
       courseId, guideId, users, userId, guide, exercises, loadExerciseModal, isLoadingExercises, isProfessor
     } = this.props;
 
-    const shouldRenderCreateExercise = isProfessor && !userId;
-
     const students = users.filter((user) => user.role === 'student');
+    const shouldRenderCreateExercise = isProfessor && !userId;
+    const shouldRenderStudentFilter = isProfessor && students && !!students.length;
 
     if (isLoadingExercises) {
       return (
@@ -116,7 +116,7 @@ export default class Guide extends Component {
           )}
         </div>
 
-        {isProfessor && (
+        {shouldRenderStudentFilter && (
           <div className={styles.studentSelector}>
             <Typography
               className={styles.labelSelector}
