@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ListItemIcon, ListItemText } from '@material-ui/core';
-import styles from '../../App.module.sass';
-import EditableText from '../common/containers/LeftPanel/TextListItem';
+import styles from '../../../../../App.module.sass';
+import EditableText from '../../../text/EditableTitle/EditableText';
 
 export default function LinkListItem(props) {
   const {

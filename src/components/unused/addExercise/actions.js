@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
-import { cleanLatex } from '../../utils/latexUtils';
-import mathClient from '../../clients/mathClient';
-import * as common from '../common';
+import { cleanLatex } from '../../../utils/latexUtils';
+import mathClient from '../../../clients/mathClient';
+import * as common from '../../../state/common';
 
 export function handleAddExpressionChange({ newExpression }) {
   return {

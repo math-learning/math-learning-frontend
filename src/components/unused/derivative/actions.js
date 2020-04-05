@@ -1,7 +1,7 @@
 import * as types from './actionTypes';
-import mathClient from '../../clients/mathClient';
-import { cleanLatex } from '../../utils/latexUtils';
-import * as common from '../common';
+import mathClient from '../../../clients/mathClient';
+import { cleanLatex } from '../../../utils/latexUtils';
+import * as common from '../../../state/common';
 
 function exerciseFinished({ currentExpression, index }) {
   return {

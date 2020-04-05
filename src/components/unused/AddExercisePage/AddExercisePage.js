@@ -3,8 +3,8 @@ import Button from '@material-ui/core/Button';
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import MathText from '../MathText';
-import MathTextBox from '../MathTextBox';
+import MathText from '../../common/math/MathText';
+import MathTextBox from '../../common/math/MathTextBox';
 import './AddExercisePage.module.sass';
 
 /* eslint-disable react/jsx-no-bind */

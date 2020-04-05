@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import SignUpButton from '../../../Button/SignUpButton';
+import SignUpButton from '../../../common/components/Buttons/SignUpButton';
 import Footer from '../../../Footer';
 
 import styles from './Main.module.sass';

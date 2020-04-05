@@ -5,8 +5,8 @@ import DoneAllIcon from '@material-ui/icons/DoneAll';
 import React, { Component } from 'react';
 
 import InteractiveLinkCard from '../InteractiveLinkCard/InteractiveLinkCard';
-import LinkListItemWithIcon from '../LinkListItemWithIcon';
-import MathText from '../MathText';
+import LinkListItemWithIcon from '../../common/components/LinkListItemWithIcon';
+import MathText from '../../common/math/MathText';
 import styles from './CoursePage.module.sass';
 
 const modules = new Map();

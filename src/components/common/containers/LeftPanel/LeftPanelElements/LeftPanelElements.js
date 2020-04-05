@@ -1,6 +1,6 @@
 import React from 'react';
-import styles from '../../../CoursePage/CoursePage.module.sass';
-import LinkListItem from '../../../LinkListItem';
+import styles from './LeftPanelElements.module.sass';
+import LinkListItem from '../LinkListItem';
 
 export default function LeftPanelElements(props) {
   let { elements } = props;

@@ -13,7 +13,7 @@ import { Link } from 'react-router-dom';
 
 import theme from '../../themes/defaultTheme';
 import variables from '../../configs/variables';
-import SignUpButton from '../Button/SignUpButton';
+import SignUpButton from '../common/components/Buttons/SignUpButton';
 import { TemporaryDrawer } from '../Drawers';
 import ProfileLinkListItem from '../Drawers/ProfileLinkListItem';
 import LinkListItemWithIcon from '../common/components/LinkListItemWithIcon';

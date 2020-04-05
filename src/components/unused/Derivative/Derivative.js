@@ -8,10 +8,10 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import CheckIcon from '../Icons/CheckIcon';
-import WrongIcon from '../Icons/WrongIcon';
-import MathText from '../MathText';
-import MathTextBox from '../MathTextBox';
+import CheckIcon from '../../common/components/Icons/CheckIcon';
+import WrongIcon from '../../common/components/Icons/WrongIcon';
+import MathText from '../../common/math/MathText';
+import MathTextBox from '../../common/math/MathTextBox';
 import styles from './Derivative.module.sass';
 
 /* eslint-disable react/jsx-no-bind */

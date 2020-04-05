@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
-import * as actions from '../../state/derivative/actions';
-import * as selectors from '../../state/derivative/selectors';
+import * as actions from '../derivative/actions';
+import * as selectors from '../derivative/selectors';
 
 import Derivative from './Derivative';
 

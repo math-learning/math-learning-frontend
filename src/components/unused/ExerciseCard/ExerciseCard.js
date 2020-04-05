@@ -4,7 +4,7 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 
 import { makeStyles } from '@material-ui/core';
-import MathText from '../MathText';
+import MathText from '../../common/math/MathText';
 
 const useStyles = makeStyles(() => ({
   card: {

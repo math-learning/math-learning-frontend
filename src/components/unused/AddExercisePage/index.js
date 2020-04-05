@@ -1,3 +1,3 @@
-import AddExercisePage from './AddExercisePage.container';
+import AddExercisePage from './AddExercisePage';
 
 export default AddExercisePage;

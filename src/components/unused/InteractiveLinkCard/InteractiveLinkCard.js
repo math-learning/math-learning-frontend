@@ -2,7 +2,7 @@ import { Card } from '@material-ui/core';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import styles from '../../App.module.sass';
+import styles from '../../../App.module.sass';
 
 /* eslint-disable react/jsx-no-bind */
 /* eslint-disable react/no-access-state-in-setstate */
