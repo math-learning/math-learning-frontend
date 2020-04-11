@@ -10,7 +10,11 @@ const initialState = {
     students: {
       list: {},
       detail: {}
-    }
+    },
+    isEvaluatingExercise: false,
+    isCreatingExercise: false, // TODO: nodo creating
+    solvedCreatingExercise: null,
+    creatingExerciseError: null
   },
 };
 
@@ -117,6 +121,84 @@ export default function reducers(state = initialState, action) {
       };
     }
 
+    case types.CREATE_EXERCISE_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isCreatingExercise: true,
+          creatingExerciseError: null
+        }
+      };
+    }
+
+    case types.CREATE_EXERCISE_FAIL: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isCreatingExercise: false,
+          creatingExerciseError: action.error
+        }
+      };
+    }
+
+    case types.EVALUATE_EXERCISE_SUCCESS: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          solvedCreatingExercise: action.solvedExercise,
+          isEvaluatingExercise: false,
+          creatingExerciseError: null
+        }
+      };
+    }
+
+    case types.EVALUATE_EXERCISE_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          solvedCreatingExercise: null,
+          isEvaluatingExercise: true,
+          creatingExerciseError: null
+        }
+      };
+    }
+
+    case types.EVALUATE_EXERCISE_FAIL: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          solvedCreatingExercise: null,
+          isEvaluatingExercise: false,
+          creatingExerciseError: action.error
+        }
+      };
+    }
+
+    case types.RESET_EXERCISE_ERROR: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          creatingExerciseError: null
+        }
+      };
+    }
+
+    case types.RESET_SOLVED_EXERCISE: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          solvedCreatingExercise: null
+        }
+      };
+    }
+
     case types.CREATE_EXERCISE_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const { exerciseId } = action.exercise;
@@ -127,6 +209,8 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
+          isCreatingExercise: false,
+          creatingExerciseError: null,
           detail: {
             ...state.data.detail,
             [courseGuideId]: {

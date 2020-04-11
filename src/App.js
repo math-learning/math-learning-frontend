@@ -39,6 +39,7 @@ const App = () => {
           <Route exact path="/courses/:courseId/users" component={CourseManagement} />
           <Route exact path="/courses/:courseId/statistics" component={CourseManagement} />
           <Route exact path="/courses/:courseId/guides/:guideId" component={CourseManagement} />
+          <Route exact path="/courses/:courseId/guides/:guideId/create-exercise" component={CourseManagement} />
           <Route exact path="/courses/:courseId/guides/:guideId/exercises/:exerciseId" component={ExercisePage} />
           <Route exact path="/courses" component={OwnCoursesPage} />
           <Route exact path="/" component={Main} />

@@ -45,12 +45,25 @@ describe('exercises actions', () => {
         };
         expectedActions = [
           {
+            type: types.CREATE_EXERCISE_REQUEST,
+            guideId,
+            courseId
+          },
+          {
             type: types.CREATE_EXERCISE_SUCCESS,
             guideId,
             courseId,
             exercise: createdExercise
           },
-          { type: modalTypes.HIDE_MODAL }
+          {
+            payload: {
+              args: [
+                `/courses/${courseId}/guides/${guideId}`
+              ],
+              method: 'push'
+            },
+            type: '@@router/CALL_HISTORY_METHOD'
+          }
         ];
         sandbox
           .stub(exercisesClient, 'createExercise')

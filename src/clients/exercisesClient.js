@@ -88,6 +88,26 @@ const resolveExercise = async ({
   return requestUtils.processResponse(response);
 };
 
+const evaluateExercise = async ({
+  context,
+  courseId,
+  guideId,
+  exercise
+}) => {
+  const profileUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises/evaluate`;
+
+  const response = await fetch(profileUrl, {
+    method: 'post',
+    body: JSON.stringify(exercise),
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 const removeExerciseStep = async ({
   context,
   courseId,
@@ -217,6 +237,7 @@ export default {
   addUserToCourse,
   createExercise,
   deliverExercise,
+  evaluateExercise,
   getExercise,
   getExercises,
   getExerciseErrors,

@@ -3,6 +3,7 @@ import { CircularProgress } from '@material-ui/core';
 import EmptyStatePage from '../../../common/containers/EmptyStatePage';
 import CourseLeftPanel from './components/CourseLeftPanel';
 import Guide from './components/Guide';
+import CreateExercisePage from './components/CreateExercisePage';
 import StatisticsPage from './components/StatisticsPage';
 import CourseUsersPage from './components/CourseUsersPage';
 import CourseHeader from './components/CourseHeader';
@@ -26,10 +27,10 @@ export default class CoursePage extends Component {
     }
   }
 
-  getHeader(isProfessor) { // TODO: maybe we can have the header per page
-    const { course, isUserPath, isStatisticsPath } = this.props;
+  getHeader(isProfessor) {
+    const { course, isUserPath, isStatisticsPath, isCreateExercisePath } = this.props;
 
-    if (isUserPath || isStatisticsPath) {
+    if (isUserPath || isStatisticsPath || isCreateExercisePath) {
       return null;
     }
 
@@ -48,7 +49,7 @@ export default class CoursePage extends Component {
 
   getContent(isProfessor) {
     const {
-      course, guideId, guides, isUserPath, isStatisticsPath
+      courseId, guideId, course, guides, isUserPath, isStatisticsPath, isCreateExercisePath
     } = this.props;
 
     if (isUserPath) {
@@ -56,6 +57,9 @@ export default class CoursePage extends Component {
     }
     if (isStatisticsPath) {
       return <StatisticsPage course={course} />;
+    }
+    if (isCreateExercisePath) {
+      return <CreateExercisePage courseId={courseId} guideId={guideId} />;
     }
 
     const firstGuide = guides[0];

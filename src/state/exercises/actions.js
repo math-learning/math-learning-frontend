@@ -1,8 +1,10 @@
+import { push } from 'connected-react-router';
 import * as types from './actionTypes';
 import * as modalActions from '../modals/actions';
 import * as commonSelectors from '../common/selectors';
 import * as exerciseSelectors from './selectors';
 import * as logger from '../../utils/logger';
+import configs from '../../configs/variables';
 import exercisesClient from '../../clients/exercisesClient';
 
 export function getExercisesSuccess({
@@ -159,12 +161,55 @@ export function changeCurrentExpression({
   };
 }
 
+export function createExerciseRequest({ courseId, guideId }) {
+  return {
+    type: types.CREATE_EXERCISE_REQUEST,
+    courseId,
+    guideId
+  };
+}
+
+export function createExerciseFail({ courseId, guideId, error }) {
+  return {
+    type: types.CREATE_EXERCISE_FAIL,
+    courseId,
+    guideId,
+    error
+  };
+}
+
 export function createExerciseSuccess({ courseId, guideId, exercise }) {
   return {
     type: types.CREATE_EXERCISE_SUCCESS,
     courseId,
     guideId,
     exercise
+  };
+}
+
+export function evaluateExerciseRequest({ courseId, guideId }) {
+  return {
+    type: types.EVALUATE_EXERCISE_REQUEST,
+    courseId,
+    guideId
+  };
+}
+
+export function evaluateExerciseFail({ courseId, guideId, error }) {
+  return {
+    type: types.EVALUATE_EXERCISE_FAIL,
+    courseId,
+    guideId,
+    error
+  };
+}
+
+export function evaluateExerciseSuccess({ courseId, guideId, solvedExercise }) {
+  return {
+    type: types.EVALUATE_EXERCISE_SUCCESS,
+    courseId,
+    guideId,
+    solvedExercise
   };
 }
 
@@ -186,10 +231,24 @@ export function deliverExerciseRequest({ courseId, guideId, exerciseId }) {
   };
 }
 
+export function resetExerciseError() {
+  return async (dispatch) => {
+    dispatch({ type: types.RESET_EXERCISE_ERROR });
+  };
+}
+
+export function resetSolvedExercise() {
+  return async (dispatch) => {
+    dispatch({ type: types.RESET_SOLVED_EXERCISE });
+  };
+}
+
 export function createExercise({ guideId, courseId, exercise }) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
+
+    dispatch(createExerciseRequest({ courseId, guideId }));
 
     try {
       const createdExercise = await exercisesClient.createExercise({
@@ -202,9 +261,41 @@ export function createExercise({ guideId, courseId, exercise }) {
         exerciseId: createdExercise.exerciseId,
         exercise: createdExercise,
       }));
-      dispatch(modalActions.hideModal());
+
+      await dispatch(push(configs.pathGenerators.courseGuide(courseId, guideId)));
     } catch (err) {
-      dispatch(modalActions.showError(err.message));
+      if (err.status === 401) {
+        throw err;
+      }
+      logger.onError('Error while trying to create exercise', err);
+
+      dispatch(createExerciseFail({ courseId, guideId, error: err.message }));
+    }
+  };
+}
+
+export function evaluateExercise({ guideId, courseId, exercise }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    dispatch(evaluateExerciseRequest({ courseId, guideId }));
+
+    try {
+      const solvedExercise = await exercisesClient.evaluateExercise({
+        context, guideId, courseId, exercise
+      });
+
+      dispatch(evaluateExerciseSuccess({
+        courseId, guideId, solvedExercise: solvedExercise.result,
+      }));
+    } catch (err) {
+      if (err.status === 401) {
+        throw err;
+      }
+      logger.onError('Error while trying to evaluate the exercise', err);
+
+      dispatch(evaluateExerciseFail({ courseId, guideId, error: err.message }));
     }
   };
 }
@@ -239,6 +330,9 @@ export function deleteExerciseStep({
         context, guideId, courseId, exerciseId
       });
     } catch (err) {
+      if (err.status === 401) {
+        throw err;
+      }
       // back to the previous state
       dispatch(updateExercise({
         courseId, guideId, exerciseId, exercise: currentExercise
@@ -347,6 +441,9 @@ export function deleteExercise({ courseId, guideId, exerciseId }) {
         context, courseId, guideId, exerciseId
       });
     } catch (err) {
+      if (err.status === 401) {
+        throw err;
+      }
       logger.onError('Error while trying to delete exercise');
     }
   };
@@ -370,6 +467,9 @@ export function updateExerciseAsProfessor({
         context, courseId, guideId, exerciseId, exercise
       });
     } catch (err) {
+      if (err.status === 401) {
+        throw err;
+      }
       logger.onError('Error while trying to delete exercise');
     }
   };

@@ -7,8 +7,6 @@ import configs from '../../../../../../configs/variables';
 import * as exercises from '../../../../../../state/exercises';
 import * as courses from '../../../../../../state/courses';
 import * as guides from '../../../../../../state/guides';
-import * as modalTypes from '../../../../../../state/modals/modalTypes';
-import * as modal from '../../../../../../state/modals';
 
 const currentState = (state, { courseId, guideId, location }) => {
   const { userId } = queryString.parse(location.search);
@@ -24,7 +22,10 @@ const currentState = (state, { courseId, guideId, location }) => {
 
 const currentActions = (dispatch) => ({
   getExercises: (payload) => dispatch(exercises.actions.getExercises(payload)),
-  loadExerciseModal: (payload) => dispatch(modal.actions.loadModal(modalTypes.CREATE_EXERCISE_MODAL, payload)),
+  onCreateExercise: async ({ courseId, guideId }) => {
+    await dispatch(push(configs.pathGenerators.createExerciseGuide(courseId, guideId)));
+  },
+  // loadExerciseModal: (payload) => dispatch(modal.actions.loadModal(modalTypes.CREATE_EXERCISE_MODAL, payload)),
   onFilterUser: async ({ courseId, guideId, userId }) => {
     await dispatch(push(configs.pathGenerators.courseUserGuide(courseId, guideId, userId)));
   }

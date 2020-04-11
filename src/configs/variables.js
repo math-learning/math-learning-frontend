@@ -28,6 +28,7 @@ const configs = {
     exercise: ({ courseId, guideId, exerciseId }) => `/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}`,
     userExercise: ({ courseId, guideId, exerciseId, userId }) => `/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}?userId=${userId}`,
     courseGuide: (courseId, guideId) => `/courses/${courseId}/guides/${guideId}`,
+    createExerciseGuide: (courseId, guideId) => `/courses/${courseId}/guides/${guideId}/create-exercise`,
     courseUserGuide: (courseId, guideId, userId) => (
       userId
         ? `/courses/${courseId}/guides/${guideId}?userId=${userId}`

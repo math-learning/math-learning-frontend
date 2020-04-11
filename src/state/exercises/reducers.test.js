@@ -32,6 +32,8 @@ describe('exercises reducer', () => {
               detail: {
                 'c-id/g-id': { exercise: { exercise } },
               },
+              creatingExerciseError: null,
+              isCreatingExercise: false
             },
           }
         );
@@ -53,7 +55,9 @@ describe('exercises reducer', () => {
               'c-id/g-id': {
                 [previousExercise.exerciseId]: { exercise: { ...previousExercise } },
               },
-            }
+            },
+            creatingExerciseError: null,
+            isCreatingExercise: false
           }
         };
 
@@ -81,7 +85,9 @@ describe('exercises reducer', () => {
                   [previousExercise.exerciseId]: { exercise: { ...previousExercise } },
                   [exercise.exerciseId]: { exercise: { ...exercise } },
                 }
-              }
+              },
+              creatingExerciseError: null,
+              isCreatingExercise: false
             },
           }
         );
