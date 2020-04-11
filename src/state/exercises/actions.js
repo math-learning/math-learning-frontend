@@ -62,9 +62,7 @@ export function resolveExerciseRequest({ courseId, guideId, exerciseId }) {
   };
 }
 
-export function updateExercise({
-  courseId, guideId, exerciseId, exercise
-}) {
+export function updateExercise({ courseId, guideId, exerciseId, exercise }) {
   return {
     type: types.UPDATE_EXERCISE,
     courseId,
@@ -456,9 +454,7 @@ export function updateExerciseAsProfessor({
     const state = getState();
     const context = commonSelectors.context(state);
 
-    dispatch(updateExercise({
-      courseId, guideId, exerciseId, exercise
-    }));
+    dispatch(updateExercise({ courseId, guideId, exerciseId, exercise }));
     dispatch(removeExerciseDetail({ courseId, guideId, exerciseId }));
     dispatch(modalActions.hideModal());
 

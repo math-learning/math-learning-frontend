@@ -13,8 +13,6 @@ import LeftPanelLink from '../../../common/containers/LeftPanel/LeftPanelLink';
 import styles from './Derivative.module.sass';
 import MathTable from '../MathTable';
 
-const HELP_TEST = 'Intenta con esto: derivada de la suma';
-
 class Derivative extends Component {
   constructor(props) {
     super(props);
@@ -135,13 +133,23 @@ class Derivative extends Component {
     return null;
   }
 
+  getHint = () => {
+    const { exercise: { initialHint, stepList } } = this.props;
+
+    if (!stepList.length && initialHint) {
+      return <HelpToolTip className={styles.help} help={initialHint} />;
+    }
+
+    return null;
+  }
+
   getCurrentStep = () => {
     const { latexModeOn } = this.state;
     const { currentExpression, isProcessing } = this.props;
 
     return (
       <div className={styles.step}>
-        <HelpToolTip className={styles.help} help={HELP_TEST} />
+        {this.getHint()}
 
         <div className={styles.stepContent}>
           <span className={styles.item}> = </span>
@@ -204,9 +212,7 @@ class Derivative extends Component {
             <div className={styles.content}>
               {this.getStepList()}
 
-              {!(isResolved || isDelivered)
-                ? this.getCurrentStep()
-                : null}
+              {!(isResolved || isDelivered) && this.getCurrentStep()}
             </div>
           </div>
 

@@ -23,38 +23,41 @@ function updateExerciseState({
 }) {
   const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const exercises = currentState.data.detail[courseGuideId] || {};
-  const newExercisesState = {
+
+  // updating exercise detail
+  // intentional (to prevent re render the components)
+  let newExercise = (exercises[exerciseId] && exercises[exerciseId].exercise) || {};
+  if (exerciseProps.exercise) {
+    const currentExercise = exercises[exerciseId];
+    newExercise = {
+      ...currentExercise.exercise,
+      ...exerciseProps.exercise
+    };
+  }
+
+  const newDetailExercises = {
     ...exercises,
     [exerciseId]: {
       ...exercises[exerciseId],
-      ...exerciseProps
+      ...exerciseProps,
+      exercise: newExercise
     }
   };
-  const courseGuideList = currentState.data.list[courseGuideId] || [];
+
+  // updating the exercise list
+  const newCourseGuideList = currentState.data.list[courseGuideId] || [];
   if (exerciseProps.exercise) {
     let indexOfExercise;
-    courseGuideList.forEach((value, index) => { if (value.exerciseId === exerciseId) indexOfExercise = index; });
+    newCourseGuideList.forEach((value, index) => {
+      if (value.exerciseId === exerciseId) indexOfExercise = index;
+    });
 
-    const {
-      name,
-      type,
-      state,
-      problemInput,
-      difficulty,
-      description
-    } = exerciseProps.exercise;
-
-    courseGuideList[indexOfExercise] = {
-      ...courseGuideList[indexOfExercise],
-      name,
-      type,
-      state,
-      difficulty,
-      problemInput,
-      description
+    newCourseGuideList[indexOfExercise] = {
+      ...newCourseGuideList[indexOfExercise],
+      ...exerciseProps.exercise
     };
 
-    courseGuideList[indexOfExercise] = _.pickBy(courseGuideList[indexOfExercise]);
+    newCourseGuideList[indexOfExercise] = _.pickBy(newCourseGuideList[indexOfExercise]);
   }
 
   return {
@@ -63,11 +66,11 @@ function updateExerciseState({
       ...currentState.data,
       detail: {
         ...currentState.data.detail,
-        [courseGuideId]: newExercisesState
+        [courseGuideId]: newDetailExercises
       },
       list: {
         ...currentState.data.list,
-        [courseGuideId]: [...courseGuideList],
+        [courseGuideId]: [...newCourseGuideList] // intentional (to re render the components)
       },
     }
   };

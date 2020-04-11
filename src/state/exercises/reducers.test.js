@@ -438,9 +438,11 @@ describe('exercises reducer', () => {
               }
             },
             list: {
-              'c-id/g-id': [
-                { ...exercise, state: 'resolved' }
-              ]
+              'c-id/g-id': [{
+                ...exercise,
+                state: 'resolved',
+                stepList: ['2']
+              }]
             }
           }
         }
@@ -498,9 +500,10 @@ describe('exercises reducer', () => {
               }
             },
             list: {
-              'c-id/g-id': [
-                { ...exercise }
-              ]
+              'c-id/g-id': [{
+                ...exercise,
+                stepList: ['2']
+              }]
             }
           }
         }
@@ -640,9 +643,7 @@ describe('exercises reducer', () => {
             }
           },
           list: {
-            'c-id/g-id': [
-              { ...exercise }
-            ]
+            'c-id/g-id': [exercise]
           }
         }
       };
@@ -670,9 +671,7 @@ describe('exercises reducer', () => {
               }
             },
             list: {
-              'c-id/g-id': [
-                { ...exercise }
-              ]
+              'c-id/g-id': [newExercise]
             }
           }
         }
@@ -696,9 +695,7 @@ describe('exercises reducer', () => {
             }
           },
           list: {
-            'c-id/g-id': [
-              { ...exercise }
-            ]
+            'c-id/g-id': [exercise]
           }
         }
       };
@@ -730,9 +727,11 @@ describe('exercises reducer', () => {
               }
             },
             list: {
-              'c-id/g-id': [
-                { ...exercise }
-              ]
+              'c-id/g-id': [{
+                ...exercise,
+                state: 'incompleted',
+                stepList: []
+              }]
             }
           }
         }

@@ -213,7 +213,7 @@ class CreateExercisePage extends Component {
           id="exercise-description"
           label="Descripción (opcional)"
           onChange={this.onChangeDescription}
-          className={styles.description}
+          className={styles.optional}
           fullWidth
           multiline
           rowsMax="4"
@@ -225,7 +225,7 @@ class CreateExercisePage extends Component {
           id="exercise-hint"
           label="Pista inicial (opcional)"
           onChange={this.onChangeHint}
-          className={styles.hint}
+          className={styles.optional}
           fullWidth
           multiline
           rowsMax="1"
