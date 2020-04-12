@@ -7,6 +7,194 @@ describe('exercises reducer', () => {
   let exercise;
   let finalState;
 
+  describe('should handle CREATE_EXERCISE_REQUEST', () => {
+    beforeEach(() => {
+      initialState = {
+        data: {}
+      };
+
+      finalState = reducer(initialState, {
+        type: types.CREATE_EXERCISE_REQUEST
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            creation: {
+              isCreatingExercise: true,
+              creatingExerciseError: null
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle CREATE_EXERCISE_FAIL', () => {
+    let error;
+
+    beforeEach(() => {
+      error = 'err';
+      initialState = {
+        data: {}
+      };
+
+      finalState = reducer(initialState, {
+        type: types.CREATE_EXERCISE_FAIL,
+        error
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            creation: {
+              isCreatingExercise: false,
+              creatingExerciseError: error
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle EVALUATE_EXERCISE_SUCCESS', () => {
+    let solvedExercise;
+
+    beforeEach(() => {
+      solvedExercise = {};
+      initialState = {
+        data: {}
+      };
+
+      finalState = reducer(initialState, {
+        type: types.EVALUATE_EXERCISE_SUCCESS,
+        solvedExercise
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            creation: {
+              solvedCreatingExercise: solvedExercise,
+              isEvaluatingExercise: false,
+              creatingExerciseError: null
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle EVALUATE_EXERCISE_REQUEST', () => {
+    beforeEach(() => {
+      initialState = {
+        data: {}
+      };
+
+      finalState = reducer(initialState, {
+        type: types.EVALUATE_EXERCISE_REQUEST
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            creation: {
+              solvedCreatingExercise: null,
+              isEvaluatingExercise: true,
+              creatingExerciseError: null
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle EVALUATE_EXERCISE_FAIL', () => {
+    let error;
+
+    beforeEach(() => {
+      error = 'error';
+      initialState = {
+        data: {}
+      };
+
+      finalState = reducer(initialState, {
+        type: types.EVALUATE_EXERCISE_FAIL,
+        error
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            creation: {
+              solvedCreatingExercise: null,
+              isEvaluatingExercise: false,
+              creatingExerciseError: error
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle RESET_EXERCISE_ERROR', () => {
+    beforeEach(() => {
+      initialState = {
+        data: {}
+      };
+
+      finalState = reducer(initialState, {
+        type: types.RESET_EXERCISE_ERROR
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            creation: {
+              creatingExerciseError: null
+            }
+          }
+        }
+      );
+    });
+  });
+
+  describe('should handle RESET_SOLVED_EXERCISE', () => {
+    beforeEach(() => {
+      initialState = {
+        data: {}
+      };
+
+      finalState = reducer(initialState, {
+        type: types.RESET_SOLVED_EXERCISE
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            creation: {
+              solvedCreatingExercise: null
+            }
+          }
+        }
+      );
+    });
+  });
+
   describe('should handle CREATE_EXERCISE_SUCCESS', () => {
     describe('when there was nothing in the state', () => {
       beforeEach(() => {
@@ -32,8 +220,10 @@ describe('exercises reducer', () => {
               detail: {
                 'c-id/g-id': { exercise: { exercise } },
               },
-              creatingExerciseError: null,
-              isCreatingExercise: false
+              creation: {
+                creatingExerciseError: null,
+                isCreatingExercise: false
+              }
             },
           }
         );
@@ -55,9 +245,7 @@ describe('exercises reducer', () => {
               'c-id/g-id': {
                 [previousExercise.exerciseId]: { exercise: { ...previousExercise } },
               },
-            },
-            creatingExerciseError: null,
-            isCreatingExercise: false
+            }
           }
         };
 
@@ -86,8 +274,10 @@ describe('exercises reducer', () => {
                   [exercise.exerciseId]: { exercise: { ...exercise } },
                 }
               },
-              creatingExerciseError: null,
-              isCreatingExercise: false
+              creation: {
+                creatingExerciseError: null,
+                isCreatingExercise: false
+              }
             },
           }
         );

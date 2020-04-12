@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import { Card, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
+import WrongGenerationIcon from '@material-ui/icons/BatteryAlert';
 import WaitingGeneratedIcon from '@material-ui/icons/BatteryCharging60';
 // import AlreadyGeneratedIcon from '@material-ui/icons/BatteryChargingFull';
 import MathText from '../../../../../common/math/MathText';
@@ -57,7 +58,7 @@ export default class Exercise extends Component {
   handleClickExercise = () => {
     const { exercise, onClickExercise } = this.props;
 
-    if (exercise.pipelineStatus === 'waiting') {
+    if (['waiting', 'failed'].includes(exercise.pipelineStatus)) {
       this.setState({ isTooltipOpen: true });
       this.handleOnOpenTooltip();
       return;
@@ -69,8 +70,33 @@ export default class Exercise extends Component {
     setTimeout(() => this.setState({ isTooltipOpen: false }), 3000);
   }
 
-  render() {
+  renderTooltip = () => {
     const { isTooltipOpen } = this.state;
+    const { exercise } = this.props;
+
+    if (exercise.pipelineStatus === 'generated') {
+      return null;
+    }
+    const message = exercise.pipelineStatus === 'waiting'
+      ? 'El ejercicio aún no se ha generado. Vuelve en uno rato'
+      : 'El ejercicio ha fallado su generación. Vuelve a crearlo';
+
+    const icon = exercise.pipelineStatus === 'waiting'
+      ? <WaitingGeneratedIcon className={styles.statusIcon} />
+      : <WrongGenerationIcon className={styles.statusIcon} />;
+
+    return (
+      <BootstrapTooltip
+        open={isTooltipOpen}
+        title={message}
+        placement="bottom-start"
+      >
+        {icon}
+      </BootstrapTooltip>
+    );
+  }
+
+  render() {
     const { exercise, onDeleteExercise, onEditExercise, isProfessor } = this.props;
 
     return (
@@ -81,15 +107,7 @@ export default class Exercise extends Component {
               {exercise.name}
             </Typography>
             <Typography className={classNames(styles.item, styles.problemInputTitle)}>Enunciado: Resuelva paso a paso</Typography>
-            {exercise.pipelineStatus === 'waiting' && (
-              <BootstrapTooltip
-                open={isTooltipOpen}
-                title="El ejercicio aún no se ha generado. Vuelve en unos minutos"
-                placement="bottom-start"
-              >
-                <WaitingGeneratedIcon className={styles.statusIcon} />
-              </BootstrapTooltip>
-            )}
+            {this.renderTooltip()}
           </Grid>
 
           <Grid item xs={6}>

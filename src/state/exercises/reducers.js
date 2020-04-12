@@ -11,10 +11,12 @@ const initialState = {
       list: {},
       detail: {}
     },
-    isEvaluatingExercise: false,
-    isCreatingExercise: false, // TODO: nodo creating
-    solvedCreatingExercise: null,
-    creatingExerciseError: null
+    creation: {
+      isEvaluatingExercise: false,
+      isCreatingExercise: false,
+      solvedCreatingExercise: null,
+      creatingExerciseError: null
+    }
   },
 };
 
@@ -129,8 +131,11 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          isCreatingExercise: true,
-          creatingExerciseError: null
+          creation: {
+            ...state.data.creation,
+            isCreatingExercise: true,
+            creatingExerciseError: null
+          }
         }
       };
     }
@@ -140,8 +145,11 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          isCreatingExercise: false,
-          creatingExerciseError: action.error
+          creation: {
+            ...state.data.creation,
+            isCreatingExercise: false,
+            creatingExerciseError: action.error
+          }
         }
       };
     }
@@ -151,9 +159,12 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          solvedCreatingExercise: action.solvedExercise,
-          isEvaluatingExercise: false,
-          creatingExerciseError: null
+          creation: {
+            ...state.data.creation,
+            solvedCreatingExercise: action.solvedExercise,
+            isEvaluatingExercise: false,
+            creatingExerciseError: null
+          }
         }
       };
     }
@@ -163,9 +174,12 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          solvedCreatingExercise: null,
-          isEvaluatingExercise: true,
-          creatingExerciseError: null
+          creation: {
+            ...state.data.creation,
+            solvedCreatingExercise: null,
+            isEvaluatingExercise: true,
+            creatingExerciseError: null
+          }
         }
       };
     }
@@ -175,9 +189,12 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          solvedCreatingExercise: null,
-          isEvaluatingExercise: false,
-          creatingExerciseError: action.error
+          creation: {
+            ...state.data.creation,
+            solvedCreatingExercise: null,
+            isEvaluatingExercise: false,
+            creatingExerciseError: action.error
+          }
         }
       };
     }
@@ -187,7 +204,10 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          creatingExerciseError: null
+          creation: {
+            ...state.data.creation,
+            creatingExerciseError: null
+          }
         }
       };
     }
@@ -197,7 +217,10 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          solvedCreatingExercise: null
+          creation: {
+            ...state.data.creation,
+            solvedCreatingExercise: null
+          }
         }
       };
     }
@@ -212,8 +235,11 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          isCreatingExercise: false,
-          creatingExerciseError: null,
+          creation: {
+            ...state.data.creation,
+            isCreatingExercise: false,
+            creatingExerciseError: null,
+          },
           detail: {
             ...state.data.detail,
             [courseGuideId]: {
