@@ -118,6 +118,9 @@ export function addUserToCourse({
       if (err.status === 409) {
         dispatch(modalActions.showError(messages.error.wrongPassword));
       }
+      if (err.status === 401) {
+        throw err;
+      }
     }
   };
 }
@@ -150,6 +153,9 @@ export function createCourse({ course }) {
       if (err.status === 409) {
         dispatch(modalActions.showError(messages.error.courseAlreadyExist));
       }
+      if (err.status === 401) {
+        throw err;
+      }
     }
   };
 }
@@ -168,9 +174,12 @@ export function publishCourse({ courseId }) {
 
     try {
       await coursesClient.publishCourse({ context, courseId });
-    } catch (e) {
+    } catch (err) {
+      if (err.status === 401) {
+        throw err;
+      }
       dispatch(updateCourseSuccess({ course: currentCourse }));
-      logger.onError('Error while trying to publish the course', e);
+      logger.onError('Error while trying to publish the course', err);
     } finally {
       dispatch(modalActions.hideModal());
     }
@@ -187,8 +196,11 @@ export function deleteCourse({ courseId }) {
       dispatch(push(configs.paths.courses));
 
       await coursesClient.deleteCourse({ context, courseId });
-    } catch (e) {
-      logger.onError('Error while trying to delete the course', e);
+    } catch (err) {
+      if (err.status === 401) {
+        throw err;
+      }
+      logger.onError('Error while trying to delete the course', err);
     } finally {
       dispatch(modalActions.hideModal());
     }

@@ -80,7 +80,7 @@ export default class Guide extends Component {
   render() {
     const { currentStudentId } = this.state;
     const {
-      courseId, guideId, users, userId, guide, exercises, loadExerciseModal, isLoadingExercises, isProfessor
+      courseId, guideId, users, userId, guide, exercises, onCreateExercise, isLoadingExercises, isProfessor
     } = this.props;
 
     const students = users.filter((user) => user.role === 'student');
@@ -105,7 +105,7 @@ export default class Guide extends Component {
           {shouldRenderCreateExercise && (
             <div className={styles.addButton}>
               <Button
-                onClick={() => loadExerciseModal({ courseId, guideId })}
+                onClick={() => onCreateExercise({ courseId, guideId })}
                 id="create-new-course"
                 variant="outlined"
                 color="primary"

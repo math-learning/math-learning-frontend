@@ -19,8 +19,8 @@ const defaultTheme = createMuiTheme({
       contrastText: '#fff',
     },
     secondary: {
-      // Yellow
-      main: '#CCCC0B',
+      // Grey
+      main: '#696969',
       contrastText: '#fff',
     },
     tertiary: {

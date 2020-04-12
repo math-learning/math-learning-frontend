@@ -14,13 +14,12 @@ const currentState = (state) => {
     courseId: modalParams.courseId,
     guideId: modalParams.guideId,
     exerciseId: modalParams.exerciseId,
+    currentExercise: modalParams.exercise
   };
 };
 
 const currentActions = (dispatch) => ({
-  onEditExercise: ({
-    courseId, guideId, exerciseId, exercise
-  }) => {
+  onEditExercise: ({ courseId, guideId, exerciseId, exercise }) => {
     dispatch(exerciseActions.updateExerciseAsProfessor({
       courseId,
       guideId,

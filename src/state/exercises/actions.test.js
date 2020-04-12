@@ -45,18 +45,67 @@ describe('exercises actions', () => {
         };
         expectedActions = [
           {
+            type: types.CREATE_EXERCISE_REQUEST,
+            guideId,
+            courseId
+          },
+          {
             type: types.CREATE_EXERCISE_SUCCESS,
             guideId,
             courseId,
             exercise: createdExercise
           },
-          { type: modalTypes.HIDE_MODAL }
+          {
+            payload: {
+              args: [
+                `/courses/${courseId}/guides/${guideId}`
+              ],
+              method: 'push'
+            },
+            type: '@@router/CALL_HISTORY_METHOD'
+          }
         ];
         sandbox
           .stub(exercisesClient, 'createExercise')
           .callsFake(() => createdExercise);
 
         return store.dispatch(actions.createExercise({ guideId, courseId, exercise }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
+
+  describe('evaluateExercise() function', () => {
+    let evaluatedExercise;
+
+    describe('when the exercise is created successfully', () => {
+      beforeEach(() => {
+        exercise = {
+          type: 'derivative',
+          problemInput: 'x'
+        };
+        evaluatedExercise = { result: '1' };
+        expectedActions = [
+          {
+            type: types.EVALUATE_EXERCISE_REQUEST,
+            guideId,
+            courseId
+          },
+          {
+            type: types.EVALUATE_EXERCISE_SUCCESS,
+            guideId,
+            courseId,
+            solvedExercise: '1'
+          }
+        ];
+        sandbox
+          .stub(exercisesClient, 'evaluateExercise')
+          .callsFake(() => evaluatedExercise);
+
+        return store.dispatch(actions.evaluateExercise({ guideId, courseId, exercise }));
       });
 
       it('executes the expected actions', () => {

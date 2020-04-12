@@ -9,6 +9,7 @@ const currentState = (state, { match }) => {
   const { courseId, guideId } = match.params;
   const isUserPath = /\/courses\/.+\/users/.test(match.path); // TODO: we should not take this approach
   const isStatisticsPath = /\/courses\/.+\/statistics/.test(match.path);
+  const isCreateExercisePath = /\/courses\/.+\/create-exercise/.test(match.path);
   const course = courses.selectors.getCourseDetail(state, courseId);
   const profile = common.selectors.profile(state);
   const isProfessor = userUtils.isProfessorOfCourse({ profile, course });
@@ -22,6 +23,7 @@ const currentState = (state, { match }) => {
     guideId,
     isUserPath,
     isStatisticsPath,
+    isCreateExercisePath,
     isProfessor
   };
 };

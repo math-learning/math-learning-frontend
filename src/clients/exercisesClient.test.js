@@ -45,6 +45,35 @@ describe('exercises client', () => {
     it('exercise is created', () => expect(response).to.be.deep.equal(exercise));
   });
 
+  describe('evaluateExercise() function', () => {
+    let exercise;
+    let courseId;
+    let guideId;
+
+    beforeEach(async () => {
+      courseId = 'course-id';
+      guideId = 'guide-id';
+      exercise = {
+        problemInput: 'x',
+        type: 'integral'
+      };
+
+      nock(url)
+        .post(`/courses/${courseId}/guides/${guideId}/exercises/evaluate`)
+        .matchHeader('Authorization', context.accessToken)
+        .reply(200, {});
+
+      response = await exercisesClient.evaluateExercise({
+        context,
+        guideId,
+        courseId,
+        exercise
+      });
+    });
+
+    it('exercise is evaluated', () => expect(response).to.be.deep.equal({}));
+  });
+
   describe('getExercise() function', () => {
     let exercise;
     let courseId;

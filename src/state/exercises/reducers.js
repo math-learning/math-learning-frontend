@@ -10,6 +10,12 @@ const initialState = {
     students: {
       list: {},
       detail: {}
+    },
+    creation: {
+      isEvaluatingExercise: false,
+      isCreatingExercise: false,
+      solvedCreatingExercise: null,
+      creatingExerciseError: null
     }
   },
 };
@@ -19,38 +25,41 @@ function updateExerciseState({
 }) {
   const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const exercises = currentState.data.detail[courseGuideId] || {};
-  const newExercisesState = {
+
+  // updating exercise detail
+  // intentional (to prevent re render the components)
+  let newExercise = (exercises[exerciseId] && exercises[exerciseId].exercise) || {};
+  if (exerciseProps.exercise) {
+    const currentExercise = exercises[exerciseId];
+    newExercise = {
+      ...currentExercise.exercise,
+      ...exerciseProps.exercise
+    };
+  }
+
+  const newDetailExercises = {
     ...exercises,
     [exerciseId]: {
       ...exercises[exerciseId],
-      ...exerciseProps
+      ...exerciseProps,
+      exercise: newExercise
     }
   };
-  const courseGuideList = currentState.data.list[courseGuideId] || [];
+
+  // updating the exercise list
+  const newCourseGuideList = currentState.data.list[courseGuideId] || [];
   if (exerciseProps.exercise) {
     let indexOfExercise;
-    courseGuideList.forEach((value, index) => { if (value.exerciseId === exerciseId) indexOfExercise = index; });
+    newCourseGuideList.forEach((value, index) => {
+      if (value.exerciseId === exerciseId) indexOfExercise = index;
+    });
 
-    const {
-      name,
-      type,
-      state,
-      problemInput,
-      difficulty,
-      description
-    } = exerciseProps.exercise;
-
-    courseGuideList[indexOfExercise] = {
-      ...courseGuideList[indexOfExercise],
-      name,
-      type,
-      state,
-      difficulty,
-      problemInput,
-      description
+    newCourseGuideList[indexOfExercise] = {
+      ...newCourseGuideList[indexOfExercise],
+      ...exerciseProps.exercise
     };
 
-    courseGuideList[indexOfExercise] = _.pickBy(courseGuideList[indexOfExercise]);
+    newCourseGuideList[indexOfExercise] = _.pickBy(newCourseGuideList[indexOfExercise]);
   }
 
   return {
@@ -59,11 +68,11 @@ function updateExerciseState({
       ...currentState.data,
       detail: {
         ...currentState.data.detail,
-        [courseGuideId]: newExercisesState
+        [courseGuideId]: newDetailExercises
       },
       list: {
         ...currentState.data.list,
-        [courseGuideId]: [...courseGuideList],
+        [courseGuideId]: [...newCourseGuideList] // intentional (to re render the components)
       },
     }
   };
@@ -117,6 +126,105 @@ export default function reducers(state = initialState, action) {
       };
     }
 
+    case types.CREATE_EXERCISE_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          creation: {
+            ...state.data.creation,
+            isCreatingExercise: true,
+            creatingExerciseError: null
+          }
+        }
+      };
+    }
+
+    case types.CREATE_EXERCISE_FAIL: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          creation: {
+            ...state.data.creation,
+            isCreatingExercise: false,
+            creatingExerciseError: action.error
+          }
+        }
+      };
+    }
+
+    case types.EVALUATE_EXERCISE_SUCCESS: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          creation: {
+            ...state.data.creation,
+            solvedCreatingExercise: action.solvedExercise,
+            isEvaluatingExercise: false,
+            creatingExerciseError: null
+          }
+        }
+      };
+    }
+
+    case types.EVALUATE_EXERCISE_REQUEST: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          creation: {
+            ...state.data.creation,
+            solvedCreatingExercise: null,
+            isEvaluatingExercise: true,
+            creatingExerciseError: null
+          }
+        }
+      };
+    }
+
+    case types.EVALUATE_EXERCISE_FAIL: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          creation: {
+            ...state.data.creation,
+            solvedCreatingExercise: null,
+            isEvaluatingExercise: false,
+            creatingExerciseError: action.error
+          }
+        }
+      };
+    }
+
+    case types.RESET_EXERCISE_ERROR: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          creation: {
+            ...state.data.creation,
+            creatingExerciseError: null
+          }
+        }
+      };
+    }
+
+    case types.RESET_SOLVED_EXERCISE: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          creation: {
+            ...state.data.creation,
+            solvedCreatingExercise: null
+          }
+        }
+      };
+    }
+
     case types.CREATE_EXERCISE_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const { exerciseId } = action.exercise;
@@ -127,6 +235,11 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
+          creation: {
+            ...state.data.creation,
+            isCreatingExercise: false,
+            creatingExerciseError: null,
+          },
           detail: {
             ...state.data.detail,
             [courseGuideId]: {

@@ -73,8 +73,11 @@ export function createGuide({ courseId, name, description }) {
 
       dispatch(createGuideSuccess({ courseId, guide }));
       dispatch(push(configs.pathGenerators.courseGuide(courseId, guide.guideId)));
-    } catch (e) {
-      console.log('Error while trying to create guide', e);
+    } catch (err) {
+      if (err.status === 401) {
+        throw err;
+      }
+      console.log('Error while trying to create guide', err);
     }
   };
 }
@@ -93,8 +96,11 @@ export function updateGuide({
       await guidesClient.updateGuide({
         context, guideId, courseId, name, description
       });
-    } catch (e) {
-      logger.onError('Error while trying to update the guide', e);
+    } catch (err) {
+      if (err.status === 401) {
+        throw err;
+      }
+      logger.onError('Error while trying to update the guide', err);
       dispatch(updateGuideSuccess({ courseId, guide: currentGuide }));
     }
   };
@@ -128,8 +134,11 @@ export function deleteGuide({ courseId, guideId }) {
 
     try {
       await guidesClient.deleteGuide({ context, courseId, guideId });
-    } catch (e) {
-      logger.onError('Error trying to delete guide', e);
+    } catch (err) {
+      if (err.status === 401) {
+        throw err;
+      }
+      logger.onError('Error trying to delete guide', err);
     }
   };
 }

@@ -1,6 +1,22 @@
 import _ from 'lodash';
 import * as idUtils from '../../utils/idUtils';
 
+export function isCreatingExercise(state) {
+  return state.exercises.data.creation.isCreatingExercise;
+}
+
+export function isEvaluatingExercise(state) {
+  return state.exercises.data.creation.isEvaluatingExercise;
+}
+
+export function solvedCreatingExercise(state) {
+  return state.exercises.data.creation.solvedCreatingExercise;
+}
+
+export function creatingExerciseError(state) {
+  return state.exercises.data.creation.creatingExerciseError;
+}
+
 export function isLoadingExercises(state, courseId, guideId, userId) {
   const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
 
