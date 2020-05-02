@@ -106,12 +106,13 @@ export function exerciseStepValid({
   };
 }
 
-export function exerciseStepIsValid({ courseId, guideId, exerciseId }) {
+export function exerciseStepIsValid({ courseId, guideId, exerciseId, result }) {
   return {
     type: types.EXERCISE_STEP_IS_INVALID,
     courseId,
     guideId,
-    exerciseId
+    exerciseId,
+    result
   };
 }
 
@@ -421,7 +422,7 @@ export function resolveExercise({
         courseId, guideId, exerciseId, currentExpression
       }));
     } else {
-      dispatch(exerciseStepIsValid({ courseId, guideId, exerciseId }));
+      dispatch(exerciseStepIsValid({ courseId, guideId, exerciseId, result }));
     }
   };
 }

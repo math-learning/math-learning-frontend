@@ -215,7 +215,7 @@ describe('exercises actions', () => {
 
     describe('when exercise is invalid', () => {
       beforeEach(() => {
-        exerciseStatus = { exerciseStatus: 'invalid' };
+        exerciseStatus = { exerciseStatus: 'invalid', hints: [] };
         expectedActions = [
           {
             type: types.RESOLVE_EXERCISE_REQUEST,
@@ -227,7 +227,8 @@ describe('exercises actions', () => {
             type: types.EXERCISE_STEP_IS_INVALID,
             guideId,
             courseId,
-            exerciseId
+            exerciseId,
+            result: exerciseStatus
           }
         ];
         sandbox

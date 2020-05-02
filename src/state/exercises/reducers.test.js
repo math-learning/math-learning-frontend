@@ -618,6 +618,7 @@ describe('exercises reducer', () => {
                 [exercise.exerciseId]: {
                   exercise: {
                     ...exercise,
+                    hints: [],
                     state: 'resolved',
                     stepList: ['2']
                   },
@@ -630,6 +631,7 @@ describe('exercises reducer', () => {
             list: {
               'c-id/g-id': [{
                 ...exercise,
+                hints: [],
                 state: 'resolved',
                 stepList: ['2']
               }]
@@ -657,7 +659,7 @@ describe('exercises reducer', () => {
           },
           list: {
             'c-id/g-id': [
-              { ...exercise }
+              exercise
             ]
           }
         }
@@ -681,6 +683,7 @@ describe('exercises reducer', () => {
                 [exercise.exerciseId]: {
                   exercise: {
                     ...exercise,
+                    hints: [],
                     stepList: ['2']
                   },
                   isLoading: false,
@@ -692,6 +695,7 @@ describe('exercises reducer', () => {
             list: {
               'c-id/g-id': [{
                 ...exercise,
+                hints: [],
                 stepList: ['2']
               }]
             }
@@ -702,7 +706,10 @@ describe('exercises reducer', () => {
   });
 
   describe('should handle EXERCISE_STEP_IS_INVALID', () => {
+    let hints;
+
     beforeEach(() => {
+      hints = [{ title: 'title' }];
       exercise = { exerciseId: 'exercise-id', stepList: [] };
       initialState = {
         data: {
@@ -717,9 +724,7 @@ describe('exercises reducer', () => {
             }
           },
           list: {
-            'c-id/g-id': [
-              { ...exercise }
-            ]
+            'c-id/g-id': [exercise]
           }
         }
       };
@@ -728,7 +733,8 @@ describe('exercises reducer', () => {
         type: types.EXERCISE_STEP_IS_INVALID,
         courseId: 'c-id',
         guideId: 'g-id',
-        exerciseId: 'exercise-id'
+        exerciseId: 'exercise-id',
+        result: { hints }
       });
     });
 
@@ -739,7 +745,7 @@ describe('exercises reducer', () => {
             detail: {
               'c-id/g-id': {
                 [exercise.exerciseId]: {
-                  exercise,
+                  exercise: { ...exercise, hints },
                   isLoading: false,
                   exerciseStatus: 'invalid',
                   currentExpression: '2x'
@@ -748,7 +754,7 @@ describe('exercises reducer', () => {
             },
             list: {
               'c-id/g-id': [
-                { ...exercise }
+                { ...exercise, hints }
               ]
             }
           }
@@ -908,7 +914,8 @@ describe('exercises reducer', () => {
                   exercise: {
                     ...exercise,
                     state: 'incompleted',
-                    stepList: []
+                    stepList: [],
+                    hints: [],
                   },
                   isLoading: false,
                   exerciseStatus: 'editing',
@@ -920,7 +927,8 @@ describe('exercises reducer', () => {
               'c-id/g-id': [{
                 ...exercise,
                 state: 'incompleted',
-                stepList: []
+                stepList: [],
+                hints: [],
               }]
             }
           }

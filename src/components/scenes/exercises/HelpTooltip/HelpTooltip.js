@@ -18,6 +18,10 @@ export default function HelpTooltip(props) {
 
   const open = Boolean(anchorEl);
 
+  const helps = help
+    .split('\n')
+    .map((i) => <div key={i} className={styles.helpLine}>{i}</div>);
+
   return (
     <div className={className}>
       <HelpIcon
@@ -41,7 +45,7 @@ export default function HelpTooltip(props) {
         }}
       >
         <Typography className={styles.helpText} variant="body2">
-          {help}
+          {helps}
         </Typography>
       </Popover>
       {/* TODO: Fix issue: https://github.com/mui-org/material-ui/issues/17353, https://github.com/mui-org/material-ui/issues/17636 */}

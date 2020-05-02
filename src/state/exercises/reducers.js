@@ -20,6 +20,10 @@ const initialState = {
   },
 };
 
+const exerciseDetailToReset = {
+  hints: []
+};
+
 function updateExerciseState({
   state: currentState, courseId, guideId, exerciseId, exerciseProps = {}
 }) {
@@ -344,6 +348,7 @@ export default function reducers(state = initialState, action) {
           currentExpression: '',
           exercise: {
             ...currentExercise,
+            ...exerciseDetailToReset,
             stepList: [
               ...currentExercise.stepList,
               action.currentExpression
@@ -368,6 +373,7 @@ export default function reducers(state = initialState, action) {
           currentExpression: '',
           exercise: {
             ...currentExercise,
+            ...exerciseDetailToReset,
             stepList: [
               ...currentExercise.stepList,
               action.currentExpression
@@ -378,12 +384,21 @@ export default function reducers(state = initialState, action) {
     }
 
     case types.EXERCISE_STEP_IS_INVALID: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
+
       return updateExerciseState({
         state,
         courseId: action.courseId,
         guideId: action.guideId,
         exerciseId: action.exerciseId,
-        exerciseProps: { exerciseStatus: 'invalid' }
+        exerciseProps: {
+          exerciseStatus: 'invalid',
+          exercise: {
+            ...currentExercise,
+            hints: action.result.hints || []
+          },
+        }
       });
     }
 
@@ -425,6 +440,7 @@ export default function reducers(state = initialState, action) {
           exerciseStatus: 'editing',
           exercise: {
             ...currentExercise,
+            ...exerciseDetailToReset,
             state: 'incompleted',
             stepList: currentExercise.stepList.slice(0, -1)
           }
