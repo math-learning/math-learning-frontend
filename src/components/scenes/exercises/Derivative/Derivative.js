@@ -134,7 +134,15 @@ class Derivative extends Component {
   }
 
   getHint = () => {
-    const { exercise: { initialHint, stepList } } = this.props;
+    const { exercise: { initialHint, hints = [], stepList } } = this.props;
+
+    if (hints.length) {
+      let hintToShow = 'Prueba utilizando: ';
+      hints.forEach((h) => {
+        hintToShow = `${hintToShow}\n - ${h.title}`;
+      });
+      return <HelpToolTip className={styles.help} help={hintToShow} />;
+    }
 
     if (!stepList.length && initialHint) {
       return <HelpToolTip className={styles.help} help={initialHint} />;
