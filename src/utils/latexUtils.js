@@ -1,18 +1,20 @@
-// eslint-disable-next-line no-extend-native
-String.prototype.replaceAll = (search, replacement) => {
-  const target = this;
-  return target.split(search).join(replacement);
-};
+const replaceAll = (expression, search, replacement) => (
+  expression.split(search).join(replacement)
+);
 
 const cleanLatex = (latex) => {
-  let clean = latex.replaceAll('\\left(', '(');
-  clean = clean.replaceAll('left(', '(');
-  clean = clean.replaceAll('\\right)', ')');
-  clean = clean.replaceAll('\\cdot ', '*');
-  clean = clean.replaceAll('cdot ', '*');
-  clean = clean.replaceAll('.', '*');
-  clean = clean.replaceAll('sen', '\\sin');
-  clean = clean.replaceAll('\\ ', '');
+  if (!latex) {
+    return latex;
+  }
+
+  let clean = replaceAll(latex, '\\left(', '(');
+  clean = replaceAll(clean, 'left(', '(');
+  clean = replaceAll(clean, '\\right)', ')');
+  clean = replaceAll(clean, '\\cdot ', '*');
+  clean = replaceAll(clean, 'cdot ', '*');
+  clean = replaceAll(clean, 'sen', '\\sin');
+  clean = replaceAll(clean, '.', '*');
+  clean = replaceAll(clean, '\\ ', '');
   return clean;
 };
 
