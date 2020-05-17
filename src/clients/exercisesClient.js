@@ -2,7 +2,6 @@ import _ from 'lodash';
 import fetch from 'node-fetch';
 import requestUtils from './requestUtils';
 import confs from '../configs/variables';
-import { cleanLatex } from '../utils/latexUtils';
 
 const { url } = confs.services.exercises;
 
@@ -99,10 +98,7 @@ const evaluateExercise = async ({
 
   const response = await fetch(profileUrl, {
     method: 'post',
-    body: JSON.stringify({
-      ...exercise,
-      problemInput: cleanLatex(exercise.problemInput)
-    }),
+    body: JSON.stringify(exercise),
     headers: {
       authorization: context.accessToken,
       'Content-Type': 'application/json'
