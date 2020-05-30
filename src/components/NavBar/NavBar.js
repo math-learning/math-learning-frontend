@@ -6,7 +6,6 @@ import { createMuiTheme } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import CollectionsBookmarkRoundedIcon from '@material-ui/icons/CollectionsBookmarkRounded';
-import InsertChartRoundedIcon from '@material-ui/icons/InsertChartRounded';
 import { ThemeProvider } from '@material-ui/styles';
 import { GoogleLogin } from 'react-google-login';
 import { Link } from 'react-router-dom';
@@ -46,11 +45,6 @@ const commonDrawerItems = [
     path: variables.paths.coursesSearch,
     text: 'Buscar Cursos',
     icon: (<CollectionsBookmarkRoundedIcon className={styles.tcBlue} />)
-  },
-  {
-    path: variables.paths.statistics,
-    text: 'Estadisticas',
-    icon: (<InsertChartRoundedIcon className={styles.tcViolet} />)
   }
 ];
 
