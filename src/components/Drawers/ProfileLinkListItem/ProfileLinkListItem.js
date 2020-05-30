@@ -22,7 +22,7 @@ export default class ProfileLinkListItem extends Component { // eslint-disable-l
 
               </Avatar>
             </ListItemAvatar>
-            <ListItemText primary={profile.name} secondary="Ver Perfil" />
+            <ListItemText primary={profile.name} />
           </ListItem>
         </Link>
       </div>

@@ -46,11 +46,6 @@ const commonDrawerItems = [
     path: variables.paths.coursesSearch,
     text: 'Buscar Cursos',
     icon: (<CollectionsBookmarkRoundedIcon className={styles.tcBlue} />)
-  },
-  {
-    path: variables.paths.statistics,
-    text: 'Estadisticas',
-    icon: (<InsertChartRoundedIcon className={styles.tcViolet} />)
   }
 ];
 
