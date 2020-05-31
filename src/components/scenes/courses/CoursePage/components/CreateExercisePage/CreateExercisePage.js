@@ -270,7 +270,7 @@ class CreateExercisePage extends Component {
                 <MathText
                   id="solved-exercise"
                   className={styles.solvedExerice}
-                  content={solvedCreatingExercise}
+                  content={solvedCreatingExercise.expression}
                 />
               </div>
             )}

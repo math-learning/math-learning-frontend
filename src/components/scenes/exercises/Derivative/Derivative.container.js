@@ -31,10 +31,10 @@ const currentActions = (dispatch, { exercise }) => ({
       ...exerciseProps
     }));
   },
-  onContentChange: (expression) => {
+  onContentChange: (currentExpression) => {
     dispatch(actions.changeCurrentExpression({
       ...exercise,
-      currentExpression: expression
+      currentExpression
     }));
   },
   onDeleteStep: () => {
