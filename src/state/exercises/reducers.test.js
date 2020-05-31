@@ -315,7 +315,7 @@ describe('exercises reducer', () => {
                   exercise,
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: ''
+                  currentExpression: { expression: '', variables: [] }
                 }
               }
             }
@@ -605,7 +605,7 @@ describe('exercises reducer', () => {
         courseId: 'c-id',
         guideId: 'g-id',
         exerciseId: 'exercise-id',
-        currentExpression: '2'
+        currentExpression: { expression: '2' }
       });
     });
 
@@ -620,11 +620,11 @@ describe('exercises reducer', () => {
                     ...exercise,
                     hints: [],
                     state: 'resolved',
-                    stepList: ['2']
+                    stepList: [{ expression: '2' }]
                   },
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: ''
+                  currentExpression: { expression: '', variables: [] }
                 }
               }
             },
@@ -633,7 +633,7 @@ describe('exercises reducer', () => {
                 ...exercise,
                 hints: [],
                 state: 'resolved',
-                stepList: ['2']
+                stepList: [{ expression: '2' }]
               }]
             }
           }
@@ -653,7 +653,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: ''
+                currentExpression: { expression: '' }
               }
             }
           },
@@ -670,7 +670,7 @@ describe('exercises reducer', () => {
         courseId: 'c-id',
         guideId: 'g-id',
         exerciseId: 'exercise-id',
-        currentExpression: '2'
+        currentExpression: { expression: '2' }
       });
     });
 
@@ -684,11 +684,11 @@ describe('exercises reducer', () => {
                   exercise: {
                     ...exercise,
                     hints: [],
-                    stepList: ['2']
+                    stepList: [{ expression: '2' }]
                   },
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: ''
+                  currentExpression: { expression: '', variables: [] }
                 }
               }
             },
@@ -696,7 +696,7 @@ describe('exercises reducer', () => {
               'c-id/g-id': [{
                 ...exercise,
                 hints: [],
-                stepList: ['2']
+                stepList: [{ expression: '2' }]
               }]
             }
           }
@@ -719,7 +719,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: '2x'
+                currentExpression: { expression: '2x' }
               }
             }
           },
@@ -748,7 +748,7 @@ describe('exercises reducer', () => {
                   exercise: { ...exercise, hints },
                   isLoading: false,
                   exerciseStatus: 'invalid',
-                  currentExpression: '2x'
+                  currentExpression: { expression: '2x' }
                 }
               }
             },
@@ -774,7 +774,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: '2x'
+                currentExpression: { expression: '2x' }
               }
             }
           },
@@ -791,7 +791,7 @@ describe('exercises reducer', () => {
         courseId: 'c-id',
         guideId: 'g-id',
         exerciseId: 'exercise-id',
-        currentExpression: '2'
+        currentExpression: { expression: '2' }
       });
     });
 
@@ -805,7 +805,7 @@ describe('exercises reducer', () => {
                   exercise,
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: '2'
+                  currentExpression: { expression: '2' }
                 }
               }
             },
@@ -825,7 +825,7 @@ describe('exercises reducer', () => {
 
     beforeEach(() => {
       exercise = { exerciseId: 'exercise-id', stepList: [] };
-      newExercise = { exerciseId: 'exercise-id', stepList: ['2'], status: 'resolved' };
+      newExercise = { exerciseId: 'exercise-id', stepList: [{ expression: '2' }], status: 'resolved' };
       initialState = {
         data: {
           detail: {
@@ -834,7 +834,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: '2x'
+                currentExpression: { expression: '2x' }
               }
             }
           },
@@ -862,7 +862,7 @@ describe('exercises reducer', () => {
                   exercise: newExercise,
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: '2x'
+                  currentExpression: { expression: '2x' }
                 }
               }
             },
@@ -886,7 +886,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: '2x'
+                currentExpression: { expression: '2x' }
               }
             }
           },
@@ -919,7 +919,7 @@ describe('exercises reducer', () => {
                   },
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: '2x'
+                  currentExpression: { expression: '2x' }
                 }
               }
             },

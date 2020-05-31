@@ -25,7 +25,6 @@ class Derivative extends Component {
 
   handleValidateStep = () => {
     const { exercise, currentExpression, onValidateStep } = this.props;
-    console.log('CURRENT EXPRESSION!', currentExpression)
 
     if (currentExpression) {
       onValidateStep({ exercise, currentExpression }); // TODO: para qué mando el exercise?
