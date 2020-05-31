@@ -25,16 +25,17 @@ class Derivative extends Component {
 
   handleValidateStep = () => {
     const { exercise, currentExpression, onValidateStep } = this.props;
+    console.log('CURRENT EXPRESSION!', currentExpression)
 
     if (currentExpression) {
-      onValidateStep({ exercise, currentExpression });
+      onValidateStep({ exercise, currentExpression }); // TODO: para qué mando el exercise?
     }
   }
 
   handleContentChange = (value) => {
     const { onContentChange } = this.props;
 
-    onContentChange(value);
+    onContentChange({ expression: value, variables: [] });
   }
 
   handleDeleteStep = () => {
@@ -101,7 +102,7 @@ class Derivative extends Component {
             <span className={styles.item}> = </span>
             <MathText
               id={`step-${index}`}
-              content={step}
+              content={step.expression} // TODO: ver si directamente sepa interpretar el objeto
               className={styles.mathText}
             />
             <div className={classNames(styles.stepActions, !isLastStep && styles.stepWithoutDelete)}>
@@ -164,7 +165,7 @@ class Derivative extends Component {
           <MathTextBox
             ref={this.MathBoxRef}
             latexMode={latexModeOn}
-            content={currentExpression}
+            content={currentExpression.expression}
             className={styles.mathBox}
             onContentChange={this.handleContentChange}
             onEnter={this.handleValidateStep}
@@ -174,7 +175,7 @@ class Derivative extends Component {
             id="validate-step"
             className={styles.validateButton}
             onClick={this.handleValidateStep}
-            disabled={!currentExpression || isProcessing}
+            disabled={!currentExpression.expression || isProcessing}
             variant="contained"
             color="primary"
           >
@@ -238,7 +239,7 @@ class Derivative extends Component {
                   <MathText
                     id="problem-resolved"
                     className={styles.solvedExerciseResult}
-                    content={exercise.stepList[exercise.stepList.length - 1]}
+                    content={exercise.stepList[exercise.stepList.length - 1].expression}
                   />
                 </div>
                 {!isDelivered ? (
@@ -257,7 +258,7 @@ class Derivative extends Component {
 
 Derivative.propTypes = {
   isResolved: PropTypes.bool,
-  currentExpression: PropTypes.string,
+  currentExpression: PropTypes.object,
   onValidateStep: PropTypes.func,
   onContentChange: PropTypes.func,
 };

@@ -20,9 +20,8 @@ class MathTextBox extends Component {
 
   // eslint-disable-next-line camelcase
   UNSAFE_componentWillReceiveProps(nextProps) {
-    const { content } = nextProps;
-
-    if (!content) {
+    // eslint-disable-next-line react/destructuring-assignment
+    if (!nextProps.content && nextProps.content !== this.props.content) {
       this.onClear();
     }
   }

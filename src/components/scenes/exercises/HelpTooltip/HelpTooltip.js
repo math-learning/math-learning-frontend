@@ -44,7 +44,7 @@ export default function HelpTooltip(props) {
           horizontal: 'left',
         }}
       >
-        <Typography className={styles.helpText} variant="body2">
+        <Typography className={styles.helpText} variant="body2" component="div">
           {helps}
         </Typography>
       </Popover>

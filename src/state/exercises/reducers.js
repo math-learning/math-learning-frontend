@@ -274,7 +274,7 @@ export default function reducers(state = initialState, action) {
           exercise: action.exercise,
           isLoading: false,
           exerciseStatus: 'editing',
-          currentExpression: ''
+          currentExpression: { expression: '', variables: [] }
         }
       };
 
@@ -345,7 +345,7 @@ export default function reducers(state = initialState, action) {
         exerciseId: action.exerciseId,
         exerciseProps: {
           exerciseStatus: 'editing',
-          currentExpression: '',
+          currentExpression: { expression: '', variables: [] },
           exercise: {
             ...currentExercise,
             ...exerciseDetailToReset,
@@ -370,7 +370,7 @@ export default function reducers(state = initialState, action) {
         exerciseId: action.exerciseId,
         exerciseProps: {
           exerciseStatus: 'editing',
-          currentExpression: '',
+          currentExpression: { expression: '', variables: [] }, // TODO: evaluar si tener o no este variables
           exercise: {
             ...currentExercise,
             ...exerciseDetailToReset,
