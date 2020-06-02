@@ -4,7 +4,7 @@ import HelpIcon from '@material-ui/icons/Help';
 
 import styles from './HelpTooltip.module.sass';
 
-export default function HelpTooltip(props) {
+export default function HelpTooltip(props) { // TODO: Hacer más integro esto
   const { help, className } = props;
   const [anchorEl, setAnchorEl] = React.useState(null);
 

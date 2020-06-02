@@ -6,14 +6,15 @@ import PropTypes from 'prop-types';
 import HelpToolTip from '../HelpTooltip';
 import WrongIcon from '../../../common/components/Icons/WrongIcon';
 import MathText from '../../../common/math/MathText';
-import MathTextBox from '../../../common/math/MathTextBox';
+import MathTextBox from '../../../common/math/MathTextBox/MathTextBoxComplete';
 import CheckIcon from '../../../common/components/Icons/CheckIcon';
 import LeftPanel from '../../../common/containers/LeftPanel/LeftPanel';
 import LeftPanelLink from '../../../common/containers/LeftPanel/LeftPanelLink';
-import styles from './Derivative.module.sass';
+import styles from './Integrate.module.sass';
 import MathTable from '../MathTable';
+import VariableTextBox from '../../../common/math/MathTextBox/VariableTextBox';
 
-class Derivative extends Component {
+class Integrate extends Component {
   constructor(props) {
     super(props);
 
@@ -27,14 +28,14 @@ class Derivative extends Component {
     const { currentExpression, onValidateStep } = this.props;
 
     if (currentExpression) {
-      onValidateStep({ currentExpression }); // TODO: para qué mando el exercise?
+      onValidateStep(currentExpression);
     }
   }
 
-  handleContentChange = (value) => {
+  handleCurrentExpressionChange = (currentExpression) => {
     const { onContentChange } = this.props;
 
-    onContentChange({ expression: value, variables: [] });
+    onContentChange(currentExpression);
   }
 
   handleDeleteStep = () => {
@@ -57,13 +58,13 @@ class Derivative extends Component {
     this.setState({ latexModeOn });
   }
 
-  handleDeliverExercise = () => {
+  handleDeliverExercise = () => { // TODO: generic
     const { onDeliverExercise } = this.props;
 
     onDeliverExercise();
   }
 
-  getStepList = () => {
+  getStepList = () => { // TODO: totally generic
     const { exercise: { stepList }, isDelivered } = this.props;
 
     return (
@@ -73,11 +74,20 @@ class Derivative extends Component {
         return (
           <div key={`right-step-${index}`} className={styles.rightStep}>
             <span className={styles.item}> = </span>
-            <MathText
-              id={`step-${index}`}
-              content={step.expression} // TODO: ver si directamente sepa interpretar el objeto
-              className={styles.mathText}
-            />
+            <div className={styles.pepe}>
+              <MathText
+                id={`step-${index}`}
+                content={step.expression} // TODO: ver si directamente sepa interpretar el objeto
+                className={styles.mathText}
+              />
+              {(step.variables).map((variable, varIndx) => (
+                <VariableTextBox
+                  id={`variable-math-box-${index}-${varIndx}`}
+                  variable={variable}
+                  readOnly
+                />
+              ))}
+            </div>
             <div className={classNames(styles.stepActions, !isLastStep && styles.stepWithoutDelete)}>
               <CheckIcon size="20px" className={styles.item} />
               {isLastStep ? (
@@ -94,7 +104,7 @@ class Derivative extends Component {
     );
   }
 
-  getCurrentStepState = () => {
+  getCurrentStepState = () => { // TODO: generic
     const { isProcessing, isInvalid } = this.props;
 
     if (isProcessing) {
@@ -107,7 +117,7 @@ class Derivative extends Component {
     return null;
   }
 
-  getHint = () => {
+  getHint = () => { // TODO: generic
     const { exercise: { initialHint, hints = [], stepList } } = this.props;
 
     if (hints.length) {
@@ -125,7 +135,7 @@ class Derivative extends Component {
     return null;
   }
 
-  getCurrentStep = () => {
+  getCurrentStep = () => { // TODO: particular
     const { latexModeOn } = this.state;
     const { currentExpression, isProcessing } = this.props;
 
@@ -138,9 +148,9 @@ class Derivative extends Component {
           <MathTextBox
             ref={this.MathBoxRef}
             latexMode={latexModeOn}
-            content={currentExpression.expression}
+            content={currentExpression}
             className={styles.mathBox}
-            onContentChange={this.handleContentChange}
+            onContentChange={this.handleCurrentExpressionChange}
             onEnter={this.handleValidateStep}
           />
           {this.getCurrentStepState()}
@@ -164,7 +174,6 @@ class Derivative extends Component {
       exercise, isResolved, isDelivered, onReturnToCourse
     } = this.props;
 
-    // TODO: AGREGAR DISPLAY-IF
     return (
       <div className={styles.exercise}>
         <LeftPanel>
@@ -229,11 +238,11 @@ class Derivative extends Component {
   }
 }
 
-Derivative.propTypes = {
+Integrate.propTypes = {
   isResolved: PropTypes.bool,
   currentExpression: PropTypes.object,
   onValidateStep: PropTypes.func,
   onContentChange: PropTypes.func,
 };
 
-export default Derivative;
+export default Integrate;
