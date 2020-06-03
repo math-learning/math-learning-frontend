@@ -4,8 +4,8 @@ import classNames from 'classnames';
 import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill';
 import MathText from '../MathText';
 
-import styles from './MathTextBox.css'; // eslint-disable-line no-unused-vars
-import sasStyles from './MathTextBox.module.sass';
+import styles from '../MathTextBox/MathTextBox.css'; // eslint-disable-line no-unused-vars
+import sasStyles from './VariableTextBox.module.sass';
 
 addMathquillStyles();
 
@@ -20,7 +20,7 @@ class VariableTextBox extends Component {
   handleChangeExpression = (newExpression) => {
     const { onContentChange, variable } = this.props;
 
-    onContentChange({ ...variable, expression: newExpression });
+    onContentChange({ ...variable, expression: { expression: newExpression } });
   }
 
   renderTag = () => {
@@ -42,12 +42,12 @@ class VariableTextBox extends Component {
     const { variable: { expression }, readOnly = false } = this.props;
 
     if (readOnly) {
-      return <MathText content={expression} className={sasStyles.mathText} />;
+      return <MathText content={expression.expression} className={sasStyles.mathText} />;
     }
 
     return (
       <MathQuill
-        latex={expression}
+        latex={expression.expression}
         onChange={(mathField) => this.handleChangeExpression(mathField.latex())}
       />
     );

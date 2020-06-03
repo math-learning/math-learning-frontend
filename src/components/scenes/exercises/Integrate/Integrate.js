@@ -6,13 +6,13 @@ import PropTypes from 'prop-types';
 import HelpToolTip from '../HelpTooltip';
 import WrongIcon from '../../../common/components/Icons/WrongIcon';
 import MathText from '../../../common/math/MathText';
-import MathTextBox from '../../../common/math/MathTextBox/MathTextBoxComplete';
+import MathTextBoxWithVariables from '../../../common/math/MathTextBoxWithVariables';
+import VariableTextBox from '../../../common/math/VariableTextBox';
 import CheckIcon from '../../../common/components/Icons/CheckIcon';
 import LeftPanel from '../../../common/containers/LeftPanel/LeftPanel';
 import LeftPanelLink from '../../../common/containers/LeftPanel/LeftPanelLink';
 import styles from './Integrate.module.sass';
 import MathTable from '../MathTable';
-import VariableTextBox from '../../../common/math/MathTextBox/VariableTextBox';
 
 class Integrate extends Component {
   constructor(props) {
@@ -77,7 +77,7 @@ class Integrate extends Component {
             <div className={styles.pepe}>
               <MathText
                 id={`step-${index}`}
-                content={step.expression} // TODO: ver si directamente sepa interpretar el objeto
+                content={step.expression}
                 className={styles.mathText}
               />
               {(step.variables).map((variable, varIndx) => (
@@ -145,7 +145,7 @@ class Integrate extends Component {
 
         <div className={styles.stepContent}>
           <span className={styles.item}> = </span>
-          <MathTextBox
+          <MathTextBoxWithVariables
             ref={this.MathBoxRef}
             latexMode={latexModeOn}
             content={currentExpression}

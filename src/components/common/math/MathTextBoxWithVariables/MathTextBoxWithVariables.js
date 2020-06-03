@@ -4,15 +4,16 @@ import classNames from 'classnames';
 import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-import MathTextBox from './MathTextBox';
-import VariableTextBox from './VariableTextBox';
+import MathTextBox from '../MathTextBox';
+import VariableTextBox from '../VariableTextBox';
 
-import styles from './MathTextBox.css'; // eslint-disable-line no-unused-vars
-import sasStyles from './MathTextBox.module.sass';
+// TODO: unify
+import styles from '../MathTextBox/MathTextBox.css'; // eslint-disable-line no-unused-vars
+import sasStyles from './MathTextBoxWithVariables.module.sass';
 
 const defaultVariable = { tag: 'u(x)', expression: '' };
 
-class MathTextBoxComplete extends Component {
+class MathTextBoxWithVariables extends Component {
   constructor(props) {
     super(props);
 
@@ -44,7 +45,7 @@ class MathTextBoxComplete extends Component {
 
     onContentChange({
       ...content,
-      variables: [...content.variables, defaultVariable] // TODO: default variable
+      variables: [...content.variables, defaultVariable]
     });
   }
 
@@ -97,14 +98,12 @@ class MathTextBoxComplete extends Component {
         {
           !!variables.length && (
             <DeleteIcon
-              fontSize="medium"
               className={classNames(sasStyles.varIcon, sasStyles.removeVarIcon)}
               onClick={this.handleDeleteVariable}
             />
           )
         }
         <AddIcon
-          fontSize="medium"
           className={classNames(sasStyles.varIcon, sasStyles.addVarIcon)}
           color="primary"
           onClick={this.handleCreateNewVariable}
@@ -120,7 +119,7 @@ class MathTextBoxComplete extends Component {
       <div
         onClick={this.onClick}
         onKeyPress={this.onKeyPress}
-        className={classNames(sasStyles.completeContainer, className)}
+        className={classNames(sasStyles.container, className)}
       >
         {this.renderExpressionBox()}
         {this.renderVariablesBox()}
@@ -129,11 +128,11 @@ class MathTextBoxComplete extends Component {
   }
 }
 
-MathTextBoxComplete.propTypes = {
+MathTextBoxWithVariables.propTypes = {
   content: PropTypes.object,
   className: PropTypes.string,
   onContentChange: PropTypes.func,
   onEnter: PropTypes.func,
 };
 
-export default MathTextBoxComplete;
+export default MathTextBoxWithVariables;
