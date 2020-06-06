@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import AddIcon from '@material-ui/icons/Add';
 import DeleteIcon from '@material-ui/icons/Delete';
-
+import { Button } from '@material-ui/core';
 import MathTextBox from '../MathTextBox';
 import VariableTextBox from '../VariableTextBox';
+import BootstrapTooltip from '../../../../bootstrap/Tooltip';
 
 import sasStyles from './MathTextBoxWithVariables.module.sass';
 
 const defaultVariable = { tag: 'u(x)', expression: '' };
+const addVariablesTooltipText = "Para aplicar sustitución usar 'u(x)' y 'v(x)'. \n Para partes 'u' y 'du'";
 
 class MathTextBoxWithVariables extends Component {
   constructor(props) {
@@ -37,21 +38,22 @@ class MathTextBoxWithVariables extends Component {
     onContentChange({ ...content, variables: newVariables });
   }
 
+  handleDeleteVariable = (index) => {
+    const { content, onContentChange } = this.props;
+    content.variables.splice(index, 1);
+
+    onContentChange({
+      ...content,
+      variables: content.variables
+    });
+  }
+
   handleCreateNewVariable = () => {
     const { content, onContentChange } = this.props;
 
     onContentChange({
       ...content,
       variables: [...content.variables, defaultVariable]
-    });
-  }
-
-  handleDeleteVariable = () => {
-    const { content, onContentChange } = this.props;
-
-    onContentChange({
-      ...content,
-      variables: content.variables.slice(0, -1)
     });
   }
 
@@ -82,28 +84,37 @@ class MathTextBoxWithVariables extends Component {
 
     return (
       <div className={sasStyles.variableContainer}>
+        <BootstrapTooltip
+          title={addVariablesTooltipText}
+          placement="top-center"
+          className={sasStyles.varTooltip}
+        >
+          <Button
+            id="add-variable"
+            className={classNames(sasStyles.varIcon, sasStyles.addVarIcon)}
+            onClick={this.handleCreateNewVariable}
+            variant="contained"
+            color="primary"
+            size="small"
+          >
+            + Variable
+          </Button>
+        </BootstrapTooltip>
         {(variables).map((variable, index) => (
-          <VariableTextBox
-            id={`variable-math-box-${index}`}
-            variable={variable}
-            className={sasStyles.variableTextBox}
-            onContentChange={(variableContent) => this.handleVariableChange(index, variableContent)}
-            latexMode={latexMode}
-          />
-        ))}
-        {
-          !!variables.length && (
+          <div className={sasStyles.variable}>
+            <VariableTextBox
+              id={`variable-math-box-${index}`}
+              variable={variable}
+              className={sasStyles.variableTextBox}
+              onContentChange={(variableContent) => this.handleVariableChange(index, variableContent)}
+              latexMode={latexMode}
+            />
             <DeleteIcon
               className={classNames(sasStyles.varIcon, sasStyles.removeVarIcon)}
-              onClick={this.handleDeleteVariable}
+              onClick={() => this.handleDeleteVariable(index)}
             />
-          )
-        }
-        <AddIcon
-          className={classNames(sasStyles.varIcon, sasStyles.addVarIcon)}
-          color="primary"
-          onClick={this.handleCreateNewVariable}
-        />
+          </div>
+        ))}
       </div>
     );
   }

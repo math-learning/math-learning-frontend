@@ -31,8 +31,8 @@ const symbols = [
   { label: 'x^{a}', value: 'x^' },
   { label: '\\sqrt{x}', latexValue: '\\sqrt x' },
 
-  { label: 'sen', value: 'sin' },
-  { label: 'cos', value: 'cos' },
+  { label: 'sen', latexValue: '\\sin()' },
+  { label: 'cos', latexValue: '\\cos()' },
   { label: 'tg', value: 'tan' },
   { label: 'e^x', value: 'e^x' },
   { label: '\\log_2 x', latexValue: '\\log_2 x' },
