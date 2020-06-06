@@ -7,7 +7,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MathTextBox from '../MathTextBox';
 import VariableTextBox from '../VariableTextBox';
 
-import styles from '../MathTextBox/MathTextBox.css'; // eslint-disable-line no-unused-vars
 import sasStyles from './MathTextBoxWithVariables.module.sass';
 
 const defaultVariable = { tag: 'u(x)', expression: '' };
@@ -23,7 +22,7 @@ class MathTextBoxWithVariables extends Component {
     const { onContentChange, content } = this.props;
 
     onContentChange({ ...content, expression });
-    // TODO: Quizás debería directamente manejar el estado el? creo que no...
+    // TODO: think about doing it directly from the container.
   }
 
   handleVariableChange = (index, varWithNewContent) => {
