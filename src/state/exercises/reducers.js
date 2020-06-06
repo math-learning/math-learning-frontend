@@ -370,7 +370,6 @@ export default function reducers(state = initialState, action) {
         exerciseId: action.exerciseId,
         exerciseProps: {
           exerciseStatus: 'editing',
-          currentExpression: { expression: '', variables: [] }, // TODO: evaluar si tener o no este variables
           exercise: {
             ...currentExercise,
             ...exerciseDetailToReset,

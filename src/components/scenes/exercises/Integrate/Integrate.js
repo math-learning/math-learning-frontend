@@ -1,12 +1,12 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 import PropTypes from 'prop-types';
-import MathTextBox from '../../../common/math/MathTextBox';
+import MathTextBoxWithVariables from '../../../common/math/MathTextBoxWithVariables';
 import ExerciseByStepsInterface from '../ExerciseByStepsInterface';
 
-import styles from './Derivative.module.sass';
+import styles from './Integrate.module.sass';
 
-class Derivative extends ExerciseByStepsInterface {
+class Integrate extends ExerciseByStepsInterface {
   constructor(props) {
     super(props);
 
@@ -17,14 +17,14 @@ class Derivative extends ExerciseByStepsInterface {
     const { currentExpression, onValidateStep } = this.props;
 
     if (currentExpression) {
-      onValidateStep({ currentExpression });
+      onValidateStep(currentExpression);
     }
   }
 
-  handleContentChange = (value) => {
+  handleCurrentExpressionChange = (currentExpression) => {
     const { onContentChange } = this.props;
 
-    onContentChange({ expression: value, variables: [] });
+    onContentChange(currentExpression);
   }
 
   handleClickSymbol = (symbol) => {
@@ -45,12 +45,12 @@ class Derivative extends ExerciseByStepsInterface {
 
         <div className={styles.stepContent}>
           <span className={styles.item}> = </span>
-          <MathTextBox
+          <MathTextBoxWithVariables
             ref={this.MathBoxRef}
             latexMode={latexModeOn}
-            content={currentExpression.expression}
+            content={currentExpression}
             className={styles.mathBox}
-            onContentChange={this.handleContentChange}
+            onContentChange={this.handleCurrentExpressionChange}
             onEnter={this.handleValidateStep}
           />
           {this.getCurrentStepState()}
@@ -70,11 +70,11 @@ class Derivative extends ExerciseByStepsInterface {
   }
 }
 
-Derivative.propTypes = {
+Integrate.propTypes = {
   isProcessing: PropTypes.bool,
   currentExpression: PropTypes.object,
   onValidateStep: PropTypes.func,
   onContentChange: PropTypes.func
 };
 
-export default Derivative;
+export default Integrate;

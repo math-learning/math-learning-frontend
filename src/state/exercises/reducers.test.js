@@ -643,7 +643,10 @@ describe('exercises reducer', () => {
   });
 
   describe('should handle EXERCISE_STEP_IS_VALID', () => {
+    let currentExpression;
+
     beforeEach(() => {
+      currentExpression = { expression: '2' };
       exercise = { exerciseId: 'exercise-id', stepList: [] };
       initialState = {
         data: {
@@ -653,7 +656,7 @@ describe('exercises reducer', () => {
                 exercise,
                 isLoading: false,
                 exerciseStatus: 'editing',
-                currentExpression: { expression: '' }
+                currentExpression
               }
             }
           },
@@ -670,7 +673,7 @@ describe('exercises reducer', () => {
         courseId: 'c-id',
         guideId: 'g-id',
         exerciseId: 'exercise-id',
-        currentExpression: { expression: '2' }
+        currentExpression
       });
     });
 
@@ -684,11 +687,11 @@ describe('exercises reducer', () => {
                   exercise: {
                     ...exercise,
                     hints: [],
-                    stepList: [{ expression: '2' }]
+                    stepList: [currentExpression]
                   },
                   isLoading: false,
                   exerciseStatus: 'editing',
-                  currentExpression: { expression: '', variables: [] }
+                  currentExpression
                 }
               }
             },

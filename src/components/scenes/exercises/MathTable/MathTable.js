@@ -31,15 +31,16 @@ const symbols = [
   { label: 'x^{a}', value: 'x^' },
   { label: '\\sqrt{x}', latexValue: '\\sqrt x' },
 
-  { label: 'sen', value: 'sin' },
-  { label: 'cos', value: 'cos' },
-  { label: 'tg', value: 'tan' },
+  { label: 'sen', latexValue: '\\sin()' },
+  { label: 'cos', latexValue: '\\cos()' },
+  { label: 'tg', value: 'tan()' },
   { label: 'e^x', value: 'e^x' },
   { label: '\\log_2 x', latexValue: '\\log_2 x' },
   { label: '\\ln{x}', latexValue: '\\ln x' },
 
   { label: 'dx', value: 'dx' },
   { label: '\\frac{d()}{dx}', value: 'd()/dx', latexValue: '\\frac{d()}{dx}' },
+  { label: '\\int dx', latexValue: '(\\int_{\\ }^{\\ }\\ dx)' }, // TODO: Mathquill issue: https://github.com/mathquill/mathquill/issues/784
 
   { label: '\\log_b a', latexValue: '\\log_{} {}' },
   { label: 'a^b', latexValue: '{}^{}' },

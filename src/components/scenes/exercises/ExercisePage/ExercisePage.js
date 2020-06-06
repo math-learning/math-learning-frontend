@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { CircularProgress } from '@material-ui/core';
 
 import Derivative from '../Derivative';
+import Integrate from '../Integrate';
 import styles from './ExercisePage.module.sass';
 
 export default class ExercisePage extends Component {
@@ -31,10 +32,17 @@ export default class ExercisePage extends Component {
         </div>
       );
     }
-
     if (exercise.type === 'derivative') {
       return (
         <Derivative
+          exercise={exercise}
+          onReturnToCourse={onReturnToCourse}
+        />
+      );
+    }
+    if (exercise.type === 'integral') {
+      return (
+        <Integrate
           exercise={exercise}
           onReturnToCourse={onReturnToCourse}
         />

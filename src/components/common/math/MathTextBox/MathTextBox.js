@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill';
 import { Typography, TextField } from '@material-ui/core';
+import * as latexUtils from '../../../../utils/latexUtils';
 import MathText from '../MathText';
 
 import styles from './MathTextBox.css'; // eslint-disable-line no-unused-vars
@@ -26,29 +27,29 @@ class MathTextBox extends Component {
     }
   }
 
-  handleContentChange = (content) => {
+  handleExpressionChange = (expression) => {
     const { onContentChange } = this.props;
 
-    onContentChange(content);
+    onContentChange(expression);
   }
 
-  handleMathQuillContentChange = (newContent) => {
+  handleMathQuillExpressionChange = (newContent) => {
     const { latexMode } = this.props;
 
     if (this.latexEl && !latexMode) {
       this.latexEl.value = newContent;
     }
-    this.handleContentChange(newContent);
+    this.handleExpressionChange(newContent);
   }
 
-  handleLatexContentChange = (event) => {
+  handleLatexExpressionChange = (event) => {
     const { latexMode } = this.props;
     const newContent = event.target.value;
 
     if (this.mathQuillEl && latexMode) {
       this.mathQuillEl.latex(newContent);
     }
-    this.handleContentChange(newContent);
+    this.handleExpressionChange(newContent);
   }
 
   onKeyPress = (event) => {
@@ -65,6 +66,37 @@ class MathTextBox extends Component {
     }
   }
 
+  insertSymbol = (symbol) => {
+    if (this.mathQuillEl) {
+      if (!symbol.value) {
+        this.mathQuillEl.write(symbol.latexValue);
+      } else {
+        this.mathQuillEl.typedText(symbol.value);
+      }
+      this.mathQuillEl.focus();
+    }
+
+    if (this.latexEl) {
+      const valueToInsert = symbol.latexValue || symbol.value;
+      const cleanedValue = latexUtils.cleanExpression(valueToInsert, false);
+      const newContent = this.insertAtCursorPosition(cleanedValue, this.latexEl);
+
+      this.handleExpressionChange(newContent);
+    }
+  }
+
+  insertAtCursorPosition = (valueToInsert, ref) => {
+    const cursorPosition = ref.selectionStart;
+    const currentValue = ref.value;
+    const newContent = currentValue.slice(0, cursorPosition) + valueToInsert + currentValue.slice(cursorPosition);
+
+    ref.value = newContent; // eslint-disable-line
+    ref.focus();
+    ref.selectionStart = cursorPosition + valueToInsert.length; // eslint-disable-line
+
+    return newContent;
+  }
+
   render() {
     const { content, latexMode, className } = this.props;
 
@@ -78,8 +110,8 @@ class MathTextBox extends Component {
           <React.Fragment>
             <TextField
               id="latex-text-field"
-              defaultValue={content}
-              onChange={this.handleLatexContentChange}
+              defaultValue={latexUtils.cleanExpression(content, false)}
+              onChange={this.handleLatexExpressionChange}
               className={sasStyles.latex}
               fullWidth
               inputRef={(el) => {
@@ -90,14 +122,14 @@ class MathTextBox extends Component {
               variant="outlined"
             />
 
-            <MathText content={content} renderMethod="math-jax" />
+            <MathText content={content} renderMethod="mathjax" />
           </React.Fragment>
         ) : (
           <Typography color="textPrimary" variant="h6">
             <MathQuill
-              latex={content}
+              latex={latexUtils.cleanExpression(content, true)}
               onChange={(mathField) => {
-                this.handleMathQuillContentChange(mathField.latex());
+                this.handleMathQuillExpressionChange(mathField.latex());
               }}
               mathquillDidMount={(el) => {
                 this.mathQuillEl = el;
