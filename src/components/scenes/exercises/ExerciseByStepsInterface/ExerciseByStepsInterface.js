@@ -66,6 +66,7 @@ class ExerciseByStepsInterface extends Component {
               {(step.variables).map((variable, varIndx) => (
                 <VariableTextBox
                   id={`variable-math-box-${index}-${varIndx}`}
+                  key={`variable-math-box-${index}-${varIndx}`}
                   variable={variable}
                   readOnly
                 />
