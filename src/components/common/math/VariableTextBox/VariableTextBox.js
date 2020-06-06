@@ -10,7 +10,6 @@ import sasStyles from './VariableTextBox.module.sass';
 addMathquillStyles();
 
 class VariableTextBox extends Component {
-  // TODO: Agregar integración con la tabla. Probablemente haya que agregar el insert in index, o directamente heredar de MathBox
   handleChangeTag = (newTagValue) => {
     const { onContentChange, variable } = this.props;
 

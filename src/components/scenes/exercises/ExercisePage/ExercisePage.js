@@ -42,7 +42,7 @@ export default class ExercisePage extends Component {
     }
     if (exercise.type === 'integral') {
       return (
-        <Integrate // TODO: cambiar nombre a Integral
+        <Integrate
           exercise={exercise}
           onReturnToCourse={onReturnToCourse}
         />
