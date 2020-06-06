@@ -32,7 +32,7 @@ class Integrate extends ExerciseByStepsInterface {
       return;
     }
 
-    this.MathBoxRef.current.insertateAMEO(symbol);
+    this.MathBoxRef.current.insertSymbol(symbol);
   }
 
   getCurrentStep = () => {

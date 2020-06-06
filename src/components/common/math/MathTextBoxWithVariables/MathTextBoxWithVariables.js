@@ -7,7 +7,6 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import MathTextBox from '../MathTextBox';
 import VariableTextBox from '../VariableTextBox';
 
-// TODO: unify
 import styles from '../MathTextBox/MathTextBox.css'; // eslint-disable-line no-unused-vars
 import sasStyles from './MathTextBoxWithVariables.module.sass';
 
@@ -41,7 +40,6 @@ class MathTextBoxWithVariables extends Component {
 
   handleCreateNewVariable = () => {
     const { content, onContentChange } = this.props;
-    // TODO: quizas esto deberia hacerlo directo con un .container.js
 
     onContentChange({
       ...content,
@@ -51,7 +49,6 @@ class MathTextBoxWithVariables extends Component {
 
   handleDeleteVariable = () => {
     const { content, onContentChange } = this.props;
-    // TODO: quizas esto deberia hacerlo directo con un .container.js
 
     onContentChange({
       ...content,
@@ -59,10 +56,10 @@ class MathTextBoxWithVariables extends Component {
     });
   }
 
-  insertateAMEO = (symbol) => {
-    console.log('INSERTAME LA VALUE DONDE CORRESPONDA AMEO');
+  insertSymbol = (symbol) => {
+    // TODO: insert in the box it should be
     if (this.expressionRef.current) {
-      this.expressionRef.current.insertateAMEO(symbol);
+      this.expressionRef.current.insertSymbol(symbol);
     }
   }
 

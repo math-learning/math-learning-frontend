@@ -66,7 +66,7 @@ class MathTextBox extends Component {
     }
   }
 
-  insertateAMEO = (symbol) => { // TODO
+  insertSymbol = (symbol) => {
     if (this.mathQuillEl) {
       if (!symbol.value) {
         this.mathQuillEl.write(symbol.latexValue);
