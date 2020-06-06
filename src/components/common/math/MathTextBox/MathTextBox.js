@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import MathQuill, { addStyles as addMathquillStyles } from 'react-mathquill';
 import { Typography, TextField } from '@material-ui/core';
+import * as latexUtils from '../../../../utils/latexUtils';
 import MathText from '../MathText';
 
 import styles from './MathTextBox.css'; // eslint-disable-line no-unused-vars
@@ -65,7 +66,7 @@ class MathTextBox extends Component {
     }
   }
 
-  insertateAMEO = (symbol) => {
+  insertateAMEO = (symbol) => { // TODO
     if (this.mathQuillEl) {
       if (!symbol.value) {
         this.mathQuillEl.write(symbol.latexValue);
@@ -77,7 +78,8 @@ class MathTextBox extends Component {
 
     if (this.latexEl) {
       const valueToInsert = symbol.latexValue || symbol.value;
-      const newContent = this.insertAtCursorPosition(valueToInsert, this.latexEl);
+      const cleanedValue = latexUtils.cleanExpression(valueToInsert, false);
+      const newContent = this.insertAtCursorPosition(cleanedValue, this.latexEl);
 
       this.handleExpressionChange(newContent);
     }
@@ -108,7 +110,7 @@ class MathTextBox extends Component {
           <React.Fragment>
             <TextField
               id="latex-text-field"
-              defaultValue={content}
+              defaultValue={latexUtils.cleanExpression(content, false)}
               onChange={this.handleLatexExpressionChange}
               className={sasStyles.latex}
               fullWidth
@@ -125,7 +127,7 @@ class MathTextBox extends Component {
         ) : (
           <Typography color="textPrimary" variant="h6">
             <MathQuill
-              latex={content}
+              latex={latexUtils.cleanExpression(content, true)}
               onChange={(mathField) => {
                 this.handleMathQuillExpressionChange(mathField.latex());
               }}

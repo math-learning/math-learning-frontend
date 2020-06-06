@@ -1,6 +1,9 @@
-const replaceAll = (expression, search, replacement) => (
-  expression.split(search).join(replacement)
-);
+const replaceAll = (expression, search, replacement) => {
+  if (expression) {
+    return expression.split(search).join(replacement);
+  }
+  return expression;
+};
 
 const cleanLatex = (latex) => {
   if (!latex) {
@@ -18,4 +21,20 @@ const cleanLatex = (latex) => {
   return clean;
 };
 
-export { cleanLatex };
+const cleanExpression = (expression, isMathQuill) => {
+  // TODO: this is becuase a Mathquill issue: https://github.com/mathquill/mathquill/issues/784
+  let cleanedExpression;
+  if (isMathQuill) {
+    cleanedExpression = replaceAll(expression, '\\int', '\\int_{\\ }^{\\ }');
+  } else {
+    cleanedExpression = replaceAll(expression, '\\int_{\\ }^{\\ }', '\\int ');
+  }
+
+  return cleanedExpression;
+};
+
+module.exports = {
+  cleanExpression,
+  cleanLatex,
+  replaceAll
+};

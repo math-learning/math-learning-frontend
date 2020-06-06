@@ -40,7 +40,7 @@ const symbols = [
 
   { label: 'dx', value: 'dx' },
   { label: '\\frac{d()}{dx}', value: 'd()/dx', latexValue: '\\frac{d()}{dx}' },
-  { label: '\\int dx', latexValue: '\\int dx' }, // TODO: Mathquill issue: https://github.com/mathquill/mathquill/issues/784
+  { label: '\\int dx', latexValue: '(\\int_{\\ }^{\\ }\\ dx)' }, // TODO: Mathquill issue: https://github.com/mathquill/mathquill/issues/784
 
   { label: '\\log_b a', latexValue: '\\log_{} {}' },
   { label: 'a^b', latexValue: '{}^{}' },

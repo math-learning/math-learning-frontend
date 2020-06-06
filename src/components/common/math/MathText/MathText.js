@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import MathJax from 'react-mathjax';
 import { MQ } from './mathquill-loader';
+import * as latexUtils from '../../../../utils/latexUtils';
 
 class MathText extends React.Component {
   constructor(props) {
@@ -41,14 +42,14 @@ class MathText extends React.Component {
     if (renderMethod === 'mathquill') {
       return (
         <p id={id} ref={(x) => { this.element = x; }}>
-          {content}
+          {latexUtils.cleanExpression(content, true)}
         </p>
       );
     }
 
     return (
       <MathJax.Provider id={id} className={className}>
-        <MathJax.Node formula={content} />
+        <MathJax.Node formula={latexUtils.cleanExpression(content, false)} />
       </MathJax.Provider>
     );
   }
