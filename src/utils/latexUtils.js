@@ -11,13 +11,13 @@ const cleanLatex = (latex) => {
   }
 
   let clean = replaceAll(latex, '\\left(', '(');
-  clean = replaceAll(clean, 'left(', '(');
   clean = replaceAll(clean, '\\right)', ')');
-  clean = replaceAll(clean, '\\cdot ', '*');
-  clean = replaceAll(clean, 'cdot ', '*');
-  clean = replaceAll(clean, 'sen', '\\sin');
-  clean = replaceAll(clean, '.', '*');
-  clean = replaceAll(clean, '\\ ', '');
+  // clean = replaceAll(clean, 'left(', '(');
+  // clean = replaceAll(clean, '\\cdot ', '*');
+  // clean = replaceAll(clean, 'cdot ', '*');
+  // clean = replaceAll(clean, 'sen', '\\sin');
+  // clean = replaceAll(clean, '.', '*');
+  // clean = replaceAll(clean, '\\ ', '');
   return clean;
 };
 
@@ -30,7 +30,8 @@ const cleanExpression = (expression, isMathQuill) => {
     cleanedExpression = replaceAll(expression, '\\int_{\\ }^{\\ }', '\\int ');
   }
 
-  return cleanedExpression;
+  // this one is to avoid MathQuill write a complex latex
+  return cleanLatex(cleanedExpression);
 };
 
 module.exports = {

@@ -33,7 +33,7 @@ const symbols = [
 
   { label: 'sen', latexValue: '\\sin()' },
   { label: 'cos', latexValue: '\\cos()' },
-  { label: 'tg', value: 'tan' },
+  { label: 'tg', value: 'tan()' },
   { label: 'e^x', value: 'e^x' },
   { label: '\\log_2 x', latexValue: '\\log_2 x' },
   { label: '\\ln{x}', latexValue: '\\ln x' },

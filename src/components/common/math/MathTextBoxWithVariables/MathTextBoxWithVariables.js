@@ -10,7 +10,7 @@ import BootstrapTooltip from '../../../../bootstrap/Tooltip';
 import sasStyles from './MathTextBoxWithVariables.module.sass';
 
 const defaultVariable = { tag: 'u(x)', expression: '' };
-const addVariablesTooltipText = "Para aplicar sustitución usar 'u(x)' y 'v(x)'. \n Para partes 'u' y 'du'";
+const addVariablesTooltipText = 'Para aplicar sustitución usar "u(x)" y "v(x)". \n Para partes "u" y "du"';
 
 class MathTextBoxWithVariables extends Component {
   constructor(props) {
@@ -51,9 +51,16 @@ class MathTextBoxWithVariables extends Component {
   handleCreateNewVariable = () => {
     const { content, onContentChange } = this.props;
 
+    const newVariable = { ...defaultVariable };
+    if (content.variables.length && content.variables[0].tag === 'u(x)') {
+      newVariable.tag = 'v(x)';
+    } else if (content.variables.length && content.variables[0].tag === 'u') {
+      newVariable.tag = 'du';
+    }
+
     onContentChange({
       ...content,
-      variables: [...content.variables, defaultVariable]
+      variables: [...content.variables, newVariable]
     });
   }
 
@@ -86,13 +93,14 @@ class MathTextBoxWithVariables extends Component {
       <div className={sasStyles.variableContainer}>
         <BootstrapTooltip
           title={addVariablesTooltipText}
-          placement="top-center"
+          placement="top"
           className={sasStyles.varTooltip}
         >
           <Button
             id="add-variable"
-            className={classNames(sasStyles.varIcon, sasStyles.addVarIcon)}
+            className={classNames(sasStyles.variableItem, sasStyles.addVarButton)}
             onClick={this.handleCreateNewVariable}
+            disabled={variables.length > 1}
             variant="contained"
             color="primary"
             size="small"
@@ -101,7 +109,7 @@ class MathTextBoxWithVariables extends Component {
           </Button>
         </BootstrapTooltip>
         {(variables).map((variable, index) => (
-          <div className={sasStyles.variable}>
+          <div className={sasStyles.variable} key={`variable-math-box-${index}`}>
             <VariableTextBox
               id={`variable-math-box-${index}`}
               variable={variable}
@@ -110,7 +118,7 @@ class MathTextBoxWithVariables extends Component {
               latexMode={latexMode}
             />
             <DeleteIcon
-              className={classNames(sasStyles.varIcon, sasStyles.removeVarIcon)}
+              className={sasStyles.variableItem}
               onClick={() => this.handleDeleteVariable(index)}
             />
           </div>
