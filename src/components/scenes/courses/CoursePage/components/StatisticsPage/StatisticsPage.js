@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Tabs, Tab } from '@material-ui/core';
-import UsersActivityPage from './UsersActivityPage';
+import UsersCalendarPage from './UsersCalendarPage';
 import ExerciseErrorsPages from './ExerciseErrorsPages';
 
 export default class StatisticsPage extends Component {
@@ -17,7 +17,7 @@ export default class StatisticsPage extends Component {
     const { selectedStatistic } = this.state;
 
     if (selectedStatistic === 0) {
-      return <UsersActivityPage course={course} />;
+      return <UsersCalendarPage course={course} />;
     }
 
     return <ExerciseErrorsPages course={course} />;
