@@ -27,8 +27,7 @@ export default class UsersCalendarPage extends Component {
     const today = new Date();
     const lastYear = statistics[1];
     if (today.getMonth() < previousMonthsToAnalyze && lastYear) {
-      const monthsToAnalyze = lastYear.months.slice(11 - today.getMonth());
-
+      const monthsToAnalyze = lastYear.months.filter((m) => m.month > 11 - today.getMonth());
       const daysData = monthsToAnalyze.reduce((acum, month) => (
         [...acum, ...this.extractDaysWithCountFromMonth(lastYear.year, month)]
       ), []);
