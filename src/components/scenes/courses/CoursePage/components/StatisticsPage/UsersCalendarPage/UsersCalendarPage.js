@@ -102,8 +102,6 @@ export default class UsersCalendarPage extends Component {
     const startDate = new Date();
     startDate.setMonth(startDate.getMonth() - previousMonthsToAnalyze);
 
-    console.log('DAYS', this.getCurrentData(statistics))
-
     return (
       <div className={classNames(styles.container, particularStyles.container)}>
         <CalendarHeatmap
