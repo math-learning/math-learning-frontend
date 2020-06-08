@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../../../../../../../../node_modules/react-vis/dist/style.css';
 import {
-  FlexibleWidthXYPlot, XAxis, YAxis, VerticalBarSeries, RadialChart
+  FlexibleWidthXYPlot, XAxis, YAxis, VerticalBarSeries, RadialChart, LabelSeries
 } from 'react-vis';
 import {
   CircularProgress, Select, MenuItem, Typography
@@ -11,13 +11,15 @@ import EmptyStatePage from '../../../../../../common/containers/EmptyStatePage';
 import styles from '../StatisticsCommon.module.sass';
 
 const graphicTypes = ['Histograma', 'Torta'];
+const errorSumTypes = ['Todos', 'Promedio'];
 
-export default class ExerciseErrorsPage extends Component {
+export default class AvgExerciseErrorsPage extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
       guideId: null,
+      errorSumType: 'Todos',
       graphicType: 'Histograma'
     };
   }
@@ -28,6 +30,16 @@ export default class ExerciseErrorsPage extends Component {
     if (!statistics) {
       getCourseExerciseErrors(course.courseId);
     }
+  }
+
+  calculateCount = (count) => {
+    const { errorSumType } = this.state;
+    const { usersCount } = this.props;
+
+    if (errorSumType === 'Promedio') {
+      return Number((count / usersCount).toFixed(2));
+    }
+    return count;
   }
 
   renderGraphic = () => {
@@ -46,7 +58,7 @@ export default class ExerciseErrorsPage extends Component {
     }
 
     if (graphicType === 'Histograma') {
-      const data = objsToRender.map((obj) => ({ x: obj.name, y: obj.count }));
+      const data = objsToRender.map((obj) => ({ x: obj.name, y: this.calculateCount(obj.count) }));
 
       return (
         <FlexibleWidthXYPlot
@@ -58,13 +70,14 @@ export default class ExerciseErrorsPage extends Component {
           <XAxis tickLabelAngle={-45} />
           <YAxis title="Cantidad de errores" />
           <VerticalBarSeries data={data} animation barWidth={0.1} />
+          <LabelSeries data={data.map((d) => ({ ...d, label: d.y, xOffset: 15 }))} />
         </FlexibleWidthXYPlot>
       );
     }
 
     const data = objsToRender.map((obj) => ({
-      label: `${obj.name}: ${obj.count}`,
-      angle: obj.count
+      label: `${obj.name}: ${this.calculateCount(obj.count)}`,
+      angle: this.calculateCount(obj.count)
     }));
 
     return (
@@ -95,9 +108,31 @@ export default class ExerciseErrorsPage extends Component {
     this.setState({ graphicType });
   }
 
+  onChangeErrorSumType = (event) => {
+    const errorSumType = event.target.value;
+
+    this.setState({ errorSumType });
+  }
+
+  renderSelector = ({ title, value, onChange, values }) => (
+    <div className={styles.selector}>
+      <Typography className={styles.labelSelector} variant="h6" color="textSecondary">{title}</Typography>
+
+      <Select
+        id={`selector-${title}`}
+        value={value}
+        className={styles.leftSelector}
+        onChange={onChange}
+        input={<BootstrapDropdownInput />}
+      >
+        {values}
+      </Select>
+    </div>
+  );
+
   render() {
     const { statistics } = this.props;
-    const { guideId, graphicType } = this.state;
+    const { guideId, graphicType, errorSumType } = this.state;
 
     if (!statistics) {
       return (
@@ -116,40 +151,33 @@ export default class ExerciseErrorsPage extends Component {
     }
 
     const currentGraphic = graphicType;
+    const currentErrorSumType = errorSumType;
     const currentGuide = guideId || statistics[0].guideId;
 
     return (
       <div className={styles.container}>
         <div className={styles.selectors}>
-          <div className={styles.selector}>
-            <Typography className={styles.labelSelector} variant="h6" color="textSecondary">Guía:</Typography>
-
-            <Select
-              id="guide-selector"
-              value={currentGuide}
-              className={styles.leftSelector}
-              onChange={this.onChangeGuide}
-              input={<BootstrapDropdownInput />}
-            >
-              {[
-                ...statistics.map((g) => <MenuItem key={g.guideId} value={g.guideId}>{g.guideId}</MenuItem>),
-                <MenuItem key="Todas" value="Todas">Todas</MenuItem>
-              ]}
-            </Select>
-          </div>
-          <div className={styles.selector}>
-            <Typography className={styles.labelSelector} variant="h6" color="textSecondary">Tipo de gráfico:</Typography>
-
-            <Select
-              id="graphic-selector"
-              value={currentGraphic}
-              className={styles.leftSelector}
-              onChange={this.onChangeGraphicType}
-              input={<BootstrapDropdownInput />}
-            >
-              {graphicTypes.map((gt) => (<MenuItem key={gt} value={gt}>{gt}</MenuItem>))}
-            </Select>
-          </div>
+          {this.renderSelector({
+            title: 'Guía:',
+            value: currentGuide,
+            onChange: this.onChangeGuide,
+            values: [
+              ...statistics.map((g) => <MenuItem key={g.guideId} value={g.guideId}>{g.guideId}</MenuItem>),
+              <MenuItem key="Todas" value="Todas">Todas</MenuItem>
+            ]
+          })}
+          {this.renderSelector({
+            title: 'Tipo de gráfico:',
+            value: currentGraphic,
+            onChange: this.onChangeGraphicType,
+            values: graphicTypes.map((gt) => (<MenuItem key={gt} value={gt}>{gt}</MenuItem>))
+          })}
+          {this.renderSelector({
+            title: 'Tipo de cuenta:',
+            value: currentErrorSumType,
+            onChange: this.onChangeErrorSumType,
+            values: errorSumTypes.map((gt) => (<MenuItem key={gt} value={gt}>{gt}</MenuItem>))
+          })}
         </div>
 
         {this.renderGraphic()}
