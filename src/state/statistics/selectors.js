@@ -10,3 +10,8 @@ export const getCourseExerciseErrors = (state, { courseId }) => {
   return courseStatistics && courseStatistics.exerciseErrors;
 };
 
+export const getCourseExerciseStepCount = (state, { courseId }) => {
+  const courseStatistics = state.statistics.data.courses[courseId];
+
+  return courseStatistics && courseStatistics.exerciseStepCount;
+};

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Tabs, Tab } from '@material-ui/core';
 import UsersCalendarPage from './UsersCalendarPage';
 import ExerciseErrorsPage from './ExerciseErrorsPage';
+import ExerciseStepCountPage from './ExerciseStepCountPage';
 
 export default class StatisticsPage extends Component {
   constructor(props) {
@@ -19,7 +20,10 @@ export default class StatisticsPage extends Component {
     if (selectedStatistic === 0) {
       return <UsersCalendarPage course={course} />;
     }
-    return <ExerciseErrorsPage course={course} />;
+    if (selectedStatistic === 1) {
+      return <ExerciseErrorsPage course={course} />;
+    }
+    return <ExerciseStepCountPage course={course} />;
   }
 
   handleChange = (event, newValue) => {
@@ -40,7 +44,7 @@ export default class StatisticsPage extends Component {
         >
           <Tab label="Actividad de usuarios" />
           <Tab label="Errores por ejercicio" />
-          <Tab label="Promedio errores por ejercicio" />
+          <Tab label="Promedio de pasos por ejercicio" />
         </Tabs>
 
         {this.renderStatisticPage()}
