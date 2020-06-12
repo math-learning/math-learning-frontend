@@ -47,7 +47,7 @@ export default class ExerciseStepCountPage extends Component {
     if (currentGuide === 'Todas') {
       objsToRender = statistics.map((guide) => {
         const count = guide.exercises.reduce((acum, ex) => (acum + ex.count), 0);
-        const users = _.uniqBy(guide.exercises.reduce((acum, ex) => ([...acum, ex.users]), []), _.isEqual);
+        const users = _.uniq(guide.exercises.reduce((acum, ex) => ([...acum, ...ex.users]), []));
         return ({ name: guide.guideId, count, users });
       });
     } else {
