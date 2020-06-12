@@ -41,6 +41,22 @@ export default function reducers(state = initialState, action) {
       };
     }
 
+    case types.GET_COURSE_EXECISE_STEP_COUNT_SUCCESS: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          courses: {
+            ...state.data.courses,
+            [action.courseId]: {
+              ...state.data.courses[action.courseId],
+              exerciseStepCount: action.statistics
+            }
+          }
+        }
+      };
+    }
+
     case commonTypes.LOGOUT_SUCCESS: {
       // cleaning the state
       return initialState;

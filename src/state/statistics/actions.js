@@ -29,6 +29,14 @@ export function getCourseExerciseErrorsSuccess({ courseId, statistics }) {
   };
 }
 
+export function getCourseExerciseStepCountSuccess({ courseId, statistics }) {
+  return {
+    type: types.GET_COURSE_EXECISE_STEP_COUNT_SUCCESS,
+    courseId,
+    statistics
+  };
+}
+
 export function getCourseExerciseErrors({ courseId }) {
   return async (dispatch, getState) => {
     const state = getState();
@@ -36,5 +44,17 @@ export function getCourseExerciseErrors({ courseId }) {
     const statistics = await exercisesClient.getExerciseErrors({ context, courseId });
 
     dispatch(getCourseExerciseErrorsSuccess({ courseId, statistics }));
+  };
+}
+
+export function getCourseExerciseStepCount({ courseId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+    const statistics = await exercisesClient.getExerciseStepCount({ context, courseId });
+
+    console.log('HERE', statistics)
+
+    dispatch(getCourseExerciseStepCountSuccess({ courseId, statistics }));
   };
 }

@@ -233,6 +233,18 @@ const getExerciseErrors = async ({ context, courseId }) => {
   return requestUtils.processResponse(response);
 };
 
+const getExerciseStepCount = async ({ context, courseId }) => {
+  const exerciseUrl = `${url}/courses/${courseId}/steps/statistics`;
+  const response = await fetch(exerciseUrl, {
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 export default {
   addUserToCourse,
   createExercise,
@@ -241,6 +253,7 @@ export default {
   getExercise,
   getExercises,
   getExerciseErrors,
+  getExerciseStepCount,
   updateExercise,
   removeExerciseStep,
   resolveExercise,
