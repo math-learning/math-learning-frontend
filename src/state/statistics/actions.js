@@ -53,8 +53,6 @@ export function getCourseExerciseStepCount({ courseId }) {
     const context = commonSelectors.context(state);
     const statistics = await exercisesClient.getExerciseStepCount({ context, courseId });
 
-    console.log('HERE', statistics)
-
     dispatch(getCourseExerciseStepCountSuccess({ courseId, statistics }));
   };
 }
