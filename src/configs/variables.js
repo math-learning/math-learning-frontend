@@ -1,3 +1,5 @@
+const isProd = () => process.env.NODE_ENV === 'production';
+
 const configs = {
   credentials: {
     google: {
@@ -5,14 +7,15 @@ const configs = {
     }
   },
   services: {
+    // TODO: remove hardcoded urls
     users: {
-      url: process.env.USERS_SERVICE_URL || 'http://0.0.0.0:7000'
+      url: isProd() ? 'https://math-learning-users-service.herokuapp.com/' : 'http://0.0.0.0:7000'
     },
     courses: {
-      url: process.env.COURSES_SERVICE_URL || 'http://0.0.0.0:5001'
+      url: isProd() ? 'https://math-learning-courses-service.herokuapp.com/' : 'http://0.0.0.0:5001'
     },
     exercises: {
-      url: process.env.EXERCISES_SERVICE_URL || 'http://0.0.0.0:9000'
+      url: isProd() ? 'https://exercises-service.herokuapp.com/' : 'http://0.0.0.0:9000'
     }
   },
   paths: {
