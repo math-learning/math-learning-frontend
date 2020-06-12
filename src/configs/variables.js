@@ -6,13 +6,13 @@ const configs = {
   },
   services: {
     users: {
-      url: 'http://0.0.0.0:7000'
+      url: process.env.USERS_SERVICE_URL || 'http://0.0.0.0:7000'
     },
     courses: {
-      url: 'http://0.0.0.0:5001'
+      url: process.env.COURSES_SERVICE_URL || 'http://0.0.0.0:5001'
     },
     exercises: {
-      url: 'http://0.0.0.0:9000'
+      url: process.env.EXERCISES_SERVICE_URL || 'http://0.0.0.0:9000'
     }
   },
   paths: {
