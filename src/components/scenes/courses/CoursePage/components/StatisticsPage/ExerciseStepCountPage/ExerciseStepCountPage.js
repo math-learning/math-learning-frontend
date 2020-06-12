@@ -55,23 +55,30 @@ export default class ExerciseStepCountPage extends Component {
     }
 
     if (graphicType === 'Histograma') {
-      const data = objsToRender.map((obj) => ({ x: obj.name, y: this.calculateCount(obj) }));
-
-      return (
-        <FlexibleWidthXYPlot
-          className={styles.graph}
-          height={400}
-          xType="ordinal"
-          margin={{ bottom: 100 }}
-        >
-          <XAxis tickLabelAngle={-45} />
-          <YAxis title="Promedio de pasos" />
-          <VerticalBarSeries data={data} animation barWidth={0.1} />
-          <LabelSeries data={data.map((d) => ({ ...d, label: `${d.y}`, xOffset: 15 }))} />
-        </FlexibleWidthXYPlot>
-      );
+      return this.renderHistogramGraphic(objsToRender);
     }
+    return this.renderCakeDiagram(objsToRender);
+  }
 
+  renderHistogramGraphic = (objsToRender) => {
+    const data = objsToRender.map((obj) => ({ x: obj.name, y: this.calculateCount(obj) }));
+
+    return (
+      <FlexibleWidthXYPlot
+        className={styles.graph}
+        height={400}
+        xType="ordinal"
+        margin={{ bottom: 100 }}
+      >
+        <XAxis tickLabelAngle={-45} />
+        <YAxis title="Promedio de pasos" />
+        <VerticalBarSeries data={data} animation barWidth={0.1} />
+        <LabelSeries data={data.map((d) => ({ ...d, label: `${d.y}`, xOffset: 15 }))} />
+      </FlexibleWidthXYPlot>
+    );
+  }
+
+  renderCakeDiagram = (objsToRender) => {
     const data = objsToRender.map((obj) => ({
       label: `${obj.name}: ${this.calculateCount(obj)}`,
       angle: this.calculateCount(obj)
