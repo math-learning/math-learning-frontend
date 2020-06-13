@@ -5,6 +5,7 @@ import {
 import SchoolIcon from '@material-ui/icons/School';
 import AccessTime from '@material-ui/icons/AccessTime';
 import classNames from 'classnames';
+import BootstrapTooltip from '../../../../bootstrap/Tooltip';
 import styles from './CourseCard.module.sass';
 
 export default class CourseCard extends Component {
@@ -51,10 +52,18 @@ export default class CourseCard extends Component {
             <Grid item xs={12} sm={8} md={6}>
               <Typography id="course-title" variant="h5" color="textPrimary" className={styles.name}>
                 {isMine
-                  ? <SchoolIcon id="school-icon" fontSize="small" className={styles.icon} />
+                  ? (
+                    <BootstrapTooltip title="Curso propio" placement="top-start">
+                      <SchoolIcon id="school-icon" fontSize="small" className={styles.icon} />
+                    </BootstrapTooltip>
+                  )
                   : ''}
                 {isDraft
-                  ? <AccessTime id="draft-icon" fontSize="small" className={styles.icon} />
+                  ? (
+                    <BootstrapTooltip title="Curso en edición" placement="top-start">
+                      <AccessTime id="draft-icon" fontSize="small" className={styles.icon} />
+                    </BootstrapTooltip>
+                  )
                   : ''}
                 {course.name}
               </Typography>
