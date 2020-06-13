@@ -325,9 +325,7 @@ export function deleteExerciseStep({
     dispatch(modalActions.hideModal());
 
     try {
-      await exercisesClient.removeExerciseStep({
-        context, guideId, courseId, exerciseId
-      });
+      await exercisesClient.removeExerciseStep({ context, guideId, courseId, exerciseId });
     } catch (err) {
       if (err.status === 401) {
         throw err;
@@ -456,7 +454,6 @@ export function updateExerciseAsProfessor({
     const context = commonSelectors.context(state);
 
     dispatch(updateExercise({ courseId, guideId, exerciseId, exercise }));
-    dispatch(removeExerciseDetail({ courseId, guideId, exerciseId }));
     dispatch(modalActions.hideModal());
 
     try {

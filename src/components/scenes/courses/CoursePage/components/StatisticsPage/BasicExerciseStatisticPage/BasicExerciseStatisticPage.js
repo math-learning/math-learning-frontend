@@ -58,6 +58,7 @@ export default class BasicExerciseStatisticPage extends Component {
   }
 
   renderHistogramGraphic = (objsToRender) => {
+    const { sumType } = this.state;
     const data = objsToRender.map((obj) => ({ x: obj.name, y: this.calculateCount(obj) }));
 
     return (
@@ -68,7 +69,7 @@ export default class BasicExerciseStatisticPage extends Component {
         margin={{ bottom: 100 }}
       >
         <XAxis tickLabelAngle={-45} />
-        <YAxis title="Promedio de pasos" />
+        <YAxis title={sumType === 'Promedio' ? 'Promedio' : 'Suma total'} />
         <VerticalBarSeries data={data} animation barWidth={0.1} />
         <LabelSeries data={data.map((d) => ({ ...d, label: `${d.y}`, xOffset: 15 }))} />
       </FlexibleWidthXYPlot>

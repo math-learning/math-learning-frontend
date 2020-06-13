@@ -24,60 +24,97 @@ const exerciseDetailToReset = {
   hints: []
 };
 
-function updateExerciseState({
-  state: currentState, courseId, guideId, exerciseId, exerciseProps = {}
-}) {
+function updateExerciseDetail({ state: currentState, courseId, guideId, exerciseId, exerciseProps = {} }) {
   const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
   const exercises = currentState.data.detail[courseGuideId] || {};
 
-  // updating exercise detail
+  if (!exercises[exerciseId]) {
+    // nothing to update since it does not exist
+    return exercises;
+  }
+
+  // updating exercise
   // intentional (to prevent re render the components)
-  let newExercise = (exercises[exerciseId] && exercises[exerciseId].exercise) || {};
-  if (exerciseProps.exercise) {
-    const currentExercise = exercises[exerciseId];
+  const currentExerciseDetail = exercises[exerciseId];
+  let newExercise;
+  if (!currentExerciseDetail.exercise) {
+    newExercise = { ...exerciseProps.exercise };
+  } else {
     newExercise = {
-      ...currentExercise.exercise,
+      ...currentExerciseDetail.exercise,
       ...exerciseProps.exercise
     };
   }
 
+  // updating exercises detail object
   const newDetailExercises = {
     ...exercises,
     [exerciseId]: {
-      ...exercises[exerciseId],
+      ...currentExerciseDetail,
       ...exerciseProps,
       exercise: newExercise
     }
   };
 
+  return newDetailExercises;
+}
+
+function updateExerciseList({ state: currentState, courseId, guideId, exerciseId, exerciseProps = {} }) {
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
+  const currentCourseGuideList = currentState.data.list[courseGuideId];
+
+  if (!currentCourseGuideList) {
+    return null;
+  }
+
   // updating the exercise list
-  const newCourseGuideList = currentState.data.list[courseGuideId] || [];
+  const newCourseGuideList = currentState.data.list[courseGuideId];
   if (exerciseProps.exercise) {
-    let indexOfExercise;
-    newCourseGuideList.forEach((value, index) => {
-      if (value.exerciseId === exerciseId) indexOfExercise = index;
-    });
+    const exerciseIndex = newCourseGuideList.findIndex((value) => value.exerciseId === exerciseId);
 
-    newCourseGuideList[indexOfExercise] = {
-      ...newCourseGuideList[indexOfExercise],
-      ...exerciseProps.exercise
-    };
+    // updating only if the exercise already exists in the list
+    if (exerciseIndex !== -1) {
+      newCourseGuideList[exerciseIndex] = {
+        ...newCourseGuideList[exerciseIndex],
+        ...exerciseProps.exercise
+      };
 
-    newCourseGuideList[indexOfExercise] = _.pickBy(newCourseGuideList[indexOfExercise]);
+      newCourseGuideList[exerciseIndex] = _.pickBy(newCourseGuideList[exerciseIndex]);
+    }
+  }
+
+  return newCourseGuideList;
+}
+
+function updateExerciseState({
+  state: currentState, courseId, guideId, exerciseId, exerciseProps = {}
+}) {
+  const courseGuideId = idUtils.courseGuideId({ courseId, guideId });
+
+  // making the new detail and list objects
+  const newDetailExercises = updateExerciseDetail({
+    state: currentState, courseId, guideId, exerciseId, exerciseProps
+  });
+  const newCourseGuideList = updateExerciseList({
+    state: currentState, courseId, guideId, exerciseId, exerciseProps
+  });
+
+  const { list } = currentState.data;
+  const { detail } = currentState.data;
+
+  if (newCourseGuideList) {
+    list[courseGuideId] = [...newCourseGuideList]; // intentional (to re render the components)
+  }
+  if (newDetailExercises) {
+    detail[courseGuideId] = newDetailExercises;
   }
 
   return {
     ...currentState,
     data: {
       ...currentState.data,
-      detail: {
-        ...currentState.data.detail,
-        [courseGuideId]: newDetailExercises
-      },
-      list: {
-        ...currentState.data.list,
-        [courseGuideId]: [...newCourseGuideList] // intentional (to re render the components)
-      },
+      detail,
+      list,
     }
   };
 }
