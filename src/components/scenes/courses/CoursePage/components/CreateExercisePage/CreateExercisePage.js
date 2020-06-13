@@ -3,7 +3,8 @@ import { withRouter } from 'react-router-dom';
 import {
   TextField, Typography, FormControl, InputLabel, Button, Select, MenuItem, CircularProgress
 } from '@material-ui/core';
-
+import InfoIcon from '@material-ui/icons/Info';
+import BootstrapTooltip from '../../../../../../bootstrap/Tooltip';
 import BootstrapDropdownInput from '../../../../../../bootstrap/dropdownInput';
 import MathText from '../../../../../common/math/MathText';
 import MathTextBox from '../../../../../common/math/MathTextBox';
@@ -235,9 +236,14 @@ class CreateExercisePage extends Component {
 
         <div className={styles.exerciseRow}>
           <div className={styles.exerciseContainer}>
-            <Typography color="textSecondary" variant="body2">
-              Escriba el ejercicio
-            </Typography>
+            <div className={styles.writeExerciseTitle}>
+              <Typography color="textSecondary" variant="body2">
+                Escriba el ejercicio
+              </Typography>
+              <BootstrapTooltip title="Solo escribir el contenido la integral o la derivada" placement="top-start">
+                <InfoIcon id="info-icon" fontSize="small" className={styles.icon} />
+              </BootstrapTooltip>
+            </div>
             <MathTextBox
               id="exercise-math-textbox"
               content={problemInput}
