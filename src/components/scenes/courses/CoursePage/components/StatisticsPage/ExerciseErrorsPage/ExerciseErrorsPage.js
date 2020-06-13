@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import _ from 'lodash';
 import '../../../../../../../../node_modules/react-vis/dist/style.css';
 import {
   FlexibleWidthXYPlot, XAxis, YAxis, VerticalBarSeries, RadialChart, LabelSeries
@@ -32,14 +33,15 @@ export default class AvgExerciseErrorsPage extends Component {
     }
   }
 
-  calculateCount = (count) => {
+  calculateCount = (obj) => {
+    const { users } = obj;
     const { errorSumType } = this.state;
-    const { usersCount } = this.props;
+    const totalUsers = users.length;
 
     if (errorSumType === 'Promedio') {
-      return Number((count / usersCount).toFixed(2));
+      return Number((obj.count / totalUsers).toFixed(2));
     }
-    return count;
+    return obj.count;
   }
 
   renderGraphic = () => {
@@ -51,14 +53,15 @@ export default class AvgExerciseErrorsPage extends Component {
     if (currentGuide === 'Todas') {
       objsToRender = statistics.map((guide) => {
         const count = guide.exercises.reduce((acum, ex) => (acum + ex.count), 0);
-        return ({ name: guide.guideId, count });
+        const users = _.uniq(guide.exercises.reduce((acum, ex) => ([...acum, ...ex.users]), []));
+        return ({ name: guide.guideId, count, users });
       });
     } else {
       objsToRender = statistics.find((guide) => guide.guideId === currentGuide).exercises;
     }
 
     if (graphicType === 'Histograma') {
-      const data = objsToRender.map((obj) => ({ x: obj.name, y: this.calculateCount(obj.count) }));
+      const data = objsToRender.map((obj) => ({ x: obj.name, y: this.calculateCount(obj) }));
 
       return (
         <FlexibleWidthXYPlot
@@ -76,8 +79,8 @@ export default class AvgExerciseErrorsPage extends Component {
     }
 
     const data = objsToRender.map((obj) => ({
-      label: `${obj.name}: ${this.calculateCount(obj.count)}`,
-      angle: this.calculateCount(obj.count)
+      label: `${obj.name}: ${this.calculateCount(obj)}`,
+      angle: this.calculateCount(obj)
     }));
 
     return (
