@@ -9,13 +9,13 @@ const configs = {
   services: {
     // TODO: remove hardcoded urls
     users: {
-      url: isProd() ? 'https://math-learning-users-service.herokuapp.com/' : 'http://0.0.0.0:7000'
+      url: isProd() ? 'https://math-learning-users-service.herokuapp.com' : 'http://0.0.0.0:7000'
     },
     courses: {
-      url: isProd() ? 'https://math-learning-courses-service.herokuapp.com/' : 'http://0.0.0.0:5001'
+      url: isProd() ? 'https://math-learning-courses-service.herokuapp.com' : 'http://0.0.0.0:5001'
     },
     exercises: {
-      url: isProd() ? 'https://exercises-service.herokuapp.com/' : 'http://0.0.0.0:9000'
+      url: isProd() ? 'https://exercises-service.herokuapp.com' : 'http://0.0.0.0:9000'
     }
   },
   paths: {
