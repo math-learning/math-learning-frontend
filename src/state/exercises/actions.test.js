@@ -513,12 +513,6 @@ describe('exercises actions', () => {
             exerciseId,
             exercise
           },
-          {
-            type: types.REMOVE_EXERCISE_DETAIL,
-            guideId,
-            courseId,
-            exerciseId
-          },
           { type: modalTypes.HIDE_MODAL }
         ];
         sandbox
