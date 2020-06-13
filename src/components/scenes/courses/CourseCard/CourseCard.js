@@ -53,7 +53,7 @@ export default class CourseCard extends Component {
               <Typography id="course-title" variant="h5" color="textPrimary" className={styles.name}>
                 {isMine
                   ? (
-                    <BootstrapTooltip title="Curso propio" placement="top-start">
+                    <BootstrapTooltip title="Profesor del curso" placement="top-start">
                       <SchoolIcon id="school-icon" fontSize="small" className={styles.icon} />
                     </BootstrapTooltip>
                   )
