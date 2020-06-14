@@ -54,6 +54,19 @@ export function getUserExercisesSuccess({
   };
 }
 
+export function getallResolutionsSuccess({
+  courseId, guideId, exerciseId, userId, resolutions
+}) {
+  return {
+    type: types.GET_OTHER_RESOLUTIONS_SUCCESS,
+    userId,
+    courseId,
+    guideId,
+    exerciseId,
+    resolutions
+  };
+}
+
 export function resolveExerciseRequest({ courseId, guideId, exerciseId }) {
   return {
     type: types.RESOLVE_EXERCISE_REQUEST,
@@ -361,6 +374,20 @@ export function getExercises({ courseId, guideId, userId }) {
     });
     dispatch(getExercisesSuccess({
       courseId, guideId, userId, exercises
+    }));
+  };
+}
+
+export function getallResolutions({ courseId, guideId, exerciseId, userId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    const resolutions = await exercisesClient.getallResolutions({
+      context, courseId, guideId, exerciseId, userId
+    });
+    dispatch(getallResolutionsSuccess({
+      context, courseId, guideId, exerciseId, userId, resolutions
     }));
   };
 }

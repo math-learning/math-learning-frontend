@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { CircularProgress } from '@material-ui/core';
-
 import Derivative from '../Derivative';
 import Integrate from '../Integrate';
 import styles from './ExercisePage.module.sass';
@@ -15,15 +14,18 @@ export default class ExercisePage extends Component {
   }
 
   componentDidUpdate() {
-    const { isLoadingExercise, onLoadExercise } = this.props;
+    const { isLoadingExercise, onLoadExercise, onGetAllResolutions, exercise, allResolutions } = this.props;
 
     if (isLoadingExercise) {
       onLoadExercise();
     }
+    if (exercise && exercise.state === 'delivered' && !allResolutions) {
+      onGetAllResolutions();
+    }
   }
 
   render = () => {
-    const { isLoadingExercise, exercise, onReturnToCourse } = this.props;
+    const { isLoadingExercise, exercise, allResolutions, onReturnToCourse } = this.props;
 
     if (isLoadingExercise) {
       return (
@@ -36,6 +38,7 @@ export default class ExercisePage extends Component {
       return (
         <Derivative
           exercise={exercise}
+          allResolutions={allResolutions}
           onReturnToCourse={onReturnToCourse}
         />
       );
@@ -44,6 +47,7 @@ export default class ExercisePage extends Component {
       return (
         <Integrate
           exercise={exercise}
+          allResolutions={allResolutions}
           onReturnToCourse={onReturnToCourse}
         />
       );
