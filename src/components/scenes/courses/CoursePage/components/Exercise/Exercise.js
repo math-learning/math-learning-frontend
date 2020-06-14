@@ -4,7 +4,7 @@ import { Card, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import WrongGenerationIcon from '@material-ui/icons/BatteryAlert';
 import WaitingGeneratedIcon from '@material-ui/icons/BatteryCharging60';
-// import AlreadyGeneratedIcon from '@material-ui/icons/BatteryChargingFull';
+import constants from '../../../../../../utils/constants';
 import MathText from '../../../../../common/math/MathText';
 import BootstrapTooltip from '../../../../../../bootstrap/Tooltip';
 import styles from './Exercise.module.sass';
@@ -55,10 +55,21 @@ export default class Exercise extends Component {
     };
   }
 
+  componentDidMount() {
+    const { exercise, onCheckExerciseStatus } = this.props;
+
+    if (exercise.pipelineStatus === constants.WAITING_PIPELINE_STATUS) {
+      onCheckExerciseStatus();
+    }
+  }
+
   handleClickExercise = () => {
     const { exercise, onClickExercise } = this.props;
 
-    if (['waiting', 'failed'].includes(exercise.pipelineStatus)) {
+    if ([
+      constants.WAITING_PIPELINE_STATUS,
+      constants.FAILED_PIPELINE_STATUS
+    ].includes(exercise.pipelineStatus)) {
       this.setState({ isTooltipOpen: true });
       this.handleOnOpenTooltip();
       return;
@@ -74,14 +85,14 @@ export default class Exercise extends Component {
     const { isTooltipOpen } = this.state;
     const { exercise } = this.props;
 
-    if (exercise.pipelineStatus === 'generated') {
+    if (exercise.pipelineStatus === constants.GENERATED_PIPELINE_STATUS) {
       return null;
     }
-    const message = exercise.pipelineStatus === 'waiting'
+    const message = exercise.pipelineStatus === constants.WAITING_PIPELINE_STATUS
       ? 'El ejercicio aún no se ha generado. Vuelve en uno rato'
       : 'El ejercicio ha fallado su generación. Vuelve a crearlo';
 
-    const icon = exercise.pipelineStatus === 'waiting'
+    const icon = exercise.pipelineStatus === constants.WAITING_PIPELINE_STATUS
       ? <WaitingGeneratedIcon className={styles.statusIcon} />
       : <WrongGenerationIcon className={styles.statusIcon} />;
 

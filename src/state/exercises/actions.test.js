@@ -529,4 +529,35 @@ describe('exercises actions', () => {
       });
     });
   });
+
+  describe('checkPipelineStatus() function', () => {
+    let mock;
+
+    describe('when the exercise is updated successfully', () => {
+      beforeEach(() => {
+        exerciseId = 'exercise-id';
+        expectedActions = [
+          {
+            type: types.UPDATE_PIPELINE_STATUS,
+            guideId,
+            courseId,
+            exerciseId,
+            pipelineStatus: 'generated'
+          }
+        ];
+        mock = sandbox.stub(exercisesClient, 'checkPipelineStatus');
+        mock.onCall(0).resolves({ pipelineStatus: 'waiting' });
+        mock.onCall(1).resolves({ pipelineStatus: 'generated' });
+
+        return store.dispatch(actions.checkPipelineStatus({
+          guideId, courseId, exerciseId
+        }));
+      });
+
+      it('executes the expected actions and makes to status calls', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+        expect(mock.callCount).to.equal(2);
+      });
+    });
+  });
 });

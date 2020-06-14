@@ -878,6 +878,48 @@ describe('exercises reducer', () => {
     });
   });
 
+  describe('should handle UPDATE_PIPELINE_STATUS', () => {
+    let newExercise;
+
+    beforeEach(() => {
+      exercise = { exerciseId: 'exercise-id', pipelineStatus: 'waiting', difficulty: 'hard' };
+      newExercise = { ...exercise, pipelineStatus: 'generated' };
+      initialState = {
+        data: {
+          detail: {
+            'c-id/g-id': {}
+          },
+          list: {
+            'c-id/g-id': [exercise]
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.UPDATE_PIPELINE_STATUS,
+        courseId: 'c-id',
+        guideId: 'g-id',
+        exerciseId: 'exercise-id',
+        pipelineStatus: 'generated'
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            detail: {
+              'c-id/g-id': {}
+            },
+            list: {
+              'c-id/g-id': [newExercise]
+            }
+          }
+        }
+      );
+    });
+  });
+
   describe('should handle REMOVE_EXERCISE_STEP', () => {
     beforeEach(() => {
       exercise = { exerciseId: 'exercise-id', stepList: ['2'], state: 'incompleted' };

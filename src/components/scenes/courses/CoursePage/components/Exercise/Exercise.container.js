@@ -23,6 +23,9 @@ const currentActions = (dispatch, { exercise, userId }) => ({
   onEditExercise: (payload) => {
     dispatch(modalActions.loadModal(modalTypes.EDIT_EXERCISE_MODAL, payload));
   },
+  onCheckExerciseStatus: () => {
+    dispatch(actions.checkPipelineStatus(exercise));
+  },
   onClickExercise: async () => {
     // TODO: quizás sea mejor una accion que hacer esto ?
     if (userId) {

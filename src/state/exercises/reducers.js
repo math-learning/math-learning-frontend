@@ -463,6 +463,18 @@ export default function reducers(state = initialState, action) {
       });
     }
 
+    case types.UPDATE_PIPELINE_STATUS: {
+      return updateExerciseState({
+        state,
+        courseId: action.courseId,
+        guideId: action.guideId,
+        exerciseId: action.exerciseId,
+        exerciseProps: {
+          exercise: { pipelineStatus: action.pipelineStatus },
+        }
+      });
+    }
+
     case types.REMOVE_EXERCISE_STEP: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const currentExercise = state.data.detail[courseGuideId][action.exerciseId].exercise;
