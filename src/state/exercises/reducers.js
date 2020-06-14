@@ -167,7 +167,7 @@ export default function reducers(state = initialState, action) {
       };
     }
 
-    case types.GET_OTHER_RESOLUTIONS_SUCCESS: {
+    case types.GET_ALL_RESOLUTIONS_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const currentDetailExercises = state.data.detail[courseGuideId] || {};
 

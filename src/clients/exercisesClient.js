@@ -257,7 +257,7 @@ const checkPipelineStatus = async ({ context, courseId, guideId, exerciseId }) =
   return requestUtils.processResponse(response);
 };
 
-const getallResolutions = async ({ context, courseId, guideId, exerciseId }) => {
+const getAllResolutions = async ({ context, courseId, guideId, exerciseId }) => {
   const exerciseUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}/resolutions`;
 
   const response = await fetch(exerciseUrl, {
@@ -280,7 +280,7 @@ export default {
   getExercises,
   getExerciseErrors,
   getExerciseStepCount,
-  getallResolutions,
+  getAllResolutions,
   updateExercise,
   removeExerciseStep,
   resolveExercise,

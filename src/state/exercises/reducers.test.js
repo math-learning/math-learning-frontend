@@ -920,6 +920,60 @@ describe('exercises reducer', () => {
     });
   });
 
+  describe('should handle GET_ALL_RESOLUTIONS_SUCCESS', () => {
+    let resolutions;
+
+    beforeEach(() => {
+      resolutions = [{ stepList: ['2'] }];
+      initialState = {
+        data: {
+          detail: {
+            'c-id/g-id': {
+              'exercise-id': {
+                isLoading: false,
+                exerciseStatus: 'editing',
+                currentExpression: { expression: '2x' }
+              }
+            }
+          },
+          list: {
+            'c-id/g-id': []
+          }
+        }
+      };
+
+      finalState = reducer(initialState, {
+        type: types.GET_ALL_RESOLUTIONS_SUCCESS,
+        courseId: 'c-id',
+        guideId: 'g-id',
+        exerciseId: 'exercise-id',
+        resolutions
+      });
+    });
+
+    it('should make the expected state', () => {
+      expect(finalState).deep.equal(
+        {
+          data: {
+            detail: {
+              'c-id/g-id': {
+                'exercise-id': {
+                  resolutions,
+                  isLoading: false,
+                  exerciseStatus: 'editing',
+                  currentExpression: { expression: '2x' }
+                }
+              }
+            },
+            list: {
+              'c-id/g-id': []
+            }
+          }
+        }
+      );
+    });
+  });
+
   describe('should handle REMOVE_EXERCISE_STEP', () => {
     beforeEach(() => {
       exercise = { exerciseId: 'exercise-id', stepList: ['2'], state: 'incompleted' };

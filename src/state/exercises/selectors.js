@@ -63,7 +63,7 @@ export const getExercise = (state, {
   return baseExercise && baseExercise.exercise;
 };
 
-export const getallResolutions = (state, {
+export const getAllResolutions = (state, {
   courseId, guideId, exerciseId, userId
 }) => {
   const baseExercise = getBaseExerciseDetail(state, {

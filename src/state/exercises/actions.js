@@ -55,11 +55,10 @@ export function getUserExercisesSuccess({
 }
 
 export function getallResolutionsSuccess({
-  courseId, guideId, exerciseId, userId, resolutions
+  courseId, guideId, exerciseId, resolutions
 }) {
   return {
-    type: types.GET_OTHER_RESOLUTIONS_SUCCESS,
-    userId,
+    type: types.GET_ALL_RESOLUTIONS_SUCCESS,
     courseId,
     guideId,
     exerciseId,
@@ -378,16 +377,16 @@ export function getExercises({ courseId, guideId, userId }) {
   };
 }
 
-export function getallResolutions({ courseId, guideId, exerciseId, userId }) {
+export function getAllResolutions({ courseId, guideId, exerciseId }) {
   return async (dispatch, getState) => {
     const state = getState();
     const context = commonSelectors.context(state);
 
-    const resolutions = await exercisesClient.getallResolutions({
-      context, courseId, guideId, exerciseId, userId
+    const resolutions = await exercisesClient.getAllResolutions({
+      context, courseId, guideId, exerciseId
     });
     dispatch(getallResolutionsSuccess({
-      context, courseId, guideId, exerciseId, userId, resolutions
+      context, courseId, guideId, exerciseId, resolutions
     }));
   };
 }

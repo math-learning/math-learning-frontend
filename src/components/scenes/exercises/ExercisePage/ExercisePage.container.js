@@ -15,7 +15,7 @@ const currentState = (state, { match, location }) => {
   const isLoadingExercise = selectors.isLoadingExercise(state, {
     courseId, guideId, exerciseId, userId
   });
-  const allResolutions = selectors.getallResolutions(state, {
+  const allResolutions = selectors.getAllResolutions(state, {
     courseId, guideId, exerciseId, userId
   });
 
@@ -39,7 +39,7 @@ const currentActions = (dispatch, { match, location }) => {
     onReturnToCourse: async () => {
       await dispatch(push(configs.pathGenerators.courseUserGuide(courseId, guideId, userId)));
     },
-    onGetAllResolutions: () => dispatch(actions.getallResolutions({ courseId, guideId, exerciseId, userId }))
+    onGetAllResolutions: () => dispatch(actions.getAllResolutions({ courseId, guideId, exerciseId }))
   };
 };
 
