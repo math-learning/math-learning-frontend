@@ -167,6 +167,28 @@ export default function reducers(state = initialState, action) {
       };
     }
 
+    case types.GET_ALL_RESOLUTIONS_SUCCESS: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+      const currentDetailExercises = state.data.detail[courseGuideId] || {};
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          detail: {
+            ...state.data.detail,
+            [courseGuideId]: {
+              ...currentDetailExercises,
+              [action.exerciseId]: {
+                ...currentDetailExercises[action.exerciseId],
+                resolutions: action.resolutions
+              }
+            }
+          }
+        }
+      };
+    }
+
     case types.CREATE_EXERCISE_REQUEST: {
       return {
         ...state,

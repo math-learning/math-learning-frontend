@@ -560,4 +560,33 @@ describe('exercises actions', () => {
       });
     });
   });
+
+  describe('getAllResolutions() function', () => {
+    describe('when the exercise is updated successfully', () => {
+      let resolutions;
+
+      beforeEach(() => {
+        resolutions = [];
+        exerciseId = 'exercise-id';
+        expectedActions = [
+          {
+            type: types.GET_ALL_RESOLUTIONS_SUCCESS,
+            guideId,
+            courseId,
+            exerciseId,
+            resolutions
+          }
+        ];
+        sandbox.stub(exercisesClient, 'getAllResolutions').callsFake(() => resolutions);
+
+        return store.dispatch(actions.getAllResolutions({
+          guideId, courseId, exerciseId
+        }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
 });

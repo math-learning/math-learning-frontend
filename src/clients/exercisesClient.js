@@ -257,6 +257,19 @@ const checkPipelineStatus = async ({ context, courseId, guideId, exerciseId }) =
   return requestUtils.processResponse(response);
 };
 
+const getAllResolutions = async ({ context, courseId, guideId, exerciseId }) => {
+  const exerciseUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}/resolutions`;
+
+  const response = await fetch(exerciseUrl, {
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 export default {
   addUserToCourse,
   checkPipelineStatus,
@@ -267,6 +280,7 @@ export default {
   getExercises,
   getExerciseErrors,
   getExerciseStepCount,
+  getAllResolutions,
   updateExercise,
   removeExerciseStep,
   resolveExercise,

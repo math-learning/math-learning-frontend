@@ -63,6 +63,30 @@ export const getExercise = (state, {
   return baseExercise && baseExercise.exercise;
 };
 
+export const getAllResolutions = (state, {
+  courseId, guideId, exerciseId, userId
+}) => {
+  const baseExercise = getBaseExerciseDetail(state, {
+    courseId, guideId, exerciseId, userId
+  });
+  const resolutions = baseExercise && baseExercise.resolutions;
+
+  if (resolutions) {
+    // first the user resolution
+    return resolutions.sort((r1, r2) => {
+      if (r1.userId === userId) {
+        return 1;
+      }
+      if (r2.userId === userId) {
+        return -1;
+      }
+      return 0;
+    });
+  }
+
+  return baseExercise && baseExercise.resolutions;
+};
+
 export const isLoadingExercise = (state, {
   courseId, guideId, exerciseId, userId
 }) => {

@@ -14,6 +14,7 @@ export const EVALUATE_EXERCISE_SUCCESS = 'Evaluate exercise success';
 export const EVALUATE_EXERCISE_REQUEST = 'Evaluate exercise request';
 export const EVALUATE_EXERCISE_FAIL = 'Evaluate exercise fail';
 export const GET_EXERCISE_SUCCESS = 'Get exercise success';
+export const GET_ALL_RESOLUTIONS_SUCCESS = 'Get other resolutions success';
 export const GET_USER_EXERCISE_SUCCESS = 'Get user exercise success';
 export const UPDATE_EXERCISE = 'Update exercise';
 export const UPDATE_PIPELINE_STATUS = 'Update pipeline status';

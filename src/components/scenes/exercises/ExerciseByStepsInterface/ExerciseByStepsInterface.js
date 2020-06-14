@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Button, CircularProgress, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import Carousel from '@brainhubeu/react-carousel';
+import '@brainhubeu/react-carousel/lib/style.css';
 import classNames from 'classnames';
 import PropTypes from 'prop-types';
+
 import HelpToolTip from '../HelpTooltip';
 import WrongIcon from '../../../common/components/Icons/WrongIcon';
 import MathText from '../../../common/math/MathText';
@@ -47,8 +50,8 @@ class ExerciseByStepsInterface extends Component {
     onDeleteStep(exercise);
   }
 
-  getStepList = () => {
-    const { exercise: { stepList }, isDelivered } = this.props;
+  getStepList = (exercise, isDelivered) => {
+    const { stepList } = exercise;
 
     return (
       (stepList).map((step, index) => {
@@ -121,7 +124,7 @@ class ExerciseByStepsInterface extends Component {
 
   render() {
     const {
-      exercise, isResolved, isDelivered, onReturnToCourse
+      exercise, isResolved, isDelivered, onReturnToCourse, allResolutions
     } = this.props;
 
     const shouldStopEditing = isResolved || isDelivered;
@@ -153,7 +156,18 @@ class ExerciseByStepsInterface extends Component {
               content={exercise.problemInput}
             />
             <div className={styles.content}>
-              {this.getStepList()}
+              {/* if the exercise has been resolved, all the resolutions are shown */}
+              {isDelivered && allResolutions && allResolutions.length > 1 ? (
+                <Carousel arrows>
+                  {allResolutions.map((or, index) => (
+                    <div key={`resolution-${index}`}>
+                      {this.getStepList(or, true)}
+                    </div>
+                  ))}
+                </Carousel>
+              ) : (
+                this.getStepList(exercise, isDelivered)
+              )}
 
               {!shouldStopEditing && this.getCurrentStep()}
             </div>
