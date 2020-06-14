@@ -12,10 +12,10 @@ const currentState = (state, { match, location }) => {
   const exercise = selectors.getExercise(state, {
     courseId, guideId, exerciseId, userId
   });
-  const allResolutions = selectors.getallResolutions(state, {
+  const isLoadingExercise = selectors.isLoadingExercise(state, {
     courseId, guideId, exerciseId, userId
   });
-  const isLoadingExercise = selectors.isLoadingExercise(state, {
+  const allResolutions = selectors.getallResolutions(state, {
     courseId, guideId, exerciseId, userId
   });
 
