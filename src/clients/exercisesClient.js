@@ -245,8 +245,21 @@ const getExerciseStepCount = async ({ context, courseId }) => {
   return requestUtils.processResponse(response);
 };
 
+const checkPipelineStatus = async ({ context, courseId, guideId, exerciseId }) => {
+  const exerciseUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}/status`;
+  const response = await fetch(exerciseUrl, {
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 export default {
   addUserToCourse,
+  checkPipelineStatus,
   createExercise,
   deliverExercise,
   evaluateExercise,

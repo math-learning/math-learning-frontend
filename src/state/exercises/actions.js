@@ -5,6 +5,7 @@ import * as commonSelectors from '../common/selectors';
 import * as exerciseSelectors from './selectors';
 import * as logger from '../../utils/logger';
 import configs from '../../configs/variables';
+import constants from '../../utils/constants';
 import exercisesClient from '../../clients/exercisesClient';
 
 export function getExercisesSuccess({
@@ -69,6 +70,16 @@ export function updateExercise({ courseId, guideId, exerciseId, exercise }) {
     guideId,
     exerciseId,
     exercise
+  };
+}
+
+export function updatePipelineStatus({ courseId, guideId, exerciseId, pipelineStatus }) {
+  return {
+    type: types.UPDATE_PIPELINE_STATUS,
+    courseId,
+    guideId,
+    exerciseId,
+    pipelineStatus
   };
 }
 
@@ -351,6 +362,27 @@ export function getExercises({ courseId, guideId, userId }) {
     dispatch(getExercisesSuccess({
       courseId, guideId, userId, exercises
     }));
+  };
+}
+
+export function checkPipelineStatus({ guideId, courseId, exerciseId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    let amountOfRetries = 0;
+    let pipelineStatus = constants.WAITING_PIPELINE_STATUS;
+    while (pipelineStatus === constants.WAITING_PIPELINE_STATUS && amountOfRetries < 20) {
+      // eslint-disable-next-line no-await-in-loop
+      const status = await exercisesClient.checkPipelineStatus({ context, guideId, courseId, exerciseId });
+      pipelineStatus = status.pipelineStatus;
+      amountOfRetries += 1;
+
+      // eslint-disable-next-line no-await-in-loop
+      await new Promise((resolve) => setTimeout(resolve, 3000));
+    }
+
+    dispatch(updatePipelineStatus({ courseId, guideId, exerciseId, pipelineStatus }));
   };
 }
 
