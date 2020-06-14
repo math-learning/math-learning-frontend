@@ -370,16 +370,18 @@ export function checkPipelineStatus({ guideId, courseId, exerciseId }) {
     const state = getState();
     const context = commonSelectors.context(state);
 
+    let timeToWait = 500;
     let amountOfRetries = 0;
     let pipelineStatus = constants.WAITING_PIPELINE_STATUS;
-    while (pipelineStatus === constants.WAITING_PIPELINE_STATUS && amountOfRetries < 20) {
+    while (pipelineStatus === constants.WAITING_PIPELINE_STATUS && amountOfRetries < 10) {
+      // eslint-disable-next-line
+      await new Promise((resolve) => setTimeout(resolve, timeToWait));
+
       // eslint-disable-next-line no-await-in-loop
       const status = await exercisesClient.checkPipelineStatus({ context, guideId, courseId, exerciseId });
       pipelineStatus = status.pipelineStatus;
       amountOfRetries += 1;
-
-      // eslint-disable-next-line no-await-in-loop
-      await new Promise((resolve) => setTimeout(resolve, 3000));
+      timeToWait += timeToWait;
     }
 
     dispatch(updatePipelineStatus({ courseId, guideId, exerciseId, pipelineStatus }));
