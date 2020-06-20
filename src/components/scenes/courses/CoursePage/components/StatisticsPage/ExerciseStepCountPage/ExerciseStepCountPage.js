@@ -11,6 +11,7 @@ export default class ExerciseStepCountPage extends BaseExerciseStatisticPage {
 
     this.state = {
       guideId: null,
+      userId: 'Todos',
       sumType: 'Promedio',
       graphicType: 'Histograma'
     };
@@ -22,18 +23,6 @@ export default class ExerciseStepCountPage extends BaseExerciseStatisticPage {
     if (!statistics) {
       getCourseExerciseStepCount(course.courseId);
     }
-  }
-
-  onChangeGuide = (event) => {
-    const guideId = event.target.value;
-
-    this.setState({ guideId });
-  }
-
-  onChangeGraphicType = (event) => {
-    const graphicType = event.target.value;
-
-    this.setState({ graphicType });
   }
 
   render() {
@@ -59,10 +48,9 @@ export default class ExerciseStepCountPage extends BaseExerciseStatisticPage {
       <div className={styles.container}>
         <div className={styles.selectors}>
           {this.renderGuidesSelector()}
-
           {this.renderGraphicTypeSelector()}
+          {this.renderUserSelector()}
         </div>
-
         {this.renderGraphic()}
       </div>
     );

@@ -14,24 +14,6 @@ export default class AvgExerciseErrorsPage extends BaseExerciseStatisticPage {
     }
   }
 
-  onChangeSumType = (event) => {
-    const sumType = event.target.value;
-
-    this.setState({ sumType });
-  }
-
-  onChangeGuide = (event) => {
-    const guideId = event.target.value;
-
-    this.setState({ guideId });
-  }
-
-  onChangeGraphicType = (event) => {
-    const graphicType = event.target.value;
-
-    this.setState({ graphicType });
-  }
-
   render() {
     const { statistics } = this.props;
 
@@ -55,12 +37,10 @@ export default class AvgExerciseErrorsPage extends BaseExerciseStatisticPage {
       <div className={styles.container}>
         <div className={styles.selectors}>
           {this.renderGuidesSelector()}
-
           {this.renderGraphicTypeSelector()}
-
           {this.renderCountTypeSelector()}
+          {this.renderUserSelector()}
         </div>
-
         {this.renderGraphic()}
       </div>
     );
