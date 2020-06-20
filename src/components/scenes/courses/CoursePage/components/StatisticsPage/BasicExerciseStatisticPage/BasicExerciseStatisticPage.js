@@ -19,6 +19,7 @@ export default class BasicExerciseStatisticPage extends Component {
 
     this.state = {
       guideId: null,
+      userId: 'Todos',
       sumType: 'Todos',
       graphicType: 'Histograma'
     };
@@ -26,13 +27,23 @@ export default class BasicExerciseStatisticPage extends Component {
 
   calculateCount = (obj) => {
     const { users } = obj;
-    const { sumType } = this.state;
+    const { sumType, userId } = this.state;
     const totalUsers = users.length;
 
-    if (sumType === 'Promedio') {
+    if (sumType === 'Promedio' && userId === 'Todos') {
       return Number((obj.count / totalUsers).toFixed(2));
     }
     return obj.count;
+  }
+
+  calculateUserCount = (exercise) => {
+    const { userId } = this.state;
+
+    if (userId === 'Todos') {
+      return exercise.count;
+    }
+    const userCount = exercise.users.find((ex) => ex.userId === userId);
+    return userCount && userCount.count;
   }
 
   renderGraphic = () => {
@@ -42,19 +53,70 @@ export default class BasicExerciseStatisticPage extends Component {
 
     let objsToRender;
     if (currentGuide === 'Todos') {
-      objsToRender = statistics.map((guide) => {
-        const count = guide.exercises.reduce((acum, ex) => (acum + ex.count), 0);
-        const users = _.uniq(guide.exercises.reduce((acum, ex) => ([...acum, ...ex.users]), []));
-        return ({ name: guide.guideId, count, users });
-      });
+      objsToRender = this.calculateGuideObjectsToRender();
     } else {
-      objsToRender = statistics.find((guide) => guide.guideId === currentGuide).exercises;
+      objsToRender = this.calculateExerciseObjectsToRender();
+    }
+
+    if (!objsToRender.length) {
+      return (
+        <EmptyStatePage
+          title="Aún no existen estadísticas para mostrar"
+        />
+      );
     }
 
     if (graphicType === 'Histograma') {
       return this.renderHistogramGraphic(objsToRender);
     }
     return this.renderCakeDiagram(objsToRender);
+  }
+
+  calculateExerciseObjectsToRender = () => {
+    const { statistics } = this.props;
+    const { guideId } = this.state;
+    const currentGuide = guideId || statistics[0].guideId;
+
+    const selectedGuide = statistics.find((guide) => guide.guideId === currentGuide);
+    const objsToRender = [];
+
+    for (const exercise of selectedGuide.exercises) { // eslint-disable-line
+      const count = this.calculateUserCount(exercise);
+
+      if (!_.isNil(count)) {
+        objsToRender.push({ ...exercise, count });
+      }
+    }
+    return objsToRender;
+  }
+
+  calculateGuideObjectsToRender = () => {
+    const { statistics } = this.props;
+    const objsToRender = [];
+
+    for (const guide of statistics) { // eslint-disable-line
+      const { exercises } = guide;
+
+      let isDefined = false;
+      let totalCount = 0;
+      for (const exercise of exercises) { // eslint-disable-line
+        const count = this.calculateUserCount(exercise);
+
+        if (!_.isNil(count)) {
+          totalCount += count;
+          isDefined = true;
+        }
+      }
+
+      if (isDefined) {
+        const guideUsers = _.uniq(guide.exercises.reduce((acum, ex) => (
+          [...acum, ex.users.map((user) => user.userId)]
+        ), []));
+        objsToRender.push({ name: guide.guideId, count: totalCount, users: guideUsers });
+      }
+    }
+
+    return objsToRender;
   }
 
   renderHistogramGraphic = (objsToRender) => {
@@ -98,6 +160,30 @@ export default class BasicExerciseStatisticPage extends Component {
     );
   }
 
+  onChangeSumType = (event) => {
+    const sumType = event.target.value;
+
+    this.setState({ sumType });
+  }
+
+  onChangeGuide = (event) => {
+    const guideId = event.target.value;
+
+    this.setState({ guideId });
+  }
+
+  onChangeGraphicType = (event) => {
+    const graphicType = event.target.value;
+
+    this.setState({ graphicType });
+  }
+
+  onChangeUser = (event) => {
+    const userId = event.target.value;
+
+    this.setState({ userId });
+  }
+
   renderGuidesSelector = () => {
     const { statistics } = this.props;
     const { guideId } = this.state;
@@ -138,6 +224,23 @@ export default class BasicExerciseStatisticPage extends Component {
     });
   }
 
+  renderUserSelector = () => {
+    const { userId } = this.state;
+    const { students } = this.props;
+
+    return this.renderSelector({
+      title: 'Alumno:',
+      value: userId,
+      onChange: this.onChangeUser,
+      values: [
+        <MenuItem key="Todos" value="Todos">Todos</MenuItem>,
+        ...students.map((user) => (
+          <MenuItem key={user.name} value={user.userId}>{user.name}</MenuItem>
+        ))
+      ]
+    });
+  }
+
   renderSelector = ({ title, value, onChange, values }) => (
     <div className={styles.selector}>
       <Typography className={styles.labelSelector} variant="h6" color="textSecondary">{title}</Typography>
@@ -163,7 +266,13 @@ export default class BasicExerciseStatisticPage extends Component {
    *    count: 3,
    *    exerciseId: "e4dbb07e-abe3-4138-82d2-dc11b9e7de14",
    *    name: "asdad",
-   *    users: ["Milito", "Licha"]
+   *    users: [{
+   *      userId: "Milito",
+   *      count: 2
+   *    }, {
+   *      userId: "Licha",
+   *      count: 1
+   *    }]
    *  }]
    * }]
    *
