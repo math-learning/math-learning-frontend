@@ -286,8 +286,8 @@ const getAllResolutions = async ({ context, courseId, guideId, exerciseId }) => 
   return requestUtils.processResponse(response);
 };
 
-const doubleCourse = async ({ context, course, sourceCourseId }) => {
-  const exerciseUrl = `${url}/courses/${sourceCourseId}/double`;
+const copyCourse = async ({ context, course, sourceCourseId }) => {
+  const exerciseUrl = `${url}/courses/${sourceCourseId}/copy`;
 
   const response = await fetch(exerciseUrl, {
     method: 'post',
@@ -308,7 +308,7 @@ export default {
   checkPipelineStatus,
   createExercise,
   deliverExercise,
-  doubleCourse,
+  copyCourse,
   evaluateExercise,
   getExercise,
   getExercises,

@@ -3,7 +3,7 @@ import * as courseActions from '../../../state/courses/actions';
 import * as modalActions from '../../../state/modals/actions';
 import * as modalSelector from '../../../state/modals/selectors';
 
-import DoubleCourseModal from './DoubleCourseModal';
+import CopyCourseModal from './CopyCourseModal';
 
 const currentState = (state) => {
   const modalParams = modalSelector.modalParams(state);
@@ -21,8 +21,8 @@ const mergeProps = (stateProps, dispatchProps, ownProps) => {
   return {
     ...ownProps,
     ...stateProps,
-    onDoubleCourse: (course) => {
-      dispatch(courseActions.doubleCourse({ course, sourceCourseId }));
+    onCopyCourse: (course) => {
+      dispatch(courseActions.copyCourse({ course, sourceCourseId }));
     },
     onClose: () => dispatch(modalActions.hideModal())
   };
@@ -32,4 +32,4 @@ export default connect(
   currentState,
   null,
   mergeProps
-)(DoubleCourseModal);
+)(CopyCourseModal);

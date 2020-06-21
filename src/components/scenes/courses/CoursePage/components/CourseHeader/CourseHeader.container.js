@@ -17,8 +17,8 @@ const currentActions = (dispatch, { course: { courseId } }) => ({
       description: newValue
     }
   })),
-  onDoubleCourse: () => {
-    dispatch(modalActions.loadModal(modalTypes.DOUBLE_COURSE_MODAL, { courseId }));
+  onCopyCourse: () => {
+    dispatch(modalActions.loadModal(modalTypes.COPY_COURSE_MODAL, { courseId }));
   },
   onDeleteCourse: () => {
     dispatch(modalActions.loadModal(modalTypes.CONFIRM_ACTION_MODAL, {

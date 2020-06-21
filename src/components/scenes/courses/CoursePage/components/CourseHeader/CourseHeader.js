@@ -21,7 +21,7 @@ class CourseHeader extends Component {
     const {
       course,
       onDeleteCourse,
-      onDoubleCourse,
+      onCopyCourse,
       onPublishCourse,
       canDelete,
       canEdit,
@@ -33,7 +33,7 @@ class CourseHeader extends Component {
         <Grid container>
           <div className={styles.buttonsContainer}>
             { isProfessor && (
-              <Button id="double-course" onClick={onDoubleCourse} className={styles.doubleButton} variant="outlined">
+              <Button id="copy-course" onClick={onCopyCourse} className={styles.copyButton} variant="outlined">
                 Duplicar curso
               </Button>
             )}

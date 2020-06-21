@@ -5,4 +5,4 @@ export const REGISTRATION_MODAL = 'RegistrationModal';
 export const CONFIRM_ACTION_MODAL = 'ConfirmActionModal';
 export const EDIT_EXERCISE_MODAL = 'EditExerciseModal';
 export const SESSION_EXPIRED_MODAL = 'SessionExpiredModal';
-export const DOUBLE_COURSE_MODAL = 'DoubleCourseModal';
+export const COPY_COURSE_MODAL = 'CopyCourseModal';

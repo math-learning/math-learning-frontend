@@ -110,12 +110,12 @@ const createCourse = async ({
   return requestUtils.processResponse(response);
 };
 
-const doubleCourse = async ({
+const copyCourse = async ({
   context,
   course,
   sourceCourseId
 }) => {
-  const profileUrl = `${url}/courses/${sourceCourseId}/double`;
+  const profileUrl = `${url}/courses/${sourceCourseId}/copy`;
 
   const response = await fetch(profileUrl, {
     method: 'post',
@@ -175,7 +175,7 @@ const getCourseUsersActivity = async ({
 
 export default {
   createCourse,
-  doubleCourse,
+  copyCourse,
   getCourses,
   getCourse,
   getCourseUsersActivity,

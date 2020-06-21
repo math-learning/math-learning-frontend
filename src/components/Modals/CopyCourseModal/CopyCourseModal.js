@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Button, TextField, Typography } from '@material-ui/core';
 import Modal from '../Modal';
-import styles from './DoubleCourseModal.module.sass';
+import styles from './CopyCourseModal.module.sass';
 
-class DoubleCourseModal extends Component {
+class CopyCourseModal extends Component {
   constructor(props) {
     super(props);
 
@@ -15,15 +15,15 @@ class DoubleCourseModal extends Component {
     };
   }
 
-  onDoubleCourse = () => {
-    const { onDoubleCourse } = this.props;
+  onCopyCourse = () => {
+    const { onCopyCourse } = this.props;
     const {
       name,
       password,
       description
     } = this.state;
 
-    onDoubleCourse({
+    onCopyCourse({
       name,
       password,
       description
@@ -58,7 +58,7 @@ class DoubleCourseModal extends Component {
 
     return (
       <Modal className={styles.modal} onClose={onClose}>
-        <Typography id="double-label" color="textPrimary" variant="h4" component="h1">
+        <Typography id="copy-label" color="textPrimary" variant="h4" component="h1">
           Duplicación del curso actual
         </Typography>
 
@@ -98,8 +98,8 @@ class DoubleCourseModal extends Component {
         <Button
           color="primary"
           variant="contained"
-          id="double-button"
-          onClick={this.onDoubleCourse}
+          id="copy-button"
+          onClick={this.onCopyCourse}
           size="large"
           disabled={createDisabled || isActionLoading}
           className={styles.button}
@@ -111,4 +111,4 @@ class DoubleCourseModal extends Component {
   }
 }
 
-export default DoubleCourseModal;
+export default CopyCourseModal;
