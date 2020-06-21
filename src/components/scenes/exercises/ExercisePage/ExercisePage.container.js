@@ -4,6 +4,9 @@ import { push } from 'connected-react-router';
 import configs from '../../../../configs/variables';
 import * as actions from '../../../../state/exercises/actions';
 import * as selectors from '../../../../state/exercises/selectors';
+import * as courses from '../../../../state/courses';
+import * as common from '../../../../state/common';
+import * as userUtils from '../../../../utils/userUtils';
 import ExercisePage from './ExercisePage';
 
 const currentState = (state, { match, location }) => {
@@ -18,6 +21,9 @@ const currentState = (state, { match, location }) => {
   const allResolutions = selectors.getAllResolutions(state, {
     courseId, guideId, exerciseId, userId
   });
+  const profile = common.selectors.profile(state);
+  const course = courses.selectors.getCourseDetail(state, courseId);
+  const isProfessor = userUtils.isProfessorOfCourse({ profile, course });
 
   return {
     courseId,
@@ -25,6 +31,7 @@ const currentState = (state, { match, location }) => {
     exerciseId,
     userId,
     exercise,
+    isProfessor,
     allResolutions,
     isLoadingExercise
   };

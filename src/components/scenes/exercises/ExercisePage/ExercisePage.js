@@ -25,7 +25,9 @@ export default class ExercisePage extends Component {
   }
 
   render = () => {
-    const { isLoadingExercise, exercise, allResolutions, onReturnToCourse } = this.props;
+    const {
+      isLoadingExercise, exercise, userId, isProfessor, allResolutions, onReturnToCourse
+    } = this.props;
 
     if (isLoadingExercise) {
       return (
@@ -38,6 +40,8 @@ export default class ExercisePage extends Component {
       return (
         <Derivative
           exercise={exercise}
+          userId={userId}
+          isProfessor={isProfessor}
           allResolutions={allResolutions}
           onReturnToCourse={onReturnToCourse}
         />
@@ -47,6 +51,8 @@ export default class ExercisePage extends Component {
       return (
         <Integrate
           exercise={exercise}
+          userId={userId}
+          isProfessor={isProfessor}
           allResolutions={allResolutions}
           onReturnToCourse={onReturnToCourse}
         />

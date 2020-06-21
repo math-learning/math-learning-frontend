@@ -24,7 +24,7 @@ const currentState = (state, { exercise }) => {
   };
 };
 
-const currentActions = (dispatch, { exercise }) => ({
+const currentActions = (dispatch, { exercise, userId }) => ({
   onValidateStep: (exerciseProps) => {
     dispatch(actions.resolveExercise({
       ...exercise,
@@ -59,7 +59,16 @@ const currentActions = (dispatch, { exercise }) => ({
       actionProps: exercise,
       actionFunction: actions.deliverExercise
     }));
-  }
+  },
+  onEditStudentExercise: ({ exerciseProps }) => {
+    dispatch(actions.updateStudentExercise({
+      courseId: exercise.courseId,
+      guideId: exercise.guideId,
+      exerciseId: exercise.exerciseId,
+      userId,
+      ...exerciseProps
+    }));
+  },
 });
 
 export default withRouter(connect(

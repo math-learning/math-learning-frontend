@@ -167,6 +167,64 @@ export default function reducers(state = initialState, action) {
       };
     }
 
+    case types.UPDATE_STUDENT_EXERCISE_SUCCESS: {
+      const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
+
+      // first updating the exercise detail
+      const detailObj = state.data.students.detail[courseGuideId] || {};
+      const userDetailExercises = detailObj[action.userId];
+      const userDetailExercise = userDetailExercises[action.exerciseId];
+      const newDetailExercise = {
+        ...userDetailExercise,
+        exercise: {
+          ...userDetailExercise.exercise,
+          ...action.exerciseProps
+        },
+        isLoading: false
+      };
+      const newDetailObject = {
+        ...state.data.students.detail,
+        [courseGuideId]: {
+          ...state.data.students.detail[courseGuideId],
+          [action.userId]: {
+            ...state.data.students.detail[courseGuideId][action.userId],
+            [action.exerciseId]: newDetailExercise
+          }
+        }
+      };
+
+      // second updating the exercise in the list (only if exists)
+      const newListObj = state.data.students.list;
+
+      const courseList = state.data.students.list[courseGuideId] || {};
+      if (courseList[action.userId]) {
+        const userListExercises = courseList[action.userId] || [];
+        const newUserListExercises = userListExercises.map((exercise) => {
+          if (exercise.exerciseId === action.exerciseId) {
+            return { ...exercise, ...action.exerciseProps };
+          }
+          return exercise;
+        });
+
+        newListObj[courseGuideId] = {
+          ...state.data.students.list[courseGuideId],
+          [action.userId]: newUserListExercises
+        };
+      }
+
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          students: {
+            ...state.data.students,
+            list: newListObj,
+            detail: newDetailObject
+          }
+        }
+      };
+    }
+
     case types.GET_ALL_RESOLUTIONS_SUCCESS: {
       const courseGuideId = idUtils.courseGuideId(_.pick(action, 'courseId', 'guideId'));
       const currentDetailExercises = state.data.detail[courseGuideId] || {};
