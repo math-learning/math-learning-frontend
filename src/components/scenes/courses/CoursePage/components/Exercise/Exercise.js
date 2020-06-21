@@ -126,15 +126,20 @@ export default class Exercise extends Component {
           </Grid>
 
           <Grid item xs={2}>
-            <Typography className={styles.type}>
+            <Typography className={classNames(styles.type, styles.exerciseInfo)}>
               Tipo: {typeMap[exercise.type].text}
             </Typography>
-            <Typography className={styles.type}>
+            <Typography className={classNames(styles.type, styles.exerciseInfo)}>
               Estado: {stateMap[exercise.state].text}
             </Typography>
-            <Typography className={difficultyMap[exercise.difficulty].className}>
+            <Typography className={classNames(difficultyMap[exercise.difficulty].className, styles.exerciseInfo)}>
               Dificultad: {difficultyMap[exercise.difficulty].text}
             </Typography>
+            {exercise.calification && (
+              <Typography className={styles.qualification}>
+                Calificación: {exercise.calification}
+              </Typography>
+            )}
           </Grid>
 
           <Grid item xs={1}>
