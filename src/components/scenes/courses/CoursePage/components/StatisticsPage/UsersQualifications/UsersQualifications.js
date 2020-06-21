@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import '../../../../../../../../node_modules/react-vis/dist/style.css';
 import {
-  CircularProgress, Table, TableBody, TableCell, TableHead, TableRow
+  CircularProgress, Table, TableBody, TableCell, TableHead, TableRow, Typography
 } from '@material-ui/core';
+import InfoIcon from '@material-ui/icons/Info';
+import BootstrapTooltip from '../../../../../../../bootstrap/Tooltip';
 import styles from '../StatisticsCommon.module.sass';
 import particularStyles from './UsersQualifications.module.sass';
 
@@ -50,6 +53,21 @@ export default class UsersQualifications extends Component {
 
     return (
       <div className={particularStyles.container}>
+        <div className={classNames(particularStyles.title, styles.title)}>
+          <Typography align="center" variant="h5">
+            Ranking de calificaciones
+          </Typography>
+
+          {!statistics.length && (
+            <BootstrapTooltip
+              title="Para que hayan alumnos en el ranking, primero deben ser calificados"
+              placement="top-start"
+            >
+              <InfoIcon id="info-icon" fontSize="small" className={particularStyles.icon} />
+            </BootstrapTooltip>
+          )}
+        </div>
+
         <Table aria-label="user-qualifications">
           <TableHead>
             {this.getColumns()}

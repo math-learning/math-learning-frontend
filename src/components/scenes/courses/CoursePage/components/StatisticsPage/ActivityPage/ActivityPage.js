@@ -121,9 +121,6 @@ export default class ActivityPage extends Component {
           />
         </div>
 
-        <Typography align="center" variant="h5" className={styles.title}>
-          Ranking de calificaciones
-        </Typography>
         <UsersQualifications course={course} />
       </div>
     );
