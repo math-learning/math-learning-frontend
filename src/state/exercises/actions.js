@@ -209,6 +209,17 @@ export function createExerciseSuccess({ courseId, guideId, exercise }) {
   };
 }
 
+export function updateStudentExerciseSuccess({ courseId, guideId, exerciseId, userId, exerciseProps }) {
+  return {
+    type: types.UPDATE_STUDENT_EXERCISE_SUCCESS,
+    courseId,
+    guideId,
+    exerciseId,
+    userId,
+    exerciseProps
+  };
+}
+
 export function evaluateExerciseRequest({ courseId, guideId }) {
   return {
     type: types.EVALUATE_EXERCISE_REQUEST,
@@ -526,5 +537,21 @@ export function updateExerciseAsProfessor({
       }
       logger.onError('Error while trying to delete exercise');
     }
+  };
+}
+
+export function updateStudentExercise({
+  courseId, guideId, exerciseId, userId, calification
+}) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+    const exerciseProps = { calification };
+
+    dispatch(updateStudentExerciseSuccess({ courseId, guideId, exerciseId, userId, exerciseProps }));
+
+    await exercisesClient.updateUserExercise({
+      context, courseId, guideId, exerciseId, userId, calification
+    });
   };
 }

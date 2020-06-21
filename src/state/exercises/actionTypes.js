@@ -18,6 +18,7 @@ export const GET_ALL_RESOLUTIONS_SUCCESS = 'Get other resolutions success';
 export const GET_USER_EXERCISE_SUCCESS = 'Get user exercise success';
 export const UPDATE_EXERCISE = 'Update exercise';
 export const UPDATE_PIPELINE_STATUS = 'Update pipeline status';
+export const UPDATE_STUDENT_EXERCISE_SUCCESS = 'Update student exercise success';
 export const REMOVE_EXERCISE_STEP = 'Remove exercise step';
 export const REMOVE_EXERCISE_DETAIL = 'Remove exercise detail';
 export const RESET_EXERCISE_ERROR = 'Reset exercise error';

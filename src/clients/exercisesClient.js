@@ -146,15 +146,19 @@ const addUserToCourse = async ({
   return requestUtils.processResponse(response);
 };
 
-const updateExercise = async ({
+const updateUserExercise = async ({
   context,
   courseId,
   guideId,
+  userId,
   exerciseId,
   calification
 }) => {
-  const profileUrl = `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`;
-  const response = await fetch(profileUrl, {
+  const exercisesUrl = userId
+    ? `${url}/courses/${courseId}/guides/${guideId}/user/${userId}/exercises/${exerciseId}`
+    : `${url}/courses/${courseId}/guides/${guideId}/user/exercises/${exerciseId}`;
+
+  const response = await fetch(exercisesUrl, {
     method: 'put',
     body: JSON.stringify(_.omitBy({ calification }, _.isNil)),
     headers: {
@@ -281,7 +285,7 @@ export default {
   getExerciseErrors,
   getExerciseStepCount,
   getAllResolutions,
-  updateExercise,
+  updateUserExercise,
   removeExerciseStep,
   resolveExercise,
   deleteExercise,

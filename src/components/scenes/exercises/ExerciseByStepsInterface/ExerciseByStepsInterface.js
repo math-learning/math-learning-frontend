@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, CircularProgress, Typography } from '@material-ui/core';
+import { Button, CircularProgress, MenuItem, Select, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
@@ -7,6 +7,7 @@ import classNames from 'classnames';
 import PropTypes from 'prop-types';
 
 import HelpToolTip from '../HelpTooltip';
+import BootstrapDropdownInput from '../../../../bootstrap/dropdownInput';
 import WrongIcon from '../../../common/components/Icons/WrongIcon';
 import MathText from '../../../common/math/MathText';
 import VariableTextBox from '../../../common/math/VariableTextBox';
@@ -21,7 +22,10 @@ class ExerciseByStepsInterface extends Component {
   constructor(props) {
     super(props);
 
-    this.state = { latexModeOn: false }; // eslint-disable-line react/no-unused-state
+    this.state = {
+      latexModeOn: false, // eslint-disable-line react/no-unused-state
+      currentQualification: 10
+    };
   }
 
   getCurrentStep = () => {
@@ -32,10 +36,25 @@ class ExerciseByStepsInterface extends Component {
     // to be implemented
   }
 
+  onChangeQualification = (event) => {
+    const currentQualification = event.target.value;
+
+    this.setState({ currentQualification });
+  }
+
   handleOnChangeMode = (mode) => {
     const { latexModeOn } = mode;
 
     this.setState({ latexModeOn }); // eslint-disable-line react/no-unused-state
+  }
+
+  handleQualificate = () => {
+    const { currentQualification } = this.state;
+    const { onEditStudentExercise } = this.props;
+
+    onEditStudentExercise({
+      exerciseProps: { calification: currentQualification }
+    });
   }
 
   handleDeliverExercise = () => {
@@ -60,7 +79,7 @@ class ExerciseByStepsInterface extends Component {
         return (
           <div key={`right-step-${index}`} className={styles.rightStep}>
             <span className={styles.item}> = </span>
-            <div className={styles.pepe}>
+            <div className={styles.stepContent}>
               <MathText
                 id={`step-${index}`}
                 content={step.expression}
@@ -124,10 +143,18 @@ class ExerciseByStepsInterface extends Component {
 
   render() {
     const {
-      exercise, isResolved, isDelivered, onReturnToCourse, allResolutions
+      exercise,
+      userId,
+      isResolved,
+      isDelivered,
+      isProfessor,
+      onReturnToCourse,
+      allResolutions
     } = this.props;
+    const { currentQualification } = this.state;
 
     const shouldStopEditing = isResolved || isDelivered;
+    const canQualificate = isProfessor && isDelivered && !exercise.calification && userId;
 
     return (
       <div className={styles.exercise}>
@@ -198,6 +225,48 @@ class ExerciseByStepsInterface extends Component {
               </div>
             )
             : null}
+          {canQualificate && (
+            <div className={styles.qualification}>
+              <Typography
+                id="exercise-qualification"
+                className={styles.qualifText}
+                variant="h5"
+              >
+                Calificación:
+              </Typography>
+              <Select
+                id="qualification-posibilities"
+                className={styles.qualifSelector}
+                value={currentQualification}
+                onChange={this.onChangeQualification}
+                input={<BootstrapDropdownInput />}
+              >
+                {[10, 9, 8, 7, 6, 5, 4, 3, 2, 1].map((q) => (
+                  <MenuItem key={q} value={q}>{q}</MenuItem>
+                ))}
+              </Select>
+              <Button
+                id="qualificate-exercise"
+                className={styles.qualifButton}
+                onClick={this.handleQualificate}
+                variant="contained"
+                color="primary"
+              >
+                Calificar entrega
+              </Button>
+            </div>
+          )}
+          {exercise.calification && (
+            <div className={styles.qualification}>
+              <Typography
+                id="exercise-qualification"
+                className={styles.qualifText}
+                variant="h5"
+              >
+                Calificación: {exercise.calification}
+              </Typography>
+            </div>
+          )}
         </div>
       </div>
     );

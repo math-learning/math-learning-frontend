@@ -6,6 +6,9 @@ export default withStyles((theme) => ({
     'label + &': {
       marginTop: theme.spacing(3),
     },
+    '& .MuiMenu-paper': {
+      maxHeight: '300px'
+    }
   },
   input: {
     borderRadius: 4,
