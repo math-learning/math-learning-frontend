@@ -12,7 +12,7 @@ const currentState = (state, { course }) => {
 };
 
 const currentActions = (dispatch) => ({
-  getCourseUsersActivity: (courseId) => dispatch(statisticActions.getCourseUsersActivity({ courseId })),
+  getCourseUsersActivity: (courseId) => dispatch(statisticActions.getCourseUsersActivity({ courseId }))
 });
 
 export default connect(

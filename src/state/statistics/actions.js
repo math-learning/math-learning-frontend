@@ -37,6 +37,14 @@ export function getCourseExerciseStepCountSuccess({ courseId, statistics }) {
   };
 }
 
+export function getUsersQualificationsSuccess({ courseId, statistics }) {
+  return {
+    type: types.GET_USERS_QUALIFICATIONS_SUCCESS,
+    courseId,
+    statistics
+  };
+}
+
 export function getCourseExerciseErrors({ courseId }) {
   return async (dispatch, getState) => {
     const state = getState();
@@ -54,5 +62,15 @@ export function getCourseExerciseStepCount({ courseId }) {
     const statistics = await exercisesClient.getExerciseStepCount({ context, courseId });
 
     dispatch(getCourseExerciseStepCountSuccess({ courseId, statistics }));
+  };
+}
+
+export function getUsersQualifications({ courseId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+    const statistics = await exercisesClient.getUsersQualifications({ context, courseId });
+
+    dispatch(getUsersQualificationsSuccess({ courseId, statistics }));
   };
 }
