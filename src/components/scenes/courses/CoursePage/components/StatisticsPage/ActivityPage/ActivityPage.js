@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import classNames from 'classnames';
 import '../../../../../../../../node_modules/react-vis/dist/style.css';
 import CalendarHeatmap from 'react-calendar-heatmap';
-import { CircularProgress } from '@material-ui/core';
+import { CircularProgress, Typography } from '@material-ui/core';
+import UsersQualifications from '../UsersQualifications';
 import styles from '../StatisticsCommon.module.sass';
-import particularStyles from './UsersCalendarPage.module.sass';
+import particularStyles from './ActivityPage.module.sass';
 
 const previousMonthsToAnalyze = 8;
 const daysOfWeek = ['Lu', 'Ma', 'Mi', 'Ju', 'Vi', 'Sa', 'Do'];
 const monthsOfYear = ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ag', 'Sept', 'Oct', 'Nov', 'Dic'];
 
-export default class UsersCalendarPage extends Component {
+export default class ActivityPage extends Component {
   componentDidMount() {
     const { statistics, course, getCourseUsersActivity } = this.props;
 
@@ -82,7 +83,7 @@ export default class UsersCalendarPage extends Component {
   }
 
   render() {
-    const { statistics } = this.props;
+    const { statistics, course } = this.props;
 
     if (!statistics) {
       return (
@@ -104,16 +105,23 @@ export default class UsersCalendarPage extends Component {
 
     return (
       <div className={classNames(styles.container, particularStyles.container)}>
-        <CalendarHeatmap
-          startDate={startDate}
-          endDate={endDate}
-          showWeekdayLabels
-          values={this.getCurrentData(statistics)}
-          classForValue={this.calculateDensity}
-          titleForValue={(value) => value && `${value.date}: ${value.count}`}
-          weekdayLabels={daysOfWeek}
-          monthLabels={monthsOfYear}
-        />
+        <Typography align="center" variant="h5" className={styles.title}>
+          Actividad de usuarios
+        </Typography>
+        <div className={particularStyles.calendar}>
+          <CalendarHeatmap
+            startDate={startDate}
+            endDate={endDate}
+            showWeekdayLabels
+            values={this.getCurrentData(statistics)}
+            classForValue={this.calculateDensity}
+            titleForValue={(value) => value && `${value.date}: ${value.count}`}
+            weekdayLabels={daysOfWeek}
+            monthLabels={monthsOfYear}
+          />
+        </div>
+
+        <UsersQualifications course={course} />
       </div>
     );
   }

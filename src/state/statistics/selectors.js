@@ -15,3 +15,9 @@ export const getCourseExerciseStepCount = (state, { courseId }) => {
 
   return courseStatistics && courseStatistics.exerciseStepCount;
 };
+
+export const getUsersQualifications = (state, { courseId }) => {
+  const courseStatistics = state.statistics.data.courses[courseId];
+
+  return courseStatistics && courseStatistics.usersQualifications;
+};

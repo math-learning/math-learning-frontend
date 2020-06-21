@@ -57,6 +57,22 @@ export default function reducers(state = initialState, action) {
       };
     }
 
+    case types.GET_USERS_QUALIFICATIONS_SUCCESS: {
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          courses: {
+            ...state.data.courses,
+            [action.courseId]: {
+              ...state.data.courses[action.courseId],
+              usersQualifications: action.statistics
+            }
+          }
+        }
+      };
+    }
+
     case commonTypes.LOGOUT_SUCCESS: {
       // cleaning the state
       return initialState;

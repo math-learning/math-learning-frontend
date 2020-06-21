@@ -2,7 +2,7 @@ import { connect } from 'react-redux';
 import * as statisticActions from '../../../../../../../state/statistics/actions';
 import * as statisticSelectors from '../../../../../../../state/statistics/selectors';
 import * as courseSelectors from '../../../../../../../state/courses/selectors';
-import UsersCalendarPage from './UsersCalendarPage';
+import ActivityPage from './ActivityPage';
 
 const currentState = (state, { course }) => {
   const statistics = statisticSelectors.getCourseUsersActivity(state, { courseId: course.courseId });
@@ -21,4 +21,4 @@ const currentActions = (dispatch) => ({
 export default connect(
   currentState,
   currentActions
-)(UsersCalendarPage);
+)(ActivityPage);

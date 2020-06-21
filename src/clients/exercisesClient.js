@@ -249,6 +249,18 @@ const getExerciseStepCount = async ({ context, courseId }) => {
   return requestUtils.processResponse(response);
 };
 
+const getUsersQualifications = async ({ context, courseId }) => {
+  const exerciseUrl = `${url}/courses/${courseId}/qualifications/statistics`;
+  const response = await fetch(exerciseUrl, {
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 const checkPipelineStatus = async ({ context, courseId, guideId, exerciseId }) => {
   const exerciseUrl = `${url}/courses/${courseId}/guides/${guideId}/exercises/${exerciseId}/status`;
   const response = await fetch(exerciseUrl, {
@@ -285,6 +297,7 @@ export default {
   getExerciseErrors,
   getExerciseStepCount,
   getAllResolutions,
+  getUsersQualifications,
   updateUserExercise,
   removeExerciseStep,
   resolveExercise,
