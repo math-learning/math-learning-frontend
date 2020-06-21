@@ -550,7 +550,7 @@ export function updateStudentExercise({
 
     dispatch(updateStudentExerciseSuccess({ courseId, guideId, exerciseId, userId, exerciseProps }));
 
-    await exercisesClient.updateExercise({
+    await exercisesClient.updateUserExercise({
       context, courseId, guideId, exerciseId, userId, calification
     });
   };

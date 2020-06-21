@@ -146,7 +146,7 @@ const addUserToCourse = async ({
   return requestUtils.processResponse(response);
 };
 
-const updateExercise = async ({
+const updateUserExercise = async ({
   context,
   courseId,
   guideId,
@@ -285,7 +285,7 @@ export default {
   getExerciseErrors,
   getExerciseStepCount,
   getAllResolutions,
-  updateExercise,
+  updateUserExercise,
   removeExerciseStep,
   resolveExercise,
   deleteExercise,

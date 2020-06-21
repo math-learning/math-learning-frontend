@@ -530,6 +530,40 @@ describe('exercises actions', () => {
     });
   });
 
+  describe('updateStudentExercise() function', () => {
+    let calification;
+    let userId;
+
+    describe('when the exercise is updated successfully', () => {
+      beforeEach(() => {
+        exerciseId = 'exercise-id';
+        calification = 1;
+        userId;
+        expectedActions = [
+          {
+            type: types.UPDATE_STUDENT_EXERCISE_SUCCESS,
+            guideId,
+            courseId,
+            exerciseId,
+            userId,
+            exerciseProps: { calification }
+          }
+        ];
+        sandbox
+          .stub(exercisesClient, 'updateUserExercise')
+          .callsFake(() => {});
+
+        return store.dispatch(actions.updateStudentExercise({
+          guideId, courseId, exerciseId, userId, calification
+        }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
+
   describe('checkPipelineStatus() function', () => {
     let mock;
 

@@ -878,6 +878,132 @@ describe('exercises reducer', () => {
     });
   });
 
+  describe('should handle UPDATE_STUDENT_EXERCISE_SUCCESS', () => {
+    let userId;
+    let exerciseId;
+    let calification;
+
+    describe('when the list is not empty', () => {
+      beforeEach(() => {
+        userId = 'user';
+        calification = 1;
+        exercise = { exerciseId, name: 'exercise', calification: null };
+        initialState = {
+          data: {
+            students: {
+              list: {
+                'c-id/g-id': {
+                  [userId]: [exercise]
+                }
+              },
+              detail: {
+                'c-id/g-id': {
+                  [userId]: {
+                    [exerciseId]: {
+                      exercise,
+                      isLoading: false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+
+        finalState = reducer(initialState, {
+          type: types.UPDATE_STUDENT_EXERCISE_SUCCESS,
+          courseId: 'c-id',
+          guideId: 'g-id',
+          exerciseId,
+          userId,
+          exerciseProps: { calification }
+        });
+      });
+
+      it('should make the expected state', () => {
+        expect(finalState).deep.equal(
+          {
+            data: {
+              students: {
+                list: {
+                  'c-id/g-id': {
+                    [userId]: [{ ...exercise, calification }]
+                  }
+                },
+                detail: {
+                  'c-id/g-id': {
+                    [userId]: {
+                      [exerciseId]: {
+                        exercise: { ...exercise, calification },
+                        isLoading: false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        );
+      });
+    });
+
+    describe('when the list is empty', () => {
+      beforeEach(() => {
+        userId = 'user';
+        calification = 1;
+        exercise = { exerciseId, name: 'exercise', calification: null };
+        initialState = {
+          data: {
+            students: {
+              list: {},
+              detail: {
+                'c-id/g-id': {
+                  [userId]: {
+                    [exerciseId]: {
+                      exercise,
+                      isLoading: false
+                    }
+                  }
+                }
+              }
+            }
+          }
+        };
+
+        finalState = reducer(initialState, {
+          type: types.UPDATE_STUDENT_EXERCISE_SUCCESS,
+          courseId: 'c-id',
+          guideId: 'g-id',
+          exerciseId,
+          userId,
+          exerciseProps: { calification }
+        });
+      });
+
+      it('should make the expected state', () => {
+        expect(finalState).deep.equal(
+          {
+            data: {
+              students: {
+                list: {},
+                detail: {
+                  'c-id/g-id': {
+                    [userId]: {
+                      [exerciseId]: {
+                        exercise: { ...exercise, calification },
+                        isLoading: false
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        );
+      });
+    });
+  });
+
   describe('should handle UPDATE_PIPELINE_STATUS', () => {
     let newExercise;
 
