@@ -380,4 +380,122 @@ describe('courses actions', () => {
       });
     });
   });
+
+  describe('copyCourse() function', () => {
+    let course;
+    let newCourse;
+    let targetCourseId;
+    let sourceCourseId;
+    let password;
+    let name;
+    let description;
+
+    describe('when the user is added successfully', () => {
+      beforeEach(() => {
+        name = 'some name';
+        description = 'some desc';
+        password = 'secret';
+        sourceCourseId = 'course-id';
+        targetCourseId = 'new-course-id';
+        course = { name, description, password };
+        newCourse = { ...course, courseId: targetCourseId };
+        expectedActions = [
+          { type: modalTypes.SHOW_SPINNER },
+          {
+            type: types.GET_COURSE_DETAIL_SUCCESS,
+            course: newCourse
+          },
+          { type: modalTypes.HIDE_MODAL },
+          {
+            payload: {
+              args: [
+                `/courses/${targetCourseId}`
+              ],
+              method: 'push'
+            },
+            type: '@@router/CALL_HISTORY_METHOD'
+          }
+        ];
+        sandbox
+          .stub(coursesClient, 'copyCourse')
+          .callsFake(() => newCourse);
+        sandbox
+          .stub(exercisesClient, 'copyCourse')
+          .callsFake(() => {});
+
+        return store.dispatch(actions.copyCourse({ course, sourceCourseId }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+
+    describe('when fails with 409', () => {
+      beforeEach(() => {
+        name = 'some name';
+        description = 'some desc';
+        password = 'secret';
+        sourceCourseId = 'course-id';
+        targetCourseId = 'new-course-id';
+        course = { name, description, password };
+        newCourse = { ...course, courseId: targetCourseId };
+        expectedActions = [
+          { type: modalTypes.SHOW_SPINNER },
+          {
+            type: modalTypes.SHOW_ERROR,
+            error: 'El curso que intenta crear ya existe'
+          }
+        ];
+        sandbox
+          .stub(coursesClient, 'copyCourse')
+          .callsFake(() => {
+            throw createError(409, { message: 'repeated course' });
+          });
+        sandbox
+          .stub(exercisesClient, 'copyCourse')
+          .callsFake(() => {});
+
+        return store.dispatch(actions.copyCourse({ course, sourceCourseId }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+
+    describe('when another error exists', () => {
+      beforeEach(() => {
+        name = 'some name';
+        description = 'some desc';
+        password = 'secret';
+        sourceCourseId = 'course-id';
+        targetCourseId = 'new-course-id';
+        course = { name, description, password };
+        newCourse = { ...course, courseId: targetCourseId };
+        expectedActions = [
+          { type: modalTypes.SHOW_SPINNER },
+          { type: modalTypes.HIDE_SPINNER },
+          {
+            type: modalTypes.SHOW_ERROR,
+            error: 'some error'
+          }
+        ];
+        sandbox
+          .stub(coursesClient, 'copyCourse')
+          .callsFake(() => {
+            throw createError(404, { message: 'some error' });
+          });
+        sandbox
+          .stub(exercisesClient, 'copyCourse')
+          .callsFake(() => {});
+
+        return store.dispatch(actions.copyCourse({ course, sourceCourseId }));
+      });
+
+      it('executes the expected actions', () => {
+        expect(store.getActions()).to.be.deep.equal(expectedActions);
+      });
+    });
+  });
 });

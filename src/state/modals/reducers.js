@@ -4,7 +4,8 @@ const initialState = {
   data: {
     modalType: null,
     modalError: null,
-    modalParams: null
+    modalParams: null,
+    isActionLoading: false
   }
 };
 
@@ -16,7 +17,8 @@ export default function reducers(state = initialState, action) {
         data: {
           ...state.data,
           modalType: action.modalType,
-          modalParams: action.modalParams
+          modalParams: action.modalParams,
+          isActionLoading: false
         }
       };
 
@@ -26,7 +28,8 @@ export default function reducers(state = initialState, action) {
         data: {
           ...state.data,
           modalType: null,
-          modalParams: null
+          modalParams: null,
+          isActionLoading: false
         }
       };
 
@@ -35,7 +38,8 @@ export default function reducers(state = initialState, action) {
         ...state,
         data: {
           ...state.data,
-          modalError: action.error
+          modalError: action.error,
+          isActionLoading: false
         }
       };
 
@@ -45,6 +49,24 @@ export default function reducers(state = initialState, action) {
         data: {
           ...state.data,
           modalError: null
+        }
+      };
+
+    case types.SHOW_SPINNER:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isActionLoading: true
+        }
+      };
+
+    case types.HIDE_SPINNER:
+      return {
+        ...state,
+        data: {
+          ...state.data,
+          isActionLoading: false
         }
       };
 

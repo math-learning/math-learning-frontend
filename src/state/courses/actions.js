@@ -160,6 +160,37 @@ export function createCourse({ course }) {
   };
 }
 
+export function copyCourse({ course, sourceCourseId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    try {
+      dispatch(modalActions.showSpinner());
+
+      // adding copy to course and exercises
+      const createdCourse = await coursesClient.copyCourse({ context, course, sourceCourseId });
+      await exercisesClient.copyCourse({ context, course: createdCourse, sourceCourseId });
+      // TODO: something to improve it could be do it directly from courses service
+
+      dispatch(getCourseSuccess({ course: createdCourse }));
+      dispatch(modalActions.hideModal());
+
+      await dispatch(push(configs.pathGenerators.course(createdCourse.courseId)));
+    } catch (err) {
+      if (err.status === 409) {
+        dispatch(modalActions.showError(messages.error.courseAlreadyExist));
+        return;
+      }
+      if (err.status === 401) {
+        throw err;
+      }
+      dispatch(modalActions.hideSpinner());
+      dispatch(modalActions.showError(err.message));
+    }
+  };
+}
+
 export function publishCourse({ courseId }) {
   return async (dispatch, getState) => {
     const state = getState();

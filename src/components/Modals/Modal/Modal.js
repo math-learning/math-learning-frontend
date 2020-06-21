@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Container } from '@material-ui/core';
+import { Container, CircularProgress } from '@material-ui/core';
 
 import { ThemeProvider } from '@material-ui/styles';
 import modalTheme from '../../../themes/modalTheme';
@@ -53,7 +53,7 @@ class Modal extends Component {
   }
 
   render() {
-    const { children, className, modalError } = this.props;
+    const { children, className, isActionLoading, modalError } = this.props;
 
     return (
       <ThemeProvider theme={modalTheme}>
@@ -62,6 +62,11 @@ class Modal extends Component {
           <div className={styles.content} onClick={this.onOverlayClick}>
             <div className={className} onClick={this.onDialogClick}>
               {modalError ? (<span className={styles.error}>{modalError}</span>) : ''}
+              {isActionLoading && (
+                <div className={styles.loading}>
+                  <CircularProgress disableShrink />
+                </div>
+              )}
               {children}
             </div>
           </div>

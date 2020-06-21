@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { TextField, Typography, Button } from '@material-ui/core';
-
+import { Button, TextField, Typography } from '@material-ui/core';
 import Modal from '../Modal';
-import styles from './CreateCourseModal.module.sass';
+import styles from './CopyCourseModal.module.sass';
 
-class CreateCourseModal extends Component {
+class CopyCourseModal extends Component {
   constructor(props) {
     super(props);
 
@@ -14,19 +13,17 @@ class CreateCourseModal extends Component {
       description: null,
       createDisabled: true
     };
-
-    this.onCreateCourse = this.onCreateCourse.bind(this);
   }
 
-  onCreateCourse = () => {
-    const { onCreateCourse } = this.props;
+  onCopyCourse = () => {
+    const { onCopyCourse } = this.props;
     const {
       name,
       password,
       description
     } = this.state;
 
-    onCreateCourse({
+    onCopyCourse({
       name,
       password,
       description
@@ -56,18 +53,18 @@ class CreateCourseModal extends Component {
   };
 
   render() {
-    const { onClose } = this.props;
+    const { onClose, isActionLoading } = this.props;
     const { createDisabled } = this.state;
 
     return (
       <Modal className={styles.modal} onClose={onClose}>
-        <Typography id="creation-label" color="textPrimary" variant="h4" component="h1">
-          Creación de curso
+        <Typography id="copy-label" color="textPrimary" variant="h4" component="h1">
+          Duplicación del curso actual
         </Typography>
 
         <TextField
           id="course-name"
-          label="Nombre"
+          label="Nombre del nuevo curso"
           margin="normal"
           onChange={this.onChangeName}
           className={styles.name}
@@ -78,7 +75,7 @@ class CreateCourseModal extends Component {
 
         <TextField
           id="course-description"
-          label="Descripción"
+          label="Descripción del nuevo curso"
           onChange={this.onChangeDescription}
           className={styles.textField}
           fullWidth
@@ -90,7 +87,7 @@ class CreateCourseModal extends Component {
 
         <TextField
           id="course-password"
-          label="Contraseña (opcional)"
+          label="Contraseña del nuevo curso (opcional)"
           onChange={this.onChangePassword}
           className={styles.textField}
           fullWidth
@@ -101,17 +98,17 @@ class CreateCourseModal extends Component {
         <Button
           color="primary"
           variant="contained"
-          id="create-button"
-          onClick={this.onCreateCourse}
+          id="copy-button"
+          onClick={this.onCopyCourse}
           size="large"
-          disabled={createDisabled}
+          disabled={createDisabled || isActionLoading}
           className={styles.button}
         >
-          Crear curso
+          Duplicar curso
         </Button>
       </Modal>
     );
   }
 }
 
-export default CreateCourseModal;
+export default CopyCourseModal;

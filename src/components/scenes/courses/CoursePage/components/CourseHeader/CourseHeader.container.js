@@ -17,6 +17,9 @@ const currentActions = (dispatch, { course: { courseId } }) => ({
       description: newValue
     }
   })),
+  onCopyCourse: () => {
+    dispatch(modalActions.loadModal(modalTypes.COPY_COURSE_MODAL, { courseId }));
+  },
   onDeleteCourse: () => {
     dispatch(modalActions.loadModal(modalTypes.CONFIRM_ACTION_MODAL, {
       title: '¿ Realmente desea eliminar el curso ?',

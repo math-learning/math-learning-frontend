@@ -286,11 +286,29 @@ const getAllResolutions = async ({ context, courseId, guideId, exerciseId }) => 
   return requestUtils.processResponse(response);
 };
 
+const copyCourse = async ({ context, course, sourceCourseId }) => {
+  const exerciseUrl = `${url}/courses/${sourceCourseId}/copy`;
+
+  const response = await fetch(exerciseUrl, {
+    method: 'post',
+    body: JSON.stringify({
+      targetCourseId: course.courseId
+    }),
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 export default {
   addUserToCourse,
   checkPipelineStatus,
   createExercise,
   deliverExercise,
+  copyCourse,
   evaluateExercise,
   getExercise,
   getExercises,
