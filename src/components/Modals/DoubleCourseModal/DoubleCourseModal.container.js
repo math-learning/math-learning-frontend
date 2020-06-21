@@ -10,6 +10,7 @@ const currentState = (state) => {
 
   return {
     sourceCourseId: modalParams.courseId,
+    isActionLoading: modalSelector.isActionLoading(state)
   };
 };
 

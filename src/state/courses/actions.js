@@ -166,6 +166,9 @@ export function doubleCourse({ course, sourceCourseId }) {
     const context = commonSelectors.context(state);
 
     try {
+      dispatch(modalActions.showSpinner());
+
+      // adding copy to course and exercises
       const createdCourse = await coursesClient.doubleCourse({ context, course, sourceCourseId });
       await exercisesClient.doubleCourse({ context, course: createdCourse, sourceCourseId });
       // TODO: something to improve it could be do it directly from courses service
@@ -181,6 +184,8 @@ export function doubleCourse({ course, sourceCourseId }) {
       if (err.status === 401) {
         throw err;
       }
+      dispatch(modalActions.hideSpinner());
+      dispatch(modalActions.showError(err.message));
     }
   };
 }

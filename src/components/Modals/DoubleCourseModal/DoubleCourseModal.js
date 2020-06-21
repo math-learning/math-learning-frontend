@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import { TextField, Typography, Button } from '@material-ui/core';
-
+import { Button, TextField, Typography } from '@material-ui/core';
 import Modal from '../Modal';
 import styles from './DoubleCourseModal.module.sass';
 
-class CreateCourseModal extends Component {
+class DoubleCourseModal extends Component {
   constructor(props) {
     super(props);
 
@@ -54,7 +53,7 @@ class CreateCourseModal extends Component {
   };
 
   render() {
-    const { onClose } = this.props;
+    const { onClose, isActionLoading } = this.props;
     const { createDisabled } = this.state;
 
     return (
@@ -102,7 +101,7 @@ class CreateCourseModal extends Component {
           id="double-button"
           onClick={this.onDoubleCourse}
           size="large"
-          disabled={createDisabled}
+          disabled={createDisabled || isActionLoading}
           className={styles.button}
         >
           Duplicar curso
@@ -112,4 +111,4 @@ class CreateCourseModal extends Component {
   }
 }
 
-export default CreateCourseModal;
+export default DoubleCourseModal;

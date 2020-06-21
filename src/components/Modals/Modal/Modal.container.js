@@ -5,7 +5,8 @@ import * as modalSelectors from '../../../state/modals/selectors';
 import Modal from './Modal';
 
 const currentState = (state) => ({
-  modalError: modalSelectors.modalError(state)
+  modalError: modalSelectors.modalError(state),
+  isActionLoading: modalSelectors.isActionLoading(state)
 });
 
 const currentActions = (dispatch) => ({

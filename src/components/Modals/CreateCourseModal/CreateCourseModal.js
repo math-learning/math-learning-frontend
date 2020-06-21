@@ -98,19 +98,17 @@ class CreateCourseModal extends Component {
           variant="outlined"
         />
 
-        <div>
-          <Button
-            color="primary"
-            variant="contained"
-            id="create-button"
-            onClick={this.onCreateCourse}
-            size="large"
-            disabled={createDisabled}
-            className={styles.button}
-          >
-            Crear curso
-          </Button>
-        </div>
+        <Button
+          color="primary"
+          variant="contained"
+          id="create-button"
+          onClick={this.onCreateCourse}
+          size="large"
+          disabled={createDisabled}
+          className={styles.button}
+        >
+          Crear curso
+        </Button>
       </Modal>
     );
   }
