@@ -19,12 +19,36 @@ class CourseHeader extends Component {
 
   render() {
     const {
-      course, onDeleteCourse, onPublishCourse, canDelete, canEdit
+      course,
+      onDeleteCourse,
+      onDoubleCourse,
+      onPublishCourse,
+      canDelete,
+      canEdit,
+      isProfessor
     } = this.props;
 
     return (
       <div className={styles.courseInfo}>
         <Grid container>
+          <div className={styles.buttonsContainer}>
+            { isProfessor && (
+              <Button id="double-course" onClick={onDoubleCourse} className={styles.doubleButton} variant="outlined">
+                Duplicar curso
+              </Button>
+            )}
+            { canDelete && (
+              <Button id="delete-course" onClick={onDeleteCourse} className={styles.deleteButton} variant="outlined">
+                Borrar curso
+              </Button>
+            )}
+            { canEdit && (
+              <Button id="publish-course" onClick={onPublishCourse} className={styles.publishButton} variant="outlined" color="primary">
+                Publicar curso
+              </Button>
+            )}
+          </div>
+
           <Grid item xs={12}>
             <EditableText
               text={course.name}
@@ -47,18 +71,6 @@ class CourseHeader extends Component {
               isEditable={canEdit}
             />
           </Grid>
-          <div className={styles.buttonsContainer}>
-            { canDelete && (
-              <Button id="delete-course" onClick={onDeleteCourse} className={styles.deleteButton} variant="outlined">
-                Borrar curso
-              </Button>
-            )}
-            { canEdit && (
-              <Button id="publish-course" onClick={onPublishCourse} className={styles.publishButton} variant="outlined" color="primary">
-                Publicar curso
-              </Button>
-            )}
-          </div>
         </Grid>
       </div>
     );

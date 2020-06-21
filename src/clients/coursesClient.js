@@ -110,6 +110,25 @@ const createCourse = async ({
   return requestUtils.processResponse(response);
 };
 
+const doubleCourse = async ({
+  context,
+  course,
+  sourceCourseId
+}) => {
+  const profileUrl = `${url}/courses/${sourceCourseId}/double`;
+
+  const response = await fetch(profileUrl, {
+    method: 'post',
+    body: JSON.stringify(course),
+    headers: {
+      authorization: context.accessToken,
+      'Content-Type': 'application/json'
+    }
+  });
+
+  return requestUtils.processResponse(response);
+};
+
 const publishCourse = async ({
   context,
   courseId
@@ -156,6 +175,7 @@ const getCourseUsersActivity = async ({
 
 export default {
   createCourse,
+  doubleCourse,
   getCourses,
   getCourse,
   getCourseUsersActivity,

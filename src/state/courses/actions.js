@@ -160,6 +160,31 @@ export function createCourse({ course }) {
   };
 }
 
+export function doubleCourse({ course, sourceCourseId }) {
+  return async (dispatch, getState) => {
+    const state = getState();
+    const context = commonSelectors.context(state);
+
+    try {
+      const createdCourse = await coursesClient.doubleCourse({ context, course, sourceCourseId });
+      await exercisesClient.doubleCourse({ context, course: createdCourse, sourceCourseId });
+      // TODO: something to improve it could be do it directly from courses service
+
+      dispatch(getCourseSuccess({ course: createdCourse }));
+      dispatch(modalActions.hideModal());
+
+      await dispatch(push(configs.pathGenerators.course(createdCourse.courseId)));
+    } catch (err) {
+      if (err.status === 409) {
+        dispatch(modalActions.showError(messages.error.courseAlreadyExist));
+      }
+      if (err.status === 401) {
+        throw err;
+      }
+    }
+  };
+}
+
 export function publishCourse({ courseId }) {
   return async (dispatch, getState) => {
     const state = getState();
