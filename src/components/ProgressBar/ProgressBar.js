@@ -3,14 +3,12 @@ import React from 'react';
 import styles from './ProgressBar.module.sass';
 
 export default function ProgressBar(props) {
-  // TODO: refactor
   const { isVisible } = props;
-  let clazz = styles.progress;
   const visible = isVisible ? '' : styles.notVisible;
-  clazz += ` ${visible}`;
+  const className = `${styles.progress} ${visible}`;
 
   return (
-    <div className={clazz}>
+    <div className={className}>
       <div className={styles.spinner}>
         <CircularProgress />
       </div>

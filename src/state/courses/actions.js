@@ -171,7 +171,6 @@ export function copyCourse({ course, sourceCourseId }) {
       // adding copy to course and exercises
       const createdCourse = await coursesClient.copyCourse({ context, course, sourceCourseId });
       await exercisesClient.copyCourse({ context, course: createdCourse, sourceCourseId });
-      // TODO: something to improve it could be do it directly from courses service
 
       dispatch(getCourseSuccess({ course: createdCourse }));
       dispatch(modalActions.hideModal());

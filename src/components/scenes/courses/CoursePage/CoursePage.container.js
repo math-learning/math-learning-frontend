@@ -7,7 +7,7 @@ import * as common from '../../../../state/common';
 
 const currentState = (state, { match }) => {
   const { courseId, guideId } = match.params;
-  const isUserPath = /\/courses\/.+\/users/.test(match.path); // TODO: we should not take this approach
+  const isUserPath = /\/courses\/.+\/users/.test(match.path);
   const isStatisticsPath = /\/courses\/.+\/statistics/.test(match.path);
   const isCreateExercisePath = /\/courses\/.+\/create-exercise/.test(match.path);
   const course = courses.selectors.getCourseDetail(state, courseId);

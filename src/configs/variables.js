@@ -7,7 +7,7 @@ const configs = {
     }
   },
   services: {
-    // TODO: remove hardcoded urls
+    // TODO: take urls from ENV vars
     users: {
       url: isProd() ? 'https://math-learning-users-service.herokuapp.com' : 'http://0.0.0.0:7000'
     },

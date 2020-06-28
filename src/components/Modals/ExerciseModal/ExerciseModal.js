@@ -31,7 +31,6 @@ class ExerciseModal extends Component {
     } = this.state;
     const actionDisabled = !name || !type || !problemInput || !difficulty;
 
-    // TODO: FIX BUG, THE STATE IS NOT UPDATED
     this.setState({ actionDisabled });
   };
 

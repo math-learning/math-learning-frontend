@@ -38,7 +38,11 @@ class VariableTextBox extends Component {
   }
 
   renderVariable = () => {
-    const { variable: { expression }, readOnly = false } = this.props;
+    const {
+      variable: { expression },
+      readOnly = false,
+      onEnter = () => {}
+    } = this.props;
 
     if (readOnly) {
       return <MathText content={expression.expression} className={sasStyles.mathText} />;
@@ -47,6 +51,7 @@ class VariableTextBox extends Component {
     return (
       <MathQuill
         latex={expression.expression}
+        onEnter={onEnter}
         onChange={(mathField) => this.handleChangeExpression(mathField.latex())}
       />
     );

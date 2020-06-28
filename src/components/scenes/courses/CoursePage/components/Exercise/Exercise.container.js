@@ -27,7 +27,6 @@ const currentActions = (dispatch, { exercise, userId }) => ({
     dispatch(actions.checkPipelineStatus(exercise));
   },
   onClickExercise: async () => {
-    // TODO: quizás sea mejor una accion que hacer esto ?
     if (userId) {
       await dispatch(push(configs.pathGenerators.userExercise({ ...exercise, userId })));
     } else {
