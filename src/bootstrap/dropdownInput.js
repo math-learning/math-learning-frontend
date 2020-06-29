@@ -8,6 +8,9 @@ export default withStyles((theme) => ({
     },
     '& .MuiMenu-paper': {
       maxHeight: '300px'
+    },
+    '& .MuiPaper-root': {
+      maxHeight: '300px'
     }
   },
   input: {

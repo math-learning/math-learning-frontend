@@ -52,6 +52,7 @@ class RegistrationModal extends Component {
           id="course-password"
           label="Ingrese la contraseña del curso"
           onChange={this.onChangePassword}
+          onEnter={this.onJoinCourse}
           className={styles.textField}
           fullWidth
           variant="outlined"

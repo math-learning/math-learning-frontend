@@ -22,6 +22,14 @@ class VariableTextBox extends Component {
     onContentChange({ ...variable, expression: { expression: newExpression } });
   }
 
+  onKeyPress = (event) => {
+    const { onEnter = () => {}, content } = this.props;
+
+    if (event.key === 'Enter') {
+      onEnter(content);
+    }
+  }
+
   renderTag = () => {
     const { variable: { tag }, readOnly = false } = this.props;
 
@@ -56,10 +64,7 @@ class VariableTextBox extends Component {
     const { className } = this.props;
 
     return (
-      <div
-        onKeyPress={this.onKeyPress}
-        className={classNames(sasStyles.variable, className)}
-      >
+      <div onKeyPress={this.onKeyPress} className={classNames(sasStyles.variable, className)}>
         {this.renderTag()}
         <p className={sasStyles.item}>
           =
@@ -73,6 +78,7 @@ class VariableTextBox extends Component {
 VariableTextBox.propTypes = {
   variable: PropTypes.object,
   className: PropTypes.string,
+  onEnter: PropTypes.func,
   onContentChange: PropTypes.func
 };
 
