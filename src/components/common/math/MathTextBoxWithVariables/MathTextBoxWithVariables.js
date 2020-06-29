@@ -39,11 +39,12 @@ class MathTextBoxWithVariables extends Component {
 
   handleDeleteVariable = (index) => {
     const { content, onContentChange } = this.props;
-    content.variables.splice(index, 1);
+    const newVariables = [...content.variables];
+    newVariables.splice(index, 1);
 
     onContentChange({
       ...content,
-      variables: content.variables
+      variables: newVariables
     });
   }
 
@@ -92,7 +93,6 @@ class MathTextBoxWithVariables extends Component {
         {(variables).map((variable, index) => (
           <div className={sasStyles.variable} key={`variable-math-box-${index}`}>
             <VariableTextBox
-              id={`variable-math-box-${index}`}
               variable={variable}
               className={sasStyles.variableTextBox}
               onContentChange={(variableContent) => this.handleVariableChange(index, variableContent)}
