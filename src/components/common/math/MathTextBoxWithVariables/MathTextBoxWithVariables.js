@@ -10,7 +10,7 @@ import BootstrapTooltip from '../../../../bootstrap/Tooltip';
 import sasStyles from './MathTextBoxWithVariables.module.sass';
 
 const defaultVariable = { tag: 'u(x)', expression: '' };
-const addVariablesTooltipText = 'Para aplicar sustitución usar "u(x)" y "v(x)". \n Para partes "u" y "du"';
+const addVariablesTooltipText = 'Para aplicar por partes usar "u(x)" y "v(x)". \n Para sustitución "u" y "du"';
 
 class MathTextBoxWithVariables extends Component {
   constructor(props) {
