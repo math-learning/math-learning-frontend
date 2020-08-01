@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Button, CircularProgress, MenuItem, Select, Typography } from '@material-ui/core';
 import DeleteIcon from '@material-ui/icons/Delete';
+import HelpIcon from '@material-ui/icons/Help';
 import Carousel from '@brainhubeu/react-carousel';
 import '@brainhubeu/react-carousel/lib/style.css';
 import classNames from 'classnames';
@@ -148,7 +149,8 @@ class ExerciseByStepsInterface extends Component {
       isDelivered,
       isProfessor,
       onReturnToCourse,
-      allResolutions
+      allResolutions,
+      onOpenHelpModal
     } = this.props;
     const { currentQualification } = this.state;
 
@@ -169,6 +171,11 @@ class ExerciseByStepsInterface extends Component {
         </LeftPanel>
 
         <div className={styles.exercisePerimeter}>
+          {onOpenHelpModal && (
+            <div className={styles.helpModalIcon} onClick={onOpenHelpModal}>
+              <HelpIcon />
+            </div>
+          )}
           <div className={styles.container}>
             <Typography variant="h5" className={styles.exerciseName}>
               {exercise.name}

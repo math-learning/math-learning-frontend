@@ -10,7 +10,8 @@ const currentState = (state) => ({
 });
 
 const currentActions = (dispatch) => ({
-  hideError: () => dispatch(modalActions.hideError())
+  hideError: () => dispatch(modalActions.hideError()),
+  onClose: () => dispatch(modalActions.hideModal())
 });
 
 export default connect(
