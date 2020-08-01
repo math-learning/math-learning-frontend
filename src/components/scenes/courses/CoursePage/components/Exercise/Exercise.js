@@ -36,13 +36,16 @@ const difficultyMap = {
 
 const stateMap = {
   incompleted: {
-    text: 'En progreso'
+    text: 'En progreso',
+    className: styles.greyBackground
   },
   resolved: {
-    text: 'Resuelto'
+    text: 'Resuelto',
+    className: styles.blueBackground
   },
   delivered: {
-    text: 'Entregado'
+    text: 'Entregado',
+    className: styles.greenBackground
   },
 };
 
@@ -111,7 +114,7 @@ export default class Exercise extends Component {
     const { exercise, onDeleteExercise, onEditExercise, isProfessor } = this.props;
 
     return (
-      <Card onClick={this.handleClickExercise} className={styles.card}>
+      <Card onClick={this.handleClickExercise} className={classNames(styles.card, stateMap[exercise.state].className)}>
         <Grid container>
           <Grid item xs={isProfessor ? 3 : 4}>
             <Typography className={classNames(styles.item, styles.tcGray1)} variant="h6">
