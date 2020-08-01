@@ -6,3 +6,4 @@ export const CONFIRM_ACTION_MODAL = 'ConfirmActionModal';
 export const EDIT_EXERCISE_MODAL = 'EditExerciseModal';
 export const SESSION_EXPIRED_MODAL = 'SessionExpiredModal';
 export const COPY_COURSE_MODAL = 'CopyCourseModal';
+export const STEPS_EXERCISE_HELP_MODAL = 'StepsExerciseHelpModal';

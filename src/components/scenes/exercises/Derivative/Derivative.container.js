@@ -69,6 +69,9 @@ const currentActions = (dispatch, { exercise, userId }) => ({
       ...exerciseProps
     }));
   },
+  onOpenHelpModal: () => {
+    dispatch(modalActions.loadModal(modalTypes.STEPS_EXERCISE_HELP_MODAL));
+  },
 });
 
 export default withRouter(connect(

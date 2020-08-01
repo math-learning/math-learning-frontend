@@ -12,6 +12,7 @@ import ConfirmActionModal from '../ConfirmActionModal';
 import EditExerciseModal from '../EditExerciseModal';
 import SessionExpiredModal from '../SessionExpiredModal';
 import CopyCourseModal from '../CopyCourseModal';
+import StepsExerciseHelpModal from '../StepsExerciseHelpModal';
 
 /** Modal Type Constants */
 import {
@@ -22,7 +23,8 @@ import {
   CONFIRM_ACTION_MODAL,
   EDIT_EXERCISE_MODAL,
   SESSION_EXPIRED_MODAL,
-  COPY_COURSE_MODAL
+  COPY_COURSE_MODAL,
+  STEPS_EXERCISE_HELP_MODAL
 } from '../../../state/modals/modalTypes';
 
 const MODAL_COMPONENTS = {
@@ -33,7 +35,8 @@ const MODAL_COMPONENTS = {
   [CONFIRM_ACTION_MODAL]: ConfirmActionModal,
   [EDIT_EXERCISE_MODAL]: EditExerciseModal,
   [SESSION_EXPIRED_MODAL]: SessionExpiredModal,
-  [COPY_COURSE_MODAL]: CopyCourseModal
+  [COPY_COURSE_MODAL]: CopyCourseModal,
+  [STEPS_EXERCISE_HELP_MODAL]: StepsExerciseHelpModal
 };
 
 const ModalContainer = (props) => {

@@ -119,7 +119,7 @@ class MathTextBoxWithVariables extends Component {
             color="primary"
             size="small"
           >
-            + Variable
+            Agregar variable
           </Button>
         </BootstrapTooltip>
       </div>
