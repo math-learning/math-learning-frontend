@@ -41,7 +41,7 @@
     "latex-parser": "^0.6.2",
     "lodash": "^4.17.15",
     "mathquill": "0.10.1-a",
-    "node-fetch": "^2.6.0",
+    "node-fetch": "^3.1.1",
     "node-sass": "^4.12.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.11.1",
