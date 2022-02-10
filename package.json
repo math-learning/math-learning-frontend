@@ -42,7 +42,7 @@
     "lodash": "^4.17.15",
     "mathquill": "0.10.1-a",
     "node-fetch": "^2.6.0",
-    "node-sass": "^4.12.0",
+    "node-sass": "^7.0.0",
     "prop-types": "^15.7.2",
     "query-string": "^6.11.1",
     "react": "^16.9.0",
